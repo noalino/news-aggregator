@@ -1,8 +1,16 @@
-const HtmlWebPackPlugin = require('html-webpack-plugin');
 const path = require('path');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+const devMode = process.env.NODE_ENV !== 'production';
 
 const htmlPlugin = new HtmlWebPackPlugin({
   template: 'public/index.html'
+});
+
+const cssPlugin = new MiniCssExtractPlugin({
+  filename: '[name].css'
+  // chunkFilename: '[id].css'
 });
 
 module.exports = {
@@ -20,22 +28,27 @@ module.exports = {
         include: path.resolve(__dirname, 'src')
       },
       {
-        test: /\.css$/,
+        test: /\.scss$/,
         use: [
-          { loader: 'style-loader' },
+          {
+            loader: devMode ? 'style-loader' : MiniCssExtractPlugin.loader
+          },
           { 
             loader: 'css-loader',
             options: {
               sourceMap: true,
               modules: true,
-              localIdentName: "[name]_[local]_[hash:base64:5]",
+              // localIdentName: "[name]_[local]_[hash:base64:5]",
+              localIdentName: "[name]_[hash:base64:5]",
               minimize: true,
-              importLoaders: 1,
+              importLoaders: 2,
             }
           },
+          'postcss-loader',
+          'sass-loader'
         ],
       }
     ]
   },
-  plugins: [htmlPlugin]
+  plugins: [cssPlugin, htmlPlugin]
 };

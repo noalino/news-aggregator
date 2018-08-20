@@ -1,21 +1,23 @@
 {
   "name": "news-aggregator",
   "version": "1.0.0",
-  "description": "",
+  "description": "News Aggregator App",
   "main": "index.js",
   "scripts": {
     "start": "webpack --mode development",
-    "live": "webpack-dev-server --mode development --open",
-    "build": "webpack --mode production"
+    "build": "NODE_ENV=production webpack --mode production",
+    "dev": "webpack-dev-server --mode development --open",
+    "prod": "NODE_ENV=production webpack-dev-server --mode production --open"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["news"],
+  "author": "Benoît Gelineau",
   "license": "ISC",
   "dependencies": {
     "react": "^16.4.2",
     "react-dom": "^16.4.2"
   },
   "devDependencies": {
+    "autoprefixer": "^9.1.2",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
@@ -23,6 +25,9 @@
     "css-loader": "^1.0.0",
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.4.1",
+    "node-sass": "^4.9.3",
+    "postcss-loader": "^3.0.0",
+    "sass-loader": "^7.1.0",
     "style-loader": "^0.22.1",
     "webpack": "^4.16.5",
     "webpack-cli": "^3.1.0",

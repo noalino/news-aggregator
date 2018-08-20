@@ -4,15 +4,15 @@ import ArticleBox from './ArticleBox';
 const ArticlesList = ({ articles }) => {
   const list = articles.map(article => {
     return (
-      <li key={article.title}>
+      <article key={article.title}>
         <ArticleBox article={article}/>
-      </li>
+      </article>
     )
   })
   return (
-    <ul>
+    <div>
       {list}
-    </ul>
+    </div>
   )
 }
 

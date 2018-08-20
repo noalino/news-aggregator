@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
-// import style from './App.css';
+import style from './styles/App.scss';
+import Nav from './components/Nav';
+import Topics from './components/Topics';
 import ArticlesList from './components/ArticlesList';
+import Sidebar from './components/Sidebar';
 import API_KEY from './secrets';
+import jsonResponse from './data';
 
 class App extends Component {
   constructor(props) {
@@ -9,7 +13,8 @@ class App extends Component {
 
     /** Save state to countries, sub categories, sources */
     this.state = {
-      articles: []
+      // articles: []
+      articles: jsonResponse.articles
     }
   }
 
@@ -23,14 +28,22 @@ class App extends Component {
   }
   
   componentDidMount() {
-    this.fetchData();
+    // this.fetchData();
   }
 
   render() {
     const { articles } = this.state;
     return (
-      <ArticlesList articles={articles}/>
-    )
+      <div className={style.app}>
+        <Nav />
+        <h1>Top Stories</h1>
+        <p>Monday, August 20, 2018</p>
+        <Topics />
+        <ArticlesList articles={articles}/>
+        <Sidebar />
+        <footer class="attribution">Powered by <a href="https://newsapi.org/" target="_blank">News API</a></footer>
+      </div>
+    );
   }
 }
 
