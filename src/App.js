@@ -37,13 +37,13 @@ class App extends Component {
       <div className={style.app}>
         <Nav />
         <div className={style.homepage}>
-          <h1>Top Stories</h1>
-          <p>Monday, August 20, 2018</p>
+          <h1 className={style.title}>Top Stories</h1>
+          <p className={style.date}>Monday, August 20, 2018</p>
           <Topics />
           <ArticlesList articles={articles}/>
           <Sidebar />
         </div>
-        <footer className="attribution">Powered by <a href="https://newsapi.org/" target="_blank">News API</a></footer>
+        <footer className={style.footer}>Powered by <a href="https://newsapi.org/" target="_blank">News API</a></footer>
       </div>
     );
   }

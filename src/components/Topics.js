@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import style from '../styles/Topics.scss';
 
 const Topics = () => {
   const topics = [
@@ -16,10 +17,13 @@ const Topics = () => {
   ));
 
   return (
-    <ul>
-      {list}
-    </ul>
-  )
+    <div className={style.topics}>
+      <h2>Topics</h2>
+      <ul>
+        {list}
+      </ul>
+    </div>
+  );
 }
 
-export default Topics
+export default Topics;

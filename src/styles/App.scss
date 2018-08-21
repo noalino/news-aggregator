@@ -6,4 +6,30 @@
 .homepage {
   margin: 0 30px;
   display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 80px 40px auto 20px;
+  grid-template-areas:
+    ". header ."
+    ". date ."
+    "topics articles sidebar"
+    "footer footer footer";
+
+  .title,
+  .date {
+    justify-self: center;
+    align-self: center;
+  }
+
+  .title {
+    grid-area: header;
+  }
+  
+  .date {
+    grid-area: date;
+  }
+}
+
+
+.footer {
+  grid-area: footer;
 }
