@@ -1,13 +1,56 @@
-// $primary-color: red;
+.article {
+  // border: solid 1px black;
+  // height: 250px; /* Find way to blur extra content, keeping bottom date*/
+  font-size: 14px;
+  border: none;
+  box-shadow: 0 2px 15px 0 lightgrey;
+  padding: 10px 15px;
+  overflow: hidden;
 
-// .ArticleBox {
-//   text-align: center;
+  img {
+    max-width: 100%;
+  }
 
-//   h3 {
-//     color: $primary-color;
-//   }
+  header {
+    font-size: 0.8em;
+    margin-bottom: 0.8em;
+    display: flex;
+    justify-content: space-between;
 
-//   h1 {
-//     color: blue;
-//   }
-// }
+    p {
+      text-decoration: underline;
+    }
+
+    i {
+      margin: 0 3px;
+
+      &:first-child {
+        color: gold;
+      }
+
+      &:last-child {
+        color: lightcoral;
+      }
+    }
+  }
+
+  & > p:last-child {
+    text-align: right;
+    font-size: 0.7em;
+    margin-top: 1em;
+  }
+
+  a {
+    text-decoration: none;
+
+    h3 {
+      font-size: 0.9em;
+    }
+
+    p {
+      font-size: 0.8em;
+      line-height: 1.1em;
+      margin-top: 0.2em;
+    }
+  }
+}

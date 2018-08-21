@@ -1,17 +1,20 @@
 import React from 'react';
+import style from '../styles/Nav.scss';
 
 const Nav = () => {
   return (
-    <div>
+    <nav className={style.nav}>
       <h1>NEWS</h1>
-      <a href=""><p>Home</p></a>
-      <form>
-        <input type="text" placeholder="Search articles..."/>
-        <input type="submit"></input>
-      </form>
-      <a href=""><p>Sign In</p></a>
-      <a href=""><p>Sign Up</p></a>
-    </div>
+      <div className={style.links}>
+        <a href="">Home</a>
+        <a href=""><p>Sign In</p></a>
+        <a href=""><p>Sign Up</p></a>
+        <form>
+          <input type="text" placeholder="Search articles..."/>
+          <button><i className="fas fa-search"></i></button>
+        </form>
+      </div>
+    </nav>
   )
 }
 

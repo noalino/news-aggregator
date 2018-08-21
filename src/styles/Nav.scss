@@ -1,0 +1,48 @@
+$primary-color: white;
+
+.nav {
+  height: 40px;
+  background: #c1160d;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h1 {
+    color: $primary-color;
+    margin-left: 1rem;
+  }
+
+  .links {
+    width: 400px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    
+    a {
+      color: $primary-color;
+      line-height: 40px;
+      text-decoration: none;
+    }
+
+    form {
+      display: flex;
+      align-items: center;
+
+      button {
+        height: 30px;
+        width: 30px;
+        background: transparent;
+        border: none;
+  
+        i {
+          color: $primary-color;
+          font-size: 1.2rem;
+        }
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
