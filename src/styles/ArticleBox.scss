@@ -1,5 +1,6 @@
+@import 'colors';
+
 .article {
-  // border: solid 1px black;
   // height: 250px; /* Find way to blur extra content, keeping bottom date*/
   font-size: 14px;
   border: none;
@@ -25,11 +26,11 @@
       margin: 0 3px;
 
       &:first-child {
-        color: gold;
+        color: $star-color;
       }
 
       &:last-child {
-        color: lightcoral;
+        color: $bookmark-color;
       }
     }
   }
@@ -41,6 +42,7 @@
   }
 
   a {
+    color: black;
     text-decoration: none;
 
     h3 {
@@ -51,6 +53,10 @@
       font-size: 0.8em;
       line-height: 1.1em;
       margin-top: 0.2em;
+    }
+
+    &:hover {
+      text-decoration: underline;
     }
   }
 }

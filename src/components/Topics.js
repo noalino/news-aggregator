@@ -9,11 +9,14 @@ const Topics = () => {
     'Health',
     'Science',
     'Sports',
-    'Technology'
+    'Technology',
+    'All'
   ];
 
   const list = topics.map(topic => (
-    <li key={topic}>{topic}</li>
+    <li key={topic}>
+      <button type="button"><span className="fas fa-briefcase"></span> {topic}</button>
+    </li>
   ));
 
   return (

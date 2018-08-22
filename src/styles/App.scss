@@ -3,33 +3,39 @@
   box-sizing: border-box;
 }
 
-.homepage {
-  margin: 0 30px;
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  grid-template-rows: 80px 40px auto 20px;
-  grid-template-areas:
-    ". header ."
-    ". date ."
-    "topics articles sidebar"
-    "footer footer footer";
-
-  .title,
-  .date {
-    justify-self: center;
-    align-self: center;
-  }
-
-  .title {
-    grid-area: header;
+.app {
+  
+  .homepage {
+    margin: 0 30px;
+    display: grid;
+    grid-template-columns: 20% auto 20%;
+    grid-template-rows: 80px 50px auto 20px;
+    grid-template-areas:
+      ". header ."
+      ". date ."
+      "topics articles sidebar"
+      ". footer .";
+  
+    .title,
+    .date {
+      justify-self: center;
+      align-self: center;
+    }
+  
+    .title {
+      grid-area: header;
+      font-size: 4rem;
+    }
+    
+    .date {
+      grid-area: date;
+      font-size: 1.1rem;
+      font-style: italic;
+    }
   }
   
-  .date {
-    grid-area: date;
+  .footer {
+    grid-area: footer;
+    justify-self: center;
   }
-}
-
-
-.footer {
-  grid-area: footer;
 }

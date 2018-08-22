@@ -15,9 +15,9 @@ const Nav = () => {
         </form>
       </div>*/}
       <ul className={style.links}>
-        <li><a href="">Home</a></li>
-        <li><a href="">Sign In</a></li>
+        {/*<li><a href="">Home</a></li>*/}
         <li><a href="">Sign Up</a></li>
+        <li><a href="">Log In</a></li>
         <li>
           <form>
             <input type="text" placeholder="Search articles..."/>

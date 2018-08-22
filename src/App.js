@@ -42,8 +42,8 @@ class App extends Component {
           <Topics />
           <ArticlesList articles={articles}/>
           <Sidebar />
+          <footer className={style.footer}>Powered by <a href="https://newsapi.org/" target="_blank">News API</a></footer>
         </div>
-        <footer className={style.footer}>Powered by <a href="https://newsapi.org/" target="_blank">News API</a></footer>
       </div>
     );
   }
