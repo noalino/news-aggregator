@@ -1,56 +1,76 @@
 @import 'colors';
 
 .article {
-  // height: 250px; /* Find way to blur extra content, keeping bottom date*/
+  width: 100%;
+  height: auto;
   font-size: 14px;
+  margin: 0.3em 0.5em;
+  padding: 0.8em 1em;
   border: none;
   box-shadow: 0 2px 15px 0 lightgrey;
-  padding: 10px 15px;
-  overflow: hidden;
+  
+  display: grid;
+  grid-template-columns: auto repeat(2, 5%);
+  grid-template-rows: 20px auto auto 20px;
+  grid-gap: 0.5em;
+  grid-template-areas:
+    "source star bookmark"
+    "img img img"
+    "text text text"
+    "date date date";
 
   img {
     max-width: 100%;
+    grid-area: img;
+    justify-self: center;
+    align-self: center;
   }
 
-  header {
-    font-size: 0.8em;
-    margin-bottom: 0.8em;
-    display: flex;
-    justify-content: space-between;
+  & > p:first-child {
+    grid-area: source;
+    font-size: 1em;
+    text-decoration: underline;
+  }
 
-    p {
-      text-decoration: underline;
+  & > i {
+    font-size: 1em;
+    justify-self: end;
+
+    &:hover {
+      cursor: pointer;
     }
 
-    i {
-      margin: 0 3px;
+    &:nth-child(2) {
+      grid-area: star;
+      color: $star-color;
+    }
 
-      &:first-child {
-        color: $star-color;
-      }
-
-      &:last-child {
-        color: $bookmark-color;
-      }
+    &:nth-child(3) {
+      grid-area: bookmark;
+      color: $bookmark-color;
     }
   }
 
   & > p:last-child {
-    text-align: right;
-    font-size: 0.7em;
-    margin-top: 1em;
+    font-size: 0.8em;
+    grid-area: date;
+    justify-self: end;
+    align-self: end;
   }
 
   a {
+    grid-area: text;
     color: black;
     text-decoration: none;
+    justify-self: center;
+    align-self: start;
 
-    h3 {
-      font-size: 0.9em;
+    & > h3 {
+      font-size: 1.1em;
     }
 
-    p {
-      font-size: 0.8em;
+    & > p {
+      font-size: 1em;
       line-height: 1.1em;
       margin-top: 0.2em;
     }

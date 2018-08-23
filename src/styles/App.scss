@@ -1,15 +1,30 @@
+@import 'sizing';
+
+%container-shadow {
+  content: '';
+  grid-area: articles;
+  width: 97%;
+  height: 0;
+  justify-self: center;
+  z-index: 2;
+}
+
 * {
   margin: 0;
   box-sizing: border-box;
 }
 
 .app {
-  
+
   .homepage {
+    height: 100vh - $nav-height;
     margin: 0 30px;
+    margin-top: $nav-height;
+    
     display: grid;
     grid-template-columns: 20% auto 20%;
-    grid-template-rows: 80px 50px auto 20px;
+    grid-template-rows: 10% 5% auto 5%;
+    // grid-gap: 5px;
     grid-template-areas:
       ". header ."
       ". date ."
@@ -32,10 +47,23 @@
       font-size: 1.1rem;
       font-style: italic;
     }
+
+    &:before {
+      @extend %container-shadow;
+      align-self: start;
+      box-shadow: 0 5px 15px 1px lightgrey;
+    }
+
+    &:after {
+      @extend %container-shadow;
+      align-self: end;
+      box-shadow: 0 -5px 15px 1px lightgrey;
+    }
   }
   
   .footer {
     grid-area: footer;
     justify-self: center;
+    align-self: center;
   }
 }

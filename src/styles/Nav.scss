@@ -1,11 +1,16 @@
+@import 'sizing';
 $primary-color: white;
 
 .nav {
-  height: 40px;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: $nav-height;
   background: #c1160d;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 2;
 
   h1 {
     color: $primary-color;

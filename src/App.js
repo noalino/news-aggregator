@@ -15,7 +15,10 @@ class App extends Component {
     this.state = {
       // articles: []
       articles: jsonResponse.articles
+      // bookmarks: []
     }
+
+    // this.handleDrop = this.handleDrop.bind(this);
   }
 
   fetchData() {
@@ -26,13 +29,20 @@ class App extends Component {
       .then(data => this.setState({ articles: data.articles }))
       .catch(error => console.warn(error))
   }
+
+  // handleDrop(el) {
+  //   this.setState(prevState => {
+  //     const newList = prevState.bookmarks.push(el);
+  //     return { bookmarks: newList };
+  //   });
+  // }
   
   componentDidMount() {
     // this.fetchData();
   }
 
   render() {
-    const { articles } = this.state;
+    const { articles, bookmarks } = this.state;
     return (
       <div className={style.app}>
         <Nav />
@@ -41,6 +51,7 @@ class App extends Component {
           <p className={style.date}>Monday, August 20, 2018</p>
           <Topics />
           <ArticlesList articles={articles}/>
+          {/*<Sidebar bookmarks={bookmarks} onDrop={this.handleDrop}/>*/}
           <Sidebar />
           <footer className={style.footer}>Powered by <a href="https://newsapi.org/" target="_blank">News API</a></footer>
         </div>
