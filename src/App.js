@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import favicon from './assets/images/favicon.ico';
 import style from './styles/App.scss';
 import Nav from './components/Nav';
 import Topics from './components/Topics';
