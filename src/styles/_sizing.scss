@@ -1,1 +1,10 @@
 $nav-height: 4vh;
+$header-height: 15vh;
+$sidebar-width: 20vw;
+$container-width: 100vw - 2 * $sidebar-width;
+
+%sidebar-display {
+  position: fixed;
+  width: $sidebar-width;
+  top: $nav-height+$header-height;
+}

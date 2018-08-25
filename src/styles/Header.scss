@@ -1,0 +1,34 @@
+@import 'sizing', 'colors';
+
+.header {
+  position: fixed;
+  top: $nav-height;
+  height: $header-height;
+  width: 100vw;
+  background: white;
+  z-index: 2;
+  &:after {
+    content: '';
+    display: block;
+    width: $container-width;
+    height: 0;
+    border-bottom: 3px solid $primary-color;
+    margin: 0 auto;
+    box-shadow: 0 3px 7px 1px rgba(0,0,0,0.5);
+  }
+  .title,
+  .date {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .title {
+    height: 75%;
+    font-size: 4em;
+  }
+  .date {
+    height: 25%;
+    font-size: 1.1em;
+    font-style: italic;
+  }
+}

@@ -1,69 +1,33 @@
 @import 'sizing';
-
-%container-shadow {
-  content: '';
-  grid-area: articles;
-  width: 97%;
-  height: 0;
-  justify-self: center;
-  z-index: 2;
-}
+@import 'ArticlesList', 'Footer';
 
 * {
   margin: 0;
   box-sizing: border-box;
+
+  &:before,
+  &:after {
+    box-sizing: inherit;
+  }
 }
 
-.app {
+.scrollpage {
+  position: relative;
+  width: $container-width;
+  top: $nav-height + $header-height;
+  left: $sidebar-width;
 
-  .homepage {
-    height: 100vh - $nav-height;
-    margin: 0 30px;
-    margin-top: $nav-height;
-    
-    display: grid;
-    grid-template-columns: 20% auto 20%;
-    grid-template-rows: 10% 5% auto 5%;
-    // grid-gap: 5px;
-    grid-template-areas:
-      ". header ."
-      ". date ."
-      "topics articles sidebar"
-      ". footer .";
-  
-    .title,
-    .date {
-      justify-self: center;
-      align-self: center;
-    }
-  
-    .title {
-      grid-area: header;
-      font-size: 4rem;
-    }
-    
-    .date {
-      grid-area: date;
-      font-size: 1.1rem;
-      font-style: italic;
-    }
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: auto 25px;
+  grid-template-areas:
+    "articles"
+    "footer";
+}
 
-    &:before {
-      @extend %container-shadow;
-      align-self: start;
-      box-shadow: 0 5px 15px 1px lightgrey;
-    }
-
-    &:after {
-      @extend %container-shadow;
-      align-self: end;
-      box-shadow: 0 -5px 15px 1px lightgrey;
-    }
-  }
   
-  .footer {
-    grid-area: footer;
-    justify-self: center;
-    align-self: center;
-  }
+@media screen and (min-width: 2000px) {
+  // .app {
+  //   font-size: 24px;
+  // }
 }

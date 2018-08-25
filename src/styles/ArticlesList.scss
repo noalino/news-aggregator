@@ -1,17 +1,18 @@
 .container {
   grid-area: articles;
   justify-self: center;
-  overflow: auto;
-  padding: 0.2rem 1rem;
+  align-self: start;
+  padding: 0.3em 1rem;  
   
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+  // grid-template-columns: repeat(3, minmax(225px, 1fr));
+  grid-template-columns: repeat(3, 1fr); /* auto-fill not supported by IE */
   grid-gap: 0.3rem 0.5rem;
   justify-items: center;
 }
 
-// @media screen and (max-width: 1023px) {
-//   .container {
-//     grid-template-columns: repeat(2, 1fr);
-//   }
-// }
+@media screen and (min-width: 2000px) {
+  // .container {
+  //   grid-template-columns: repeat(3, 1fr);
+  // }
+}

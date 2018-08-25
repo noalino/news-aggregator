@@ -1,19 +1,18 @@
-@import 'sizing';
-$primary-color: white;
+@import 'sizing', 'colors';
 
 .nav {
   position: fixed;
   top: 0;
   width: 100vw;
   height: $nav-height;
-  background: #c1160d;
+  background: $primary-color;
   display: flex;
   justify-content: space-between;
   align-items: center;
   z-index: 2;
 
   h1 {
-    color: $primary-color;
+    color: #fff;
     margin-left: 1rem;
   }
 
@@ -28,7 +27,7 @@ $primary-color: white;
     padding: 0;
     
     a {
-      color: $primary-color;
+      color: #fff;
       line-height: 40px;
       text-decoration: none;
     }
@@ -44,7 +43,7 @@ $primary-color: white;
         border: none;
   
         i {
-          color: $primary-color;
+          color: #fff;
           font-size: 1.2rem;
         }
 

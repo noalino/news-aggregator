@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import favicon from './assets/images/favicon.ico';
 import style from './styles/App.scss';
 import Nav from './components/Nav';
+import Header from './components/Header';
 import Topics from './components/Topics';
-import ArticlesList from './components/ArticlesList';
 import Sidebar from './components/Sidebar';
+import ArticlesList from './components/ArticlesList';
+import Footer from './components/Footer';
 import API_KEY from './secrets';
 import jsonResponse from './data';
 
@@ -15,11 +17,12 @@ class App extends Component {
     /** Save state to countries, sub categories, sources */
     this.state = {
       // articles: []
-      articles: jsonResponse.articles
+      articles: jsonResponse.business.articles
       // bookmarks: []
     }
 
     // this.handleDrop = this.handleDrop.bind(this);
+    this.handleClickTopic = this.handleClickTopic.bind(this);
   }
 
   fetchData() {
@@ -37,6 +40,12 @@ class App extends Component {
   //     return { bookmarks: newList };
   //   });
   // }
+
+  handleClickTopic(topic) { /** componentShouldUpdate in ArticlesList */
+    this.setState({
+      articles: jsonResponse[topic].articles
+    })
+  }
   
   componentDidMount() {
     // this.fetchData();
@@ -45,16 +54,15 @@ class App extends Component {
   render() {
     const { articles, bookmarks } = this.state;
     return (
-      <div className={style.app}>
+      <div>
         <Nav />
-        <div className={style.homepage}>
-          <h1 className={style.title}>Top Stories</h1>
-          <p className={style.date}>Monday, August 20, 2018</p>
-          <Topics />
+        <Header />
+        <Topics onClick={this.handleClickTopic}/>
+        <Sidebar />
+        {/*<Sidebar bookmarks={bookmarks} onDrop={this.handleDrop}/>*/}
+        <div className={style.scrollpage}>
           <ArticlesList articles={articles}/>
-          {/*<Sidebar bookmarks={bookmarks} onDrop={this.handleDrop}/>*/}
-          <Sidebar />
-          <footer className={style.footer}>Powered by <a href="https://newsapi.org/" target="_blank">News API</a></footer>
+          <Footer />
         </div>
       </div>
     );

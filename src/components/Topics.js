@@ -1,21 +1,21 @@
 import React from 'react';
 import style from '../styles/Topics.scss';
 
-const Topics = () => {
+const Topics = ({ onClick }) => {
   const topics = [
-    'Business',
-    'Entertainment',
-    'General',
-    'Health',
-    'Science',
-    'Sports',
-    'Technology',
-    'All'
+    'business',
+    'entertainment',
+    'general',
+    'health',
+    'science',
+    'sports',
+    'technology',
+    'all'
   ];
 
   const list = topics.map(topic => (
     <li key={topic}>
-      <button type="button"><span className="fas fa-briefcase"></span> {topic}</button>
+      <button type="button" onClick={() => onClick(topic)}><span className="fas fa-briefcase"></span> {topic}</button>
     </li>
   ));
 

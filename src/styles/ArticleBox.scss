@@ -3,7 +3,8 @@
 .article {
   width: 100%;
   height: auto;
-  font-size: 14px;
+  // font-size: 14px;
+  font-size: 1rem;
   margin: 0.3em 0.5em;
   padding: 0.8em 1em;
   border: none;
@@ -12,7 +13,7 @@
   display: grid;
   grid-template-columns: auto repeat(2, 5%);
   grid-template-rows: 20px auto auto 20px;
-  grid-gap: 0.5em;
+  grid-gap: 0.7em;
   grid-template-areas:
     "source star bookmark"
     "img img img"
@@ -78,5 +79,11 @@
     &:hover {
       text-decoration: underline;
     }
+  }
+}
+
+@media screen and (min-width: 2000px) {
+  .article {
+    font-size: 1.5rem;
   }
 }
