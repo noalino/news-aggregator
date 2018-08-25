@@ -54,7 +54,7 @@ class App extends Component {
   render() {
     const { articles, bookmarks } = this.state;
     return (
-      <div>
+      <div className={style.app}>
         <Nav />
         <Header />
         <Topics onClick={this.handleClickTopic}/>

@@ -11,6 +11,10 @@
   }
 }
 
+.app {
+  font-size: 12px;
+}
+
 .scrollpage {
   position: relative;
   width: $container-width;
@@ -26,8 +30,14 @@
 }
 
   
+@media screen and (min-width: 1250px) {
+  .app {
+    font-size: 14px;
+  }
+}
+
 @media screen and (min-width: 2000px) {
-  // .app {
-  //   font-size: 24px;
-  // }
+  .app {
+    font-size: 18px;
+  }
 }
