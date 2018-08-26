@@ -2,8 +2,7 @@
 
 .topics {
   @extend %sidebar-display;
-  font-size: 1em;
-
+  font-size: 1em;  
 
   h2 {
     font-size: 2em;
@@ -34,6 +33,19 @@
 
     span {
       margin-right: 0.2em;
+    }
+  }
+}
+
+@media screen and (min-width: 2000px) {
+  .topics {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-right: 4em;
+
+    ul {
+      margin: 1.5em 0;
     }
   }
 }

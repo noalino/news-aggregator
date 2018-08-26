@@ -44,3 +44,16 @@
   //   align-items: center;
   // }
 }
+
+@media screen and (min-width: 2000px) {
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 4em;
+
+    button {
+      margin: 1em 0;
+    }
+  }
+}

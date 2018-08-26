@@ -16,10 +16,12 @@
 }
 
 .scrollpage {
-  position: relative;
+  // position: relative;
+  // top: $nav-height + $header-height;
+  // left: $sidebar-width;
   width: $container-width;
-  top: $nav-height + $header-height;
-  left: $sidebar-width;
+  margin: 0 auto;
+  margin-top: $nav-height+$header-height;
 
   display: grid;
   grid-template-columns: 100%;

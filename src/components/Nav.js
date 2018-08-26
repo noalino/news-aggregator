@@ -14,16 +14,6 @@ const Nav = () => {
           <button><i className="fas fa-search"></i></button>
         </form>
       </div>
-      {/*<ul className={style.links}>
-        <li><a href=""><p>Sign Up</p></a></li>
-        <li><a href=""><p>Log In</p></a></li>
-        <li>
-          <form>
-            <input type="text" placeholder="Search articles..."/>
-            <button><i className="fas fa-search"></i></button>
-          </form>  
-        </li>
-    </ul>*/}
     </nav>
   );
 }
