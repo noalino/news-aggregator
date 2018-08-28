@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 const devMode = process.env.NODE_ENV !== 'production';
 
@@ -13,6 +14,17 @@ const cssPlugin = new MiniCssExtractPlugin({
   filename: '[name].css'
   // chunkFilename: '[id].css'
 });
+
+const syncPlugin = new BrowserSyncPlugin(
+  {
+    host: 'localhost',
+    port: '8081',
+    proxy: 'http://localhost:8080/'
+  },
+  {
+    reload: false
+  }
+);
 
 const cleanPlugin = new CleanWebpackPlugin('build', {} );
 
@@ -65,5 +77,10 @@ module.exports = {
       }
     ]
   },
-  plugins: [htmlPlugin, cssPlugin, cleanPlugin]
+  plugins: [
+    htmlPlugin,
+    cssPlugin,
+    // syncPlugin,
+    cleanPlugin
+  ]
 };

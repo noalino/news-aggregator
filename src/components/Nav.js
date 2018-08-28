@@ -1,12 +1,16 @@
 import React from 'react';
 import style from '../styles/Nav.scss';
 
-const Nav = () => {
+const Nav = ({ toggleSidebar }) => {
   return (
     <nav className={style.nav}>
-      <h1>NEWS</h1>
+      <div className={style.menu} onClick={toggleSidebar}>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <a href="/">News</a>
       <div className={style.links}>
-        {/*<a href="">Home</a>*/}
         <a href="">Sign In</a>
         <a href="">Sign Up</a>
         <form>

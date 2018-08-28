@@ -1,19 +1,21 @@
 @import 'sizing';
 
 .topics {
-  @extend %sidebar-display;
-  font-size: 1em;  
+  @extend %sidebar-position;
+  font-size: 1em;
+  left: $side-margin;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 
   h2 {
     font-size: 2em;
     text-transform: uppercase;
     letter-spacing: 0.3em;
-    text-align: center;
   }
 
   ul {
-    max-width: 12em;
-    margin: 1.5em auto;
     padding: 0;
     list-style: none;
   }
@@ -37,15 +39,23 @@
   }
 }
 
-@media screen and (min-width: 2000px) {
+// @media screen and (max-width: 1024px) and (orientation: portrait) {
+@media screen and (max-width: 700px) {
   .topics {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    padding-right: 4em;
-
-    ul {
-      margin: 1.5em 0;
-    }
+    width: 100%;
+    position: relative;
+    top: 0;
+    left: 0;
   }
 }
+
+// @media screen and (min-width: 2000px) {
+//   .topics {
+//     align-items: flex-end;
+//     padding-right: 4em;
+
+//     ul {
+//       margin: 1.5em 0;
+//     }
+//   }
+// }

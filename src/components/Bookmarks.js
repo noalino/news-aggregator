@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import style from '../styles/Sidebar.scss';
+import style from '../styles/Bookmarks.scss';
 
 
-class Sidebar extends Component {
+class Bookmarks extends Component {
   constructor(props) {
     super(props);
 
@@ -33,7 +33,7 @@ class Sidebar extends Component {
     // });
 
     return (
-      <div className={style.sidebar}>
+      <div className={style.bookmarks}>
         <button>
           <i className="fas fa-star"></i>
           <h3>My Favorites</h3>
@@ -50,4 +50,4 @@ class Sidebar extends Component {
   }
 }
 
-export default Sidebar;
+export default Bookmarks;

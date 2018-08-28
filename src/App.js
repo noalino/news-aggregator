@@ -4,7 +4,7 @@ import style from './styles/App.scss';
 import Nav from './components/Nav';
 import Header from './components/Header';
 import Topics from './components/Topics';
-import Sidebar from './components/Sidebar';
+import Bookmarks from './components/Bookmarks';
 import ArticlesList from './components/ArticlesList';
 import Footer from './components/Footer';
 import API_KEY from './secrets';
@@ -17,12 +17,14 @@ class App extends Component {
     /** Save state to countries, sub categories, sources */
     this.state = {
       // articles: []
-      articles: jsonResponse.business.articles
+      articles: jsonResponse.business.articles,
       // bookmarks: []
+      isSidebarOpen: false
     }
 
     // this.handleDrop = this.handleDrop.bind(this);
     this.handleClickTopic = this.handleClickTopic.bind(this);
+    this.toggleSidebar = this.toggleSidebar.bind(this);
   }
 
   fetchData() {
@@ -46,20 +48,33 @@ class App extends Component {
       articles: jsonResponse[topic].articles
     })
   }
+
+  toggleSidebar(e) {
+    e.preventDefault();
+    
+    this.setState(prevState => ({
+      isSidebarOpen: !prevState.isSidebarOpen
+    }))
+  }
   
   componentDidMount() {
     // this.fetchData();
   }
 
   render() {
-    const { articles, bookmarks } = this.state;
+    const { articles, isSidebarOpen, bookmarks } = this.state;
     return (
       <div className={style.app}>
-        <Nav />
-        <Header />
-        <Topics onClick={this.handleClickTopic}/>
-        <Sidebar />
-        {/*<Sidebar bookmarks={bookmarks} onDrop={this.handleDrop}/>*/}
+        <Nav toggleSidebar={this.toggleSidebar}/>
+        <Header isSidebarOpen={isSidebarOpen}/>
+        <div className={isSidebarOpen ? style.sidebarOpen : style.sidebar}>
+          <div className={style.sidebar__list}>
+            <Topics onClick={this.handleClickTopic}/>
+            <Bookmarks />
+            {/*<Bookmarks bookmarks={bookmarks} onDrop={this.handleDrop}/>*/}
+          </div>
+          <div className={style.sidebar__clickCatcher} onClick={this.toggleSidebar}></div>
+        </div>
         <div className={style.scrollpage}>
           <ArticlesList articles={articles}/>
           <Footer />

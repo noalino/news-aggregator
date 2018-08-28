@@ -1,5 +1,13 @@
 @import 'sizing', 'colors';
 
+%anchor-display {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+  padding: 0 0.5em;
+}
+
 .nav {
   position: fixed;
   top: 0;
@@ -11,48 +19,85 @@
   justify-content: space-between;
   z-index: 2;
 
-  h1 {
+  & > a {
+    @extend %anchor-display;
     font-size: 2em;
-    color: #fff;
+    text-transform: uppercase;
     margin-left: 1.5em;
   }
+}
 
-  .links {
-    width: 30vw;
-    min-width: 400px;
-    display: flex;
-    justify-content: space-evenly;
-    
-    a {
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      font-size: 1.5em;
-      color: #fff;
-      padding: 0 0.5em;
-    }
+.menu {
+  display: none;
+  margin-left: 1.5em;
+  cursor: pointer;
+  padding: 0 0.5em;
 
-    form {
-      display: flex;
-      align-items: center;
-      
-      input {
-        font-size: 1em;
-      }
+  & > div {
+    width: 20px;
+    height: 3px;
+    background-color: #fff;
+  }
+}
 
-      button {
-        background: transparent;
-        border: none;
+.links {
+  width: 400px;
+  display: flex;
+  justify-content: space-evenly;
   
-        i {
-          color: #fff;
-          font-size: 2em;
-        }
+  a {
+    @extend %anchor-display;
+    font-size: 1.5em;
+  }
 
-        &:hover {
-          cursor: pointer;
+  form {
+    display: flex;
+    
+    input {
+      font-size: 1em;
+      align-self: center;
+    }
+
+    button {
+      background: transparent;
+      border: none;
+
+      i {
+        color: #fff;
+        font-size: 2em;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .links {
+    width: 300px;
+    form {
+      button {
+        i {
+          font-size: 1.5em;
         }
       }
     }
+  }
+}
+
+@media screen and (min-width: 1500px) {
+  .links {
+    width: 500px;
   }
 }

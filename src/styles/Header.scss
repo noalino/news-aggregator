@@ -3,10 +3,12 @@
 .header {
   position: fixed;
   top: $nav-height;
+  left: $sidebar-width;
   height: $header-height;
-  width: 100vw;
+  width: $container-width;
   background: white;
   z-index: 2;
+
   &:after {
     content: '';
     display: block;
@@ -17,19 +19,37 @@
     margin: 0 auto;
     box-shadow: 0 3px 7px 1px rgba(0,0,0,0.5);
   }
+
   .title,
   .date {
     display: flex;
     align-items: center;
     justify-content: center;
   }
+
   .title {
     height: 75%;
     font-size: 4em;
   }
+
   .date {
     height: 25%;
     font-size: 1.5em;
     font-style: italic;
+  }
+}
+
+.headerHide {
+  z-index: 0;
+}
+
+@media screen and (max-width: 700px) {
+  .header {
+    width: $container-width + 4 * $side-margin;
+    left: $sidebar-width + 3 * $side-margin;
+
+    &:after {
+      width: $container-width + 4 * $side-margin;
+    }
   }
 }
