@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import style from '../styles/Bookmarks.scss';
+import styles from '../styles/Bookmarks.scss';
 
 
 class Bookmarks extends Component {
@@ -33,7 +33,7 @@ class Bookmarks extends Component {
     // });
 
     return (
-      <div className={style.bookmarks}>
+      <div className={styles.bookmarks}>
         <button>
           <i className="fas fa-star"></i>
           <h3>My Favorites</h3>

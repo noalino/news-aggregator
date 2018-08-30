@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
+import { Route, Link } from "react-router-dom";
 import favicon from './assets/images/favicon.ico';
-import style from './styles/App.scss';
-import Nav from './components/Nav';
-import Header from './components/Header';
-import Topics from './components/Topics';
-import Bookmarks from './components/Bookmarks';
-import ArticlesList from './components/ArticlesList';
-import Footer from './components/Footer';
+import styles from './styles/App.scss';
+import Home from './components/Home';
 import API_KEY from './secrets';
 import jsonResponse from './data';
 
@@ -63,22 +59,42 @@ class App extends Component {
 
   render() {
     const { articles, isSidebarOpen, bookmarks } = this.state;
+    const Homepage = ({ component: Component, path, ...props }) => (
+      <Route exact path={path} render={() => (
+        <Component {...props} />
+      )}/>
+    );
+
     return (
-      <div className={style.app}>
-        <Nav toggleSidebar={this.toggleSidebar}/>
-        <Header />
-        <div className={isSidebarOpen ? style.sidebarOpen : style.sidebar}>
-          <div className={style.sidebar__list}>
-            <Topics onClick={this.handleClickTopic}/>
-            <Bookmarks />
-            {/*<Bookmarks bookmarks={bookmarks} onDrop={this.handleDrop}/>*/}
+      <div className={styles.app}>
+        <nav className={styles.nav}>
+          <div className={styles.menu} onClick={this.toggleSidebar}>
+            <div></div>
+            <div></div>
+            <div></div>
           </div>
-          <div className={style.sidebar__clickCatcher} onClick={this.toggleSidebar}></div>
-        </div>
-        <div className={style.scrollpage}>
-          <ArticlesList articles={articles}/>
-          <Footer />
-        </div>
+          <Link to="/">News</Link>
+          <div className={styles.links}>
+            <Link to="/log"><i className="fas fa-edit"></i><p>Sign up</p></Link>
+            <Link to="/log"><i className="fas fa-sign-in-alt"></i><p>Log in</p></Link>
+            {/*<i className="fas fa-sign-out-alt"></i><p>Log Out</p>*/}
+            <form>
+              <input type="text" placeholder="Search articles..."/>
+              <Link to="/search"><button><i className="fas fa-search"></i></button></Link>
+            </form>
+          </div>
+        </nav>
+
+        <Homepage
+          path="/"
+          component={Home}
+          articles={articles}
+          isSidebarOpen={isSidebarOpen}
+          handleClickTopic={this.handleClickTopic}
+          toggleSidebar={this.toggleSidebar}
+        />
+        {/*<Route path="/log" component={Log} />
+        <Route path="/search" component={Search} />*/}
       </div>
     );
   }

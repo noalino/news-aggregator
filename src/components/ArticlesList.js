@@ -1,14 +1,14 @@
 import React from 'react';
 import ArticleBox from './ArticleBox';
-import style from '../styles/ArticlesList.scss';
+import styles from '../styles/ArticlesList.scss';
 
 const ArticlesList = ({ articles }) => {
-  const list = articles.map(article => {
-    return <ArticleBox key={article.title} article={article}/>;
-  });
+  const list = articles.map((article, index) => (
+    <ArticleBox key={index} article={article}/>
+  ));
 
   return (
-    <div className={style.container}>
+    <div className={styles.container}>
       {list}
     </div>
   );

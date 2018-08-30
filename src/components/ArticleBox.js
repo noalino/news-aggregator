@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import style from '../styles/ArticleBox.scss';
+import styles from '../styles/ArticleBox.scss';
 
 class ArticleBox extends Component {
   constructor(props) {
@@ -21,7 +21,7 @@ class ArticleBox extends Component {
     const { article } = this.props;
 
     return (
-      <article className={style.article}>
+      <article className={styles.article}>
       {/*<article id={article.title} className={style.article} draggable="true" onDragStart={this.handleDragStart}>*/}
 
         <p>{article.source.name}</p>

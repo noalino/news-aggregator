@@ -1,5 +1,5 @@
 import React from 'react';
-import style from '../styles/Topics.scss';
+import styles from '../styles/Topics.scss';
 
 const Topics = ({ onClick }) => {
   const topics = [
@@ -20,7 +20,7 @@ const Topics = ({ onClick }) => {
   ));
 
   return (
-    <div className={style.topics}>
+    <div className={styles.topics}>
       <h2>Topics</h2>
       <ul>
         {list}
