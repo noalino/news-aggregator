@@ -13,6 +13,7 @@
   top: 0;
   width: 100vw;
   height: $nav-height;
+  padding: 0 2vw;
   background: $primary-color;
   font-size: 1em;
   display: flex;
@@ -23,13 +24,11 @@
     @extend %anchor-display;
     font-size: 2em;
     text-transform: uppercase;
-    margin-left: 1.5em;
   }
 }
 
 .menu {
   display: none;
-  margin-left: 1.5em;
   cursor: pointer;
   padding: 0 0.5em;
 
@@ -48,6 +47,10 @@
   a {
     @extend %anchor-display;
     font-size: 1.5em;
+
+    & > i {
+      display: none;
+    }
   }
 
   form {
@@ -75,6 +78,30 @@
 }
 
 @media screen and (max-width: 500px) {
+  .links {
+    justify-content: flex-end;
+
+    a {
+      & > p {
+        display: none;
+      }
+      
+      & > i {
+        display: inline-block;
+        margin: 0 10px;
+      }
+    }
+
+    form {
+      input {
+        display: none;
+      }
+
+      button {
+        margin: 0 10px;
+      }
+    }
+  }
   .menu {
     display: flex;
     flex-direction: column;

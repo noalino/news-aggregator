@@ -28,34 +28,49 @@
     "footer";
 }
 
-
 @media screen and (max-width: 500px) {
-  .sidebar {
+  %sidebar-pos {
+    position: fixed;
     height: 100vh;
     width: 100vw;
-    top: 0;
+    top: $nav-height;
     left: 0;
-    transform: translate3d(-100vw, 0, 0);
+    // transition: transform 0.3s ease-in-out;
+    display: flex;
+    z-index: 3;
+  }
+
+  @mixin sidebar-animation($from) {
+    transform: translate3d($from, 0, 0);
     transition: transform 0.3s ease-in-out;
   }
   
+  .sidebar {
+    @extend %sidebar-pos;
+  }
+  
   .sidebarOpen {
-    height: 100vh;
-    width: 100%;
-    top: 0;
-    left: 0;
-    transform: translate3d(0, 0, 0);
-    transition: transform 0.3s ease-in-out;
-    display: flex;
+    @extend %sidebar-pos;
+    
+    .sidebar__list,
+    .sidebar__clickCatcher {
+      transform: translate3d(0, 0, 0);
+    }
   }
   
   .sidebar__list,
   .sidebar__clickCatcher {
-    flex: 2 1 auto;
+    flex: 1 1 auto;
+  }
+
+  .sidebar__list {
+    @include sidebar-animation(-100vw);
+    background: #fff;    
   }
 
   .sidebar__clickCatcher {
-    background: transparent;
+    @include sidebar-animation(100vw);
+    background: rgba(0, 0, 0, 0.5);
   }
 }
 

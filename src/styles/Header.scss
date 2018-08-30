@@ -39,11 +39,18 @@
   }
 }
 
-.headerHide {
-  z-index: 0;
+@media screen and (max-width: 500px) {
+  .header {
+    width: $container-width + 2 * $side-margin;
+    left: (100vw - $container-width) / 2 - $side-margin;
+
+    &:after {
+      width: $container-width + 2 * $side-margin;
+    }
+  }
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (min-width: 501px) and (max-width: 700px) {
   .header {
     width: $container-width + 4 * $side-margin;
     left: $sidebar-width + 3 * $side-margin;

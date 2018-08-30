@@ -66,7 +66,7 @@ class App extends Component {
     return (
       <div className={style.app}>
         <Nav toggleSidebar={this.toggleSidebar}/>
-        <Header isSidebarOpen={isSidebarOpen}/>
+        <Header />
         <div className={isSidebarOpen ? style.sidebarOpen : style.sidebar}>
           <div className={style.sidebar__list}>
             <Topics onClick={this.handleClickTopic}/>
