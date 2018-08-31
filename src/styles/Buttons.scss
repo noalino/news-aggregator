@@ -1,0 +1,73 @@
+@import 'colors';
+@import 'sizing';
+
+.buttons {
+  @extend %sidebar-position;
+  right: $side-margin;
+  font-size: 1em;
+  
+  a {
+    text-decoration: none;
+  }
+
+  button {
+    width: 12em;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 1em;
+    text-transform: uppercase;
+    margin: 1em auto;
+    padding: 0.5em;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.favorites > i {
+  color: $star-color;
+}
+
+.bookmarks {
+  align-items: baseline;
+  margin-bottom: 0;
+  
+  & > i {
+    color: $bookmark-color;
+  }
+}
+
+// .drop_area {
+//   width: 80%;
+//   height: 150px;
+//   border: 2px dashed lightgrey;
+//   border-top: none;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// }
+
+// @media screen and (max-width: 1024px) and (orientation: portrait) {
+@media screen and (max-width: 700px) {
+  .buttons {
+    width: 100%;
+    position: relative;
+    top: 0;
+    right: 0;
+  }
+}
+
+@media screen and (min-width: 2000px) {
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 4em;
+
+    button {
+      margin: 1em 0;
+    }
+  }
+}

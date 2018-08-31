@@ -1,14 +1,14 @@
 import React from 'react';
 import ArticlesList from './ArticlesList';
 import Footer from './Footer';
-import styles from '../styles/Bookmarks.scss';
+import styles from '../styles/Favorites.scss';
 import jsonResponse from '../data';
 
-const Bookmarks = () => {
+const Favorites = () => {
   return (
     <div>
       <div className={styles.header}>
-        <h1>My Bookmarks</h1>
+        <h1>My Favorites</h1>
       </div>
 
       <div className={styles.scrollpage}>
@@ -19,4 +19,4 @@ const Bookmarks = () => {
   );
 }
 
-export default Bookmarks;
+export default Favorites;

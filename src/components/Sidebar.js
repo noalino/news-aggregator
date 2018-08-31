@@ -1,6 +1,6 @@
 import React from 'react';
 import Topics from './Topics';
-import Bookmarks from './Bookmarks';
+import Buttons from './Buttons';
 import styles from '../styles/Sidebar.scss';
 
 const Sidebar = ({ isSidebarOpen, handleClickTopic, toggleSidebar }) => {
@@ -8,8 +8,8 @@ const Sidebar = ({ isSidebarOpen, handleClickTopic, toggleSidebar }) => {
     <div className={isSidebarOpen ? styles.sidebarOpen : styles.sidebar}>
       <div className={styles.sidebar__list}>
         <Topics onClick={handleClickTopic}/>
-        <Bookmarks />
-        {/*<Bookmarks bookmarks={bookmarks} onDrop={this.handleDrop}/>*/}
+        <Buttons />
+        {/*<Buttons bookmarks={bookmarks} onDrop={this.handleDrop}/>*/}
       </div>
       <div className={styles.sidebar__clickCatcher} onClick={toggleSidebar}></div>
     </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import Buttons from './Buttons';
 import ArticlesList from './ArticlesList';
 import Footer from './Footer';
 import styles from '../styles/Search.scss';
@@ -61,6 +62,8 @@ const Search = () => {
           </div>
         </div>
       </form>
+
+      <Buttons />
 
       <div className={styles.scrollpage}>
         <ArticlesList articles={jsonResponse.search.articles}/>
