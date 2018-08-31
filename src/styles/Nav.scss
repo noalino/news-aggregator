@@ -53,11 +53,12 @@
     }
   }
 
+  /* Set link and button same size */
   form {
     display: flex;
     
     input {
-      font-size: 1em;
+      // font-size: 1em;
       align-self: center;
     }
 
@@ -97,7 +98,7 @@
         display: none;
       }
 
-      button {
+      button > i {
         margin: 0 10px;
       }
     }
@@ -112,7 +113,7 @@
 
 @media screen and (max-width: 1024px) {
   .links {
-    width: 300px;
+    width: 400px;
     form {
       button {
         i {

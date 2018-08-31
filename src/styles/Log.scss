@@ -1,0 +1,23 @@
+@import 'sizing';
+
+.logForm {
+  font-size: 3em;
+  position: relative;
+  top: $nav-height;
+  width: 300px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+
+  & input {
+    font-size: 0.5em;
+    margin-bottom: 5px;
+  }
+
+  & button {
+    font-size: 0.5em;
+    // width: 80%;
+    // align-self: center;
+    margin: 5px 0;
+  }
+}

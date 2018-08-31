@@ -3,6 +3,8 @@ import { Route, Link } from "react-router-dom";
 import favicon from './assets/images/favicon.ico';
 import styles from './styles/App.scss';
 import Home from './components/Home';
+import Log from './components/Log';
+import Search from './components/Search';
 import API_KEY from './secrets';
 import jsonResponse from './data';
 
@@ -79,7 +81,7 @@ class App extends Component {
             <Link to="/log"><i className="fas fa-sign-in-alt"></i><p>Log in</p></Link>
             {/*<i className="fas fa-sign-out-alt"></i><p>Log Out</p>*/}
             <form>
-              <input type="text" placeholder="Search articles..."/>
+              <input type="search" name="nav-search" placeholder="Search articles..."/>
               <Link to="/search"><button><i className="fas fa-search"></i></button></Link>
             </form>
           </div>
@@ -93,8 +95,8 @@ class App extends Component {
           handleClickTopic={this.handleClickTopic}
           toggleSidebar={this.toggleSidebar}
         />
-        {/*<Route path="/log" component={Log} />
-        <Route path="/search" component={Search} />*/}
+        <Route path="/log" component={Log} />
+        <Route path="/search" component={Search} />
       </div>
     );
   }

@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from '../styles/Home.scss';
-import Header from './Header';
+import Header from './HomeHeader';
 import Sidebar from './Sidebar';
 import ArticlesList from './ArticlesList';
 import Footer from './Footer';

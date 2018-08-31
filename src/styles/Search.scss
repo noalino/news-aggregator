@@ -1,0 +1,91 @@
+@import 'sizing', 'colors';
+@import 'Home';
+
+.header {
+  position: fixed;
+  top: $nav-height;
+  left: $sidebar-width;
+  height: $header-height;
+  width: $container-width;
+  background: white;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+
+  &:after {
+    content: '';
+    display: block;
+    width: $container-width;
+    height: 3px;
+    background: $primary-color;
+    margin: 0 auto;
+    box-shadow: 0 3px 7px 1px rgba(0,0,0,0.5);
+  }
+}
+
+.searchBar,
+.options,
+.sort {
+  display: flex;
+  align-items: center;
+}
+
+.searchBar,
+.options {
+  height: 40%;
+}
+
+.searchBar {
+  justify-content: center;
+  
+  input,
+  button {
+    height: 75%;
+  }
+
+  input {
+    width: 60%;
+    font-size: 1.5em;
+    padding-left: 5px;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+  }
+
+  button {
+    width: 40px;
+    margin: 0 10px;
+    cursor: pointer;
+
+    i {
+      font-size: 2em;
+    }
+  }
+}
+
+.sort {
+  height: 20%;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 500px) {
+  .header {
+    width: $container-width + 2 * $side-margin;
+    left: (100vw - $container-width) / 2 - $side-margin;
+
+    &:after {
+      width: $container-width + 2 * $side-margin;
+    }
+  }
+}
+
+@media screen and (min-width: 501px) and (max-width: 700px) {
+  .header {
+    width: $container-width + 4 * $side-margin;
+    left: $sidebar-width + 3 * $side-margin;
+
+    &:after {
+      width: $container-width + 4 * $side-margin;
+    }
+  }
+}
