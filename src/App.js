@@ -8,6 +8,7 @@ import Log from './components/layout/Log';
 import Search from './components/layout/Search';
 import Favorites from './components/layout/Favorites';
 import Bookmarks from './components/layout/Bookmarks';
+import { Provider } from './context';
 
 class App extends Component {  
   render() {
@@ -18,28 +19,29 @@ class App extends Component {
     // );
 
     return (
-      <Router>
-        <div className={styles.app}>
-          <Navbar />
-
-          <Switch>
-            {/*<Homepage
-              exact path="/"
-              component={Index}
-              articles={articles}
-              isSidebarOpen={isSidebarOpen}
-              handleClickTopic={this.handleClickTopic}
-              toggleSidebar={this.toggleSidebar}
-            />*/}
-            <Route exact path="/" component={Index} />
-            {/*<Route exact path="/:category" component={Index} />*/}
-            <Route exact path="/log" component={Log} />
-            <Route exact path="/search" component={Search} />
-            <Route exact path="/favorites" component={Favorites} />
-            <Route exact path="/bookmarks" component={Bookmarks} />
-          </Switch>
-        </div>
-      </Router>
+      <Provider>
+        <Router>
+          <div className={styles.app}>
+            <Navbar />
+            <Switch>
+              {/*<Homepage
+                exact path="/"
+                component={Index}
+                articles={articles}
+                isSidebarOpen={isSidebarOpen}
+                handleClickTopic={this.handleClickTopic}
+                toggleSidebar={this.toggleSidebar}
+              />*/}
+              <Route exact path="/" component={Index} />
+              <Route exact path="/:category" component={Index} />
+              <Route exact path="/log" component={Log} />
+              <Route exact path="/search" component={Search} />
+              <Route exact path="/favorites" component={Favorites} />
+              <Route exact path="/bookmarks" component={Bookmarks} />
+            </Switch>
+          </div>
+        </Router>
+      </Provider>
     );
   }
 }

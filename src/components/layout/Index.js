@@ -3,7 +3,9 @@ import Sidebar from '../sidebar/Sidebar';
 import ArticlesList from '../articles/ArticlesList';
 import styles from '../../styles/layout/Index.scss';
 
-const Index = () => {
+const Index = ({ match }) => {
+  // const category = match.params.category ? match.params.category : 'general';
+
   return (
     <React.Fragment>
       <header className={styles.header}>
@@ -11,7 +13,7 @@ const Index = () => {
         <p className={styles.date}>Monday, August 20, 2018</p>
       </header>
       <Sidebar />
-      <ArticlesList />
+      <ArticlesList category={match.params.category} />
     </React.Fragment>
   );
 }

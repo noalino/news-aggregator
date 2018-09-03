@@ -15,7 +15,7 @@ const Topics = () => {
 
   const list = topics.map(topic => (
     <li key={topic}>
-      <Link to={topic}>
+      <Link to={`/${topic}`}>
         <button type="button"><span className="fas fa-briefcase"></span> {topic === 'general' ? 'all' : topic}</button>
       </Link>
     </li>

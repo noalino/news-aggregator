@@ -29,11 +29,14 @@ const syncPlugin = new BrowserSyncPlugin(
 
 const cleanPlugin = new CleanWebpackPlugin('build', {} );
 
+const DotenvPlugin = new Dotenv();
+
 module.exports = {
   // entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
+    publicPath: '/' // Enable CSR (client side routing) to get URL page (redirect from '/')
   },
   module: {
     rules: [
@@ -78,11 +81,14 @@ module.exports = {
       }
     ]
   },
+  devServer: {
+    historyApiFallback: true // Redirect 404s to /index.html
+  },
   plugins: [
     htmlPlugin,
     cssPlugin,
     // syncPlugin,
     cleanPlugin,
-    new Dotenv()
+    DotenvPlugin
   ]
 };
