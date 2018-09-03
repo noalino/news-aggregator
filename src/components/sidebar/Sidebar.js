@@ -1,7 +1,7 @@
 import React from 'react';
 import Topics from './Topics';
 import Buttons from './Buttons';
-import styles from '../styles/Sidebar.scss';
+import styles from '../../styles/sidebar/Sidebar.scss';
 
 const Sidebar = ({ isSidebarOpen, handleClickTopic, toggleSidebar }) => {
   return (

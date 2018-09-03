@@ -1,0 +1,21 @@
+@import '../helpers/sizing',
+'../helpers/colors',
+'../helpers/header';
+
+.title,
+.date {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  height: 75%;
+  font-size: 4em;
+}
+
+.date {
+  height: 25%;
+  font-size: 1.5em;
+  font-style: italic;
+}

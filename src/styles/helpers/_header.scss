@@ -1,4 +1,4 @@
-@import 'sizing', 'colors';
+@import 'colors', 'sizing';
 
 .header {
   position: fixed;
@@ -8,34 +8,14 @@
   width: $container-width;
   background: white;
   z-index: 2;
-
   &:after {
     content: '';
     display: block;
     width: $container-width;
     height: 3px;
     background: $primary-color;
-    // border-bottom: 3px solid $primary-color;
     margin: 0 auto;
-    box-shadow: 0 3px 7px 1px rgba(0,0,0,0.5);
-  }
-
-  .title,
-  .date {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .title {
-    height: 75%;
-    font-size: 4em;
-  }
-
-  .date {
-    height: 25%;
-    font-size: 1.5em;
-    font-style: italic;
+    box-shadow: 0 3px 7px 1px rgba(0, 0, 0, 0.5);
   }
 }
 
@@ -43,7 +23,6 @@
   .header {
     width: $container-width + 2 * $side-margin;
     left: (100vw - $container-width) / 2 - $side-margin;
-
     &:after {
       width: $container-width + 2 * $side-margin;
     }
@@ -54,7 +33,6 @@
   .header {
     width: $container-width + 4 * $side-margin;
     left: $sidebar-width + 3 * $side-margin;
-
     &:after {
       width: $container-width + 4 * $side-margin;
     }

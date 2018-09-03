@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../styles/Log.scss';
+import styles from '../../styles/layout/Log.scss';
 
 const Log = () => {
   return (

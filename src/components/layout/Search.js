@@ -1,9 +1,7 @@
 import React from 'react';
-import Buttons from './Buttons';
-import ArticlesList from './ArticlesList';
-import Footer from './Footer';
-import styles from '../styles/Search.scss';
-import jsonResponse from '../data';
+import Buttons from '../sidebar/Buttons';
+import ArticlesList from '../articles/ArticlesList';
+import styles from '../../styles/layout/Search.scss';
 
 const Search = () => {
   return (
@@ -65,10 +63,7 @@ const Search = () => {
 
       <Buttons />
 
-      <div className={styles.scrollpage}>
-        <ArticlesList articles={jsonResponse.search.articles}/>
-        <Footer />
-      </div>
+      <ArticlesList />
     </div>
   );
 }

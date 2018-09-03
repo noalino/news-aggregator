@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import styles from '../styles/Buttons.scss';
+import styles from '../../styles/sidebar/Buttons.scss';
 
 class Buttons extends Component {
   constructor(props) {

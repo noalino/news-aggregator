@@ -1,8 +1,9 @@
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 const devMode = process.env.NODE_ENV !== 'production';
 
@@ -81,6 +82,7 @@ module.exports = {
     htmlPlugin,
     cssPlugin,
     // syncPlugin,
-    cleanPlugin
+    cleanPlugin,
+    new Dotenv()
   ]
 };

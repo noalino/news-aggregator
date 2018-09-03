@@ -1,5 +1,4 @@
-@import 'colors';
-@import 'sizing';
+@import '../helpers/colors', '../helpers/sizing';
 
 .buttons {
   @extend %sidebar-position;

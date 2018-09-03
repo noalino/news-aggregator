@@ -1,21 +1,23 @@
 import React from 'react';
-import styles from '../styles/Topics.scss';
+import { Link } from 'react-router-dom';
+import styles from '../../styles/sidebar/Topics.scss';
 
-const Topics = ({ onClick }) => {
+const Topics = () => {
   const topics = [
     'business',
     'entertainment',
-    'general',
     'health',
     'science',
     'sports',
     'technology',
-    'all'
+    'general'
   ];
 
   const list = topics.map(topic => (
     <li key={topic}>
-      <button type="button" onClick={() => onClick(topic)}><span className="fas fa-briefcase"></span> {topic}</button>
+      <Link to={topic}>
+        <button type="button"><span className="fas fa-briefcase"></span> {topic === 'general' ? 'all' : topic}</button>
+      </Link>
     </li>
   ));
 

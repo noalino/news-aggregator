@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import styles from '../styles/Nav.scss';
+import styles from '../../styles/layout/Navbar.scss';
 
-const Nav = ({ toggleSidebar }) => {
+const Navbar = () => {
   return (
     <nav className={styles.nav}>
-      <div className={styles.menu} onClick={toggleSidebar}>
+      <div className={styles.menu}>
         <div></div>
         <div></div>
         <div></div>
@@ -24,4 +24,4 @@ const Nav = ({ toggleSidebar }) => {
   );
 }
 
-export default Nav;
+export default Navbar;

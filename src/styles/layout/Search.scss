@@ -1,0 +1,45 @@
+@import '../helpers/header';
+
+.searchBar,
+.options,
+.sort {
+  display: flex;
+  align-items: center;
+}
+
+.searchBar,
+.options {
+  height: 40%;
+}
+
+.searchBar {
+  justify-content: center;
+  
+  input,
+  button {
+    height: 75%;
+  }
+
+  input {
+    width: 60%;
+    font-size: 1.5em;
+    padding-left: 5px;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+  }
+
+  button {
+    width: 40px;
+    margin: 0 10px;
+    cursor: pointer;
+
+    i {
+      font-size: 2em;
+    }
+  }
+}
+
+.sort {
+  height: 20%;
+  justify-content: space-between;
+}

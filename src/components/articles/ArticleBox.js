@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styles from '../styles/ArticleBox.scss';
+import styles from '../../styles/articles/ArticleBox.scss';
 
 class ArticleBox extends Component {
   constructor(props) {
