@@ -5,15 +5,15 @@ import ArticleBox from './ArticleBox';
 import styles from '../../styles/articles/ArticlesList.scss';
 
 class ArticlesList extends Component {
+
   render() {
     return (
       <Consumer>
-        {value => {
-          // console.log(value);
-          const { articles } = value;
-          const isEmpty = articles.length === 0;
+        {({ articles }) => {
+          console.log('articles list rendering');
+          const isFetch = articles.length > 0; // Add loading state in context (length always > 0 but mounting)
           
-          if (isEmpty) {
+          if (!isFetch) {
             return <Spinner />;
       
           } else {

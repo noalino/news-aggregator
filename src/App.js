@@ -33,11 +33,11 @@ class App extends Component {
                 toggleSidebar={this.toggleSidebar}
               />*/}
               <Route exact path="/" component={Index} />
-              <Route exact path="/:category" component={Index} />
-              <Route exact path="/log" component={Log} />
-              <Route exact path="/search" component={Search} />
-              <Route exact path="/favorites" component={Favorites} />
-              <Route exact path="/bookmarks" component={Bookmarks} />
+              <Route path="/log" component={Log} />
+              <Route path="/search" component={Search} />
+              <Route path="/favorites" component={Favorites} />
+              <Route path="/bookmarks" component={Bookmarks} />
+              <Route path="/:category" component={Index} />
             </Switch>
           </div>
         </Router>
