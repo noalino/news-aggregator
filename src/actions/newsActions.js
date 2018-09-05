@@ -11,7 +11,6 @@ export const fetchArticles = (category) => dispatch => {
       dispatch({
         type: FETCH_ARTICLES,
         payload: {
-          category: category,
           articles: res.data.articles
         }
     })})

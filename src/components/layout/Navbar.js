@@ -17,7 +17,7 @@ const Navbar = () => {
         {/*<i className="fas fa-sign-out-alt"></i><p>Log Out</p>*/}
         <form>
           <input type="search" name="nav-search" placeholder="Search articles..."/>
-          <Link to="/search"><button><i className="fas fa-search"></i></button></Link>
+          <Link to="/search?"><button><i className="fas fa-search"></i></button></Link>
         </form>
       </div>
     </nav>

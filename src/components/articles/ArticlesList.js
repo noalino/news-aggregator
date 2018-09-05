@@ -1,17 +1,26 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { fetchArticles } from '../../actions/newsActions';
-import Spinner from '../layout/Spinner';
+// import { connect } from 'react-redux';
+// import PropTypes from 'prop-types';
+// import { fetchArticles } from '../../actions/newsActions';
+// import Spinner from '../layout/Spinner';
 import ArticleBox from './ArticleBox';
 import styles from '../../styles/articles/ArticlesList.scss';
 
 class ArticlesList extends Component {
 
-  componentDidMount() {
-    console.log('articles list mounting');
-    this.props.fetchArticles('general');
-  }
+  // componentDidMount() {
+  //   console.log('articles list mounting');
+  //   const { category, fetchArticles } = this.props;
+  //   fetchArticles(category);
+  // }
+
+  // componentDidUpdate(prevProps) {
+  //   const { category, fetchArticles } = this.props;
+  //   if (category != prevProps.category) {
+  //     console.log('articles list updating');
+  //     fetchArticles(category);
+  //   }
+  // }
 
   render() {
     const { articles } = this.props;
@@ -31,15 +40,19 @@ class ArticlesList extends Component {
   }
 }
 
-ArticlesList.propTypes = {
-  fetchArticles: PropTypes.func.isRequired,
-  category: PropTypes.string.isRequired,
-  articles: PropTypes.array.isRequired
-}
+// ArticlesList.defaultProps = {
+//   category: 'general'
+// }
 
-const mapStateToProps = state => ({
-  category: state.news.category,
-  articles: state.news.articles
-});
+// ArticlesList.propTypes = {
+//   category: PropTypes.string.isRequired,
+//   articles: PropTypes.array.isRequired,
+//   fetchArticles: PropTypes.func.isRequired
+// }
 
-export default connect(mapStateToProps, { fetchArticles })(ArticlesList);
+// const mapStateToProps = state => ({
+//   articles: state.news.articles
+// });
+
+// export default connect(mapStateToProps, { fetchArticles })(ArticlesList);
+export default ArticlesList;
