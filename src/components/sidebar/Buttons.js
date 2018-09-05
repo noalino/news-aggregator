@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import styles from '../../styles/sidebar/Buttons.scss';
 
 class Buttons extends Component {
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props);
 
     // this.handleDrop = this.handleDrop.bind(this);
-  }
+  // }
 
   // handleDragOver(e) {
   //   e.preventDefault();

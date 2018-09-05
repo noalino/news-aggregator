@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
+import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import './assets/images/favicon.ico';
-import styles from './styles/App.scss';
+
 import Navbar from './components/layout/Navbar';
 import Index from './components/layout/Index';
 import Log from './components/layout/Log';
 import Search from './components/layout/Search';
 import Favorites from './components/layout/Favorites';
 import Bookmarks from './components/layout/Bookmarks';
-import { Provider } from './context';
+
+import './assets/images/favicon.ico';
+import styles from './styles/App.scss';
+
+import store from './store';
 
 class App extends Component {  
   render() {
@@ -19,7 +23,7 @@ class App extends Component {
     // );
 
     return (
-      <Provider>
+      <Provider store={store}>
         <Router>
           <div className={styles.app}>
             <Navbar />
@@ -34,7 +38,7 @@ class App extends Component {
               />*/}
               <Route exact path="/" component={Index} />
               <Route path="/log" component={Log} />
-              <Route path="/search" component={Search} />
+              <Route path="/search?" component={Search} />
               <Route path="/favorites" component={Favorites} />
               <Route path="/bookmarks" component={Bookmarks} />
               <Route path="/:category" component={Index} />
