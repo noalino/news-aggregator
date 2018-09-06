@@ -14,7 +14,7 @@ class Index extends Component {
     console.log('Index mounting');
     const { match: { params: {topic}}, fetchArticles } = this.props;
     const category = topic ? topic : 'general';
-    fetchArticles(category);
+    // fetchArticles(category);
   }
 
   componentDidUpdate(prevProps) {

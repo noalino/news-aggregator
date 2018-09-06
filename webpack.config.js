@@ -67,17 +67,24 @@ module.exports = {
         ],
       },
       {
-        test: /\.(jpe?g|ico|gif|png|svg)$/,
+        test: /\.(jpe?g|ico|gif|png)$/,
         use: [
           {
             loader: 'file-loader',
             options: {
               name: '[name].[ext]',
-              publicPath: 'assets/images/',
+              publicPath: 'images/',
               outputPath: 'images/'
             }
           }
         ]
+      },
+      {
+        test: /\.svg$/,
+        loader: 'svg-sprite-loader',
+        options: {
+          publicPath: 'images/'
+        }
       }
     ]
   },
