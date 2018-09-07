@@ -1,0 +1,37 @@
+.dropdown {
+  width: 40px;
+  height: 80%;
+}
+
+.dropbtn {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.dropdownContent {
+  height: 50vh;
+  overflow: auto;
+  background: lightgrey;
+  text-decoration: none;
+  margin: 0 auto;
+  padding: 0;
+
+  & > li {
+    display: flex;
+    justify-content: flex-start;
+
+    &:hover {
+      background: #fff;
+      cursor: pointer;
+    }
+  }
+  
+}

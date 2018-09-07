@@ -11,20 +11,21 @@ import styles from '../../styles/layout/Index.scss';
 class Index extends Component {
 
   componentDidMount() {
-    console.log('Index mounting');
-    const { match: { params: {topic}}, fetchArticles } = this.props;
-    const category = topic ? topic : 'general';
-    // fetchArticles(category);
+    const { match: { params: {topic}}, country, fetchArticles } = this.props;
+    const category = topic ? topic : 'general'; // Implementing Redirect in App instead?
+    console.log('Index mounting');    
+
+    fetchArticles(country, category);
   }
 
   componentDidUpdate(prevProps) {
-    const { match: { params: {topic}}, fetchArticles } = this.props;
+    const { match: { params: {topic}}, country, fetchArticles } = this.props;
     const category = topic ? topic : 'general';
     const prevCategory = prevProps.match.params.topic ? prevProps.match.params.topic : 'general';
 
-    if (category != prevCategory) {
+    if (category != prevCategory || country != prevProps.country) {
       console.log('Index updating');
-      fetchArticles(category);
+      fetchArticles(country, category);
     }
   }
 
@@ -44,11 +45,13 @@ class Index extends Component {
 }
 
 Index.propTypes = {
+  country: PropTypes.string.isRequired,
   articles: PropTypes.array.isRequired,
   fetchArticles: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
+  country: state.news.country,
   articles: state.news.articles
 });
 

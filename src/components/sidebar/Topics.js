@@ -6,16 +6,6 @@ import styles from '../../styles/sidebar/Topics.scss';
 
 const Topics = ({ topicsList }) => {
 
-  // const topics = [
-  //   'business',
-  //   'entertainment',
-  //   'general',
-  //   'health',
-  //   'science',
-  //   'sports',
-  //   'technology'
-  // ];
-
   return (
     <div className={styles.topics}>
       <h2>Topics</h2>
