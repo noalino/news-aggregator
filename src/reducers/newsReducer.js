@@ -1,8 +1,8 @@
-import { CHANGE_COUNTRY, CHANGE_TOPIC, FETCH_ARTICLES } from '../actions/types';
+import { CHANGE_COUNTRY, FETCH_ARTICLES } from '../actions/types';
 
 const initialState = {
-  country: window.navigator.language.split('-')[1].toLowerCase(),
-  // category: 'general',
+  // country: window.navigator.language.split('-')[1].toLowerCase(),
+  country: 'pt',
   articles: []
 };
 
@@ -13,11 +13,6 @@ export default (state = initialState, action) => {
         ...state,
         country: action.payload
       };
-    // case CHANGE_TOPIC:
-    //   return {
-    //     ...state,
-    //     category: action.payload
-    //   };
     case FETCH_ARTICLES:
       return {
         ...state,

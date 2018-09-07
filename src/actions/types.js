@@ -1,3 +1,2 @@
 export const CHANGE_COUNTRY = 'CHANGE_COUNTRY';
-export const CHANGE_TOPIC = 'CHANGE_TOPIC';
 export const FETCH_ARTICLES = 'FETCH_ARTICLES';
