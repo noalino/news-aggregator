@@ -1,8 +1,9 @@
-import { CHANGE_COUNTRY, FETCH_ARTICLES } from '../actions/types';
+import { CHANGE_COUNTRY, FETCH_ARTICLES, SEARCH_ARTICLES, FETCH_SOURCES } from '../actions/types';
 
 const initialState = {
-  // country: window.navigator.language.split('-')[1].toLowerCase(),
-  country: 'pt',
+  country: window.navigator.language.split('-')[1].toLowerCase(),
+  lastQuery: '',
+  sources: [],
   articles: []
 };
 
@@ -17,6 +18,17 @@ export default (state = initialState, action) => {
       return {
         ...state,
         articles: action.payload
+      };
+    case SEARCH_ARTICLES:
+      return {
+        ...state,
+        lastQuery: action.payload.lastQuery,
+        articles: action.payload.articles
+      };
+    case FETCH_SOURCES:
+      return {
+        ...state,
+        sources: action.payload
       };
     default:
       return state;

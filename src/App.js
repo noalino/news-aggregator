@@ -26,7 +26,7 @@ const App = () => {
               <Switch>
                 <Route exact path="/" component={Index} />
                 <Route path="/log" component={Log} />
-                <Route path="/search?" component={Search} />
+                <Route path="/search" component={Search} />
                 <Route path="/favorites" component={Favorites} />
                 <Route path="/bookmarks" component={Bookmarks} />
                 <Route path="/:topic" component={Index} />
