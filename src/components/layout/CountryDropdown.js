@@ -26,14 +26,13 @@ class CountryDropdown extends Component {
   }
 
   render() {
-    /** Chinese flag to repair */
     const { isOpen } = this.state;
     const { country } = this.props;
     
     return (
       <div className={styles.dropdown}>
         <button className={styles.dropbtn} onClick={this.triggerDropdown}>
-          <Icon className="country" country={country}/>
+          <Icon className="country" country={country.code}/>
           <i className="fa fa-caret-down"></i>
         </button>
 
@@ -41,8 +40,8 @@ class CountryDropdown extends Component {
           isOpen &&
           <ul className={styles.dropdownContent}>
             {this.props.countries.map(country => (
-              <li key={country} onClick={this.handleClick.bind(this, country)}>
-                <Icon className="country" country={country}/>
+              <li key={country.code} onClick={this.handleClick.bind(this, country)}>
+                <Icon className="country" country={country.code}/>
               </li>
             ))}
           </ul>
@@ -54,11 +53,52 @@ class CountryDropdown extends Component {
 }
 
 CountryDropdown.defaultProps = {
-  countries: ['ae', 'ar', 'at', 'au', 'be', 'bg', 'br', 'ca', 'ch', 'cn', 'co', 'cu', 'cz', 'de', 'eg', 'fr', 'gb', 'gr', 'hk', 'hu', 'id', 'ie', 'il', 'in', 'it', 'jp', 'kr', 'lt', 'lv', 'ma', 'mx', 'my', 'ng', 'nl', 'no', 'nz', 'ph', 'pl', 'pt', 'ro', 'rs', 'ru', 'sa', 'se', 'sg', 'si', 'sk', 'th', 'tr', 'tw', 'ua', 'us', 've', 'za']
+  countries: [
+    {
+      code: 'fr',
+      name: 'France',
+      language: {
+        code: 'fr',
+        name: 'Français'
+      }
+    },
+    {
+      code: 'de',
+      name: 'Germany',
+      language: {
+        code: 'de',
+        name: 'Deutsch'
+      }
+    },
+    {
+      code: 'es',
+      name: 'Spain',
+      language: {
+        code: 'es',
+        name: 'Español'
+      }
+    },
+    {
+      code: 'gb',
+      name: 'United Kingdom',
+      language: {
+        code: 'en',
+        name: 'English'
+      }
+    },
+    {
+      code: 'us',
+      name: 'United States',
+      language: {
+        code: 'en',
+        name: 'English'
+      }
+    }
+  ]
 }
 
 CountryDropdown.propTypes = {
-  country: PropTypes.string.isRequired,
+  country: PropTypes.object.isRequired,
   changeCountry: PropTypes.func.isRequired
 }
 

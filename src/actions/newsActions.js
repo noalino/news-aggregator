@@ -10,19 +10,19 @@ export const changeCountry = country => dispatch => {
 }
 
 export const fetchArticles = (country, category) => dispatch => {
-  console.log('fetching articles...');
-  // axios.get(`https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${process.env.API_KEY}`)
-  //   .then(res => {
-  //     console.log('fetching articles...');
-  //     dispatch({
-  //       type: FETCH_ARTICLES,
-  //       payload: res.data.articles
-  //     })
-  //   })
-  //   .catch(err => console.error(err))
+  // console.log('fetching articles...');
+  axios.get(`https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${process.env.API_KEY}`)
+    .then(res => {
+      console.log('fetching articles...');
+      dispatch({
+        type: FETCH_ARTICLES,
+        payload: res.data.articles
+      })
+    })
+    .catch(err => console.error(err))
 }
 
-export const searchArticles = ({query, from, to, language, source, sorting}) => dispatch => {
+export const searchArticles = ({query, from, to, source, sorting}, language) => dispatch => {
   // console.log('searching articles...');
   const queryURI = encodeURIComponent(query);
 
@@ -41,6 +41,7 @@ export const searchArticles = ({query, from, to, language, source, sorting}) => 
 }
 
 export const fetchSources = language => dispatch => {
+
   axios.get(`https://newsapi.org/v2/sources?language=${language}&apiKey=${process.env.API_KEY}`)
     .then(res => {
       console.log('fetching sources...');

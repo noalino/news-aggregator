@@ -14,43 +14,44 @@ class Search extends Component {
       query: '',
       from: '',
       to: '',
-      language: 'en', // Set default based on country default
       source: '',
       sorting: 'publishedAt'
     }
   }
 
   componentDidMount() {
-    this.props.fetchSources(this.state.language);
+    const { country, fetchSources } = this.props;
+    fetchSources(country.language.code);
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const { language } = this.state;
+  componentDidUpdate(prevProps) {
+    const { country: {language}, fetchSources } = this.props;
 
-    if (language != prevState.language) {
+    if (language.code != prevProps.country.language.code) {
       console.log('Search component updated');
-      this.props.fetchSources(language);
+      fetchSources(language.code);
     }
   }
 
   findArticles = e => {
     e.preventDefault();
-    const { searchArticles } = this.props;
+    const { country: {language}, searchArticles } = this.props;
 
     if (this.state.query !== '') {
-      searchArticles({...this.state});
+      searchArticles({...this.state}, language.code);
     }
   }
 
   handleInputChange = e => {
+    const { name, value } = e.target;
     this.setState({
-      [e.target.name]: e.target.value
+      [name]: value
     })
   }
 
   render() {
-    const { query, language, source, sorting } = this.state;
-    const { lastQuery, languagesList, sources, articles } = this.props;
+    const { query, source, sorting } = this.state;
+    const { lastQuery, sources, articles } = this.props;
 
     return (
       <div>
@@ -61,7 +62,7 @@ class Search extends Component {
               name="query"
               placeholder="Search articles..."
               autoComplete="true"
-              aria-label="Search articles through site content"
+              aria-label="Search articles"
               value={query}
               onChange={this.handleInputChange}
             >
@@ -79,18 +80,10 @@ class Search extends Component {
               <input type="date" name="to" id="to" onChange={this.handleInputChange}></input>
             </div>
             <div>
-              <label htmlFor="language">Language: </label>
-              <select name="language" id="language" value={language} onChange={this.handleInputChange} size="1">
-                {languagesList.map(lan => (
-                  <option key={lan.code} value={lan.code}>{lan.name}</option>
-                ))}
-              </select>
-            </div>
-            <div>
               <label htmlFor="source">Source: </label>
               <select name="source" id="source" value={source} onChange={this.handleInputChange} size="1">
                 <option value="">All</option>
-                {sources.map(src => (<option key={src.id} value={src.id}>{src.name}</option>))}
+                {sources.map(src => <option key={src.id} value={src.id}>{src.name}</option>)}
               </select>
             </div>
           </div>
@@ -115,63 +108,9 @@ class Search extends Component {
   }
 }
 
-Search.defaultProps = {
-  languagesList: [
-    {
-      code: 'ar',
-      name: 'Arabic'
-    },
-    {
-      code: 'de',
-      name: 'German'
-    },
-    {
-      code: 'en',
-      name: 'English'
-    },
-    {
-      code: 'es',
-      name: 'Spanish'
-    },
-    {
-      code: 'fr',
-      name: 'French'
-    },
-    {
-      code: 'he',
-      name: 'Hebrew'
-    },
-    {
-      code: 'it',
-      name: 'Italian'
-    },
-    {
-      code: 'nl',
-      name: 'Dutch'
-    },
-    {
-      code: 'no',
-      name: 'Norwegian'
-    },
-    {
-      code: 'pt',
-      name: 'Portuguese'
-    },
-    {
-      code: 'ru',
-      name: 'Russian'
-    },
-    {
-      code: 'zh',
-      name: 'Chinese'
-    }
-  ]
-}
-
 Search.propTypes = {
   lastQuery: PropTypes.string,
-  languagesList: PropTypes.array.isRequired,
-  // country: PropTypes.string.isRequired,
+  country: PropTypes.object.isRequired,
   sources: PropTypes.array.isRequired,
   articles: PropTypes.array.isRequired,
   searchArticles: PropTypes.func.isRequired,
@@ -180,7 +119,7 @@ Search.propTypes = {
 
 const mapStateToProps = state => ({
   lastQuery: state.news.lastQuery,
-  // country: state.news.country,
+  country: state.news.country,
   sources: state.news.sources,
   articles: state.news.articles
 });

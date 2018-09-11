@@ -1,7 +1,15 @@
 import { CHANGE_COUNTRY, FETCH_ARTICLES, SEARCH_ARTICLES, FETCH_SOURCES } from '../actions/types';
 
 const initialState = {
-  country: window.navigator.language.split('-')[1].toLowerCase(),
+  // country: window.navigator.language.split('-')[1].toLowerCase(),
+  country: {
+    code: 'us',
+    name: 'United States',
+    language: {
+      code: 'en',
+      name: 'English'
+    }
+  },
   lastQuery: '',
   sources: [],
   articles: []
