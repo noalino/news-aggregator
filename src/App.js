@@ -19,7 +19,7 @@ const App = () => {
 
     return (
       <Provider store={store}>
-        {/* <ConnectedRouter history={history}> // Synchronize router state with redux store */}
+        {/* <ConnectedRouter history={history}> */}
           <Router>
             <div className={styles.app}>
               <Navbar />

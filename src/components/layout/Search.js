@@ -15,7 +15,7 @@ class Search extends Component {
       from: '',
       to: '',
       source: '',
-      sorting: 'publishedAt'
+      sorting: 'publishedAt' // Stored globally? (to be used by nav searchbar)
     }
   }
 
@@ -25,28 +25,40 @@ class Search extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { country: {language}, fetchSources } = this.props;
+    const { country: {language}, fetchSources, lastQuery } = this.props;
 
+    // Update source list on country change
     if (language.code != prevProps.country.language.code) {
       console.log('Search component updated');
       fetchSources(language.code);
+
+    // Display nav query in main search bar
+    } else if (lastQuery !== prevProps.lastQuery) {
+      this.setState({ query: lastQuery });
     }
   }
 
-  findArticles = e => {
-    e.preventDefault();
+  findArticles = () => { // Avoid reload if query does not change
     const { country: {language}, searchArticles } = this.props;
 
     if (this.state.query !== '') {
-      searchArticles({...this.state}, language.code);
+      searchArticles({language: language.code, ...this.state});
     }
   }
 
   handleInputChange = e => {
     const { name, value } = e.target;
-    this.setState({
-      [name]: value
-    })
+
+    this.setState({ [name]: value }, () => {
+      if (name === 'sorting') {
+        this.findArticles();
+      }
+    });
+  }
+
+  submit = e => {
+    e.preventDefault();
+    this.findArticles();
   }
 
   render() {
@@ -55,7 +67,7 @@ class Search extends Component {
 
     return (
       <div>
-        <form className={styles.header} role="search" onSubmit={this.findArticles}>
+        <form className={styles.header} role="search" onSubmit={this.submit}>
           <div className={styles.searchBar}>
             <input
               type="search"
@@ -65,6 +77,7 @@ class Search extends Component {
               aria-label="Search articles"
               value={query}
               onChange={this.handleInputChange}
+              autoFocus
             >
             </input>
             <button><i className="fas fa-search"></i></button>
@@ -101,8 +114,8 @@ class Search extends Component {
           </div>
         </form>
 
-        <Buttons />
         <ArticlesList articles={articles} />
+        <Buttons />
       </div>
     );
   }

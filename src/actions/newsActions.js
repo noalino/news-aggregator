@@ -22,8 +22,9 @@ export const fetchArticles = (country, category) => dispatch => {
     .catch(err => console.error(err))
 }
 
-export const searchArticles = ({query, from, to, source, sorting}, language) => dispatch => {
+export const searchArticles = ({...args}) => dispatch => {
   // console.log('searching articles...');
+  const { query, from = '', to = '', language, source = '', sorting = 'publishedAt' } = args;
   const queryURI = encodeURIComponent(query);
 
   axios.get(`https://newsapi.org/v2/everything?q=${queryURI}&from=${from}&to=${to}&language=${language}&sources=${source}&sortBy=${sorting}&apiKey=${process.env.API_KEY}`)

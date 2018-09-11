@@ -15,7 +15,7 @@ class Index extends Component {
     const category = topic ? topic : 'general'; // Implementing Redirect in App instead?
     console.log('Index mounting');    
 
-    fetchArticles(country, category);
+    fetchArticles(country.code, category);
   }
 
   componentDidUpdate(prevProps) {
@@ -23,9 +23,9 @@ class Index extends Component {
     const category = topic ? topic : 'general';
     const prevCategory = prevProps.match.params.topic ? prevProps.match.params.topic : 'general';
 
-    if (category != prevCategory || country != prevProps.country) {
+    if (category != prevCategory || country.code != prevProps.country.code) {
       console.log('Index updating');
-      fetchArticles(country, category);
+      fetchArticles(country.code, category);
     }
   }
 
@@ -45,7 +45,7 @@ class Index extends Component {
 }
 
 Index.propTypes = {
-  country: PropTypes.string.isRequired,
+  country: PropTypes.object.isRequired,
   articles: PropTypes.array.isRequired,
   fetchArticles: PropTypes.func.isRequired
 }
