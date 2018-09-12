@@ -34,6 +34,7 @@ class Navbar extends Component {
   }
 
   render() {
+    // Add onClick function on logo (changeCategory?)
     return (
       <nav className={styles.nav}>
         <div className={styles.menu} aria-label="menu button">
@@ -41,7 +42,7 @@ class Navbar extends Component {
           <div></div>
           <div></div>
         </div>
-        <Link to="/" className={styles.logo}><h1>News</h1></Link>
+        <Link to="/general" className={styles.logo}><h1>News</h1></Link>
         <Link to="/log"><i className="fas fa-sign-in-alt"></i><p>Log in or Sign up</p></Link>
         {/*<i className="fas fa-sign-out-alt"></i><p>Log Out</p>*/}
         <form onSubmit={this.findArticles}>

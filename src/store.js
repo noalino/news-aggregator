@@ -8,8 +8,8 @@ const initialState = {};
 
 export const history = createBrowserHistory();
 
-const middleware = [thunk];
-// const middleware = [thunk, routerMiddleware];
+// const middleware = [thunk];
+const middleware = [thunk, routerMiddleware(history)];
 
 export const store = createStore(
   connectRouter(history)(rootReducer),
@@ -19,5 +19,3 @@ export const store = createStore(
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 );
-
-// export default store;

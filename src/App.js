@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-// import { ConnectedRouter } from 'connected-react-router';
+import { ConnectedRouter } from 'connected-react-router';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Navbar from './components/layout/Navbar';
@@ -16,10 +16,9 @@ import styles from './styles/App.scss';
 import { store, history } from './store';
 
 const App = () => {  
-
     return (
       <Provider store={store}>
-        {/* <ConnectedRouter history={history}> */}
+        <ConnectedRouter history={history}>
           <Router>
             <div className={styles.app}>
               <Navbar />
@@ -33,7 +32,7 @@ const App = () => {
               </Switch>
             </div>
           </Router>
-        {/* </ConnectedRouter> */}
+        </ConnectedRouter>
       </Provider>
     );
 }

@@ -1,4 +1,5 @@
 import { CHANGE_COUNTRY, FETCH_ARTICLES, SEARCH_ARTICLES, FETCH_SOURCES } from './types';
+import { push } from 'connected-react-router';
 import axios from 'axios';
 
 export const changeCountry = country => dispatch => {
@@ -9,6 +10,11 @@ export const changeCountry = country => dispatch => {
   })
 }
 
+export const changeCategory = category => dispatch => {
+  console.log('changing category');
+  dispatch(push(category));
+}
+
 export const fetchArticles = (country, category) => dispatch => {
   // console.log('fetching articles...');
   axios.get(`https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${process.env.API_KEY}`)
@@ -17,7 +23,7 @@ export const fetchArticles = (country, category) => dispatch => {
       dispatch({
         type: FETCH_ARTICLES,
         payload: res.data.articles
-      })
+      });
     })
     .catch(err => console.error(err))
 }
