@@ -1,0 +1,1 @@
+export const getQuery = param => param.match(/[^\?q=]/gi).reduce((a, b) => a + b);

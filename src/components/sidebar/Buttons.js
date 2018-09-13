@@ -34,12 +34,12 @@ class Buttons extends Component {
 
     return (
       <div className={styles.buttons}>
-        <Link to="/favorites">
+        {/* <Link to="/favorites">
           <button className={styles.favorites}>
             <i className="fas fa-star"></i>
             <h3>My Favorites</h3>
           </button>
-        </Link>
+        </Link> */}
         <Link to="/bookmarks">
           <button className={styles.bookmarks}>
             <i className="fas fa-bookmark"></i>

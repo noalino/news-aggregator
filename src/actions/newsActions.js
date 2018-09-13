@@ -1,5 +1,4 @@
 import { CHANGE_COUNTRY, FETCH_ARTICLES, SEARCH_ARTICLES, FETCH_SOURCES } from './types';
-import { push } from 'connected-react-router';
 import axios from 'axios';
 
 export const changeCountry = country => dispatch => {
@@ -10,41 +9,36 @@ export const changeCountry = country => dispatch => {
   })
 }
 
-export const changeCategory = category => dispatch => {
-  console.log('changing category');
-  dispatch(push(category));
-}
-
 export const fetchArticles = (country, category) => dispatch => {
-  // console.log('fetching articles...');
-  axios.get(`https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${process.env.API_KEY}`)
-    .then(res => {
-      console.log('fetching articles...');
-      dispatch({
-        type: FETCH_ARTICLES,
-        payload: res.data.articles
-      });
-    })
-    .catch(err => console.error(err))
+  console.log('fetching articles...');
+  // axios.get(`https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${process.env.API_KEY}`)
+  //   .then(res => {
+  //     console.log('fetching articles...');
+  //     dispatch({
+  //       type: FETCH_ARTICLES,
+  //       payload: res.data.articles
+  //     });
+  //   })
+  //   .catch(err => console.error(err))
 }
 
 export const searchArticles = ({...args}) => dispatch => {
-  // console.log('searching articles...');
-  const { query, from = '', to = '', language, source = '', sorting = 'publishedAt' } = args;
-  const queryURI = encodeURIComponent(query);
+  console.log('searching articles...');
+  // const { query, from = '', to = '', language, source = '', sorting = 'publishedAt' } = args;
+  // const queryURI = encodeURIComponent(query);
 
-  axios.get(`https://newsapi.org/v2/everything?q=${queryURI}&from=${from}&to=${to}&language=${language}&sources=${source}&sortBy=${sorting}&apiKey=${process.env.API_KEY}`)
-    .then(res => {
-      console.log('searching articles...');
-      dispatch({
-        type: SEARCH_ARTICLES,
-        payload: {
-          lastQuery: query,
-          articles: res.data.articles
-        }
-      })
-    })
-    .catch(err => console.error(err))
+  // axios.get(`https://newsapi.org/v2/everything?q=${queryURI}&from=${from}&to=${to}&language=${language}&sources=${source}&sortBy=${sorting}&apiKey=${process.env.API_KEY}`)
+  //   .then(res => {
+  //     console.log('searching articles...');
+  //     dispatch({
+  //       type: SEARCH_ARTICLES,
+  //       payload: {
+  //         lastQuery: query,
+  //         articles: res.data.articles
+  //       }
+  //     })
+  //   })
+  //   .catch(err => console.error(err))
 }
 
 export const fetchSources = language => dispatch => {

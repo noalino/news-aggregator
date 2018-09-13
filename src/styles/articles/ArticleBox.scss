@@ -10,14 +10,14 @@
   box-shadow: 0 2px 15px 0 lightgrey;
   
   display: grid;
-  grid-template-columns: auto repeat(2, 5%);
+  grid-template-columns: auto 5%;
   grid-template-rows: repeat(4, auto);
   grid-gap: 0.7em;
   grid-template-areas:
-    "source star bookmark"
-    "img img img"
-    "text text text"
-    "date date date";
+    "source bookmark"
+    "img img"
+    "text text"
+    "date date";
 
   img {
     max-width: 100%;
@@ -41,11 +41,6 @@
     }
 
     &:nth-child(2) {
-      grid-area: star;
-      color: $star-color;
-    }
-
-    &:nth-child(3) {
       grid-area: bookmark;
       color: $bookmark-color;
     }

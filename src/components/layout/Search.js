@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { searchArticles, fetchSources } from '../../actions/newsActions';
+import { getQuery } from '../../_utils';
 
 import Buttons from '../sidebar/Buttons';
 import ArticlesList from '../articles/ArticlesList';
@@ -11,7 +12,8 @@ class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      query: '',
+      // query: '',
+      query: this.props.history.location.search ? getQuery(this.props.history.location.search) : '',
       from: '',
       to: '',
       source: '',
@@ -20,13 +22,17 @@ class Search extends Component {
   }
 
   componentDidMount() {
-    const { country, fetchSources } = this.props;
-    fetchSources(country.language.code);
+    const { country: {language}, fetchSources, searchArticles } = this.props;
+    fetchSources(language.code);
+
+    if (this.state.query !== '') {
+      searchArticles({language: language.code, ...this.state});
+    }
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps) { /** TO UPDATE */
     const { country: {language}, fetchSources, lastQuery } = this.props;
-
+    
     // Update source list on country change
     if (language.code != prevProps.country.language.code) {
       console.log('Search component updated');
@@ -38,11 +44,13 @@ class Search extends Component {
     }
   }
 
-  findArticles = () => { // Avoid reload if query does not change
+  findArticles = () => { /* TO UPDATE */// Avoid reload if query does not change
     const { country: {language}, searchArticles } = this.props;
 
     if (this.state.query !== '') {
-      searchArticles({language: language.code, ...this.state});
+      // searchArticles({language: language.code, ...this.state});
+
+      /* history.push(`search?q=${this.state.query}`, {...this.state}); */
     }
   }
 

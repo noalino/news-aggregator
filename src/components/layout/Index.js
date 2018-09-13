@@ -8,28 +8,32 @@ import Sidebar from '../sidebar/Sidebar';
 import ArticlesList from '../articles/ArticlesList';
 import styles from '../../styles/layout/Index.scss';
 
-class Index extends Component {
+class Index extends Component { /** Set articles = [] when component unmount? */
 
-  componentDidMount() {
-    const { pathname, country, fetchArticles } = this.props;
-    const category = pathname.split('/')[1] ? pathname.split('/')[1] : 'general';
+  componentDidMount() {  
+    const { match: { params: { topic } }, country, fetchArticles } = this.props;
+    // const category = topic ? topic : 'general';
     console.log('Index mounting');
 
-    fetchArticles(country.code, category);
+    // fetchArticles(country.code, category);
+    fetchArticles(country.code, topic); // Thanks to Redirect from '/' to '/general' in App.js
   }
 
-  componentDidUpdate(prevProps) {
-    const { pathname, country, fetchArticles } = this.props;
-    const category = pathname.split('/')[1] ? pathname.split('/')[1] : 'general';
-
-    if (pathname !== prevProps.pathname || country.code != prevProps.country.code) {
+  componentDidUpdate(prevProps) {      
+    const { match: { params: { topic } }, country, fetchArticles } = this.props;
+    // const category = topic ? topic : 'general';
+    // if (category !== prevProps.match.params.topic || country.code !== prevProps.country.code) {
+    if (topic !== prevProps.match.params.topic || country.code !== prevProps.country.code) {
       console.log('Index updating');
-      fetchArticles(country.code, category);
+
+      // fetchArticles(country.code, category);
+      fetchArticles(country.code, topic);
     }
   }
-
+  
   render() {
     const { articles } = this.props;
+
     return (
       <React.Fragment>
         <header className={styles.header}>
@@ -44,13 +48,13 @@ class Index extends Component {
 }
 
 Index.propTypes = {
+  match: PropTypes.object.isRequired,
   country: PropTypes.object.isRequired,
   articles: PropTypes.array.isRequired,
   fetchArticles: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
-  pathname: state.router.location.pathname,
   country: state.news.country,
   articles: state.news.articles
 });

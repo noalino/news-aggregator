@@ -25,6 +25,10 @@
     @extend %anchor-display;
     font-size: 1.5em;
 
+    &.logo {
+      margin-right: auto;
+    }
+
     & > i {
       display: none;
     }
@@ -43,14 +47,11 @@
     button {
       background: transparent;
       border: none;
+      cursor: pointer;
 
       i {
         color: #fff;
         font-size: 2em;
-      }
-
-      &:hover {
-        cursor: pointer;
       }
     }
   }
@@ -69,12 +70,9 @@
 }
 
 .logo {
-  margin-right: auto;
-  
-  & > p {
-    font-size: 1.5em;
-    text-transform: uppercase;
-  }
+  font-size: 1.5em;
+  text-transform: uppercase;
+  cursor: pointer;
 }
 
 // .links {

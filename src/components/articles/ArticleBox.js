@@ -22,7 +22,7 @@ class ArticleBox extends Component {
       {/*<article id={article.title} className={style.article} draggable="true" onDragStart={this.handleDragStart}>*/}
 
         <p>{article.source.name}</p>
-        <i className="fas fa-star"></i>
+        {/* <i className="fas fa-star"></i> */}
         <i className="fas fa-bookmark"></i>
         {/* Empty icons
         <i className="far fa-star"></i>

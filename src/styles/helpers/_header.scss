@@ -3,8 +3,9 @@
 .header {
   position: fixed;
   top: $nav-height;
-  left: $sidebar-width;
   height: $header-height;
+  // width: 100%;
+  left: $sidebar-width;
   width: $container-width;
   background: white;
   z-index: 2;

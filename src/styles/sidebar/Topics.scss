@@ -21,12 +21,15 @@
   }
 
   li {
-    margin: 0.8em 0;
+    margin: 1.2em 0;
   }
 
-  button {
+  a {
+    background: lightgrey;
     font-size: 1em;
+    color: #000;
     text-transform: uppercase;
+    text-decoration: none;
     padding: 0.4em 1em;
 
     &:hover {

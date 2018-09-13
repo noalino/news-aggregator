@@ -1,19 +1,18 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { changeCategory } from '../../actions/newsActions';
 import styles from '../../styles/sidebar/Topics.scss';
 
-const Topics = ({ topicsList, changeCategory }) => {
+const Topics = ({ topicsList }) => {
   return (
     <div className={styles.topics}>
       <h2>Topics</h2>
       <ul>
         {topicsList.map(topic => (
           <li key={topic}>
-            <button onClick={() => changeCategory(topic)}>
+            <Link to={topic}>
               <span className="fas fa-briefcase"></span>{topic}
-            </button>
+            </Link>
           </li>
         ))}
       </ul>
@@ -35,7 +34,6 @@ Topics.defaultProps = {
 
 Topics.propTypes = {
   topicsList: PropTypes.array.isRequired,
-  changeCategory: PropTypes.func.isRequired
 }
 
-export default connect(null, { changeCategory })(Topics);
+export default Topics;
