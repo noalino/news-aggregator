@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchArticles } from '../../actions/newsActions';
+import { fetchArticles, emptyArticles } from '../../actions/newsActions';
 
 import Spinner from '../layout/Spinner';
 import Sidebar from '../sidebar/Sidebar';
 import ArticlesList from '../articles/ArticlesList';
 import styles from '../../styles/layout/Index.scss';
 
-class Index extends Component { /** Set articles = [] when component unmount? */
+class Index extends Component {
 
   componentDidMount() {  
     const { match: { params: { topic } }, country, fetchArticles } = this.props;
@@ -29,6 +29,10 @@ class Index extends Component { /** Set articles = [] when component unmount? */
       // fetchArticles(country.code, category);
       fetchArticles(country.code, topic);
     }
+  }
+
+  componentWillUnmount() {
+    this.props.emptyArticles();
   }
   
   render() {
@@ -51,7 +55,8 @@ Index.propTypes = {
   match: PropTypes.object.isRequired,
   country: PropTypes.object.isRequired,
   articles: PropTypes.array.isRequired,
-  fetchArticles: PropTypes.func.isRequired
+  fetchArticles: PropTypes.func.isRequired,
+  emptyArticles: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -59,4 +64,4 @@ const mapStateToProps = state => ({
   articles: state.news.articles
 });
 
-export default connect(mapStateToProps, { fetchArticles })(Index);
+export default connect(mapStateToProps, { fetchArticles, emptyArticles })(Index);

@@ -9,6 +9,14 @@ export const changeCountry = country => dispatch => {
   })
 }
 
+export const emptyArticles = () => dispatch => {
+  console.log('empty articles list');
+  dispatch({
+    type: FETCH_ARTICLES,
+    payload: []
+  })
+}
+
 export const fetchArticles = (country, category) => dispatch => {
   console.log('fetching articles...');
   // axios.get(`https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${process.env.API_KEY}`)
@@ -23,8 +31,10 @@ export const fetchArticles = (country, category) => dispatch => {
 }
 
 export const searchArticles = ({...args}) => dispatch => {
-  console.log('searching articles...');
+  // console.log('searching articles...');
   // const { query, from = '', to = '', language, source = '', sorting = 'publishedAt' } = args;
+  const { query, options, language } = args;
+  const { from = '', to = '', source = '', sorting = 'publishedAt' } = options;
   // const queryURI = encodeURIComponent(query);
 
   // axios.get(`https://newsapi.org/v2/everything?q=${queryURI}&from=${from}&to=${to}&language=${language}&sources=${source}&sortBy=${sorting}&apiKey=${process.env.API_KEY}`)
@@ -39,6 +49,17 @@ export const searchArticles = ({...args}) => dispatch => {
   //     })
   //   })
   //   .catch(err => console.error(err))
+
+  // console.log('args', args);
+  // console.log('query: ', query);
+  // console.log('options: ', options);
+  dispatch({
+    type: SEARCH_ARTICLES,
+    payload: {
+      lastQuery: query,
+      articles: []
+    }
+  })
 }
 
 export const fetchSources = language => dispatch => {

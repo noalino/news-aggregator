@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { searchArticles, fetchSources } from '../../actions/newsActions';
-import { getQuery } from '../../_utils';
+import { getQuery, isObjectEqual } from '../../_utils';
 
 import Buttons from '../sidebar/Buttons';
 import ArticlesList from '../articles/ArticlesList';
@@ -11,18 +11,23 @@ import styles from '../../styles/layout/Search.scss';
 class Search extends Component {
   constructor(props) {
     super(props);
+    const { search } = this.props.location;
     this.state = {
-      // query: '',
-      query: this.props.history.location.search ? getQuery(this.props.history.location.search) : '',
-      from: '',
-      to: '',
-      source: '',
-      sorting: 'publishedAt' // Stored globally? (to be used by nav searchbar)
+      // Initialize query to the one from nav searchbar or URL if it exists
+      query: search ? decodeURIComponent(getQuery(search)) : '',
+      options: {
+        from: '',
+        to: '',
+        source: '',
+        sorting: 'publishedAt'
+      }
     }
   }
 
   componentDidMount() {
     const { country: {language}, fetchSources, searchArticles } = this.props;
+    console.log('Search component mounting');
+
     fetchSources(language.code);
 
     if (this.state.query !== '') {
@@ -30,52 +35,58 @@ class Search extends Component {
     }
   }
 
-  componentDidUpdate(prevProps) { /** TO UPDATE */
-    const { country: {language}, fetchSources, lastQuery } = this.props;
-    
-    // Update source list on country change
-    if (language.code != prevProps.country.language.code) {
-      console.log('Search component updated');
+  componentDidUpdate(prevProps, prevState) {
+    const { query, options } = this.state;
+    const { country: {language}, fetchSources, searchArticles, location: {search, state} } = this.props;
+    const decodedQuery = search ? decodeURIComponent(getQuery(search)) : '';
+
+    // Fetch source list & reset source on country change
+    if (language.code !== prevProps.country.language.code) {
       fetchSources(language.code);
+      this.setState({ options: {source: ''} });
+      
+    // Search articles on sorting change
+    // } else if (options.sorting !== prevState.options.sorting) {
+    //   console.log('Search component updating: sorting changed');
+    //   searchArticles({language: language.code, ...this.state});
+            
+    // Change of this.state to match history state
+    } else if ((search !== prevProps.location.search || state !== prevProps.location.state) || options.sorting !== prevState.options.sorting) { // Compare objects (state: may be undefined)
+      console.log('Search component updating: location state changed');
+      console.log('location', this.props.location);
 
-    // Display nav query in main search bar
-    } else if (lastQuery !== prevProps.lastQuery) {
-      this.setState({ query: lastQuery });
-    }
-  }
-
-  findArticles = () => { /* TO UPDATE */// Avoid reload if query does not change
-    const { country: {language}, searchArticles } = this.props;
-
-    if (this.state.query !== '') {
-      // searchArticles({language: language.code, ...this.state});
-
-      /* history.push(`search?q=${this.state.query}`, {...this.state}); */
+      this.setState({ query: decodedQuery, options: {...state} }, () => {
+        searchArticles({language: language.code, ...this.state});
+      });
     }
   }
 
   handleInputChange = e => {
     const { name, value } = e.target;
-
-    this.setState({ [name]: value }, () => {
-      if (name === 'sorting') {
-        this.findArticles();
-      }
-    });
+    if (name === 'query') {
+      this.setState({ [name]: value });
+    } else {
+      this.setState(prevState => ({ options: {...prevState.options, [name]: value} }));
+    }
   }
 
-  submit = e => {
+  onSubmit = e => {
     e.preventDefault();
-    this.findArticles();
+    const { query, options } = this.state;
+    const { location, history } = this.props;
+
+    if (query !== '') {
+      history.push(`${location.pathname}?q=${encodeURIComponent(query)}`, {...options});
+    }
   }
 
   render() {
-    const { query, source, sorting } = this.state;
+    const { query, options } = this.state;
     const { lastQuery, sources, articles } = this.props;
 
     return (
       <div>
-        <form className={styles.header} role="search" onSubmit={this.submit}>
+        <form className={styles.header} role="search" onSubmit={this.onSubmit}>
           <div className={styles.searchBar}>
             <input
               type="search"
@@ -94,15 +105,15 @@ class Search extends Component {
           <div className={styles.options}>
             <div>
               <label htmlFor="from">From: </label>
-              <input type="date" name="from" id="from" onChange={this.handleInputChange}></input>
+              <input type="date" name="from" id="from" value={options.from} onChange={this.handleInputChange}></input>
             </div>
             <div>
               <label htmlFor="to">To: </label>
-              <input type="date" name="to" id="to" onChange={this.handleInputChange}></input>
+              <input type="date" name="to" id="to" value={options.to} onChange={this.handleInputChange}></input>
             </div>
             <div>
               <label htmlFor="source">Source: </label>
-              <select name="source" id="source" value={source} onChange={this.handleInputChange} size="1">
+              <select name="source" id="source" value={options.source} onChange={this.handleInputChange} size="1">
                 <option value="">All</option>
                 {sources.map(src => <option key={src.id} value={src.id}>{src.name}</option>)}
               </select>
@@ -113,7 +124,7 @@ class Search extends Component {
             <h3>Results for: {lastQuery}</h3>
             <div>
               <label htmlFor="sortBy">Sort by: </label>
-              <select name="sorting" id="sorting" value={sorting} size="1" onChange={this.handleInputChange}>
+              <select name="sorting" id="sorting" value={options.sorting} size="1" onChange={this.handleInputChange}>
                 <option value="publishedAt">Published At</option>
                 <option value="relevancy">Relevancy</option>
                 <option value="popularity">Popularity</option>
@@ -130,7 +141,7 @@ class Search extends Component {
 }
 
 Search.propTypes = {
-  lastQuery: PropTypes.string,
+  lastQuery: PropTypes.string.isRequired,
   country: PropTypes.object.isRequired,
   sources: PropTypes.array.isRequired,
   articles: PropTypes.array.isRequired,

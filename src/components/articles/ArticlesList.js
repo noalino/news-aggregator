@@ -3,13 +3,14 @@ import ArticleBox from './ArticleBox';
 import styles from '../../styles/articles/ArticlesList.scss';
 
 class ArticlesList extends Component {
-// const ArticlesList = ({ articles }) => {
-  // componentDidUpdate(prevProps) {
+  shouldComponentUpdate(nextProps) {
+    return nextProps.articles !== this.props.articles;
+  }
 
-  // }
   render() {
-    console.log('articles list rendering');
+    // console.log('articles list rendering');
     const { articles } = this.props;
+
     return (
       <div className={styles.scrollpage}>
         <div className={styles.container}>

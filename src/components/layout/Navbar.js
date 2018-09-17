@@ -20,8 +20,10 @@ class Navbar extends Component {
     const { query } = this.state;
 
     if (query !== '') {
-      history.push(`search?q=${query}`);
+      history.push(`/search?q=${encodeURIComponent(query)}`);
       this.setState({ query: ''});
+    } else {
+      history.push('/search');
     }
   }
 
