@@ -12,6 +12,8 @@
   &:after {
     content: '';
     display: block;
+    position: absolute;
+    bottom: 0;
     width: $container-width;
     height: 3px;
     background: $primary-color;

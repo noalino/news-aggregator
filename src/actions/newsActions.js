@@ -31,35 +31,34 @@ export const fetchArticles = (country, category) => dispatch => {
 }
 
 export const searchArticles = ({...args}) => dispatch => {
-  // console.log('searching articles...');
-  // const { query, from = '', to = '', language, source = '', sorting = 'publishedAt' } = args;
+  console.log('searching articles...');
   const { query, options, language } = args;
-  const { from = '', to = '', source = '', sorting = 'publishedAt' } = options;
-  // const queryURI = encodeURIComponent(query);
 
-  // axios.get(`https://newsapi.org/v2/everything?q=${queryURI}&from=${from}&to=${to}&language=${language}&sources=${source}&sortBy=${sorting}&apiKey=${process.env.API_KEY}`)
-  //   .then(res => {
-  //     console.log('searching articles...');
-  //     dispatch({
-  //       type: SEARCH_ARTICLES,
-  //       payload: {
-  //         lastQuery: query,
-  //         articles: res.data.articles
-  //       }
-  //     })
-  //   })
-  //   .catch(err => console.error(err))
-
-  // console.log('args', args);
-  // console.log('query: ', query);
-  // console.log('options: ', options);
-  dispatch({
-    type: SEARCH_ARTICLES,
-    payload: {
-      lastQuery: query,
-      articles: []
-    }
-  })
+  if (query === '') {
+    dispatch({
+      type: SEARCH_ARTICLES,
+      payload: {
+        lastQuery: query,
+        articles: []
+      }
+    })
+  } else {
+    const queryURI = encodeURIComponent(query);
+    const { from, to, source, sorting } = options;
+  
+    axios.get(`https://newsapi.org/v2/everything?q=${queryURI}&from=${from}&to=${to}&language=${language}&sources=${source}&sortBy=${sorting}&apiKey=${process.env.API_KEY}`)
+      .then(res => {
+        console.log('searching articles...');
+        dispatch({
+          type: SEARCH_ARTICLES,
+          payload: {
+            lastQuery: query,
+            articles: res.data.articles
+          }
+        })
+      })
+      .catch(err => console.error(err))
+  }
 }
 
 export const fetchSources = language => dispatch => {
