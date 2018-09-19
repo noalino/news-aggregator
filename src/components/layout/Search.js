@@ -8,7 +8,7 @@ import Buttons from '../sidebar/Buttons';
 import ArticlesList from '../articles/ArticlesList';
 import styles from '../../styles/layout/Search.scss';
 
-class Search extends Component {
+export class Search extends Component {
   constructor(props) {
     super(props);
     const { search } = this.props.location;
@@ -18,6 +18,15 @@ class Search extends Component {
       options: { ...this.props.options }
     }
   }
+
+  static defaultProps = {
+    options: {
+      from: '',
+      to: '',
+      source: '',
+      sorting: 'publishedAt'
+    }
+  };
 
   componentDidMount() {
     const { country: {language}, fetchSources, searchArticles } = this.props;
@@ -37,7 +46,7 @@ class Search extends Component {
     // console.log('location updating', this.props.location);
 
     // Fetch source list & reset source on country change
-    if (language.code !== prevProps.country.language.code) {
+    if (language.code !== prevProps.country.language.code) { // Date input changed from controlled to uncontrolled
       fetchSources(language.code);
       this.setState({ options: {source: ''} });
                   
@@ -146,14 +155,14 @@ class Search extends Component {
   }
 }
 
-Search.defaultProps = {
-  options: {
-    from: '',
-    to: '',
-    source: '',
-    sorting: 'publishedAt'
-  }
-};
+// Search.defaultProps = {
+//   options: {
+//     from: '',
+//     to: '',
+//     source: '',
+//     sorting: 'publishedAt'
+//   }
+// };
 
 Search.propTypes = {
   lastQuery: PropTypes.string.isRequired,

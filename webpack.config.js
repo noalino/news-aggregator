@@ -36,7 +36,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
-    publicPath: '/' // Enable CSR (client side routing) to get URL page (redirect from '/')
+    publicPath: '/' // Enable CSR (client side routing) to get URL page (redirect to '/')
   },
   module: {
     rules: [

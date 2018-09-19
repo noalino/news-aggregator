@@ -34,7 +34,7 @@ export const searchArticles = ({...args}) => dispatch => {
   console.log('searching articles...');
   const { query, options, language } = args;
 
-  if (query === '') {
+  // if (query === '') {
     dispatch({
       type: SEARCH_ARTICLES,
       payload: {
@@ -42,23 +42,23 @@ export const searchArticles = ({...args}) => dispatch => {
         articles: []
       }
     })
-  } else {
-    const queryURI = encodeURIComponent(query);
-    const { from, to, source, sorting } = options;
+  // } else {
+  //   const queryURI = encodeURIComponent(query);
+  //   const { from, to, source, sorting } = options;
   
-    axios.get(`https://newsapi.org/v2/everything?q=${queryURI}&from=${from}&to=${to}&language=${language}&sources=${source}&sortBy=${sorting}&apiKey=${process.env.API_KEY}`)
-      .then(res => {
-        console.log('searching articles...');
-        dispatch({
-          type: SEARCH_ARTICLES,
-          payload: {
-            lastQuery: query,
-            articles: res.data.articles
-          }
-        })
-      })
-      .catch(err => console.error(err))
-  }
+  //   axios.get(`https://newsapi.org/v2/everything?q=${queryURI}&from=${from}&to=${to}&language=${language}&sources=${source}&sortBy=${sorting}&apiKey=${process.env.API_KEY}`)
+  //     .then(res => {
+  //       console.log('searching articles...');
+  //       dispatch({
+  //         type: SEARCH_ARTICLES,
+  //         payload: {
+  //           lastQuery: query,
+  //           articles: res.data.articles
+  //         }
+  //       })
+  //     })
+  //     .catch(err => console.error(err))
+  // }
 }
 
 export const fetchSources = language => dispatch => {
