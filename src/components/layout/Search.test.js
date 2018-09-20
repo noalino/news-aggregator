@@ -9,11 +9,13 @@ describe('<Search />', () => {
   let wrapper;
   let mockSearchfn;
   let mockFetchSrcfn;
+  let mockResetfn;
   let props;
 
   beforeEach(() => {
     mockSearchfn = jest.fn();
     mockFetchSrcfn = jest.fn();
+    mockResetfn = jest.fn();
     props = {
       country: {
         code: 'us',
@@ -32,7 +34,8 @@ describe('<Search />', () => {
         state: undefined
       },
       searchArticles: mockSearchfn,
-      fetchSources: mockFetchSrcfn
+      fetchSources: mockFetchSrcfn,
+      resetArticles: mockResetfn
     };
   });
 
@@ -135,10 +138,9 @@ describe('<Search />', () => {
           wrapper.setProps({...newProps});
         });
 
-        it('should search articles', () => { // SHOULD NOT (another way to reinitialize articles?)
-          expect(mockSearchfn.mock.calls.length).toBe(2);
-          expect(mockSearchfn.mock.calls[0][0].query).toBe('bitcoin');
-          expect(mockSearchfn.mock.calls[1][0].query).toBe('');
+        it('should reset articles', () => {
+          // console.log(mockResetfn.mock.calls);
+          expect(mockResetfn.mock.calls.length).toBe(1);
         });
       });
 
@@ -191,10 +193,12 @@ describe('<Search />', () => {
           wrapper.setProps({...newProps});
         });
 
-        it('should search articles', () => { // SHOULD NOT (another way to reinitialize articles?)
-          expect(mockSearchfn.mock.calls.length).toBe(2);
-          expect(mockSearchfn.mock.calls[0][0].query).toBe('bitcoin');
-          expect(mockSearchfn.mock.calls[1][0].query).toBe('');
+        it('should reset articles', () => {
+          console.log(mockResetfn.mock.calls);
+          expect(mockResetfn.mock.calls.length).toBe(1);
+          // expect(mockSearchfn.mock.calls.length).toBe(2);
+          // expect(mockSearchfn.mock.calls[0][0].query).toBe('bitcoin');
+          // expect(mockSearchfn.mock.calls[1][0].query).toBe('');
         });
       });
 
@@ -230,7 +234,7 @@ describe('<Search />', () => {
     });
   });
 
-  describe('When options change', () => {
+  describe('When options change', () => { // SIMULATE SUBMIT FOR ALL OPTIONS CHANGES
     describe('with no query', () => {
       beforeEach(() => {
           const noQueryProps = {

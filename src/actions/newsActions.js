@@ -9,11 +9,14 @@ export const changeCountry = country => dispatch => {
   })
 }
 
-export const emptyArticles = () => dispatch => {
-  console.log('empty articles list');
+export const resetArticles = () => dispatch => {
+  console.log('reset lastQuery & empty articles list');
   dispatch({
-    type: FETCH_ARTICLES,
-    payload: []
+    type: SEARCH_ARTICLES,
+    payload: {
+      lastQuery: '',
+      articles: []
+    }
   })
 }
 
@@ -33,32 +36,29 @@ export const fetchArticles = (country, category) => dispatch => {
 export const searchArticles = ({...args}) => dispatch => {
   console.log('searching articles...');
   const { query, options, language } = args;
+  const queryURI = encodeURIComponent(query);
+  const { from, to, source, sorting } = options;
 
-  // if (query === '') {
-    dispatch({
-      type: SEARCH_ARTICLES,
-      payload: {
-        lastQuery: query,
-        articles: []
-      }
-    })
-  // } else {
-  //   const queryURI = encodeURIComponent(query);
-  //   const { from, to, source, sorting } = options;
-  
-  //   axios.get(`https://newsapi.org/v2/everything?q=${queryURI}&from=${from}&to=${to}&language=${language}&sources=${source}&sortBy=${sorting}&apiKey=${process.env.API_KEY}`)
-  //     .then(res => {
-  //       console.log('searching articles...');
-  //       dispatch({
-  //         type: SEARCH_ARTICLES,
-  //         payload: {
-  //           lastQuery: query,
-  //           articles: res.data.articles
-  //         }
-  //       })
+  // axios.get(`https://newsapi.org/v2/everything?q=${queryURI}&from=${from}&to=${to}&language=${language}&sources=${source}&sortBy=${sorting}&apiKey=${process.env.API_KEY}`)
+  //   .then(res => {
+  //     console.log('searching articles...');
+  //     dispatch({
+  //       type: SEARCH_ARTICLES,
+  //       payload: {
+  //         lastQuery: query,
+  //         articles: res.data.articles
+  //       }
   //     })
-  //     .catch(err => console.error(err))
-  // }
+  //   })
+  //   .catch(err => console.error(err))
+
+  dispatch({
+    type: SEARCH_ARTICLES,
+    payload: {
+      lastQuery: query,
+      articles: []
+    }
+  })
 }
 
 export const fetchSources = language => dispatch => {

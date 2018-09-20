@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { searchArticles, fetchSources } from '../../actions/newsActions';
+import { searchArticles, fetchSources, resetArticles } from '../../actions/newsActions';
 import { getQuery, isEqual } from '../../_utils';
 
 import Buttons from '../sidebar/Buttons';
@@ -40,18 +40,18 @@ export class Search extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { country: {language}, fetchSources, searchArticles, location } = this.props;
+    const { country: {language}, fetchSources, searchArticles, resetArticles, location, options } = this.props;
     const { search, state } = location;
     const decodedQuery = search ? decodeURIComponent(getQuery(search)) : '';
     // console.log('location updating', this.props.location);
     // console.log('Search component updating');
 
     // Fetch source list, reset source & search articles if query on country change
-    if (language.code !== prevProps.country.language.code) { // Date input changed from controlled to uncontrolled
-      console.log('fetching sources');
+    if (language.code !== prevProps.country.language.code) {
+      console.log('language changed');
       fetchSources(language.code);
 
-      this.setState({ options: {source: ''} }, () => {
+      this.setState({ options: { ...options, source: '' } }, () => {
         if (decodedQuery !== '') {
           searchArticles({language: language.code, ...this.state});
         }
@@ -63,9 +63,9 @@ export class Search extends Component {
       this.setState(
         {
           query: decodedQuery,
-          options: {...this.props.options}
+          options: {...options}
         },
-        () => searchArticles({language: language.code, ...this.state})
+        () => decodedQuery !== '' ? searchArticles({language: language.code, ...this.state}) : resetArticles()
       );
 
     // Handle query coming from main searchbar (TO CHANGE: SHOULD NOT BE CALLED WHEN OPTIONS CHANGE && QUERY === '')
@@ -76,7 +76,7 @@ export class Search extends Component {
           query: decodedQuery,
           options: {...state}
         },
-        () => searchArticles({language: language.code, ...this.state})
+        () => decodedQuery !== '' ? searchArticles({language: language.code, ...this.state}) : resetArticles()
       );
     }
   }
@@ -162,22 +162,14 @@ export class Search extends Component {
   }
 }
 
-// Search.defaultProps = {
-//   options: {
-//     from: '',
-//     to: '',
-//     source: '',
-//     sorting: 'publishedAt'
-//   }
-// };
-
 Search.propTypes = {
   lastQuery: PropTypes.string.isRequired,
   country: PropTypes.object.isRequired,
   sources: PropTypes.array.isRequired,
   articles: PropTypes.array.isRequired,
   searchArticles: PropTypes.func.isRequired,
-  fetchSources: PropTypes.func.isRequired
+  fetchSources: PropTypes.func.isRequired,
+  resetArticles: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -187,4 +179,4 @@ const mapStateToProps = state => ({
   articles: state.news.articles
 });
 
-export default connect(mapStateToProps, { searchArticles, fetchSources })(Search);
+export default connect(mapStateToProps, { searchArticles, fetchSources, resetArticles })(Search);
