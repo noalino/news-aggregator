@@ -42,7 +42,10 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        use: { loader: 'babel-loader' },
+        use: [
+          'babel-loader',
+          // 'eslint-loader'
+        ],
         exclude: path.resolve(__dirname, 'node_modules'),
         include: path.resolve(__dirname, 'src')
       },

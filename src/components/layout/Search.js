@@ -30,7 +30,7 @@ export class Search extends Component {
 
   componentDidMount() {
     const { country: {language}, fetchSources, searchArticles } = this.props;
-    console.log('Search component mounting');
+    // console.log('Search component mounting');
 
     fetchSources(language.code);
 
@@ -44,11 +44,18 @@ export class Search extends Component {
     const { search, state } = location;
     const decodedQuery = search ? decodeURIComponent(getQuery(search)) : '';
     // console.log('location updating', this.props.location);
+    // console.log('Search component updating');
 
-    // Fetch source list & reset source on country change
+    // Fetch source list, reset source & search articles if query on country change
     if (language.code !== prevProps.country.language.code) { // Date input changed from controlled to uncontrolled
+      console.log('fetching sources');
       fetchSources(language.code);
-      this.setState({ options: {source: ''} });
+
+      this.setState({ options: {source: ''} }, () => {
+        if (decodedQuery !== '') {
+          searchArticles({language: language.code, ...this.state});
+        }
+      });
                   
     // Handle query coming from nav searchbar or from URL
     } else if (state === undefined && search !== prevProps.location.search) {
@@ -61,7 +68,7 @@ export class Search extends Component {
         () => searchArticles({language: language.code, ...this.state})
       );
 
-    // Handle query coming from main searchbar
+    // Handle query coming from main searchbar (TO CHANGE: SHOULD NOT BE CALLED WHEN OPTIONS CHANGE && QUERY === '')
     } else if (state !== undefined && (search !== prevProps.location.search || !isEqual(state, prevProps.location.state))) {
       console.log('main searchbar request');
       this.setState(
