@@ -1,8 +1,8 @@
 @import '../helpers/sizing', '../helpers/colors';
 
 %anchor-display {
-  display: flex;
-  align-items: center;
+  // display: flex;
+  // align-items: center;
   color: #fff;
   text-decoration: none;
   padding: 0 0.5em;
@@ -21,16 +21,32 @@
   align-items: center;
   z-index: 2;
 
-  & > a {
-    @extend %anchor-display;
-    font-size: 1.5em;
+  & > ul {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style-type: none;
+    padding: 0;
 
-    &.logo {
-      margin-right: auto;
-    }
+    & > li {
 
-    & > i {
-      display: none;
+      &.menu {
+        display: none;
+      }
+
+      & > a {
+        @extend %anchor-display;
+        font-size: 1.5em;
+    
+        &.logo {
+          margin-right: auto;
+        }
+    
+        & > i {
+          display: none;
+        }
+      }
     }
   }
 
@@ -58,9 +74,8 @@
 }
 
 .menu {
-  display: none;
-  cursor: pointer;
   padding: 0 0.5em;
+  cursor: pointer;
 
   & > div {
     width: 20px;

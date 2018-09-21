@@ -21,46 +21,44 @@ export const resetArticles = () => dispatch => {
 }
 
 export const fetchArticles = (country, category) => dispatch => {
-  // console.log('fetching articles...');
-  axios.get(`https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${process.env.API_KEY}`)
-    .then(res => {
-      console.log('fetching articles...');
-      dispatch({
-        type: FETCH_ARTICLES,
-        payload: res.data.articles
-      });
-    })
-    .catch(err => console.error(err))
+  console.log('fetching articles...');
+  // axios.get(`https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${process.env.API_KEY}`)
+  //   .then(res => {
+  //     console.log('fetching articles...');
+  //     dispatch({
+  //       type: FETCH_ARTICLES,
+  //       payload: res.data.articles
+  //     });
+  //   })
+  //   .catch(err => console.error(err))
 }
 
 export const searchArticles = ({...args}) => dispatch => {
-  // console.log('searching articles...');
+  console.log('searching articles...');
   const { query, options, language } = args;
   const queryURI = encodeURIComponent(query);
   const { from, to, source, sorting } = options;
 
-  axios.get(`https://newsapi.org/v2/everything?q=${queryURI}&from=${from}&to=${to}&language=${language}&sources=${source}&sortBy=${sorting}&apiKey=${process.env.API_KEY}`)
-    .then(res => {
-      console.log('searching articles...');
-      // console.log('articles', res.data.articles);
-      dispatch({
-        type: SEARCH_ARTICLES,
-        payload: {
-          lastQuery: query,
-          articles: res.data.articles
-          // articles: []
-        }
-      })
-    })
-    .catch(err => console.error(err))
+  // axios.get(`https://newsapi.org/v2/everything?q=${queryURI}&from=${from}&to=${to}&language=${language}&sources=${source}&sortBy=${sorting}&apiKey=${process.env.API_KEY}`)
+  //   .then(res => {
+  //     console.log('searching articles...');
+  //     dispatch({
+  //       type: SEARCH_ARTICLES,
+  //       payload: {
+  //         lastQuery: query,
+  //         articles: res.data.articles
+  //       }
+  //     })
+  //   })
+  //   .catch(err => console.error(err))
 
-  // dispatch({
-  //   type: SEARCH_ARTICLES,
-  //   payload: {
-  //     lastQuery: query,
-  //     articles: []
-  //   }
-  // })
+  dispatch({
+    type: SEARCH_ARTICLES,
+    payload: {
+      lastQuery: query,
+      articles: []
+    }
+  })
 }
 
 export const fetchSources = country => dispatch => {
