@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchArticles, resetArticles } from '../../actions/newsActions';
 
-import Spinner from '../layout/Spinner';
 import Sidebar from '../sidebar/Sidebar';
 import ArticlesList from '../articles/ArticlesList';
 import styles from '../../styles/layout/Index.scss';
@@ -31,8 +30,6 @@ class Index extends Component {
   }
   
   render() {
-    const { articles } = this.props;
-
     return (
       <React.Fragment>
         <header className={styles.header}>
@@ -40,7 +37,7 @@ class Index extends Component {
           <p className={styles.date}>Monday, August 20, 2018</p>
         </header>
         <Sidebar />
-        <ArticlesList articles={articles}/>
+        <ArticlesList />
       </React.Fragment>
     );
   }
@@ -49,14 +46,12 @@ class Index extends Component {
 Index.propTypes = {
   match: PropTypes.object.isRequired,
   country: PropTypes.object.isRequired,
-  articles: PropTypes.array.isRequired,
   fetchArticles: PropTypes.func.isRequired,
   resetArticles: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
-  country: state.news.country,
-  articles: state.news.articles
+  country: state.news.country
 });
 
 export default connect(mapStateToProps, { fetchArticles, resetArticles })(Index);

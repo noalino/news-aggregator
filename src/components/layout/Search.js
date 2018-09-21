@@ -29,56 +29,49 @@ export class Search extends Component {
   };
 
   componentDidMount() {
-    const { country: {language}, fetchSources, searchArticles } = this.props;
-    // console.log('Search component mounting');
+    const { country, fetchSources, searchArticles } = this.props;
+    console.log('Search component mounting');
 
-    fetchSources(language.code);
+    fetchSources(country);
 
     if (this.state.query !== '') {
-      searchArticles({language: language.code, ...this.state});
+      searchArticles({language: country.language.code, ...this.state});
     }
   }
 
-  componentDidUpdate(prevProps) {
-    const { country: {language}, fetchSources, searchArticles, resetArticles, location, options } = this.props;
+  componentDidUpdate(prevProps, prevState) {
+    const { country, fetchSources, location, options } = this.props;
     const { search, state } = location;
-    const decodedQuery = search ? decodeURIComponent(getQuery(search)) : '';
-    // console.log('location updating', this.props.location);
-    // console.log('Search component updating');
 
-    // Fetch source list, reset source & search articles if query on country change
-    if (language.code !== prevProps.country.language.code) {
+    // Fetch source list & reset source when language changes
+    if (country.code !== prevProps.country.code) {
       console.log('language changed');
-      fetchSources(language.code);
-
-      this.setState({ options: { ...options, source: '' } }, () => {
-        if (decodedQuery !== '') {
-          searchArticles({language: language.code, ...this.state});
-        }
-      });
+      fetchSources(country);
+      this.handleReqChange({ ...prevState.options, source: '' });
                   
     // Handle query coming from nav searchbar or from URL
     } else if (state === undefined && search !== prevProps.location.search) {
       console.log('nav searchbar request');
-      this.setState(
-        {
-          query: decodedQuery,
-          options: {...options}
-        },
-        () => decodedQuery !== '' ? searchArticles({language: language.code, ...this.state}) : resetArticles()
-      );
+      this.handleReqChange(options);
 
-    // Handle query coming from main searchbar (TO CHANGE: SHOULD NOT BE CALLED WHEN OPTIONS CHANGE && QUERY === '')
+    // Handle query coming from main searchbar
     } else if (state !== undefined && (search !== prevProps.location.search || !isEqual(state, prevProps.location.state))) {
       console.log('main searchbar request');
-      this.setState(
-        {
-          query: decodedQuery,
-          options: {...state}
-        },
-        () => decodedQuery !== '' ? searchArticles({language: language.code, ...this.state}) : resetArticles()
-      );
+      this.handleReqChange(state);
     }
+  }
+
+  // Search articles if query !== ''
+  handleReqChange = options => {
+    const { country: { language }, searchArticles, resetArticles, location: { search } } = this.props;
+    const decodedQuery = search ? decodeURIComponent(getQuery(search)) : '';
+
+    this.setState({
+      query: decodedQuery,
+      options: {...options}
+    }, () => decodedQuery !== '' ?
+      searchArticles({language: language.code, ...this.state}) : resetArticles()
+    );
   }
 
   handleInputChange = e => {
@@ -103,7 +96,7 @@ export class Search extends Component {
 
   render() {
     const { query, options } = this.state;
-    const { lastQuery, sources, articles } = this.props;
+    const { lastQuery, sources } = this.props;
 
     return (
       <div>
@@ -155,7 +148,7 @@ export class Search extends Component {
             </div>}
         </form>
 
-        <ArticlesList articles={articles} />
+        <ArticlesList />
         <Buttons />
       </div>
     );
@@ -166,7 +159,6 @@ Search.propTypes = {
   lastQuery: PropTypes.string.isRequired,
   country: PropTypes.object.isRequired,
   sources: PropTypes.array.isRequired,
-  articles: PropTypes.array.isRequired,
   searchArticles: PropTypes.func.isRequired,
   fetchSources: PropTypes.func.isRequired,
   resetArticles: PropTypes.func.isRequired
@@ -175,8 +167,7 @@ Search.propTypes = {
 const mapStateToProps = state => ({
   lastQuery: state.news.lastQuery,
   country: state.news.country,
-  sources: state.news.sources,
-  articles: state.news.articles
+  sources: state.news.sources
 });
 
 export default connect(mapStateToProps, { searchArticles, fetchSources, resetArticles })(Search);
