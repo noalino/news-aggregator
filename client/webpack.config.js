@@ -1,6 +1,6 @@
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
@@ -12,7 +12,7 @@ const htmlPlugin = new HtmlWebPackPlugin({
 });
 
 const cssPlugin = new MiniCssExtractPlugin({
-  filename: '[name].css'
+  filename: '[name].css',
   // chunkFilename: '[id].css'
 });
 
@@ -20,14 +20,14 @@ const syncPlugin = new BrowserSyncPlugin(
   {
     host: 'localhost',
     port: '8081',
-    proxy: 'http://localhost:8080/'
+    proxy: 'http://localhost:8080/',
   },
   {
-    reload: false
-  }
+    reload: false,
+  },
 );
 
-const cleanPlugin = new CleanWebpackPlugin('build', {} );
+const cleanPlugin = new CleanWebpackPlugin('build', {});
 
 const DotenvPlugin = new Dotenv();
 
@@ -35,8 +35,7 @@ module.exports = {
   // entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'bundle.js',
-    publicPath: '/' // Enable CSR (client side routing) to get URL page (redirect to '/')
+    filename: 'bundle.js'
   },
   module: {
     rules: [

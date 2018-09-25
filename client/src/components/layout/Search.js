@@ -26,7 +26,7 @@ export class Search extends Component {
       source: '',
       sorting: 'publishedAt'
     }
-  };
+  }
 
   componentDidMount() {
     const { country, fetchSources, searchArticles } = this.props;

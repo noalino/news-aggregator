@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import shortid from 'shortid';
@@ -22,7 +22,7 @@ class ArticlesList extends Component {
 
           <h3>No Results Found</h3> :
 
-          <React.Fragment>
+          <Fragment>
             <div className={styles.container}>
               {articles.map(article => ( // Remove duplicates if any (key={article.title})
                 <ArticleBox key={shortid.generate()} article={article}/>
@@ -34,7 +34,7 @@ class ArticlesList extends Component {
                 Powered by <a href="https://newsapi.org/" target="_blank">News API</a>
               </footer>
             }
-          </React.Fragment>
+          </Fragment>
       }
       </div>
     );
