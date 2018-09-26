@@ -5,8 +5,6 @@ const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 
-const devMode = process.env.NODE_ENV !== 'production';
-
 const htmlPlugin = new HtmlWebPackPlugin({
   template: 'public/index.html'
 });
@@ -31,6 +29,8 @@ const cleanPlugin = new CleanWebpackPlugin('build', {});
 
 const DotenvPlugin = new Dotenv();
 
+const devMode = process.env.NODE_ENV !== 'production';
+
 module.exports = {
   // entry: './src/index.js',
   output: {
@@ -40,7 +40,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.js$/, // /^(?!.*\.test\.js$).*\.js$/ to exclude *.test.js files (doesn't change bundle size)
         use: [
           'babel-loader',
           // 'eslint-loader'

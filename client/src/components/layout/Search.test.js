@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import '../../setupTests';
+import '../../setup.test';
 // Import non-connected Search component
 import { Search } from './Search';
 

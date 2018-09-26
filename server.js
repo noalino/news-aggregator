@@ -6,7 +6,9 @@ const morgan = require('morgan');
 const dotenv = require('dotenv');
 const path = require('path');
 
-const bookmarks = require('./routes/api/bookmarks');
+// const userRouter = require('./routes/user');
+// const bookmarksRouter = require('./routes/bookmarks');
+const apiRouter = require('./routes/api');
 
 const app = express();
 dotenv.config();
@@ -26,12 +28,17 @@ mongoose
   .then(() => console.log('MongoDB Connected...'))
   .catch(err => console.log(err));
 
-app.use('/api/bookmarks', bookmarks);
+// mongoose.Promise = global.Promise;
+
+// app.use('/api/user', userRouter);
+// app.use('/api/bookmarks', bookmarksRouter);
+app.use('/api', apiRouter);
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
   // Set static folder
-  app.use(express.static('client/build'));
+  // app.use(express.static('client/build'));
+  app.use(express.static(path.resolve(__dirname, 'client', 'build')));
 
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
