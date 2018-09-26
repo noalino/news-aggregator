@@ -6,7 +6,6 @@ import Navbar from './components/layout/Navbar';
 import Index from './components/layout/Index';
 import Log from './components/layout/Log';
 import Search from './components/layout/Search';
-import Favorites from './components/layout/Favorites';
 import Bookmarks from './components/layout/Bookmarks';
 
 import './assets/images/favicon.ico';
@@ -25,7 +24,6 @@ const App = () => {
             <Route exact path="/" render={() => <Redirect to="/general"></Redirect>} />
             <Route path="/log" component={Log} />
             <Route path="/search" component={Search} />
-            <Route path="/favorites" component={Favorites} />
             <Route path="/bookmarks" component={Bookmarks} />
             <Route path="/:topic" component={Index} />
           </Switch>

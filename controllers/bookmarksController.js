@@ -1,22 +1,42 @@
+// const shortid = require('shortid');
 const User = require('../models/user');
 
 /** ASYNC FUNCTIONS? */
 
-const get_bookmarks = (req, res) => {
-  res.status(200).send('GET REQUEST working');
-}
+const get_bookmarks = (req, res, next) => {
+  // const { username, password } = req.body;
 
-const insert_bookmarks = (req, res) => {
+  User.findOne({ username }, (err, user) => {
+    if (err) return next();
+    res.status(200).send(user.bookmarks);
+  });
+};
+
+const insert_bookmarks = (req, res, next) => {
+  const { username, password, article } = req.body;
+
+  User.findOneAndUpdate(
+    { username },
+    { $push: { bookmarks: { ...article } } },
+    { new: true },
+    (err, user) => {
+    if (err) return next();
+    res.status(200).send(user.bookmarks);
+  });
+};
+
+const delete_bookmarks = (req, res, next) => {
+  const { username, password } = req.body;
   const { id } = req.params;
 
-  res.status(200).send('POST REQUEST working, id: ' + id);
-}
-
-const delete_bookmarks = (req, res) => {
-  const { id } = req.params;
-
-  res.status(200).send('DELETE REQUEST working, id: ' + id);
-  // res.status(204).send(); // 204: success without returning content
+  User.findOneAndUpdate(
+    { username },
+    { $pull: { bookmarks: { id }} },
+    { new: true },
+    (err, user) => {
+    if (err) return next();
+    res.status(200).send(user.bookmarks);
+  });
 }
 
 module.exports = {

@@ -1,16 +1,51 @@
-import React from 'react';
+import React, { Component } from 'react';
+import axios from 'axios';
 import styles from '../../styles/layout/Log.scss';
 
-const Log = () => {
-  return (
-    <form className={styles.logForm}>
-      <label htmlFor="email">Email</label>
-      <input type="email" name="email" id="email" placeholder="Enter your email address" required></input>
-      <label htmlFor="password">Password</label>
-      <input type="password" name="password" id="password" placeholder="Enter your password" required></input>
-      <button>Log in / Sign up</button>
-    </form>
-  );
+class Log extends Component {
+  state = {
+    username: '',
+    password: ''
+  }
+
+  handleChangeInput = e => {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+  }
+
+  onSubmit = e => {
+    e.preventDefault();
+    axios.post('http://localhost:5000/api/user', {...this.state});
+  }
+
+  render() {
+    const { username, password } = this.state;
+    return (
+      <form className={styles.logForm} onSubmit={this.onSubmit}>
+        <label htmlFor="email">Username</label>
+        <input
+          type="text"
+          name="username"
+          id="username"
+          value={username}
+          onChange={this.handleChangeInput}
+          placeholder="Enter your username here"
+          required
+        ></input>
+        <label htmlFor="password">Password</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          value={password}
+          onChange={this.handleChangeInput}
+          placeholder="Enter your password here"
+          required
+        ></input>
+        <button>Sign In</button>
+      </form>
+    );
+  }
 }
 
 export default Log;

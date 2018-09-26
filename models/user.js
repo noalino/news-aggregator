@@ -6,13 +6,15 @@ const userSchema = new Schema({
   password: { type: String, required: true },
   createdDate: { type: Date, default: Date.now },
   updatedDate: { type: Date, default: Date.now },
-  bookmarks: [{
-    id: String,
-    title: String,
-    description: String,
-    source: String,
-    publishedDate: Date
-  }]
+  bookmarks: [
+  //   {
+  //   id: String,
+  //   title: String,
+  //   description: String,
+  //   source: String,
+  //   publishedDate: Date
+  // }
+]
 });
 
 module.exports = User = mongoose.model('user', userSchema);

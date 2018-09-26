@@ -1,23 +1,28 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
 const path = require('path');
 
-// const userRouter = require('./routes/user');
-// const bookmarksRouter = require('./routes/bookmarks');
-const apiRouter = require('./routes/api');
+const api = require('./routes/api');
 
 const app = express();
 dotenv.config();
 
+// app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:8080',
+  optionsSuccessStatus: 200
+}));
 
 app.use(helmet());
 app.use(bodyParser.json());
-app.use(morgan('dev'));
-// app.use(morgan('combined'));
+// app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(morgan('dev'));
+app.use(morgan('combined'));
 
 // DB config
 const db = process.env.MONGODB_URI;
@@ -30,9 +35,14 @@ mongoose
 
 // mongoose.Promise = global.Promise;
 
-// app.use('/api/user', userRouter);
-// app.use('/api/bookmarks', bookmarksRouter);
-app.use('/api', apiRouter);
+app.use('/api', api);
+
+//404 Not Found Middleware
+app.use((req, res, next) => {
+  res.status(404)
+    .type('text')
+    .send('Not Found');
+});
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {

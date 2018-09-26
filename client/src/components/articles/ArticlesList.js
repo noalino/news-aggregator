@@ -24,9 +24,13 @@ class ArticlesList extends Component {
 
           <Fragment>
             <div className={styles.container}>
-              {articles.map(article => ( // Remove duplicates if any (key={article.title})
-                <ArticleBox key={shortid.generate()} article={article}/>
-              ))}
+              {/* Remove duplicates if any (key={article.title}) */}
+              {articles.map(article => {
+                const id = shortid.generate();
+                return (
+                  <ArticleBox key={id} article={{...article, id}}/>
+                );
+              })}
             </div>
             {
               articles.length > 0 && 

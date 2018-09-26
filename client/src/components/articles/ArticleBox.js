@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import styles from '../../styles/articles/ArticleBox.scss';
 
 class ArticleBox extends Component {
-
+  state = {
+    isSaved: false
+  };
   // handleDragStart(e) {
   //   const dt = e.dataTransfer;
   //   dt.setData('text/plain', e.target.id);
@@ -13,8 +16,22 @@ class ArticleBox extends Component {
 
   //   e.dropEffect = 'copy';
   // }
+  handleBookmark = () => {
+    const { isSaved } = this.state;
+    const { article } = this.props;
+    const user = { username: "delphine", password: "whatever" };
+    // console.log(article);
+    if (!isSaved) {
+      axios.post('http://localhost:5000/api/bookmarks', { ...user, article  });
+    } else {
+      axios.put(`http://localhost:5000/api/bookmarks/${article.id}`, { ...user });
+    }
+
+    this.setState(prevState => ({ isSaved: !prevState.isSaved }));
+  }
 
   render() {
+    const { isSaved } = this.state;
     const { article } = this.props;
 
     return (
@@ -22,11 +39,7 @@ class ArticleBox extends Component {
       {/*<article id={article.title} className={style.article} draggable="true" onDragStart={this.handleDragStart}>*/}
 
         <p>{article.source.name}</p>
-        {/* <i className="fas fa-star"></i> */}
-        <i className="fas fa-bookmark"></i>
-        {/* Empty icons
-        <i className="far fa-star"></i>
-        <i className="far fa-bookmark"></i>*/}
+        <i className={isSaved ? "fas fa-bookmark" : "far fa-bookmark"} onClick={this.handleBookmark}></i>
 
         <img src={article.urlToImage} alt={article.title} draggable="false"/>
 
