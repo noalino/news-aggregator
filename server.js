@@ -6,17 +6,18 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
 const path = require('path');
+const errorHandler = require('_helpers/error-handler');
 
 const api = require('./routes/api');
 
 const app = express();
 dotenv.config();
 
-// app.use(cors());
-app.use(cors({
-  origin: 'http://localhost:8080',
-  optionsSuccessStatus: 200
-}));
+app.use(cors());
+// app.use(cors({
+//   origin: 'http://localhost:8080',
+//   optionsSuccessStatus: 200
+// }));
 
 app.use(helmet());
 app.use(bodyParser.json());
@@ -37,12 +38,8 @@ mongoose
 
 app.use('/api', api);
 
-//404 Not Found Middleware
-app.use((req, res, next) => {
-  res.status(404)
-    .type('text')
-    .send('Not Found');
-});
+// global error handler
+app.use(errorHandler);
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {

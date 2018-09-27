@@ -4,7 +4,7 @@ import styles from '../../styles/articles/ArticleBox.scss';
 
 class ArticleBox extends Component {
   state = {
-    isSaved: false
+    isBookmark: false
   };
   // handleDragStart(e) {
   //   const dt = e.dataTransfer;
@@ -17,21 +17,24 @@ class ArticleBox extends Component {
   //   e.dropEffect = 'copy';
   // }
   handleBookmark = () => {
-    const { isSaved } = this.state;
+    const { isBookmark } = this.state;
     const { article } = this.props;
-    const user = { username: "delphine", password: "whatever" };
+    const user = { username: "isabelle", password: "whatever" };
     // console.log(article);
-    if (!isSaved) {
+    if (!isBookmark) {
       axios.post('http://localhost:5000/api/bookmarks', { ...user, article  });
     } else {
       axios.put(`http://localhost:5000/api/bookmarks/${article.id}`, { ...user });
     }
 
-    this.setState(prevState => ({ isSaved: !prevState.isSaved }));
+    // const action = isBookmark ? 'DELETE' : 'POST';
+    // axios.put('http://localhost:5000/api/bookmarks', { ...user, article, actionType: action  });
+
+    this.setState(prevState => ({ isBookmark: !prevState.isBookmark }));
   }
 
   render() {
-    const { isSaved } = this.state;
+    const { isBookmark } = this.state;
     const { article } = this.props;
 
     return (
@@ -39,7 +42,8 @@ class ArticleBox extends Component {
       {/*<article id={article.title} className={style.article} draggable="true" onDragStart={this.handleDragStart}>*/}
 
         <p>{article.source.name}</p>
-        <i className={isSaved ? "fas fa-bookmark" : "far fa-bookmark"} onClick={this.handleBookmark}></i>
+        {/* <i className={isBookmark ? "fas fa-bookmark" : "far fa-bookmark"} onClick={this.handleBookmark}></i> */}
+        <i className={`${isBookmark ? "fas" : "far"} fa-bookmark`} onClick={this.handleBookmark}></i>
 
         <img src={article.urlToImage} alt={article.title} draggable="false"/>
 

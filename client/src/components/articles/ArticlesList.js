@@ -32,8 +32,8 @@ class ArticlesList extends Component {
                 );
               })}
             </div>
-            {
-              articles.length > 0 && 
+            
+            {articles.length > 0 && 
               <footer className={styles.footer}>
                 Powered by <a href="https://newsapi.org/" target="_blank">News API</a>
               </footer>
