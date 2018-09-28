@@ -19,16 +19,13 @@ class ArticleBox extends Component {
   handleBookmark = () => {
     const { isBookmark } = this.state;
     const { article } = this.props;
-    const user = { username: "isabelle", password: "whatever" };
-    // console.log(article);
-    if (!isBookmark) {
-      axios.post('http://localhost:5000/api/bookmarks', { ...user, article  });
-    } else {
-      axios.put(`http://localhost:5000/api/bookmarks/${article.id}`, { ...user });
-    }
+    const secret_token = 'to_fetch_from_cookie';
 
-    // const action = isBookmark ? 'DELETE' : 'POST';
-    // axios.put('http://localhost:5000/api/bookmarks', { ...user, article, actionType: action  });
+    if (!isBookmark) {
+      axios.post(`http://localhost:5000/api/user/bookmarks?secret_token=${secret_token}`, { article });
+    } else {
+      axios.put(`http://localhost:5000/api/user/bookmarks/${article.id}?secret_token=${secret_token}`);
+    }
 
     this.setState(prevState => ({ isBookmark: !prevState.isBookmark }));
   }

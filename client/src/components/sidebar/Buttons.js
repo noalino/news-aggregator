@@ -31,7 +31,7 @@ class Buttons extends Component {
 
     //   return article;
     // });
-
+    const secret_token = 'token_to_save_somewhere';
     return (
       <div className={styles.buttons}>
         {/* <Link to="/favorites">
@@ -40,15 +40,13 @@ class Buttons extends Component {
             <h3>My Favorites</h3>
           </button>
         </Link> */}
-        <Link to="/bookmarks">
-          <button className={styles.bookmarks}>
-            <i className="fas fa-bookmark"></i>
-            <h3>Bookmarks</h3>
-          </button>
+        <Link to={`/api/user/bookmarks?secret_token=${secret_token}`} className={styles.bookmarks}>
+          <i className="fas fa-bookmark"></i>
+          <h3>Bookmarks</h3>
+        </Link>
           {/*<div className={style.drop_area} onDrop={this.handleDrop} onDragOver={this.handleDragOver}>
             {isBookmarkEmpty ? <p>Drop your articles here</p> : <ul>{bookmarkList}</ul>}
       </div>*/}
-        </Link>
       </div>
     );
   }
