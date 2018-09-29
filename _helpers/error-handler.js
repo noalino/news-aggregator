@@ -4,14 +4,8 @@ const errorHandler = (err, req, res, next) => {
     return res.status(400).json({ message: err });
   }
 
-  if (err.name === 'CastError') {
-    // mongoose cast error
-    return res.status(400).json({ message: err.message });
-  }
-
   // default to 500 server error
   return res.status(500).json({ message: err.message });
-  // return res.status(500).json({ error: err });
 }
 
 module.exports = errorHandler;

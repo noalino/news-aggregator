@@ -34,7 +34,7 @@ export const fetchArticles = (country, category) => dispatch => {
 }
 
 export const searchArticles = ({...args}) => dispatch => {
-  console.log('searching articles...');
+  // console.log('searching articles...');
   const { query, options, language } = args;
   const queryURI = encodeURIComponent(query);
   const { from, to, source, sorting } = options;

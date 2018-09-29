@@ -13,22 +13,6 @@ const User = require('../models/User');
 //   });
 // });
 
-// passport.use(new LocalStrategy(
-//   (username, password, done) => {
-//     User.findOne({ username })
-//       .then(user => {
-//         if (!user) {
-//           return done(null, false, { message: 'Incorrect username.' });
-//         }
-//         if (!user.validPassword(password)) {
-//           return done(null, false, { message: 'Incorrect password.' });
-//         }
-//         return done(null, user, { message: `Welcome back ${user.username}!` });
-//       })
-//       .catch(err => done(err))
-//   }
-// ));
-
 passport.use('signup', new LocalStrategy(
   async (username, password, done) => {
     try {
@@ -57,7 +41,7 @@ passport.use('login', new LocalStrategy(
         return done(null, false, { message: 'Incorrect password.' });
       }
 
-      return done(null, user, { message: 'Successfully logged in!' });
+      return done(null, user, { message: `Welcome back ${user.username}!` });
 
     } catch (err) {
       return done(err);
@@ -70,8 +54,6 @@ const ExtractJWT = require('passport-jwt').ExtractJwt;
 
 passport.use(new JWTstrategy({
   secretOrKey: process.env.SECRET_JWT,
-  // jwtFromRequest: ExtractJWT.fromUrlQueryParameter('secret_token')
-  // jwtFromRequest: ExtractJWT.fromBodyField('secret_token')
   jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken()
 }, async (token, done) => {
   try {
