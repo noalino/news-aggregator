@@ -31,7 +31,6 @@ class Buttons extends Component {
 
     //   return article;
     // });
-    const secret_token = 'token_to_save_somewhere';
     return (
       <div className={styles.buttons}>
         {/* <Link to="/favorites">
@@ -40,7 +39,7 @@ class Buttons extends Component {
             <h3>My Favorites</h3>
           </button>
         </Link> */}
-        <Link to={`/api/user/bookmarks?secret_token=${secret_token}`} className={styles.bookmarks}>
+        <Link to="/bookmarks" className={styles.bookmarks}>
           <i className="fas fa-bookmark"></i>
           <h3>Bookmarks</h3>
         </Link>

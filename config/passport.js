@@ -30,11 +30,15 @@ const User = require('../models/User');
 // ));
 
 passport.use('signup', new LocalStrategy(
-  async (username, password, done) => { // Handle username already taken in error
+  async (username, password, done) => {
     try {
       const user = await User.create({ username, password });
       return done(null, user);
     } catch (err) {
+      // Code for duplicate keys
+      if (err.code === 11000) {
+        return done(`Username ${username} is already taken.`);
+      }
       return done(err);
     }
   }
@@ -66,7 +70,9 @@ const ExtractJWT = require('passport-jwt').ExtractJwt;
 
 passport.use(new JWTstrategy({
   secretOrKey: process.env.SECRET_JWT,
-  jwtFromRequest: ExtractJWT.fromUrlQueryParameter('secret_token')
+  // jwtFromRequest: ExtractJWT.fromUrlQueryParameter('secret_token')
+  // jwtFromRequest: ExtractJWT.fromBodyField('secret_token')
+  jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken()
 }, async (token, done) => {
   try {
     return done(null, token.user);

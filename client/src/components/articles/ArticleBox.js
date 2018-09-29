@@ -16,15 +16,23 @@ class ArticleBox extends Component {
 
   //   e.dropEffect = 'copy';
   // }
-  handleBookmark = () => {
+  async handleBookmark() {
     const { isBookmark } = this.state;
     const { article } = this.props;
     const secret_token = 'to_fetch_from_cookie';
 
     if (!isBookmark) {
-      axios.post(`http://localhost:5000/api/user/bookmarks?secret_token=${secret_token}`, { article });
+      const user = await axios.post('http://localhost:5000/api/user/bookmarks', {
+        headers: { 'Bearer': secret_token }
+      });
+      const articles = user.data;
+    /** CHANGE ARTICLES */
     } else {
-      axios.put(`http://localhost:5000/api/user/bookmarks/${article.id}?secret_token=${secret_token}`);
+      const user = await axios.put(`http://localhost:5000/api/user/bookmarks/${article.id}`, {
+        headers: { 'Bearer': secret_token }
+      });
+      const articles = user.data;
+    /** CHANGE ARTICLES */
     }
 
     this.setState(prevState => ({ isBookmark: !prevState.isBookmark }));
