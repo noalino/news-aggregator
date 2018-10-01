@@ -49,7 +49,7 @@ mongoose
 //   secret: process.env.SESSION_SECRET
 // }));
 
-// app.use(passport.initialize());
+app.use(passport.initialize());
 
 /** TO BE USED FOR PERSISTENT LOGIN SESSIONS */
 // app.use(passport.session());

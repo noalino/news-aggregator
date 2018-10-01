@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { fetchBookmarks, resetArticles } from '../../actions/newsActions';
+
 import ArticlesList from '../articles/ArticlesList';
 import styles from '../../styles/layout/Bookmarks.scss';
 
 class Bookmarks extends Component {
-  async componentDidMount() {
-    const secret_token = 'to_fetch_from_cookie';
-    const user = await axios.get('http://localhost:5000/api/user/bookmarks', {
-      headers: { 'Bearer': secret_token }
-    });
-    const articles = user.data;
-    /** CHANGE ARTICLES FROM user.bookmarks */
+  componentDidMount() {
+    this.props.fetchBookmarks();
   }
+
+  // componentWillUnmount() {
+  //   resetArticles();
+  // }
 
   render() {
     return (
@@ -26,4 +28,8 @@ class Bookmarks extends Component {
   }
 }
 
-export default Bookmarks;
+Bookmarks.propTypes = {
+  fetchBookmarks: PropTypes.func.isRequired
+};
+
+export default connect(null, { fetchBookmarks, resetArticles })(Bookmarks);

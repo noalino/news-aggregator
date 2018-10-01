@@ -16,7 +16,10 @@ const logIn = async (req, res, next) => {
 
       req.login(user, { session: false }, async error => {
         if (error) { return next(error); }
-        const body = { _id: user.id, username: user.username };
+        const body = {
+          _id: user.id,
+          // username: user.username
+        };
         const token = jwt.sign({ user: body }, process.env.SECRET_JWT);
         return res.json({ message, token });
       });

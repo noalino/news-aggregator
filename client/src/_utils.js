@@ -17,4 +17,8 @@ export const isEqual = (obj1, obj2) => { // Works with objects of same length & 
   
     return true;
   }
+};
+
+export const generateArticleId = ({ publishedAt, source, title }) => {
+  return `${publishedAt}_${source.id}_${title}`;
 }
