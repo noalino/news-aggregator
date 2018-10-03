@@ -6,35 +6,29 @@ import { addBookmark, deleteBookmark } from '../../actions/newsActions';
 import styles from '../../styles/articles/ArticleBox.scss';
 
 class ArticleBox extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     isBookmark: false
-  //   };
-  // }
-  state = {
-    isBookmark: false
-  };
-  
-  // handleDragStart(e) {
-  //   const dt = e.dataTransfer;
-  //   dt.setData('text/plain', e.target.id);
+  constructor(props) {
+    super(props);
+    const { bookmarks, article } = this.props;
+    this.state = {
+      // 'isBookmark: true' if article is in bookmarks
+      isBookmark: bookmarks.findIndex(item => item.id === article.id) !== -1
+    };
+  }
 
-  //   const img = new Image();
-  //   img.src = '../../public/news.svg';
-  //   dt.setDragImage(img, 10, 10);
-
-  //   e.dropEffect = 'copy';
+  // componentDidMount() {
+  //   const { bookmarks, article } = this.props;
+  //   let isBookmark = false;
+  //   if (isAuthenticated) {
+  //     isBookmark = bookmarks.findIndex(item => item.id === article.id) !== -1
+  //   }
+  //   this.setState({
+  //     isBookmark
+  //   });
   // }
+
   updateBookmarks = () => {
     const { isBookmark } = this.state;
     const { addBookmark, deleteBookmark, article } = this.props;
-
-    // if (!isBookmark) {
-    //   addBookmark(article)
-    // } else {
-    //   deleteBookmark(article.id)
-    // }
 
     !isBookmark ? addBookmark(article) : deleteBookmark(article.id);
 
@@ -47,10 +41,8 @@ class ArticleBox extends Component {
 
     return (
       <article className={styles.article}>
-      {/*<article id={article.title} className={style.article} draggable="true" onDragStart={this.handleDragStart}>*/}
 
         <p>{article.source.name}</p>
-        {/* <i className={isBookmark ? "fas fa-bookmark" : "far fa-bookmark"} onClick={this.handleBookmark}></i> */}
         <i className={`${isBookmark ? "fas" : "far"} fa-bookmark`} onClick={this.updateBookmarks}></i>
 
         <img src={article.urlToImage} alt={article.title} draggable="false"/>
@@ -68,7 +60,12 @@ class ArticleBox extends Component {
 
 ArticleBox.propTypes = {
   addBookmark: PropTypes.func.isRequired,
-  deleteBookmark: PropTypes.func.isRequired
+  deleteBookmark: PropTypes.func.isRequired,
+  bookmarks: PropTypes.array.isRequired
 }
 
-export default connect(null, { addBookmark, deleteBookmark })(ArticleBox);
+const mapStateToProps = state => ({
+  bookmarks: state.news.bookmarks
+});
+
+export default connect(mapStateToProps, { addBookmark, deleteBookmark })(ArticleBox);

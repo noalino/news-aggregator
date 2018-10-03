@@ -25,7 +25,8 @@ const insert_bookmark = async (req, res, next) => {
 const remove_bookmark = async (req, res, next) => {
 
   const { _id } = req.user;
-  const { id } = req.params;
+  // const { id } = req.params;
+  const { id } = req.body;
   const user = await User.findByIdAndUpdate(
     _id,
     {

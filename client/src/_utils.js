@@ -1,5 +1,6 @@
 export const getQuery = param => param.match(/[^\?q=]/gi).reduce((a, b) => a + b);
 
+/** UPDATE TO COMPARE ALL OBJECTS */
 export const isEqual = (obj1, obj2) => { // Works with objects of same length & same key order only
 
   if (obj2 === undefined) {
@@ -19,6 +20,18 @@ export const isEqual = (obj1, obj2) => { // Works with objects of same length & 
   }
 };
 
-export const generateArticleId = ({ publishedAt, source, title }) => {
-  return `${publishedAt}_${source.id}_${title}`;
+// Add id to each article & remove duplicates
+export const filterArticles = async (articles) => {
+  await generateArticleId(articles);
+  
+  return articles.filter((article, index, self) => (
+    index === self.findIndex(item => item.id === article.id)
+  ))
+}
+
+function generateArticleId(articles) {
+  return articles.forEach(article => {
+    const { publishedAt, source, title } = article;
+    article.id = `${publishedAt}_${source.id}_${title}`;
+  })
 }
