@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { displayBookmarks, resetArticles } from '../../actions/newsActions';
 
-import ArticlesList from '../articles/ArticlesList';
+import Articles from '../articles/Articles';
 import styles from '../../styles/layout/Bookmarks.scss';
 
 class Bookmarks extends Component {
@@ -30,7 +30,7 @@ class Bookmarks extends Component {
           <h1>My Bookmarks</h1>
         </div>
   
-        <ArticlesList />
+        <Articles />
       </div>
     );
   }

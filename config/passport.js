@@ -41,7 +41,7 @@ passport.use('login', new LocalStrategy(
         return done(null, false, { message: 'Incorrect password.' });
       }
 
-      return done(null, user, { message: `Welcome back ${user.username}!` });
+      return done(null, user, { message: `You are now logged in!` });
 
     } catch (err) {
       return done(err);

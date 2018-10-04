@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import { fetchBookmarks } from '../../actions/newsActions';
 
 import Spinner from '../layout/Spinner';
-import ArticleBox from './ArticleBox';
-import styles from '../../styles/articles/ArticlesList.scss';
+import Article from './Article';
+import styles from '../../styles/articles/Articles.scss';
 
-class ArticlesList extends Component {
+class Articles extends Component {
 
   componentDidMount() {
     // if (isAuthenticated) {
@@ -34,7 +34,7 @@ class ArticlesList extends Component {
 
           <Fragment>
             <div className={styles.container}>
-              {articles.map(article => <ArticleBox key={article.id} article={{...article}} />)}
+              {articles.map(article => <Article key={article.id} article={{...article}} />)}
             </div>
             
             {results > 0 && 
@@ -49,7 +49,7 @@ class ArticlesList extends Component {
   }
 }
 
-ArticlesList.propTypes = {
+Articles.propTypes = {
   fetchBookmarks: PropTypes.func.isRequired,
   lastQuery: PropTypes.string.isRequired,
   articles: PropTypes.array.isRequired
@@ -60,4 +60,4 @@ const mapStateToProps = state => ({
   articles: state.news.articles
 });
 
-export default connect(mapStateToProps, { fetchBookmarks })(ArticlesList);
+export default connect(mapStateToProps, { fetchBookmarks })(Articles);

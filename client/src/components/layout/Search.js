@@ -5,7 +5,7 @@ import { searchArticles, fetchSources, resetArticles } from '../../actions/newsA
 import { getQuery, isEqual } from '../../_utils';
 
 import Buttons from '../sidebar/Buttons';
-import ArticlesList from '../articles/ArticlesList';
+import Articles from '../articles/Articles';
 import styles from '../../styles/layout/Search.scss';
 
 export class Search extends Component {
@@ -148,7 +148,7 @@ export class Search extends Component {
             </div>}
         </form>
 
-        <ArticlesList />
+        <Articles />
         <Buttons />
       </div>
     );

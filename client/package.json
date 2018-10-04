@@ -1,6 +1,6 @@
 {
   "name": "news-aggregator",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "News Aggregator App",
   "main": "index.js",
   "scripts": {

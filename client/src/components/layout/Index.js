@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { fetchArticles, resetArticles } from '../../actions/newsActions';
 
 import Sidebar from '../sidebar/Sidebar';
-import ArticlesList from '../articles/ArticlesList';
+import Articles from '../articles/Articles';
 import styles from '../../styles/layout/Index.scss';
 
 class Index extends Component {
@@ -37,7 +37,7 @@ class Index extends Component {
           <p className={styles.date}>Monday, August 20, 2018</p>
         </header>
         <Sidebar />
-        <ArticlesList />
+        <Articles />
       </React.Fragment>
     );
   }

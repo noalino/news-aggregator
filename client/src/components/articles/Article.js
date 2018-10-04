@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addBookmark, deleteBookmark } from '../../actions/newsActions';
 
-import styles from '../../styles/articles/ArticleBox.scss';
+import styles from '../../styles/articles/Article.scss';
 
-class ArticleBox extends Component {
+class Article extends Component {
   constructor(props) {
     super(props);
     const { bookmarks, article } = this.props;
@@ -58,7 +58,7 @@ class ArticleBox extends Component {
   }
 }
 
-ArticleBox.propTypes = {
+Article.propTypes = {
   addBookmark: PropTypes.func.isRequired,
   deleteBookmark: PropTypes.func.isRequired,
   bookmarks: PropTypes.array.isRequired
@@ -68,4 +68,4 @@ const mapStateToProps = state => ({
   bookmarks: state.news.bookmarks
 });
 
-export default connect(mapStateToProps, { addBookmark, deleteBookmark })(ArticleBox);
+export default connect(mapStateToProps, { addBookmark, deleteBookmark })(Article);
