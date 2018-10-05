@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { searchArticles, fetchSources, resetArticles } from '../../actions/newsActions';
+import { searchArticles, fetchSources, resetArticles } from '../../actions/articlesActions';
 import { getQuery, isEqual } from '../../_utils';
 
 import Buttons from '../sidebar/Buttons';
@@ -165,9 +165,9 @@ Search.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  lastQuery: state.news.lastQuery,
-  country: state.news.country,
-  sources: state.news.sources
+  lastQuery: state.articles.lastQuery,
+  country: state.articles.country,
+  sources: state.articles.sources
 });
 
 export default connect(mapStateToProps, { searchArticles, fetchSources, resetArticles })(Search);

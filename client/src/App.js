@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 
 import PrivateRoute from './PrivateRoute';
 
-import Navbar from './components/layout/Navbar';
+import Navbar from './components/navbar/Navbar';
 import Index from './components/layout/Index';
 import Login from './components/layout/Login';
 import Search from './components/layout/Search';

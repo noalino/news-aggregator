@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { displayBookmarks, resetArticles } from '../../actions/newsActions';
+import { displayBookmarks, resetArticles } from '../../actions/articlesActions';
 
 import Articles from '../articles/Articles';
 import styles from '../../styles/layout/Bookmarks.scss';
 
 class Bookmarks extends Component {
   componentDidMount() {
-    this.props.displayBookmarks();
+    const { displayBookmarks, bookmarks } = this.props;
+    displayBookmarks(bookmarks);
   }
 
   componentDidUpdate(prevProps) {
     const { bookmarks, displayBookmarks } = this.props;
     // Refresh view from bookmark removal
     if (bookmarks.length !== prevProps.bookmarks.length) {
-      displayBookmarks();
+      displayBookmarks(bookmarks);
     }
   }
 
@@ -43,7 +44,7 @@ Bookmarks.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  bookmarks: state.news.bookmarks
+  bookmarks: state.user.bookmarks
 })
 
 export default connect(mapStateToProps, { displayBookmarks, resetArticles })(Bookmarks);

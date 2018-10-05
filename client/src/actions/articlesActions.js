@@ -1,8 +1,6 @@
-import { CHANGE_COUNTRY, FETCH_ARTICLES, SEARCH_ARTICLES, FETCH_SOURCES, FETCH_BOOKMARKS } from './types';
+import { CHANGE_COUNTRY, FETCH_ARTICLES, SEARCH_ARTICLES, FETCH_SOURCES } from './types';
 import axios from 'axios';
 import { filterArticles } from '../_utils';
-
-const secret_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjViYjM5MzRmMGU1ZTZmNjFiNTcyYjUyNSJ9LCJpYXQiOjE1Mzg0OTU0MDJ9.EWdBY4qTNd7HyU6NReKO1uO6KOUZHEP278jxdFXmNHg';
 
 export const changeCountry = country => dispatch => {
   console.log('changing country');
@@ -69,68 +67,24 @@ export const fetchSources = country => dispatch => {
     .catch(err => console.error(err))
 }
 
-export const fetchBookmarks = () => dispatch => {
+export const displayBookmarks = bookmarks => dispatch => {
 
-  axios.get(`http://localhost:5000/api/user/bookmarks`,
-    {
-      headers: { 'Authorization': `Bearer ${secret_token}` }
-    }
-  ).then(({ data }) => {
-      console.log('fetching bookmarks...');
-      dispatch({
-        type: FETCH_BOOKMARKS,
-        payload: data
-      });
-    })
-    .catch(err => console.error(err))
-}
+  // axios.get(`http://localhost:5000/api/user/bookmarks`,
+  //   {
+  //     headers: { 'Authorization': `Bearer ${secret_token}` }
+  //   }
+  // ).then(({ data }) => {
+  //     console.log('displaying bookmarks...');
+  //     dispatch({
+  //       type: FETCH_ARTICLES,
+  //       payload: data
+  //     });
+  //   })
+  //   .catch(err => console.error(err))
 
-export const displayBookmarks = () => dispatch => {
-
-  axios.get(`http://localhost:5000/api/user/bookmarks`,
-    {
-      headers: { 'Authorization': `Bearer ${secret_token}` }
-    }
-  ).then(({ data }) => {
-      console.log('displaying bookmarks...');
-      dispatch({
-        type: FETCH_ARTICLES,
-        payload: data
-      });
-    })
-    .catch(err => console.error(err))
-}
-
-export const addBookmark = article => dispatch => {
-
-  axios.post(`http://localhost:5000/api/user/bookmarks`,
-    { article },
-    {
-      headers: { 'Authorization': `Bearer ${secret_token}` }
-    }
-  ).then(({ data }) => {
-      console.log('updating bookmarks...');
-      dispatch({
-        type: FETCH_BOOKMARKS,
-        payload: data
-      })
-    })
-    .catch(err => console.error(err))
-}
-
-export const deleteBookmark = id => dispatch => {
-
-  axios.put(`http://localhost:5000/api/user/bookmarks`,
-    { id },
-    {
-      headers: { 'Authorization': `Bearer ${secret_token}` }
-    }
-  ).then(({ data }) => {
-      console.log('updating bookmarks...');
-      dispatch({
-        type: FETCH_BOOKMARKS,
-        payload: data
-      })
-    })
-    .catch(err => console.error(err))
+  console.log('displaying bookmarks...');
+  dispatch({
+    type: FETCH_ARTICLES,
+    payload: bookmarks
+  });
 }

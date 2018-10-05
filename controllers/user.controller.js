@@ -1,19 +1,36 @@
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 
-const signUp = async ({ user }, res, next) => {
-  return res.json({
-    success: true,
-    // message: `Welcome ${user.username}!`
-    message: 'Account created!'
-  });
+const signUp = async (req, res, next) => {
+  passport.authenticate('signup', async (err, user, { message }) => {
+    try {
+      if (err) { return next(err); }
+      if (!user) {
+        return res.json({
+          success: false,
+          message
+        });
+      }
+
+      return res.json({
+        success: true,
+        message
+      });
+
+    } catch (err) { return next(err); }
+  })(req, res, next);
 };
 
 const logIn = async (req, res, next) => {
   passport.authenticate('login', async (err, user, { message }) => {
     try {
       if (err) { return next(err); }
-      if (!user) { return next(message); }
+      if (!user) {
+        return res.json({
+          success: false,
+          message
+        });
+      }
 
       req.login(user, { session: false }, async error => {
         if (error) { return next(error); }
@@ -29,9 +46,7 @@ const logIn = async (req, res, next) => {
         });
       });
 
-    } catch (err) {
-      return next(err);
-    }
+    } catch (err) { return next(err); }
   })(req, res, next);
 };
 

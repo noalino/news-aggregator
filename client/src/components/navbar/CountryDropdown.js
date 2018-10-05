@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { changeCountry } from '../../actions/newsActions';
+import { changeCountry } from '../../actions/articlesActions';
 
 import Icon from './Icon';
-import styles from '../../styles/layout/CountryDropdown.scss';
+import styles from '../../styles/navbar/CountryDropdown.scss';
 
 class CountryDropdown extends Component {
   constructor(props) {
@@ -103,7 +103,7 @@ CountryDropdown.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  country: state.news.country
+  country: state.articles.country
 });
 
 export default connect(mapStateToProps, { changeCountry })(CountryDropdown);

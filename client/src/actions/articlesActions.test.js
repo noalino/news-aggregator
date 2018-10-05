@@ -1,6 +1,6 @@
 import configureMockStore from 'redux-mock-store';
 import { FETCH_ARTICLES, SEARCH_ARTICLES } from './types';
-import { searchArticles } from './newsActions';
+import { searchArticles } from './articlesActions';
 // import axios from 'axios';
 // import MockAdapter from 'axios-mock-adapter';
 

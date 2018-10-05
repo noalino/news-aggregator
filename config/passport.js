@@ -17,11 +17,11 @@ passport.use('signup', new LocalStrategy(
   async (username, password, done) => {
     try {
       const user = await User.create({ username, password });
-      return done(null, user);
+      return done(null, user, { message: 'Account created!' });
     } catch (err) {
       // Code for duplicate keys
       if (err.code === 11000) {
-        return done(`Username ${username} is already taken.`);
+        return done(null, false, { message: `Username ${username} is already taken.` });
       }
       return done(err);
     }

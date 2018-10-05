@@ -1,38 +1,37 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addBookmark, deleteBookmark } from '../../actions/newsActions';
+import { addBookmark, deleteBookmark } from '../../actions/userActions';
 
 import styles from '../../styles/articles/Article.scss';
 
 class Article extends Component {
   constructor(props) {
     super(props);
-    const { bookmarks, article } = this.props;
+    const { bookmarks, article, isAuthenticated } = this.props;
     this.state = {
-      // 'isBookmark: true' if article is in bookmarks
-      isBookmark: bookmarks.findIndex(item => item.id === article.id) !== -1
+      // Set isBookmark to true if user is authenticated & article in bookmarks
+      isBookmark: isAuthenticated ? bookmarks.findIndex(item => item.id === article.id) !== -1 : false
     };
   }
 
-  // componentDidMount() {
-  //   const { bookmarks, article } = this.props;
-  //   let isBookmark = false;
-  //   if (isAuthenticated) {
-  //     isBookmark = bookmarks.findIndex(item => item.id === article.id) !== -1
-  //   }
-  //   this.setState({
-  //     isBookmark
-  //   });
-  // }
+  componentDidUpdate() {
+    const { isAuthenticated } = this.props;
+    // Remove bookmark from article when user logs out
+    if (!isAuthenticated && this.state.isBookmark === true) {
+      this.setState({ isBookmark: false });
+    }
+  }
 
   updateBookmarks = () => {
-    const { isBookmark } = this.state;
-    const { addBookmark, deleteBookmark, article } = this.props;
-
-    !isBookmark ? addBookmark(article) : deleteBookmark(article.id);
-
-    this.setState(prevState => ({ isBookmark: !prevState.isBookmark }));
+    if (this.props.isAuthenticated) {
+      const { isBookmark } = this.state;
+      const { addBookmark, deleteBookmark, article } = this.props;
+  
+      !isBookmark ? addBookmark(article) : deleteBookmark(article.id);
+  
+      this.setState(prevState => ({ isBookmark: !prevState.isBookmark }));
+    }
   }
 
   render() {
@@ -61,11 +60,13 @@ class Article extends Component {
 Article.propTypes = {
   addBookmark: PropTypes.func.isRequired,
   deleteBookmark: PropTypes.func.isRequired,
-  bookmarks: PropTypes.array.isRequired
+  bookmarks: PropTypes.array.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired
 }
 
 const mapStateToProps = state => ({
-  bookmarks: state.news.bookmarks
+  bookmarks: state.user.bookmarks,
+  isAuthenticated: state.user.isAuthenticated
 });
 
 export default connect(mapStateToProps, { addBookmark, deleteBookmark })(Article);

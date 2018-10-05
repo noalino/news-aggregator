@@ -2,10 +2,10 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from 'prop-types';
-import { logOut } from '../../actions/authActions';
+import { logOut } from '../../actions/userActions';
 
 import CountryDropdown from './CountryDropdown';
-import styles from '../../styles/layout/Navbar.scss';
+import styles from '../../styles/navbar/Navbar.scss';
 
 class Navbar extends Component {
   state = { query: '' };
@@ -89,7 +89,7 @@ Navbar.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.user.isAuthenticated
 });
 
 export default withRouter(connect(mapStateToProps, { logOut })(Navbar));

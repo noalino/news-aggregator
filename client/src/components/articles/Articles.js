@@ -1,23 +1,25 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchBookmarks } from '../../actions/newsActions';
+import { fetchBookmarks } from '../../actions/userActions';
 
-import Spinner from '../layout/Spinner';
+import Loader from '../loader/Loader';
 import Article from './Article';
 import styles from '../../styles/articles/Articles.scss';
 
 class Articles extends Component {
 
   componentDidMount() {
-    // if (isAuthenticated) {
-      this.props.fetchBookmarks();
-    // }
+    const { isAuthenticated, fetchBookmarks } = this.props;
+    if (isAuthenticated) {
+      fetchBookmarks();
+    }
   }
 
   shouldComponentUpdate(nextProps) {
     // /!\ it has to compare key/value pairs inside objects
-    return nextProps.articles !== this.props.articles;
+    // return nextProps.articles !== this.props.articles;
+    return nextProps.articles !== this.props.articles || nextProps.isAuthenticated !== this.props.isAuthenticated;
   }
 
   render() {
@@ -52,12 +54,14 @@ class Articles extends Component {
 Articles.propTypes = {
   fetchBookmarks: PropTypes.func.isRequired,
   lastQuery: PropTypes.string.isRequired,
-  articles: PropTypes.array.isRequired
+  articles: PropTypes.array.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => ({
-  lastQuery: state.news.lastQuery,
-  articles: state.news.articles
+  lastQuery: state.articles.lastQuery,
+  articles: state.articles.articles,
+  isAuthenticated: state.user.isAuthenticated
 });
 
 export default connect(mapStateToProps, { fetchBookmarks })(Articles);

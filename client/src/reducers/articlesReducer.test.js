@@ -1,10 +1,10 @@
-import newsReducer from './newsReducer';
+import articlesReducer from './articlesReducer';
 import { SEARCH_ARTICLES } from '../actions/types';
 
-describe('news reducer', () => {
+describe('articles reducer', () => {
 
   it('returns initial state', () => {
-    expect(newsReducer(undefined, {})).toEqual(
+    expect(articlesReducer(undefined, {})).toEqual(
       {
         country: {
           code: 'us',
@@ -29,7 +29,7 @@ describe('news reducer', () => {
     };
     const action = {type: SEARCH_ARTICLES, payload: { lastQuery: 'bitcoin', articles: ['test']}};
     // when
-    const afterState = newsReducer(beforeState, action);
+    const afterState = articlesReducer(beforeState, action);
     // then
     expect(afterState).toEqual({
       lastQuery: 'bitcoin',

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchArticles, resetArticles } from '../../actions/newsActions';
+import { fetchArticles, resetArticles } from '../../actions/articlesActions';
 
 import Sidebar from '../sidebar/Sidebar';
 import Articles from '../articles/Articles';
@@ -51,7 +51,7 @@ Index.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  country: state.news.country
+  country: state.articles.country
 });
 
 export default connect(mapStateToProps, { fetchArticles, resetArticles })(Index);

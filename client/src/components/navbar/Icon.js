@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../assets/images/flags.svg';
-import styles from '../../styles/layout/Icon.scss';
+import styles from '../../styles/navbar/Icon.scss';
 
 const Icon = ({ className, country }) => {
   return (
