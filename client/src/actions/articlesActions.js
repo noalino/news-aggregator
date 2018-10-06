@@ -68,20 +68,6 @@ export const fetchSources = country => dispatch => {
 }
 
 export const displayBookmarks = bookmarks => dispatch => {
-
-  // axios.get(`http://localhost:5000/api/user/bookmarks`,
-  //   {
-  //     headers: { 'Authorization': `Bearer ${secret_token}` }
-  //   }
-  // ).then(({ data }) => {
-  //     console.log('displaying bookmarks...');
-  //     dispatch({
-  //       type: FETCH_ARTICLES,
-  //       payload: data
-  //     });
-  //   })
-  //   .catch(err => console.error(err))
-
   console.log('displaying bookmarks...');
   dispatch({
     type: FETCH_ARTICLES,

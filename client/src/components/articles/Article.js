@@ -16,9 +16,8 @@ class Article extends Component {
   }
 
   componentDidUpdate() {
-    const { isAuthenticated } = this.props;
     // Remove bookmark from article when user logs out
-    if (!isAuthenticated && this.state.isBookmark === true) {
+    if (!this.props.isAuthenticated && this.state.isBookmark) { // Check bookmarks.length?
       this.setState({ isBookmark: false });
     }
   }

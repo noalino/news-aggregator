@@ -1,12 +1,12 @@
 const User = require('../models/User');
 
-const get_bookmarks = async ({ user: { _id } }, res, next) => {
+const get_bookmarks = async ({ user: { _id } }, res) => {
 
   const user = await User.findById(_id).select('-password');
   return res.json(user.bookmarks);
 };
 
-const insert_bookmark = async (req, res, next) => {
+const insert_bookmark = async (req, res) => {
 
   const { _id } = req.user;
   const { article } = req.body;
@@ -22,10 +22,9 @@ const insert_bookmark = async (req, res, next) => {
   return res.json(user.bookmarks);
 };
 
-const remove_bookmark = async (req, res, next) => {
+const remove_bookmark = async (req, res) => {
 
   const { _id } = req.user;
-  // const { id } = req.params;
   const { id } = req.body;
   const user = await User.findByIdAndUpdate(
     _id,

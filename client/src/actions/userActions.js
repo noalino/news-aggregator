@@ -1,8 +1,6 @@
 import { AUTHENTICATE, REGISTER, LOGOUT, FETCH_BOOKMARKS } from './types';
 import axios from 'axios';
 
-const secret_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjViYjM5MzRmMGU1ZTZmNjFiNTcyYjUyNSJ9LCJpYXQiOjE1Mzg0OTU0MDJ9.EWdBY4qTNd7HyU6NReKO1uO6KOUZHEP278jxdFXmNHg';
-
 const logIn = credentials => dispatch => {
   axios.post('http://localhost:5000/api/login', { ...credentials })
     .then(({ data: status }) => {
@@ -39,11 +37,8 @@ const logOut = () => dispatch => {
 
 const fetchBookmarks = () => dispatch => {
 
-  axios.get(`http://localhost:5000/api/user/bookmarks`,
-    {
-      headers: { 'Authorization': `Bearer ${secret_token}` }
-    }
-  ).then(({ data }) => {
+  axios.get(`http://localhost:5000/api/user/bookmarks`)
+    .then(({ data }) => {
       console.log('fetching bookmarks...');
       dispatch({
         type: FETCH_BOOKMARKS,
@@ -51,16 +46,12 @@ const fetchBookmarks = () => dispatch => {
       });
     })
     .catch(err => console.error(err))
-}
+};
 
 const addBookmark = article => dispatch => {
 
-  axios.post(`http://localhost:5000/api/user/bookmarks`,
-    { article },
-    {
-      headers: { 'Authorization': `Bearer ${secret_token}` }
-    }
-  ).then(({ data }) => {
+  axios.post(`http://localhost:5000/api/user/bookmarks`, { article })
+    .then(({ data }) => {
       console.log('updating bookmarks...');
       dispatch({
         type: FETCH_BOOKMARKS,
@@ -68,16 +59,12 @@ const addBookmark = article => dispatch => {
       })
     })
     .catch(err => console.error(err))
-}
+};
 
 const deleteBookmark = id => dispatch => {
 
-  axios.put(`http://localhost:5000/api/user/bookmarks`,
-    { id },
-    {
-      headers: { 'Authorization': `Bearer ${secret_token}` }
-    }
-  ).then(({ data }) => {
+  axios.put(`http://localhost:5000/api/user/bookmarks`, { id })
+    .then(({ data }) => {
       console.log('updating bookmarks...');
       dispatch({
         type: FETCH_BOOKMARKS,
@@ -85,14 +72,7 @@ const deleteBookmark = id => dispatch => {
       })
     })
     .catch(err => console.error(err))
-}
-
-// const resetBookmarks = () => dispatch => {
-//   dispatch({
-//     type: FETCH_BOOKMARKS,
-//     payload: []
-//   })
-// }
+};
 
 module.exports = {
   logIn,
@@ -100,6 +80,5 @@ module.exports = {
   logOut,
   fetchBookmarks,
   addBookmark,
-  deleteBookmark,
-  // resetBookmarks
+  deleteBookmark
 }

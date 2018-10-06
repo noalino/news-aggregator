@@ -1,9 +1,8 @@
 const express = require('express');
 // const session = require('express-session');
-// const sessionStore = new session.MemoryStore();
-// const MongoStore = require('connect-mongo')(session);
 const mongoose = require('mongoose');
 const passport = require('passport');
+const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -27,6 +26,7 @@ app.use(cors());
 // }));
 
 app.use(helmet());
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan('dev'));
@@ -39,20 +39,7 @@ mongoose
   .then(() => console.log('MongoDB Connected...'))
   .catch(err => console.log(err));
 
-// app.use(session({
-//   // store: isProduction ?
-//   //   new MongoStore({
-//   //     mongooseConnection: mongoose.connection
-//   //   }) : sessionStore,
-//   resave: true,
-//   saveUninitialized: true,
-//   secret: process.env.SESSION_SECRET
-// }));
-
 app.use(passport.initialize());
-
-/** TO BE USED FOR PERSISTENT LOGIN SESSIONS */
-// app.use(passport.session());
 
 // Authentication to secure the api
 require('./config/passport');
@@ -63,6 +50,7 @@ const privateRoutes = require('./routes/secure-api');
 
 app.use('/api', publicRoutes);
 app.use('/api/user', passport.authenticate('jwt', { session: false }), privateRoutes);
+// app.use('/api/user', privateRoutes);
 
 // Global error handler
 app.use(errorHandler);

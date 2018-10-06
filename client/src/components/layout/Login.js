@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -16,11 +16,11 @@ class Login extends Component {
   componentDidUpdate() {
     const { username, password, loading } = this.state;
     const { isRegistered, isAuthenticated, logIn, error } = this.props;
-    
+    // Log in when user has successfully signed up
     if (!error && isRegistered && !isAuthenticated) {
       logIn({ username, password });
     }
-
+    // Stop loading when user is authenticated
     if ((error || isAuthenticated) && loading) {
       this.setState({ loading: false });
     }
@@ -54,43 +54,43 @@ class Login extends Component {
     const { from } = location.state || { from: { pathname: "/" } };
 
     if (isAuthenticated) {
-      return <Redirect to={from} />
+      return <Redirect to={from} />;
     } else {
       return (
-        <form className={styles.logForm} onSubmit={this.onSubmit}>
-          <label htmlFor="email">Username</label>
-          <input
-            type="text"
-            name="username"
-            id="username"
-            value={username}
-            onChange={this.handleChangeInput}
-            placeholder="Enter your username here"
-            required
-          ></input>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            value={password}
-            onChange={this.handleChangeInput}
-            placeholder="Enter your password here"
-            required
-          ></input>
-          {error && <p>{message}</p>}
-          <button>
-            {loading ? 'Loading' : log === 'login' ? 'Log in' : 'Create account'}
-          </button>
-  
+        <div className={styles.login}>
+          <p>{error ? message : ''}</p>
+          <form className={styles.loginForm} onSubmit={this.onSubmit}>
+            <label htmlFor="email">Username</label>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              value={username}
+              onChange={this.handleChangeInput}
+              placeholder="Enter your username here"
+              required
+            ></input>
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              value={password}
+              onChange={this.handleChangeInput}
+              placeholder="Enter your password here"
+              required
+            ></input>
+            <button>
+              {/* Insert spinner instead of 'loading' | Use Transition to show login check before redirecting */}
+              {loading ? 'Loading' : log === 'login' ? 'Log in' : 'Create account'}
+            </button>
+          </form>
           {
-            log === 'signup' &&
-            <p>
-              Already have an account?{" "}
-              <Link to="/login">Sign in here!</Link>
-            </p>
+            log === 'signup' && 
+              <p>Already have an account ?{" "}
+              <Link to="/login">Sign in here!</Link></p>
           }
-        </form>
+        </div>
       );
     }
   }

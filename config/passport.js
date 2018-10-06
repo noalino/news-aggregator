@@ -1,17 +1,7 @@
+const fs = require('fs');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/User');
-
-/** HELP SUPPORTING LOGIN SESSIONS */
-// passport.serializeUser((user, done) => {
-//   done(null, user.id);
-// });
-
-// passport.deserializeUser((id, done) => {
-//   Users.findById(id, (err, user) => {
-//     done(err, user);
-//   });
-// });
 
 passport.use('signup', new LocalStrategy(
   async (username, password, done) => {
@@ -50,14 +40,18 @@ passport.use('login', new LocalStrategy(
 ));
 
 const JWTstrategy = require('passport-jwt').Strategy;
-const ExtractJWT = require('passport-jwt').ExtractJwt;
+const cookieExtractor = require('../_helpers/cookieExtractor');
+const publicKey = fs.readFileSync('./public.key', 'utf8');
 
 passport.use(new JWTstrategy({
-  secretOrKey: process.env.SECRET_JWT,
-  jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken()
-}, async (token, done) => {
+  jwtFromRequest: cookieExtractor,
+  secretOrKey: publicKey,
+  issuer: 'Benoit Corp',
+  audience: 'http://localhost:8080',
+  algorithms: ['RS256']
+}, async (jwt_payload, done) => {
   try {
-    return done(null, token.user);
+    return done(null, jwt_payload);
   } catch (err) {
     return done(err);
   }
