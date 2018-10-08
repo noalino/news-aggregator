@@ -40,10 +40,10 @@ passport.use('login', new LocalStrategy(
 ));
 
 const JWTstrategy = require('passport-jwt').Strategy;
-const cookieExtractor = require('../_helpers/cookieExtractor');
+const { cookieExtractor } = require('../_helpers/cookieHandler');
 const publicKey = fs.readFileSync('./public.key', 'utf8');
 
-passport.use(new JWTstrategy({
+passport.use('jwt', new JWTstrategy({
   jwtFromRequest: cookieExtractor,
   secretOrKey: publicKey,
   issuer: 'Benoit Corp',

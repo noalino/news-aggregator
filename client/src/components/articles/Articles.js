@@ -9,7 +9,7 @@ import styles from '../../styles/articles/Articles.scss';
 
 class Articles extends Component {
 
-  componentDidMount() {
+  componentDidMount() { // TO IMPROVE
     const { isAuthenticated, fetchBookmarks } = this.props;
     if (isAuthenticated) {
       fetchBookmarks();
@@ -21,6 +21,14 @@ class Articles extends Component {
     // return nextProps.articles !== this.props.articles;
     return nextProps.articles !== this.props.articles || nextProps.isAuthenticated !== this.props.isAuthenticated;
   }
+
+  /** REFRESHING PAGE REMOVES BOOKMARKS (ARTICLES DON'T MOUNT WHEN REFRESH) */
+  // componentDidUpdate(prevProps) {
+  //   const { isAuthenticated, fetchBookmarks } = this.props;
+  //   if (isAuthenticated && isAuthenticated !== prevProps.isAuthenticated) {
+  //     fetchBookmarks();
+  //   }
+  // }
 
   render() {
     console.log('articles list rendering');

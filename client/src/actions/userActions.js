@@ -1,8 +1,20 @@
 import { AUTHENTICATE, REGISTER, LOGOUT, FETCH_BOOKMARKS } from './types';
 import axios from 'axios';
 
+const authenticate = () => dispatch => {
+  axios.post('http://localhost:5000/api/authenticate', {}, { withCredentials: true })
+    .then(({ data: status }) => {
+      dispatch({
+        type: AUTHENTICATE,
+        payload: status
+      })
+      console.log('authenticate status: ', status);
+    })
+    .catch(err => console.error(err))
+};
+
 const logIn = credentials => dispatch => {
-  axios.post('http://localhost:5000/api/login', { ...credentials })
+  axios.post('http://localhost:5000/api/login', { ...credentials }, { withCredentials: true })
     .then(({ data: status }) => {
       dispatch({
         type: AUTHENTICATE,
@@ -26,7 +38,7 @@ const signUp = credentials => dispatch => {
 };
 
 const logOut = () => dispatch => {
-  axios.post('http://localhost:5000/api/logout')
+  axios.post('http://localhost:5000/api/logout', {}, { withCredentials: true })
     .then(() => {
       dispatch({
         type: LOGOUT
@@ -37,7 +49,7 @@ const logOut = () => dispatch => {
 
 const fetchBookmarks = () => dispatch => {
 
-  axios.get(`http://localhost:5000/api/user/bookmarks`)
+  axios.get(`http://localhost:5000/api/user/bookmarks`, { withCredentials: true })
     .then(({ data }) => {
       console.log('fetching bookmarks...');
       dispatch({
@@ -50,7 +62,7 @@ const fetchBookmarks = () => dispatch => {
 
 const addBookmark = article => dispatch => {
 
-  axios.post(`http://localhost:5000/api/user/bookmarks`, { article })
+  axios.post(`http://localhost:5000/api/user/bookmarks`, { article }, { withCredentials: true })
     .then(({ data }) => {
       console.log('updating bookmarks...');
       dispatch({
@@ -63,7 +75,7 @@ const addBookmark = article => dispatch => {
 
 const deleteBookmark = id => dispatch => {
 
-  axios.put(`http://localhost:5000/api/user/bookmarks`, { id })
+  axios.put(`http://localhost:5000/api/user/bookmarks`, { id }, { withCredentials: true })
     .then(({ data }) => {
       console.log('updating bookmarks...');
       dispatch({
@@ -75,6 +87,7 @@ const deleteBookmark = id => dispatch => {
 };
 
 module.exports = {
+  authenticate,
   logIn,
   signUp,
   logOut,

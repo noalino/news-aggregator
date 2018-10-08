@@ -40,20 +40,15 @@ class Login extends Component {
     log === 'login' ? logIn({ username, password }) : signUp({ username, password });
     
     this.setState({ loading: true });
-
-    // if (log === 'login') {
-    //   logIn(this.state);
-    // } else if (log === 'signup') {
-    //   signUp(this.state);
-    // }
   }
 
   render() {
     const { username, password, loading } = this.state;
     const { log, location, isAuthenticated, error, message } = this.props;
-    const { from } = location.state || { from: { pathname: "/" } };
+    const { from } = location.state || { from: { pathname: "/" } }; // To improve
 
     if (isAuthenticated) {
+      console.log(location);
       return <Redirect to={from} />;
     } else {
       return (

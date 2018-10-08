@@ -47,6 +47,15 @@
           display: none;
         }
       }
+
+      & > button {
+        padding: 1em 0.5em;
+        cursor: pointer;
+
+        &>i {
+          display: none;
+        }
+      }
     }
   }
 

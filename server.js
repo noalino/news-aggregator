@@ -1,5 +1,4 @@
 const express = require('express');
-// const session = require('express-session');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const cookieParser = require('cookie-parser');
@@ -19,11 +18,12 @@ mongoose.Promise = global.Promise;
 
 const isProduction = process.env.NODE_ENV === 'production';
 
-app.use(cors());
-// app.use(cors({
-//   origin: 'http://localhost:8080',
-//   optionsSuccessStatus: 200
-// }));
+// app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:8080',
+  optionsSuccessStatus: 200,
+  credentials: true // To receive cookies from client
+}));
 
 app.use(helmet());
 app.use(cookieParser());
@@ -50,7 +50,6 @@ const privateRoutes = require('./routes/secure-api');
 
 app.use('/api', publicRoutes);
 app.use('/api/user', passport.authenticate('jwt', { session: false }), privateRoutes);
-// app.use('/api/user', privateRoutes);
 
 // Global error handler
 app.use(errorHandler);
