@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 
 const user_controller = require('../controllers/user.controller');
+const verify_user = require('./auth');
 
-router.post('/authenticate', user_controller.authenticate);
+router.post('/authenticate', verify_user, user_controller.authenticate);
 router.post('/signup', user_controller.signUp);
 router.post('/login', user_controller.logIn);
 router.post('/logout', user_controller.logOut);

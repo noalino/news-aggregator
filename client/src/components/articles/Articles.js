@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchBookmarks } from '../../actions/userActions';
+import { fetchBookmarks, authenticate } from '../../actions/userActions';
 
 import Loader from '../loader/Loader';
 import Article from './Article';
@@ -9,18 +9,19 @@ import styles from '../../styles/articles/Articles.scss';
 
 class Articles extends Component {
 
-  componentDidMount() { // TO IMPROVE
-    const { isAuthenticated, fetchBookmarks } = this.props;
-    if (isAuthenticated) {
-      fetchBookmarks();
-    }
-  }
+  // componentDidMount() {
+  //   const { isAuthenticated, fetchBookmarks, authenticate } = this.props;
+  //   console.log('Articles mounting');
+  //   if (isAuthenticated) {
+  //     fetchBookmarks();
+  //   }
+  // }
 
-  shouldComponentUpdate(nextProps) {
+  // shouldComponentUpdate(nextProps) {
     // /!\ it has to compare key/value pairs inside objects
     // return nextProps.articles !== this.props.articles;
-    return nextProps.articles !== this.props.articles || nextProps.isAuthenticated !== this.props.isAuthenticated;
-  }
+    // return nextProps.articles !== this.props.articles || nextProps.isAuthenticated !== this.props.isAuthenticated;
+  // }
 
   /** REFRESHING PAGE REMOVES BOOKMARKS (ARTICLES DON'T MOUNT WHEN REFRESH) */
   // componentDidUpdate(prevProps) {
@@ -60,7 +61,7 @@ class Articles extends Component {
 }
 
 Articles.propTypes = {
-  fetchBookmarks: PropTypes.func.isRequired,
+  // fetchBookmarks: PropTypes.func.isRequired,
   lastQuery: PropTypes.string.isRequired,
   articles: PropTypes.array.isRequired,
   isAuthenticated: PropTypes.bool.isRequired
@@ -69,7 +70,8 @@ Articles.propTypes = {
 const mapStateToProps = state => ({
   lastQuery: state.articles.lastQuery,
   articles: state.articles.articles,
-  isAuthenticated: state.user.isAuthenticated
+  isAuthenticated: state.user.isAuthenticated,
+  bookmarks: state.user.bookmarks
 });
 
-export default connect(mapStateToProps, { fetchBookmarks })(Articles);
+export default connect(mapStateToProps, { fetchBookmarks, authenticate })(Articles);

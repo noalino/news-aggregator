@@ -6,18 +6,34 @@ import { addBookmark, deleteBookmark } from '../../actions/userActions';
 import styles from '../../styles/articles/Article.scss';
 
 class Article extends Component {
-  constructor(props) {
-    super(props);
-    const { bookmarks, article, isAuthenticated } = this.props;
-    this.state = {
-      // Set isBookmark to true if user is authenticated & article in bookmarks
-      isBookmark: isAuthenticated ? bookmarks.findIndex(item => item.id === article.id) !== -1 : false
-    };
+  // constructor(props) {
+  //   super(props);
+  //   const { bookmarks, article, isAuthenticated } = this.props;
+  //   this.state = {
+  //     // Set isBookmark to true if user is authenticated & article in bookmarks
+  //     isBookmark: isAuthenticated ? bookmarks.findIndex(item => item.id === article.id) !== -1 : false
+  //   };
+  // }
+  state = {
+    isBookmark: false
   }
 
-  componentDidUpdate() {
+  componentDidMount() {
+    // console.log('article mounting');
+    const { bookmarks, article, isAuthenticated } = this.props;
+    // Set isBookmark to true if user is authenticated & article in bookmarks
+    this.setState({
+      isBookmark: isAuthenticated ? bookmarks.findIndex(item => item.id === article.id) !== -1 : false
+    })
+  }
+
+  componentDidUpdate(prevProps) {
+    // Set bookmark on page refreshing
+    if (this.props.isAuthenticated && this.props.bookmarks.length !== prevProps.bookmarks.length) {
+      this.setState({ isBookmark: this.props.bookmarks.findIndex(item => item.id === this.props.article.id) !== -1 });
+    }
     // Remove bookmark from article when user logs out
-    if (!this.props.isAuthenticated && this.state.isBookmark) { // Check bookmarks.length?
+    if (!this.props.isAuthenticated && this.state.isBookmark) {
       this.setState({ isBookmark: false });
     }
   }
@@ -36,6 +52,7 @@ class Article extends Component {
   render() {
     const { isBookmark } = this.state;
     const { article } = this.props;
+    // console.log('article rendering');
 
     return (
       <article className={styles.article}>

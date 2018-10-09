@@ -43,7 +43,7 @@ const JWTstrategy = require('passport-jwt').Strategy;
 const { cookieExtractor } = require('../_helpers/cookieHandler');
 const publicKey = fs.readFileSync('./public.key', 'utf8');
 
-passport.use('jwt', new JWTstrategy({
+passport.use(new JWTstrategy({
   jwtFromRequest: cookieExtractor,
   secretOrKey: publicKey,
   issuer: 'Benoit Corp',

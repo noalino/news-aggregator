@@ -47,9 +47,10 @@ require('./config/passport');
 // Routes
 const publicRoutes = require('./routes/api');
 const privateRoutes = require('./routes/secure-api');
+const verify_user = require('./routes/auth');
 
 app.use('/api', publicRoutes);
-app.use('/api/user', passport.authenticate('jwt', { session: false }), privateRoutes);
+app.use('/api/user', verify_user, privateRoutes);
 
 // Global error handler
 app.use(errorHandler);

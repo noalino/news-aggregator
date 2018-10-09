@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import { Provider } from 'react-redux';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import { authenticate } from './actions/userActions';
+import { authenticate, fetchBookmarks } from './actions/userActions';
 
 import PrivateRoute from './PrivateRoute';
 
@@ -20,7 +20,16 @@ import styles from './styles/App.scss';
 class App extends Component {
   componentDidMount() {
     console.log('App mounting...');
+    // Verify user from token in cookie
     this.props.authenticate();
+  }
+
+  componentDidUpdate(prevProps) {
+    const { isAuthenticated, fetchBookmarks } = this.props;
+    // Fetch bookmarks if user is authenticated
+    if (isAuthenticated && isAuthenticated !== prevProps.isAuthenticated) {
+      fetchBookmarks();
+    }
   }
 
   render() {
@@ -45,7 +54,11 @@ class App extends Component {
   }
 };
 
-export default connect(null, { authenticate })(App);
+const mapStateToProps = state => ({
+  isAuthenticated: state.user.isAuthenticated
+});
+
+export default connect(mapStateToProps, { authenticate, fetchBookmarks })(App);
 
 // const App = () => {  
 //   return (
