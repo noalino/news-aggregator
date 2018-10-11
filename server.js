@@ -9,6 +9,12 @@ const morgan = require('morgan');
 const dotenv = require('dotenv');
 const path = require('path');
 
+// Routes
+const publicRoutes = require('./routes/api');
+const privateRoutes = require('./routes/secure-api');
+
+// Middlewares
+const verify_user = require('./routes/auth');
 const errorHandler = require('./_helpers/error-handler');
 
 const app = express();
@@ -18,7 +24,6 @@ mongoose.Promise = global.Promise;
 
 const isProduction = process.env.NODE_ENV === 'production';
 
-// app.use(cors());
 app.use(cors({
   origin: 'http://localhost:8080',
   optionsSuccessStatus: 200,
@@ -41,13 +46,8 @@ mongoose
 
 app.use(passport.initialize());
 
-// Authentication to secure the api
+// Passport authentication to secure the api
 require('./config/passport');
-
-// Routes
-const publicRoutes = require('./routes/api');
-const privateRoutes = require('./routes/secure-api');
-const verify_user = require('./routes/auth');
 
 app.use('/api', publicRoutes);
 app.use('/api/user', verify_user, privateRoutes);

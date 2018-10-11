@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { searchArticles, fetchSources, resetArticles } from '../../actions/articlesActions';
+import { searchArticles, updateOptions, fetchSources, resetArticles } from '../../actions/articlesActions';
 import { getQuery, isEqual } from '../../_utils';
 
 import Buttons from '../sidebar/Buttons';
@@ -14,48 +15,46 @@ export class Search extends Component {
     const { search } = this.props.location;
     this.state = {
       // Initialize query to the one from nav searchbar or URL if it exists
-      query: search ? decodeURIComponent(getQuery(search)) : '',
-      options: { ...this.props.options }
-    }
-  }
-
-  static defaultProps = {
-    options: {
-      from: '',
-      to: '',
-      source: '',
-      sorting: 'publishedAt'
+      query: search ? decodeURIComponent(getQuery(search)) : ''
     }
   }
 
   componentDidMount() {
-    const { country, fetchSources, searchArticles } = this.props;
+    const { query } = this.state;
+    const { country, language, fetchSources, searchArticles } = this.props;
     console.log('Search component mounting');
 
-    fetchSources(country);
+    fetchSources({ country, language });
 
-    if (this.state.query !== '') {
-      searchArticles({language: country.language.code, ...this.state});
+    if (query !== '') {
+      const { pageSize, options } = this.props;
+      searchArticles({
+        query,
+        options,
+        pageSize,
+        language
+      });
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const { country, fetchSources, location, options } = this.props;
+  componentDidUpdate(prevProps) {
+    const { country, language, fetchSources, location, options } = this.props;
     const { search, state } = location;
+    const { search: prevLocSearch, state: prevLocState } = prevProps.location;
 
     // Fetch source list & reset source when language changes
-    if (country.code !== prevProps.country.code) {
+    if (country !== prevProps.country) {
       console.log('language changed');
-      fetchSources(country);
-      this.handleReqChange({ ...prevState.options, source: '' });
-                  
+      fetchSources({ country, language });
+      this.handleReqChange({ ...options, source: '' });
+
     // Handle query coming from nav searchbar or from URL
-    } else if (state === undefined && search !== prevProps.location.search) {
+    } else if (state === undefined && search !== prevLocSearch) {
       console.log('nav searchbar request');
       this.handleReqChange(options);
 
     // Handle query coming from main searchbar
-    } else if (state !== undefined && (search !== prevProps.location.search || !isEqual(state, prevProps.location.state))) {
+    } else if (state !== undefined && (search !== prevLocSearch || !isEqual(state, prevLocState))) {
       console.log('main searchbar request');
       this.handleReqChange(state);
     }
@@ -63,40 +62,49 @@ export class Search extends Component {
 
   // Search articles if query !== ''
   handleReqChange = options => {
-    const { country: { language }, searchArticles, resetArticles, location: { search } } = this.props;
+    const { searchArticles, updateOptions, resetArticles, location: { search }, language, pageSize } = this.props;
     const decodedQuery = search ? decodeURIComponent(getQuery(search)) : '';
 
-    this.setState({
-      query: decodedQuery,
-      options: {...options}
-    }, () => decodedQuery !== '' ?
-      searchArticles({language: language.code, ...this.state}) : resetArticles()
-    );
+    this.setState({ query: decodedQuery }, () => {
+      updateOptions(options);
+      decodedQuery !== '' ?
+        searchArticles({
+          query: this.state.query,
+          options,
+          pageSize,
+          language,
+        }) : resetArticles()
+    });
   }
 
   handleInputChange = e => {
     const { name, value } = e.target;
+    const { options, updateOptions } = this.props;
+    const newOptions = { ...options, [name]: value };
+
     if (name === 'query') {
       this.setState({ [name]: value });
+    } else if (name === 'sorting') {
+      this.handleReqChange(newOptions);
     } else {
-      this.setState(prevState => ({ options: {...prevState.options, [name]: value} }));
+      updateOptions(newOptions);
     }
   }
 
   onSubmit = e => {
     e.preventDefault();
-    const { query, options } = this.state;
-    const { lastQuery, location, history } = this.props;
+    const { query } = this.state;
+    const { lastQuery, options, location, history } = this.props;
 
     // Avoid pushing when query & options don't change (makes navigation easier)
     if (query !== '' && (query !== lastQuery || !isEqual(options, location.state))) {
-      history.push(`${location.pathname}?q=${encodeURIComponent(query)}`, {...options});
+      history.push(`${location.pathname}?q=${encodeURIComponent(query)}`, options);
     }
   }
 
   render() {
-    const { query, options } = this.state;
-    const { lastQuery, sources } = this.props;
+    const { query } = this.state;
+    const { lastQuery, sources, options } = this.props;
 
     return (
       <div>
@@ -157,17 +165,35 @@ export class Search extends Component {
 
 Search.propTypes = {
   lastQuery: PropTypes.string.isRequired,
-  country: PropTypes.object.isRequired,
+  country: PropTypes.string.isRequired,
+  language: PropTypes.string.isRequired,
   sources: PropTypes.array.isRequired,
   searchArticles: PropTypes.func.isRequired,
   fetchSources: PropTypes.func.isRequired,
-  resetArticles: PropTypes.func.isRequired
+  resetArticles: PropTypes.func.isRequired,
+  location: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+
+  pageSize: PropTypes.number.isRequired,
+  options: PropTypes.object.isRequired,
+  updateOptions: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   lastQuery: state.articles.lastQuery,
-  country: state.articles.country,
-  sources: state.articles.sources
+  country: state.articles.country.code,
+  language: state.articles.country.language.code,
+  sources: state.articles.sources,
+
+  pageSize: state.articles.pageSize,
+  options: state.articles.options
 });
 
-export default connect(mapStateToProps, { searchArticles, fetchSources, resetArticles })(Search);
+export default withRouter(connect(mapStateToProps,
+  {
+    searchArticles,
+    updateOptions,
+    fetchSources,
+    resetArticles
+  }
+)(Search));

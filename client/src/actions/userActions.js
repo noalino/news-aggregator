@@ -8,7 +8,7 @@ const authenticate = () => dispatch => {
         type: AUTHENTICATE,
         payload: status
       })
-      console.log('authenticate status: ', status);
+      // console.log('authenticate status: ', status);
     })
     .catch(err => console.error(err))
 };
@@ -20,7 +20,7 @@ const logIn = credentials => dispatch => {
         type: AUTHENTICATE,
         payload: status
       })
-      console.log('login status: ', status);
+      // console.log('login status: ', status);
     })
     .catch(err => console.error(err))
 };
@@ -32,7 +32,7 @@ const signUp = credentials => dispatch => {
         type: REGISTER,
         payload: status
       })
-      console.log('signup status: ', status);
+      // console.log('signup status: ', status);
     })
     .catch(err => console.error(err))
 };

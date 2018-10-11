@@ -1,77 +1,61 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchBookmarks, authenticate } from '../../actions/userActions';
+import { loadNextPage } from '../../actions/articlesActions';
 
 import Loader from '../loader/Loader';
 import Article from './Article';
 import styles from '../../styles/articles/Articles.scss';
 
-class Articles extends Component {
+const Articles = ({ loadNextPage, ...searchArgs }) => {
+  console.log('articles rendering');
+  const { articles, lastQuery, totalResults, page, pageSize } = searchArgs;
+  const results = articles.length;
 
-  // componentDidMount() {
-  //   const { isAuthenticated, fetchBookmarks, authenticate } = this.props;
-  //   console.log('Articles mounting');
-  //   if (isAuthenticated) {
-  //     fetchBookmarks();
-  //   }
-  // }
+  return (
+    <div className={styles.scrollpage}>
+    {
+      (lastQuery !== '' && results < 1) ? 
 
-  // shouldComponentUpdate(nextProps) {
-    // /!\ it has to compare key/value pairs inside objects
-    // return nextProps.articles !== this.props.articles;
-    // return nextProps.articles !== this.props.articles || nextProps.isAuthenticated !== this.props.isAuthenticated;
-  // }
+        <h3>No Results Found</h3> :
 
-  /** REFRESHING PAGE REMOVES BOOKMARKS (ARTICLES DON'T MOUNT WHEN REFRESH) */
-  // componentDidUpdate(prevProps) {
-  //   const { isAuthenticated, fetchBookmarks } = this.props;
-  //   if (isAuthenticated && isAuthenticated !== prevProps.isAuthenticated) {
-  //     fetchBookmarks();
-  //   }
-  // }
-
-  render() {
-    console.log('articles list rendering');
-    const { lastQuery, articles } = this.props;
-    const results = articles.length;
-
-    return (
-      <div className={styles.scrollpage}>
-      {
-        (lastQuery !== '' && results < 1) ? 
-
-          <h3>No Results Found</h3> :
-
-          <Fragment>
-            <div className={styles.container}>
-              {articles.map(article => <Article key={article.id} article={{...article}} />)}
-            </div>
-            
-            {results > 0 && 
-              <footer className={styles.footer}>
-                Powered by <a href="https://newsapi.org/" target="_blank">News API</a>
-              </footer>
+        <Fragment>
+          <div className={styles.container}>
+            {articles.map(article => <Article key={article.id} article={{...article}} />)}
+          </div>
+          
+          <footer className={styles.footer}>
+            {totalResults > (page * pageSize) && 
+              <button onClick={() => loadNextPage(searchArgs)}>See more</button>
             }
-          </Fragment>
-      }
-      </div>
-    );
-  }
+            {results > 0 && <p>Powered by <a href="https://newsapi.org/" target="_blank">News API</a></p>}
+          </footer>
+        </Fragment>
+    }
+    </div>
+  );
 }
 
 Articles.propTypes = {
-  // fetchBookmarks: PropTypes.func.isRequired,
-  lastQuery: PropTypes.string.isRequired,
   articles: PropTypes.array.isRequired,
-  isAuthenticated: PropTypes.bool.isRequired
+  lastQuery: PropTypes.string.isRequired,
+
+  page: PropTypes.number.isRequired,
+  pageSize: PropTypes.number.isRequired,
+  totalResults: PropTypes.number.isRequired,
+  language: PropTypes.string.isRequired,
+  options: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  lastQuery: state.articles.lastQuery,
   articles: state.articles.articles,
-  isAuthenticated: state.user.isAuthenticated,
-  bookmarks: state.user.bookmarks
+  lastQuery: state.articles.lastQuery,
+
+  page: state.articles.page,
+  pageSize: state.articles.pageSize,
+  totalResults: state.articles.totalResults,
+  language: state.articles.country.language.code,
+  options: state.articles.options
 });
 
-export default connect(mapStateToProps, { fetchBookmarks, authenticate })(Articles);
+export default connect(mapStateToProps, { loadNextPage })(Articles);

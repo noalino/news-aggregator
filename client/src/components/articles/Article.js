@@ -6,14 +6,6 @@ import { addBookmark, deleteBookmark } from '../../actions/userActions';
 import styles from '../../styles/articles/Article.scss';
 
 class Article extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   const { bookmarks, article, isAuthenticated } = this.props;
-  //   this.state = {
-  //     // Set isBookmark to true if user is authenticated & article in bookmarks
-  //     isBookmark: isAuthenticated ? bookmarks.findIndex(item => item.id === article.id) !== -1 : false
-  //   };
-  // }
   state = {
     isBookmark: false
   }
@@ -74,6 +66,7 @@ class Article extends Component {
 }
 
 Article.propTypes = {
+  article: PropTypes.object.isRequired,
   addBookmark: PropTypes.func.isRequired,
   deleteBookmark: PropTypes.func.isRequired,
   bookmarks: PropTypes.array.isRequired,
