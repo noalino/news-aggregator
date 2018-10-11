@@ -40,11 +40,11 @@ Articles.propTypes = {
   articles: PropTypes.array.isRequired,
   lastQuery: PropTypes.string.isRequired,
 
-  page: PropTypes.number.isRequired,
-  pageSize: PropTypes.number.isRequired,
-  totalResults: PropTypes.number.isRequired,
-  language: PropTypes.string.isRequired,
-  options: PropTypes.object.isRequired
+  page: PropTypes.number,
+  pageSize: PropTypes.number,
+  totalResults: PropTypes.number,
+  language: PropTypes.string,
+  options: PropTypes.object
 };
 
 const mapStateToProps = state => ({

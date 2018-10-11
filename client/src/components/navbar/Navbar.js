@@ -32,7 +32,6 @@ class Navbar extends Component {
   logout = e => {
     e.preventDefault();
     this.props.logOut();
-    // this.props.history.push('/');
   }
 
   render() {

@@ -7,15 +7,30 @@ import { logIn, signUp } from '../../actions/userActions';
 import styles from '../../styles/layout/Login.scss';
 
 class Login extends Component {
-  state = {
-    username: '',
-    password: '',
-    loading: false
-  }
+   constructor() {
+     super();
+     this.state = {
+       username: '',
+       password: '',
+       errMessage: '',
+       loading: false
+     };
 
-  componentDidUpdate() {
+     this.usernameInput = React.createRef();
+     this.passwordInput = React.createRef();
+   }
+
+  componentDidUpdate(prevProps) {
     const { username, password, loading } = this.state;
-    const { isRegistered, isAuthenticated, logIn, error } = this.props;
+    const { isRegistered, isAuthenticated, logIn, error, message, log } = this.props;
+
+    if (error && message !== prevProps.message) {
+      this.setState({
+        password: '',
+        errMessage: message
+       });
+       this.usernameInput.current.focus();
+    }
     // Log in when user has successfully signed up
     if (!error && isRegistered && !isAuthenticated) {
       logIn({ username, password });
@@ -23,6 +38,15 @@ class Login extends Component {
     // Stop loading when user is authenticated
     if ((error || isAuthenticated) && loading) {
       this.setState({ loading: false });
+    }
+    // Reset credentials when user switches between Login & Signup
+    if (log !== prevProps.log) {
+      this.setState({
+        username: '',
+        password: '',
+        errMessage: ''
+      });
+      this.usernameInput.current.focus();
     }
   }
 
@@ -43,26 +67,27 @@ class Login extends Component {
   }
 
   render() {
-    const { username, password, loading } = this.state;
-    const { log, location, isAuthenticated, error, message } = this.props;
-    const { from } = location.state || { from: { pathname: "/" } }; // To improve
+    const { username, password, loading, errMessage } = this.state;
+    const { log, isAuthenticated } = this.props;
 
     if (isAuthenticated) {
-      console.log(location);
-      return <Redirect to={from} />;
+      return <Redirect to="/" />;
     } else {
       return (
         <div className={styles.login}>
-          <p>{error ? message : ''}</p>
+          <p>{errMessage}</p>
           <form className={styles.loginForm} onSubmit={this.onSubmit}>
             <label htmlFor="email">Username</label>
             <input
               type="text"
               name="username"
               id="username"
+              ref={this.usernameInput}
               value={username}
+              maxLength="18"
               onChange={this.handleChangeInput}
-              placeholder="Enter your username here"
+              placeholder="Username"
+              autoFocus
               required
             ></input>
             <label htmlFor="password">Password</label>
@@ -70,11 +95,14 @@ class Login extends Component {
               type="password"
               name="password"
               id="password"
+              ref={this.passwordInput}
               value={password}
+              maxLength = "32"
               onChange={this.handleChangeInput}
-              placeholder="Enter your password here"
+              placeholder="Password"
               required
             ></input>
+            <p>Password must contain at least 8 characters</p>
             <button>
               {/* Insert spinner instead of 'loading' | Use Transition to show login check before redirecting */}
               {loading ? 'Loading' : log === 'login' ? 'Log in' : 'Create account'}
@@ -96,7 +124,7 @@ Login.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
   isRegistered: PropTypes.bool.isRequired,
   error: PropTypes.bool.isRequired,
-  message: PropTypes.string.isRequired,
+  message: PropTypes.string,
   logIn: PropTypes.func.isRequired,
   signUp: PropTypes.func.isRequired
 };

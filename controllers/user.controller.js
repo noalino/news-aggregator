@@ -59,8 +59,7 @@ const logIn = async (req, res, next) => {
         });
         res.json({
           success: true,
-          message,
-          token
+          message
         });
       });
     } catch (err) { return next(err); }
@@ -71,7 +70,7 @@ const logOut = (req, res) => {
   req.logout();
   res.clearCookie('jwt_header&payload');
   res.clearCookie('jwt_signature');
-  res.json({ message: 'You are now logged out.'});
+  res.end();
 }
 
 module.exports = {
