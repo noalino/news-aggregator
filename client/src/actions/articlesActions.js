@@ -8,6 +8,7 @@ import {
 } from './types';
 import axios from 'axios';
 import { generateArticleId, filterArticles } from '../_utils';
+import jsonResponse from '../data';
 
 export const changeCountry = country => dispatch => {
   console.log('changing country');
@@ -43,6 +44,10 @@ export const fetchArticles = (country, category) => dispatch => {
       });
     })
     .catch(err => console.error(err));
+  // dispatch({
+  //   type: FETCH_ARTICLES,
+  //   payload: jsonResponse.all.articles
+  // });
 }
 
 export const updateOptions = options => dispatch => {

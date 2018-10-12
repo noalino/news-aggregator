@@ -12,11 +12,49 @@ class CountryDropdown extends Component {
     this.state = {
       isOpen: false
     }
+    this.toggleButton = React.createRef();
+    this.countryList = React.createRef();
+    this.timeOutId = null;
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.isOpen && this.state.isOpen !== prevState.isOpen) {
+      document.addEventListener('keydown', this.keyNavigation);
+    } else if (!this.state.isOpen && this.state.isOpen !== prevState.isOpen) {
+      document.removeEventListener('keydown', this.keyNavigation);
+    }
   }
 
   triggerDropdown = e => {
     e.preventDefault();
     this.setState(prevState => ({ isOpen: !prevState.isOpen }))
+  }
+
+  keyNavigation = e => {
+    const { activeElement } = document;
+    const firstItem = this.countryList.current.firstChild;
+    const lastItem = this.countryList.current.lastChild;
+
+    switch (e.which) {
+      case 13: // ENTER key
+        const country = this.props.countries.find(item => item.code === activeElement.id);
+        this.handleClick(country, e);
+        break;
+      case 38: // UP arrow key
+        e.preventDefault();
+        // Stop script if focus on toggle element
+        if (activeElement === this.toggleButton.current) { break; }
+        else if (activeElement === firstItem) { lastItem.focus(); }
+        else { activeElement.previousSibling.focus(); }
+        break;
+      case 40: // DOWN arrow key
+        e.preventDefault();
+        if (activeElement === this.toggleButton.current || activeElement === lastItem) {
+          firstItem.focus();
+        }
+        else { activeElement.nextSibling.focus(); }
+        break;
+    }
   }
 
   handleClick = (country, e) => {
@@ -25,22 +63,43 @@ class CountryDropdown extends Component {
     this.triggerDropdown(e);
   }
 
+  // Close dropdown when not active
+  onBlurHandler = () => {
+    this.timeOutId = setTimeout(() => {
+      this.setState({ isOpen: false });
+    });
+  }
+  onFocusHandler = () => {
+    clearTimeout(this.timeOutId);
+  }
+
   render() {
     const { isOpen } = this.state;
     const { country } = this.props;
     
     return (
-      <div className={styles.dropdown}>
-        <button className={styles.dropbtn} onClick={this.triggerDropdown}>
+      <div className={styles.dropdown} onBlur={this.onBlurHandler} onFocus={this.onFocusHandler}>
+        <button 
+          ref={this.toggleButton}
+          className={styles.dropbtn}
+          onClick={this.triggerDropdown}
+          aria-haspopup="true"
+          aria-expanded={isOpen}
+        >
           <Icon className="country" country={country.code}/>
-          <i className="fa fa-caret-down"></i>
+          <i className="fa fa-caret-down"/>
         </button>
 
         {
           isOpen &&
-          <ul className={styles.dropdownContent}>
+          <ul className={styles.dropdownContent} ref={this.countryList}>
             {this.props.countries.map(country => (
-              <li key={country.code} onClick={this.handleClick.bind(this, country)}>
+              <li 
+                key={country.code}
+                id={country.code}
+                tabIndex="0"
+                onClick={this.handleClick.bind(this, country)}
+              >
                 <Icon className="country" country={country.code}/>
               </li>
             ))}
