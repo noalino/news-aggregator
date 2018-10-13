@@ -81,13 +81,13 @@ module.exports = {
           }
         ]
       },
-      {
-        test: /\.svg$/,
-        loader: 'svg-sprite-loader',
-        options: {
-          publicPath: 'images/'
-        }
-      }
+      // {
+      //   test: /\.svg$/,
+      //   loader: 'svg-sprite-loader',
+      //   options: {
+      //     publicPath: 'images/'
+      //   }
+      // }
     ]
   },
   devServer: {

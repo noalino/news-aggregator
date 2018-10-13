@@ -3,7 +3,12 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { changeCountry } from '../../actions/articlesActions';
 
-import Icon from './Icon';
+// import Icon from './Icon';
+import flag_fr from '../../assets/images/flags-min/fr.png';
+import flag_es from '../../assets/images/flags-min/es.png';
+import flag_de from '../../assets/images/flags-min/de.png';
+import flag_gb from '../../assets/images/flags-min/gb.png';
+import flag_us from '../../assets/images/flags-min/us.png';
 import styles from '../../styles/navbar/CountryDropdown.scss';
 
 class CountryDropdown extends Component {
@@ -73,6 +78,16 @@ class CountryDropdown extends Component {
     clearTimeout(this.timeOutId);
   }
 
+  getFlagImg = country => {
+    switch(country) {
+      case 'de': return flag_de;
+      case 'fr': return flag_fr;
+      case 'es': return flag_es;
+      case 'gb': return flag_gb;
+      case 'us': return flag_us;
+    }
+  }
+
   render() {
     const { isOpen } = this.state;
     const { country } = this.props;
@@ -86,7 +101,8 @@ class CountryDropdown extends Component {
           aria-haspopup="true"
           aria-expanded={isOpen}
         >
-          <Icon className="country" country={country.code}/>
+          {/* <Icon className="country" country={country.code}/> */}
+          <img src={this.getFlagImg(country.code)} alt={country.name} />
           <i className="fa fa-caret-down"/>
         </button>
 
@@ -100,7 +116,8 @@ class CountryDropdown extends Component {
                 tabIndex="0"
                 onClick={this.handleClick.bind(this, country)}
               >
-                <Icon className="country" country={country.code}/>
+                {/* <Icon className="country" country={country.code}/> */}
+                <img src={this.getFlagImg(country.code)} alt={country.name}/>
               </li>
             ))}
           </ul>

@@ -32,22 +32,22 @@ export const resetArticles = () => dispatch => {
 
 export const fetchArticles = (country, category) => dispatch => {
   console.log('fetching articles...');
-  axios.get(`https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${process.env.API_KEY}`)
-    .then(({ data: { articles }}) => {
-      generateArticleId(articles);
-      return filterArticles(articles);
-    })
-    .then(articles => {
-      dispatch({
-        type: FETCH_ARTICLES,
-        payload: articles
-      });
-    })
-    .catch(err => console.error(err));
-  // dispatch({
-  //   type: FETCH_ARTICLES,
-  //   payload: jsonResponse.all.articles
-  // });
+  // axios.get(`https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${process.env.API_KEY}`)
+  //   .then(({ data: { articles }}) => {
+  //     generateArticleId(articles);
+  //     return filterArticles(articles);
+  //   })
+  //   .then(articles => {
+  //     dispatch({
+  //       type: FETCH_ARTICLES,
+  //       payload: articles
+  //     });
+  //   })
+  //   .catch(err => console.error(err));
+  dispatch({
+    type: FETCH_ARTICLES,
+    payload: jsonResponse.all.articles
+  });
 }
 
 export const updateOptions = options => dispatch => {
