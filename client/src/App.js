@@ -4,12 +4,13 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import PropTypes from 'prop-types';
 import { authenticate, fetchBookmarks } from './actions/userActions';
 
+
 import PrivateRoute from './PrivateRoute';
 
 import Navbar from './components/navbar/Navbar';
 import Index from './components/layout/Index';
 import Login from './components/layout/Login';
-import Search from './components/layout/Search';
+import Search from './components/layout/Search'; // eslint-disable-line import/no-named-as-default
 import Bookmarks from './components/layout/Bookmarks';
 
 import './assets/images/favicon.ico';
@@ -18,12 +19,12 @@ import styles from './styles/App.scss';
 class App extends Component {
   componentDidMount() {
     console.log('App mounting...');
-    // Verify user from token in cookie
-    this.props.authenticate();
+    /* Verify user from token in cookie */
+    this.props.authenticate(); // eslint-disable-line react/destructuring-assignment
   }
 
   componentDidUpdate(prevProps) {
-    const { isAuthenticated, fetchBookmarks } = this.props;
+    const { isAuthenticated, fetchBookmarks } = this.props; // eslint-disable-line no-shadow
     if (isAuthenticated && isAuthenticated !== prevProps.isAuthenticated) {
       fetchBookmarks();
     }
@@ -35,7 +36,7 @@ class App extends Component {
         <div className={styles.app}>
           <Navbar />
           <Switch>
-            <Route exact path="/" render={() => <Redirect to="/general"></Redirect>} />
+            <Route exact path="/" render={() => <Redirect to="/general" />} />
             <Route path="/login" render={props => <Login {...props} log="login" />} />
             <Route path="/signup" render={props => <Login {...props} log="signup" />} />
             <Route path="/search" component={Search} />
@@ -46,16 +47,16 @@ class App extends Component {
       </Router>
     );
   }
-};
+}
 
 App.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
   authenticate: PropTypes.func.isRequired,
-  fetchBookmarks: PropTypes.func.isRequired
+  fetchBookmarks: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.user.isAuthenticated
+  isAuthenticated: state.user.isAuthenticated,
 });
 
 export default connect(mapStateToProps, { authenticate, fetchBookmarks })(App);

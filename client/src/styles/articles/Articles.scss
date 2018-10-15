@@ -20,9 +20,12 @@
   padding: 0.3em 1em;
   
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* auto-fill not supported by IE */
+  grid-template-columns: repeat(2, 1fr);
   grid-gap: 0.3rem 0.5rem;
-  justify-items: center;
+}
+
+.container > * {
+  justify-self: center;
 }
 
 .footer {

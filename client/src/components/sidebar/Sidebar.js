@@ -8,13 +8,13 @@ class Sidebar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpen: false
-    }
+      isOpen: false,
+    };
   }
 
-  toggleSidebar = e => { // Use Redux (to toggle from Navbar also)
+  toggleSidebar = (e) => { // Use Redux (to toggle from Navbar also)
     e.preventDefault();
-
+    /** Add accessibility with keyDown or keyPress (DOWN key) */
     this.setState(prevState => ({ isOpen: !prevState.isOpen }));
   }
 
@@ -26,9 +26,15 @@ class Sidebar extends Component {
         <div className={styles.sidebar__list}>
           <Topics />
           <Buttons />
-          {/*<Buttons bookmarks={bookmarks} onDrop={this.handleDrop}/>*/}
+          { /* <Buttons bookmarks={bookmarks} onDrop={this.handleDrop}/> */ }
         </div>
-        <div className={styles.sidebar__clickCatcher} onClick={this.toggleSidebar}></div>
+        <div
+          role="button"
+          tabIndex="0"
+          className={styles.sidebar__clickCatcher}
+          onClick={this.toggleSidebar}
+          // onKeyDown={this.toggleSidebar}
+        />
       </div>
     );
   }

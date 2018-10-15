@@ -4,7 +4,7 @@ import {
   SEARCH_ARTICLES,
   NEXT_SEARCH_ARTICLES,
   FETCH_SOURCES,
-  UPDATE_OPTIONS
+  UPDATE_OPTIONS,
 } from '../actions/types';
 
 const initialState = {
@@ -14,8 +14,8 @@ const initialState = {
     name: 'United States',
     language: {
       code: 'en',
-      name: 'English'
-    }
+      name: 'English',
+    },
   },
   lastQuery: '',
   sources: [],
@@ -28,21 +28,21 @@ const initialState = {
     from: '',
     to: '',
     source: '',
-    sorting: 'publishedAt'
-  }
+    sorting: 'publishedAt',
+  },
 };
 
 export default (state = initialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case CHANGE_COUNTRY:
       return {
         ...state,
-        country: action.payload
+        country: action.payload,
       };
     case FETCH_ARTICLES:
       return {
         ...state,
-        articles: action.payload
+        articles: action.payload,
       };
     case SEARCH_ARTICLES:
       return {
@@ -50,26 +50,26 @@ export default (state = initialState, action) => {
         totalResults: action.payload.totalResults,
         lastQuery: action.payload.lastQuery,
         articles: action.payload.articles,
-        page: action.payload.page
+        page: action.payload.page,
       };
     case NEXT_SEARCH_ARTICLES:
       return {
         ...state,
         totalResults: action.payload.totalResults,
         articles: action.payload.articles,
-        page: action.payload.page
+        page: action.payload.page,
       };
     case FETCH_SOURCES:
       return {
         ...state,
-        sources: action.payload
+        sources: action.payload,
       };
     case UPDATE_OPTIONS:
       return {
         ...state,
-        options: action.payload
+        options: action.payload,
       };
     default:
       return state;
   }
-}
+};

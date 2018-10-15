@@ -3,22 +3,21 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from '../../styles/sidebar/Topics.scss';
 
-const Topics = ({ topicsList }) => {
-  return (
-    <div className={styles.topics}>
-      <h2>Topics</h2>
-      <ul>
-        {topicsList.map(topic => (
-          <li key={topic}>
-            <Link to={topic}>
-              <span className="fas fa-briefcase"></span>{topic}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
+const Topics = ({ topicsList }) => (
+  <div className={styles.topics}>
+    <h2>Topics</h2>
+    <ul>
+      {topicsList.map(topic => (
+        <li key={topic}>
+          <Link to={topic}>
+            <span className="fas fa-briefcase" />
+            {topic}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  </div>
+);
 
 Topics.defaultProps = {
   topicsList: [
@@ -28,12 +27,12 @@ Topics.defaultProps = {
     'health',
     'science',
     'sports',
-    'technology'
-  ]
-}
+    'technology',
+  ],
+};
 
 Topics.propTypes = {
-  topicsList: PropTypes.array.isRequired,
-}
+  topicsList: PropTypes.instanceOf(Array),
+};
 
 export default Topics;

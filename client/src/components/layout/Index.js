@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -8,15 +9,14 @@ import Articles from '../articles/Articles';
 import styles from '../../styles/layout/Index.scss';
 
 class Index extends Component {
-
-  componentDidMount() {  
+  componentDidMount() {
     const { match: { params: { topic } }, country, fetchArticles } = this.props;
     console.log('Index mounting');
 
     fetchArticles(country.code, topic); // Thanks to Redirect from '/' to '/general' in App.js
   }
 
-  componentDidUpdate(prevProps) {      
+  componentDidUpdate(prevProps) {
     const { match: { params: { topic } }, country, fetchArticles } = this.props;
     if (topic !== prevProps.match.params.topic || country.code !== prevProps.country.code) {
       console.log('Index updating');
@@ -26,9 +26,9 @@ class Index extends Component {
   }
 
   componentWillUnmount() {
-    this.props.resetArticles();
+    this.props.resetArticles(); // eslint-disable-line react/destructuring-assignment
   }
-  
+
   render() {
     return (
       <React.Fragment>
@@ -44,14 +44,14 @@ class Index extends Component {
 }
 
 Index.propTypes = {
-  match: PropTypes.object.isRequired,
-  country: PropTypes.object.isRequired,
+  match: PropTypes.instanceOf(Object).isRequired,
+  country: PropTypes.instanceOf(Object).isRequired,
   fetchArticles: PropTypes.func.isRequired,
-  resetArticles: PropTypes.func.isRequired
-}
+  resetArticles: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = state => ({
-  country: state.articles.country
+  country: state.articles.country,
 });
 
 export default connect(mapStateToProps, { fetchArticles, resetArticles })(Index);

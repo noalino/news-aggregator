@@ -5,7 +5,7 @@ const initialState = {
   isRegistered: false,
   error: false,
   message: '',
-  bookmarks: []
+  bookmarks: [],
 };
 
 export default (state = initialState, action) => {
@@ -15,14 +15,14 @@ export default (state = initialState, action) => {
         ...state,
         isAuthenticated: action.payload.success,
         error: !action.payload.success,
-        message: action.payload.message
+        message: action.payload.message,
       };
     case REGISTER:
       return {
         ...state,
         isRegistered: action.payload.success,
         error: !action.payload.success,
-        message: action.payload.message
+        message: action.payload.message,
       };
     case LOGOUT:
       return {
@@ -30,14 +30,14 @@ export default (state = initialState, action) => {
         isAuthenticated: false,
         isRegistered: false,
         message: '',
-        bookmarks: []
+        bookmarks: [],
       };
     case FETCH_BOOKMARKS:
       return {
         ...state,
-        bookmarks: action.payload
+        bookmarks: action.payload,
       };
     default:
       return state;
   }
-}
+};

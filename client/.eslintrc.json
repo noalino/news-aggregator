@@ -1,3 +1,20 @@
 {
-    "extends": "airbnb"
+    "extends": "airbnb",
+    "env": {
+        "node": true,
+        "mongo": true,
+        "es6": true,
+        "browser": true
+    },
+    "plugins": [
+        "jsx-a11y",
+        "import",
+        "react"
+    ],
+    "parser": "babel-eslint",
+    "rules": {
+        "object-curly-newline": 0,
+        "react/jsx-filename-extension": 0,
+        "no-plusplus": 0
+    }
 }

@@ -6,7 +6,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 
 const htmlPlugin = new HtmlWebPackPlugin({
-  template: 'public/index.html'
+  template: 'public/index.html',
 });
 
 const cssPlugin = new MiniCssExtractPlugin({
@@ -35,7 +35,7 @@ module.exports = {
   // entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
   module: {
     rules: [
@@ -43,29 +43,29 @@ module.exports = {
         test: /\.js$/, // /^(?!.*\.test\.js$).*\.js$/ to exclude *.test.js files (doesn't change bundle size)
         use: [
           'babel-loader',
-          // 'eslint-loader'
+          // 'eslint-loader',
         ],
         exclude: path.resolve(__dirname, 'node_modules'),
-        include: path.resolve(__dirname, 'src')
+        include: path.resolve(__dirname, 'src'),
       },
       {
         test: /\.scss$/,
         use: [
           {
-            loader: devMode ? 'style-loader' : MiniCssExtractPlugin.loader
+            loader: devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
           },
-          { 
+          {
             loader: 'css-loader',
             options: {
               sourceMap: true,
               modules: true,
-              localIdentName: "[name]_[local]_[hash:base64:5]",
+              localIdentName: '[name]_[local]_[hash:base64:5]',
               minimize: true,
               importLoaders: 2,
-            }
+            },
           },
           'postcss-loader',
-          'sass-loader'
+          'sass-loader',
         ],
       },
       {
@@ -76,10 +76,10 @@ module.exports = {
             options: {
               name: '[name].[ext]',
               publicPath: 'images/',
-              outputPath: 'images/'
-            }
-          }
-        ]
+              outputPath: 'images/',
+            },
+          },
+        ],
       },
       // {
       //   test: /\.svg$/,
@@ -88,16 +88,16 @@ module.exports = {
       //     publicPath: 'images/'
       //   }
       // }
-    ]
+    ],
   },
   devServer: {
-    historyApiFallback: true // Redirect 404s to /index.html
+    historyApiFallback: true, // Redirect 404s to /index.html
   },
   plugins: [
     htmlPlugin,
     cssPlugin,
     // syncPlugin,
     cleanPlugin,
-    DotenvPlugin
-  ]
+    DotenvPlugin,
+  ],
 };

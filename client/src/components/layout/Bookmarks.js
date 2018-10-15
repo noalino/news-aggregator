@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -30,7 +31,7 @@ class Bookmarks extends Component {
         <div className={styles.header}>
           <h1>My Bookmarks</h1>
         </div>
-  
+
         <Articles />
       </div>
     );
@@ -40,11 +41,11 @@ class Bookmarks extends Component {
 Bookmarks.propTypes = {
   displayBookmarks: PropTypes.func.isRequired,
   // resetArticles: PropTypes.func.isRequired,
-  bookmarks: PropTypes.array.isRequired
+  bookmarks: PropTypes.instanceOf(Array).isRequired,
 };
 
 const mapStateToProps = state => ({
-  bookmarks: state.user.bookmarks
-})
+  bookmarks: state.user.bookmarks,
+});
 
 export default connect(mapStateToProps, { displayBookmarks, resetArticles })(Bookmarks);

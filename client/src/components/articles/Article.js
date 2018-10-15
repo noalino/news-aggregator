@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow, react/destructuring-assignment */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -7,7 +8,7 @@ import styles from '../../styles/articles/Article.scss';
 
 class Article extends Component {
   state = {
-    isBookmark: false
+    isBookmark: false,
   }
 
   componentDidMount() {
@@ -15,17 +16,20 @@ class Article extends Component {
     const { bookmarks, article, isAuthenticated } = this.props;
     // Set isBookmark to true if user is authenticated & article in bookmarks
     this.setState({
-      isBookmark: isAuthenticated ? bookmarks.findIndex(item => item.id === article.id) !== -1 : false
-    })
+      isBookmark: isAuthenticated
+        ? bookmarks.findIndex(item => item.id === article.id) !== -1 : false,
+    });
   }
 
   componentDidUpdate(prevProps) {
+    const { isBookmark } = this.state;
+    const { isAuthenticated, bookmarks, article } = this.props;
     // Set bookmark on page refreshing
-    if (this.props.isAuthenticated && this.props.bookmarks.length !== prevProps.bookmarks.length) {
-      this.setState({ isBookmark: this.props.bookmarks.findIndex(item => item.id === this.props.article.id) !== -1 });
+    if (isAuthenticated && bookmarks.length !== prevProps.bookmarks.length) {
+      this.setState({ isBookmark: bookmarks.findIndex(item => item.id === article.id) !== -1 });
     }
     // Remove bookmark from article when user logs out
-    if (!this.props.isAuthenticated && this.state.isBookmark) {
+    if (!isAuthenticated && isBookmark) {
       this.setState({ isBookmark: false });
     }
   }
@@ -34,10 +38,10 @@ class Article extends Component {
     if (this.props.isAuthenticated) {
       const { isBookmark } = this.state;
       const { addBookmark, deleteBookmark, article } = this.props;
-  
-      !isBookmark ? addBookmark(article) : deleteBookmark(article.id);
-  
-      this.setState(prevState => ({ isBookmark: !prevState.isBookmark }));
+
+      this.setState(prevState => ({ isBookmark: !prevState.isBookmark }), () => (
+        !isBookmark ? addBookmark(article) : deleteBookmark(article.id)
+      ));
     }
   }
 
@@ -50,15 +54,15 @@ class Article extends Component {
       <article className={styles.article}>
 
         <p>{article.source.name}</p>
-        <i className={`${isBookmark ? "fas" : "far"} fa-bookmark`} onClick={this.updateBookmarks}></i>
+        <i className={`${isBookmark ? 'fas' : 'far'} fa-bookmark`} onClick={this.updateBookmarks} />
 
-        <img src={article.urlToImage} alt={article.title} draggable="false"/>
+        <img src={article.urlToImage} alt={article.title} draggable="false" />
 
-        <a href={article.url} target="_blank">
+        <a href={article.url}>
           <h3>{article.title}</h3>
           <p>{article.description}</p>
         </a>
-        
+
         <p>{article.publishedAt}</p>
       </article>
     );
@@ -66,16 +70,16 @@ class Article extends Component {
 }
 
 Article.propTypes = {
-  article: PropTypes.object.isRequired,
+  article: PropTypes.instanceOf(Object).isRequired,
   addBookmark: PropTypes.func.isRequired,
   deleteBookmark: PropTypes.func.isRequired,
-  bookmarks: PropTypes.array.isRequired,
-  isAuthenticated: PropTypes.bool.isRequired
-}
+  bookmarks: PropTypes.instanceOf(Array).isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+};
 
 const mapStateToProps = state => ({
   bookmarks: state.user.bookmarks,
-  isAuthenticated: state.user.isAuthenticated
+  isAuthenticated: state.user.isAuthenticated,
 });
 
 export default connect(mapStateToProps, { addBookmark, deleteBookmark })(Article);
