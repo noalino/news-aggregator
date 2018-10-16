@@ -16,42 +16,45 @@ const Articles = ({ loadNextPage, ...searchArgs }) => {
   return (
     <div className={styles.scrollpage}>
       {
-        (lastQuery !== '' && results < 1)
-          ? <h3>No Results Found</h3>
-          : (
-            <Fragment>
-              <div className={styles.container}>
-                {articles.map(article => <Article key={article.id} article={{ ...article }} />)}
-              </div>
+        (lastQuery !== '' && results < 1) ? (
+          <h3>No Results Found</h3>
+        ) : (
+          <Fragment>
+            <div className={styles.container}>
+              {articles.map(article => <Article key={article.id} article={{ ...article }} />)}
+            </div>
 
-              <footer className={styles.footer}>
-                {totalResults > (page * pageSize)
-                  && (
-                    <button type="button" onClick={() => loadNextPage(searchArgs)}>
-                      See more
-                    </button>
-                  )
-                }
-                {results > 0 && (
-                  <p>
-                    Powered by
-                    {' '}
-                    <a href="https://newsapi.org/">News API</a>
-                  </p>
-                )}
-              </footer>
-            </Fragment>
-          )
+            <footer className={styles.footer}>
+              {totalResults > (page * pageSize) && (
+                <button type="button" onClick={() => loadNextPage(searchArgs)}>
+                  See more
+                </button>
+              )}
+
+              {results > 0 && (
+                <p>
+                  Powered by
+                  {' '}
+                  <a href="https://newsapi.org/">News API</a>
+                </p>
+              )}
+            </footer>
+          </Fragment>
+        )
       }
     </div>
   );
+};
+
+Articles.defaultProps = {
+  page: 1,
 };
 
 Articles.propTypes = {
   articles: PropTypes.instanceOf(Array).isRequired,
   lastQuery: PropTypes.string.isRequired,
 
-  page: PropTypes.number.isRequired,
+  page: PropTypes.number,
   pageSize: PropTypes.number.isRequired,
   totalResults: PropTypes.number.isRequired,
   language: PropTypes.string.isRequired,
