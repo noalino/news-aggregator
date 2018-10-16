@@ -1,9 +1,9 @@
 @import '../helpers/sizing', '../helpers/colors';
 
 %links {
+  font-size: 1.5rem;
   color: #fff;
-  text-decoration: none;
-  padding: 0 0.5em;
+  padding: 0 0.5rem;
 }
 
 .nav {
@@ -13,7 +13,7 @@
   height: $nav-height;
   padding: 0 2vw;
   background: $primary-color;
-  font-size: 1em;
+  font-size: 1rem;
   display: flex;
   align-items: center;
   z-index: 2;
@@ -27,11 +27,11 @@
     padding: 0;
     
     li {
-      margin: 0 0.5rem;
-      
+      margin: 0 0.3rem;
+
       & > a {
         @extend %links;
-        font-size: 1.5em;
+        text-decoration: none;
         
         & > i {
           display: none;
@@ -39,7 +39,10 @@
       }
 
       & > button {
-        padding: 1em 0.5em;
+        @extend %links;
+        background: transparent;
+        border: none;
+        margin: 0 0.3rem;
         cursor: pointer;
 
         & > i {
@@ -57,7 +60,7 @@
 
 #menu {
   display: none;
-  padding: 0 0.5em;
+  padding: 0 0.5rem;
   cursor: pointer;
 
   & > div {
@@ -68,6 +71,6 @@
 }
 
 #logo {
-  font-size: 1.5em;
+  font-size: 1.5rem;
   text-transform: uppercase;
 }

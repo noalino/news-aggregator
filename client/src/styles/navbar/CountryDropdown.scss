@@ -1,48 +1,42 @@
-// .dropdown {
-//   width: 50px;
-//   height: 80%;
-// }
+@import '../helpers/sizing';
+
+$width: 3.5rem;
+$flag-size: 2rem;
 
 .dropbtn {
-  // width: 100%;
-  // height: 100%;
-  width: 50px;
-  height: 32px; // PNG height
+  width: $width;
+  height: $nav-height;
   display: flex;
   justify-content: space-around;
   align-items: center;
   margin: 0;
   padding: 0;
-  
-  &:hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
 }
 
 .dropdownContent {
   position: absolute;
-  top: 32px;
-  width: 50px;
-  height: auto;
-  overflow: auto;
+  top: $nav-height;
+  width: $width;
   background: lightgrey;
-  text-decoration: none;
-  margin: 0 auto;
+  margin: 0;
   padding: 0;
+  list-style-type: none;
 
-  & > li {
-    height: 32px;
+  & > .country {
+    width: 100%;
     display: flex;
     justify-content: center;
+    margin: 0;
+    cursor: pointer;
 
     &:hover {
       background: #fff;
-      cursor: pointer;
     }
   }
 }
 
-// .flag {
-//   width: 20px;
-//   height: 20px;
-// }
+.flag {
+  width: $flag-size;
+  height: $flag-size;
+}

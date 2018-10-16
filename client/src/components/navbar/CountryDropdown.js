@@ -118,14 +118,14 @@ class CountryDropdown extends Component {
         </button>
 
         {
-          isOpen
-          && (
+          isOpen && (
             <ul className={styles.dropdownContent} ref={this.countryList}>
               {countries.map(ctry => (
                 // eslint-disable-next-line
                 <li
                   key={ctry.code}
                   id={ctry.code}
+                  className={styles.country}
                   tabIndex="0"
                   onClick={this.handleClick.bind(this, ctry)}
                 >
