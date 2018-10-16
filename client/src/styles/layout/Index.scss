@@ -1,6 +1,4 @@
-@import '../helpers/sizing',
-'../helpers/colors',
-'../helpers/header';
+@import '../helpers/layout', '../helpers/header';
 
 .title,
 .date {
@@ -11,11 +9,11 @@
 
 .title {
   height: 75%;
-  font-size: 4em;
+  font-size: 4rem;
 }
 
 .date {
   height: 25%;
-  font-size: 1.5em;
+  font-size: 1.5rem;
   font-style: italic;
 }

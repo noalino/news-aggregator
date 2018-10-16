@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { displayBookmarks, resetArticles } from '../../actions/articlesActions';
 
 import Articles from '../articles/Articles';
+import Footer from './Footer';
 import styles from '../../styles/layout/Bookmarks.scss';
 
 class Bookmarks extends Component {
@@ -27,12 +28,13 @@ class Bookmarks extends Component {
 
   render() {
     return (
-      <div>
+      <div className={styles.scrollpage}>
         <div className={styles.header}>
           <h1>My Bookmarks</h1>
         </div>
 
         <Articles />
+        <Footer />
       </div>
     );
   }

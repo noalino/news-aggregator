@@ -1,43 +1,39 @@
 @import 'colors', 'sizing';
 
 .header {
-  position: fixed;
-  top: $nav-height;
-  height: $header-height;
-  // width: 100%;
-  left: $sidebar-width;
+  height: 100%;
   width: $container-width;
   background: white;
-  z-index: 2;
-  &:after {
-    content: '';
-    display: block;
-    position: absolute;
-    bottom: 0;
-    width: $container-width;
-    height: 3px;
-    background: $primary-color;
-    margin: 0 auto;
-    box-shadow: 0 3px 7px 1px rgba(0, 0, 0, 0.5);
-  }
+  border-bottom: 3px $primary-color solid;
+  // &:after {
+  //   content: '';
+  //   display: block;
+  //   position: relative;
+  //   bottom: 0;
+  //   width: $container-width;
+  //   height: 3px;
+  //   background: $primary-color;
+  //   margin: 0 auto;
+  //   box-shadow: 0 3px 7px 1px rgba(0, 0, 0, 0.5);
+  // }
 }
 
-@media screen and (max-width: 500px) {
-  .header {
-    width: $container-width + 2 * $side-margin;
-    left: (100vw - $container-width) / 2 - $side-margin;
-    &:after {
-      width: $container-width + 2 * $side-margin;
-    }
-  }
-}
+// @media screen and (max-width: 500px) {
+//   .header {
+//     width: $container-width + 2 * $side-margin;
+//     left: (100vw - $container-width) / 2 - $side-margin;
+//     &:after {
+//       width: $container-width + 2 * $side-margin;
+//     }
+//   }
+// }
 
-@media screen and (min-width: 501px) and (max-width: 700px) {
-  .header {
-    width: $container-width + 4 * $side-margin;
-    left: $sidebar-width + 3 * $side-margin;
-    &:after {
-      width: $container-width + 4 * $side-margin;
-    }
-  }
-}
+// @media screen and (min-width: 501px) and (max-width: 700px) {
+//   .header {
+//     width: $container-width + 4 * $side-margin;
+//     left: $sidebar-width + 3 * $side-margin;
+//     &:after {
+//       width: $container-width + 4 * $side-margin;
+//     }
+//   }
+// }

@@ -108,7 +108,7 @@ class Login extends Component {
                 />
               </label>
               <p>Password must contain at least 8 characters</p>
-              <button type="button">
+              <button type="submit">
                 {/* Insert spinner instead of 'loading'
                     Use Transition to show login check before redirecting */}
                 {/* eslint-disable-next-line no-nested-ternary */}

@@ -69,7 +69,6 @@ const logIn = async (req, res, next) => {
 const logOut = (req, res) => {
   req.logout();
   res.clearCookie('jwt_header&payload');
-  res.clearCookie('jwt_signature');
   res.end();
 }
 

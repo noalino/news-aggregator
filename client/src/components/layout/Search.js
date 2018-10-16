@@ -1,5 +1,5 @@
 /* eslint-disable no-shadow, react/destructuring-assignment */
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -8,6 +8,7 @@ import { getQuery, isEqual } from '../../_utils';
 
 import Buttons from '../sidebar/Buttons';
 import Articles from '../articles/Articles';
+import Footer from './Footer';
 import styles from '../../styles/layout/Search.scss';
 
 export class Search extends Component {
@@ -59,6 +60,10 @@ export class Search extends Component {
       console.log('main searchbar request');
       this.handleReqChange(state);
     }
+  }
+
+  componentWillUnmount() {
+    this.props.resetArticles();
   }
 
   // Search articles if query !== ''
@@ -117,72 +122,75 @@ export class Search extends Component {
     const { lastQuery, sources, options } = this.props;
 
     return (
-      <div>
-        <form className={styles.header} role="search" onSubmit={this.onSubmit}>
-          <div className={styles.searchBar}>
-            <input
-              type="search"
-              name="query"
-              placeholder="Search articles..."
-              autoComplete="true"
-              aria-label="Search articles"
-              value={query}
-              onChange={this.handleInputChange}
-              autoFocus // eslint-disable-line jsx-a11y/no-autofocus
-            />
-            <button type="button">
-              <i className="fas fa-search" />
-            </button>
-          </div>
+      <Fragment>
+        <div className={styles.scrollpage}>
+          <form className={styles.header} role="search" onSubmit={this.onSubmit}>
+            <div className={styles.searchBar}>
+              <input
+                type="search"
+                name="query"
+                placeholder="Search articles..."
+                autoComplete="true"
+                aria-label="Search articles"
+                value={query}
+                onChange={this.handleInputChange}
+                autoFocus // eslint-disable-line jsx-a11y/no-autofocus
+              />
+              <button type="button">
+                <i className="fas fa-search" />
+              </button>
+            </div>
 
-          <div className={styles.options}>
-            <div>
-              <label htmlFor="from">
-                From:
-                <input type="date" name="from" id="from" value={options.from} onChange={this.handleInputChange} />
-              </label>
-            </div>
-            <div>
-              <label htmlFor="to">
-                To:
-                <input type="date" name="to" id="to" value={options.to} onChange={this.handleInputChange} />
-              </label>
-            </div>
-            <div>
-              <label htmlFor="source">
-                Source:
-                <select name="source" id="source" value={options.source} onChange={this.handleInputChange} size="1">
-                  <option value="">All</option>
-                  {sources.map(src => <option key={src.id} value={src.id}>{src.name}</option>)}
-                </select>
-              </label>
-            </div>
-          </div>
-
-          {lastQuery !== ''
-          && (
-            <div className={styles.sort}>
-              <h3>
-                Results for:
-                {` ${lastQuery}`}
-              </h3>
+            <div className={styles.options}>
               <div>
-                <label htmlFor="sorting">
-                  Sort by:
-                  <select name="sorting" id="sorting" value={options.sorting} size="1" onChange={this.handleInputChange}>
-                    <option value="publishedAt">Published At</option>
-                    <option value="relevancy">Relevancy</option>
-                    <option value="popularity">Popularity</option>
+                <label htmlFor="from">
+                  From:
+                  <input type="date" name="from" id="from" value={options.from} onChange={this.handleInputChange} />
+                </label>
+              </div>
+              <div>
+                <label htmlFor="to">
+                  To:
+                  <input type="date" name="to" id="to" value={options.to} onChange={this.handleInputChange} />
+                </label>
+              </div>
+              <div>
+                <label htmlFor="source">
+                  Source:
+                  <select name="source" id="source" value={options.source} onChange={this.handleInputChange} size="1">
+                    <option value="">All</option>
+                    {sources.map(src => <option key={src.id} value={src.id}>{src.name}</option>)}
                   </select>
                 </label>
               </div>
             </div>
-          )}
-        </form>
 
-        <Articles />
+            {lastQuery !== ''
+            && (
+              <div className={styles.sort}>
+                <h3>
+                  Results for:
+                  {` ${lastQuery}`}
+                </h3>
+                <div>
+                  <label htmlFor="sorting">
+                    Sort by:
+                    <select name="sorting" id="sorting" value={options.sorting} size="1" onChange={this.handleInputChange}>
+                      <option value="publishedAt">Published At</option>
+                      <option value="relevancy">Relevancy</option>
+                      <option value="popularity">Popularity</option>
+                    </select>
+                  </label>
+                </div>
+              </div>
+            )}
+          </form>
+
+          <Articles />
+          <Footer />
+        </div>
         <Buttons />
-      </div>
+      </Fragment>
     );
   }
 }

@@ -1,0 +1,26 @@
+@import 'sizing', 'colors';
+
+.scrollpage {
+  max-width: $container-width;
+  margin: 0 auto;
+  margin-top: $nav-height;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: $header-height auto 25px;
+  grid-template-areas:
+    "header"
+    "articles"
+    "footer";
+}
+
+.header {
+  grid-area: header;
+}
+
+.container {
+  grid-area: articles;
+}
+
+.footer {
+  grid-area: footer;
+}

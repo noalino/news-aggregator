@@ -1,11 +1,12 @@
 /* eslint-disable no-shadow */
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchArticles, resetArticles } from '../../actions/articlesActions';
 
 import Sidebar from '../sidebar/Sidebar';
 import Articles from '../articles/Articles';
+import Footer from './Footer';
 import styles from '../../styles/layout/Index.scss';
 
 class Index extends Component {
@@ -13,7 +14,7 @@ class Index extends Component {
     const { match: { params: { topic } }, country, fetchArticles } = this.props;
     console.log('Index mounting');
 
-    fetchArticles(country.code, topic); // Thanks to Redirect from '/' to '/general' in App.js
+    fetchArticles(country.code, topic);
   }
 
   componentDidUpdate(prevProps) {
@@ -31,14 +32,17 @@ class Index extends Component {
 
   render() {
     return (
-      <React.Fragment>
-        <header className={styles.header}>
-          <h1 className={styles.title}>Top Stories</h1>
-          <p className={styles.date}>Monday, August 20, 2018</p>
-        </header>
+      <Fragment>
+        <div className={styles.scrollpage}>
+          <header className={styles.header}>
+            <h1 className={styles.title}>Top Stories</h1>
+            <p className={styles.date}>Monday, August 20, 2018</p>
+          </header>
+          <Articles />
+          <Footer />
+        </div>
         <Sidebar />
-        <Articles />
-      </React.Fragment>
+      </Fragment>
     );
   }
 }
