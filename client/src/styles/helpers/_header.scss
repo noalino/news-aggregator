@@ -1,9 +1,9 @@
-@import 'colors', 'sizing';
+@import 'colors', 'sizes';
 
 .header {
   height: 100%;
   width: $container-width;
-  background: white;
+  background: $background-color;
   border-bottom: 3px $primary-color solid;
   // &:after {
   //   content: '';

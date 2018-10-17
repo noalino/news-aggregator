@@ -1,43 +1,39 @@
-@import '../helpers/sizing';
+@import '../helpers/sizes', '../helpers/colors';
 
 .topics {
   @extend %sidebar-position;
-  font-size: 1em;
   left: $side-margin;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 
   h2 {
-    font-size: 2em;
+    font-size: 2.5rem;
     text-transform: uppercase;
-    letter-spacing: 0.3em;
+    letter-spacing: 0.8rem;
   }
 
   ul {
     padding: 0;
     list-style: none;
-  }
+    
+    & > li {
+      margin: 1.2rem 0;
+      
+      & > a {
+        background: lightgrey;
+        // background: $background-color;
+        font-size: 1rem;
+        color: #000;
+        text-transform: uppercase;
+        text-decoration: none;
+        padding: 0.4rem 1rem;
 
-  li {
-    margin: 1.2em 0;
-  }
-
-  a {
-    background: lightgrey;
-    font-size: 1em;
-    color: #000;
-    text-transform: uppercase;
-    text-decoration: none;
-    padding: 0.4em 1em;
-
-    &:hover {
-      cursor: pointer;
-    }
-
-    span {
-      margin-right: 0.2em;
+        & > i {
+          margin-right: 0.2rem;
+        }
+      }
     }
   }
 }

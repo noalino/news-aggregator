@@ -22,7 +22,9 @@ const Footer = ({ totalResults, loadNextPage, ...searchArgs }) => {
         <p>
           Powered by
           {' '}
-          <a href="https://newsapi.org/">News API</a>
+          <a href="https://newsapi.org/" target="_blank" rel="noreferrer noopener">
+            News API
+          </a>
         </p>
       )}
     </footer>

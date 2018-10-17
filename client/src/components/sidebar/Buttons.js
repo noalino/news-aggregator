@@ -6,7 +6,7 @@ const Buttons = () => (
   <div className={styles.buttons}>
     <Link to="/bookmarks" className={styles.bookmarks}>
       <i className="fas fa-bookmark" />
-      <h3>Bookmarks</h3>
+      <h2>Bookmarks</h2>
     </Link>
   </div>
 );

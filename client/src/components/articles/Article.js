@@ -58,7 +58,7 @@ class Article extends Component {
 
         <img src={article.urlToImage} alt={article.title} draggable="false" />
 
-        <a href={article.url}>
+        <a href={article.url} target="_blank" rel="noreferrer noopener">
           <h3>{article.title}</h3>
           <p>{article.description}</p>
         </a>

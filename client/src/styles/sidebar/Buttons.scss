@@ -1,32 +1,32 @@
-@import '../helpers/colors', '../helpers/sizing';
+@import '../helpers/colors', '../helpers/sizes';
 
 .buttons {
   @extend %sidebar-position;
-  width: 12em;
   right: $side-margin;
-
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
 }
 
 .bookmarks {
+  width: 75%;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  font-size: 1em;
-  color: #fff;
-  margin: 1em auto;
-  padding: 0.5em;
+  font-size: 1rem;
+  background: lightgrey;
+  color: #000;
+  padding: 0.5rem;
   text-transform: uppercase;
   text-decoration: none;
+  cursor: pointer;
   
   // align-items: baseline;
   // margin-bottom: 0;
     
   & > i {
     color: $bookmark-color;
-  }
-
-  &:hover {
-    cursor: pointer;
   }
 }
 

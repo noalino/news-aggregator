@@ -1,5 +1,5 @@
 /* eslint-disable no-shadow */
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchArticles, resetArticles } from '../../actions/articlesActions';
@@ -32,17 +32,15 @@ class Index extends Component {
 
   render() {
     return (
-      <Fragment>
-        <div className={styles.scrollpage}>
-          <header className={styles.header}>
-            <h1 className={styles.title}>Top Stories</h1>
-            <p className={styles.date}>Monday, August 20, 2018</p>
-          </header>
-          <Articles />
-          <Footer />
-        </div>
+      <div className={styles.showcase}>
+        <header className={styles.header}>
+          <h1 className={styles.title}>Top Stories</h1>
+          <p className={styles.date}>Monday, August 20, 2018</p>
+        </header>
         <Sidebar />
-      </Fragment>
+        <Articles />
+        <Footer />
+      </div>
     );
   }
 }

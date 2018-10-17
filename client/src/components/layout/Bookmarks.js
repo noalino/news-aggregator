@@ -28,11 +28,10 @@ class Bookmarks extends Component {
 
   render() {
     return (
-      <div className={styles.scrollpage}>
+      <div className={styles.showcase}>
         <div className={styles.header}>
           <h1>My Bookmarks</h1>
         </div>
-
         <Articles />
         <Footer />
       </div>
