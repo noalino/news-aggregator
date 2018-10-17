@@ -11,7 +11,6 @@
   top: 0;
   width: 100vw;
   height: $nav-height;
-  padding: 0 2vw;
   background: $primary-color;
   font-size: 1rem;
   display: flex;
@@ -19,15 +18,15 @@
   z-index: 2;
 
   & > ul {
-    width: 100%;
+    width: 95%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     list-style-type: none;
+    margin: 0 auto;
     padding: 0;
     
     li {
-      margin: 0 0.3rem;
 
       & > a {
         @extend %links;
@@ -56,6 +55,18 @@
 .rightSide {
   display: flex;
   align-items: center;
+
+  & li {
+    margin: 0 0.3rem;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
 }
 
 #menu {
@@ -73,4 +84,5 @@
 #logo {
   font-size: 1.5rem;
   text-transform: uppercase;
+  // padding: 0;
 }

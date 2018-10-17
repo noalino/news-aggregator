@@ -8,10 +8,10 @@ const Topics = ({ topicsList }) => (
     <h2>Topics</h2>
     <ul>
       {topicsList.map(topic => (
-        <li key={topic}>
-          <Link to={topic}>
-            <span className="fas fa-briefcase" />
-            {topic}
+        <li key={topic.name}>
+          <Link to={topic.name}>
+            <i className={topic.icon} />
+            {` ${topic.name}`}
           </Link>
         </li>
       ))}
@@ -21,13 +21,34 @@ const Topics = ({ topicsList }) => (
 
 Topics.defaultProps = {
   topicsList: [
-    'business',
-    'entertainment',
-    'general',
-    'health',
-    'science',
-    'sports',
-    'technology',
+    {
+      name: 'business',
+      icon: 'fas fa-briefcase',
+    },
+    {
+      name: 'entertainment',
+      icon: 'fas fa-gamepad',
+    },
+    {
+      name: 'general',
+      icon: 'fas fa-globe',
+    },
+    {
+      name: 'health',
+      icon: 'fas fa-plus-square',
+    },
+    {
+      name: 'science',
+      icon: 'fas fa-flask',
+    },
+    {
+      name: 'sports',
+      icon: 'fas fa-football-ball',
+    },
+    {
+      name: 'technology',
+      icon: 'fas fa-mobile-alt',
+    },
   ],
 };
 
