@@ -18,6 +18,7 @@ export class Search extends Component {
     this.state = {
       // Initialize query to the one from nav searchbar or URL if it exists
       query: search ? decodeURIComponent(getQuery(search)) : '',
+      optionsOpen: false,
     };
   }
 
@@ -106,6 +107,12 @@ export class Search extends Component {
     }
   }
 
+  triggerOptions = () => {
+    this.setState(prevState => ({
+      optionsOpen: !prevState.optionsOpen,
+    }));
+  }
+
   onSubmit = (e) => {
     e.preventDefault();
     const { query } = this.state;
@@ -118,7 +125,7 @@ export class Search extends Component {
   }
 
   render() {
-    const { query } = this.state;
+    const { query, optionsOpen } = this.state;
     const { lastQuery, sources, options } = this.props;
 
     return (
@@ -140,28 +147,36 @@ export class Search extends Component {
             </button>
           </div>
 
-          <div className={styles.options}>
-            <div>
-              <label htmlFor="from">
-                From:
-                <input type="date" name="from" id="from" value={options.from} onChange={this.handleInputChange} />
-              </label>
-            </div>
-            <div>
-              <label htmlFor="to">
-                To:
-                <input type="date" name="to" id="to" value={options.to} onChange={this.handleInputChange} />
-              </label>
-            </div>
-            <div>
-              <label htmlFor="source">
-                Source:
-                <select name="source" id="source" value={options.source} onChange={this.handleInputChange} size="1">
-                  <option value="">All</option>
-                  {sources.map(src => <option key={src.id} value={src.id}>{src.name}</option>)}
-                </select>
-              </label>
-            </div>
+          <div className={styles.options_container}>
+            <button type="button" className={styles.optionsBtn} onClick={this.triggerOptions}>
+              {optionsOpen ? 'Hide ' : 'Show '}
+              Advanced Search
+            </button>
+            {optionsOpen && (
+              <div className={styles.options}>
+                <div>
+                  <label htmlFor="from">
+                    <p>From:</p>
+                    <input type="date" name="from" id="from" value={options.from} onChange={this.handleInputChange} />
+                  </label>
+                </div>
+                <div>
+                  <label htmlFor="to">
+                    <p>To:</p>
+                    <input type="date" name="to" id="to" value={options.to} onChange={this.handleInputChange} />
+                  </label>
+                </div>
+                <div>
+                  <label htmlFor="source">
+                    <p>Source:</p>
+                    <select name="source" id="source" value={options.source} onChange={this.handleInputChange} size="1">
+                      <option value="">All</option>
+                      {sources.map(src => <option key={src.id} value={src.id}>{src.name}</option>)}
+                    </select>
+                  </label>
+                </div>
+              </div>
+            )}
           </div>
 
           {lastQuery !== ''
@@ -173,7 +188,7 @@ export class Search extends Component {
               </h3>
               <div>
                 <label htmlFor="sorting">
-                  Sort by:
+                  <p>Sort by:</p>
                   <select name="sorting" id="sorting" value={options.sorting} size="1" onChange={this.handleInputChange}>
                     <option value="publishedAt">Published At</option>
                     <option value="relevancy">Relevancy</option>

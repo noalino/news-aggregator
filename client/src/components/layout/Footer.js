@@ -14,7 +14,8 @@ const Footer = ({ totalResults, loadNextPage, ...searchArgs }) => {
     <footer className={styles.footer}>
       {totalResults > (page * pageSize) && (
         <button type="button" onClick={() => loadNextPage(searchArgs)}>
-          See more
+          {/* See more */}
+          <i className="fa fa-caret-down" />
         </button>
       )}
 

@@ -1,4 +1,15 @@
 .footer {
   justify-self: center;
   align-self: center;
+
+  & > button { // Animation icon bouncing up & down on hover
+    font-size: 1.5rem;
+    padding: 4px 150px;
+    cursor: pointer;
+  }
+
+  & > p {
+    text-align: center;
+    margin: 10px 0;
+  }
 }

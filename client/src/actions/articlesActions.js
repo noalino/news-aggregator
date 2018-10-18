@@ -60,30 +60,40 @@ export const updateOptions = options => dispatch => (
 export const searchArticles = ({ ...args }) => (dispatch) => {
   console.log('searching articles...');
   const { query, options, language, pageSize } = args;
-  const queryURI = encodeURIComponent(query);
-  const { from, to, source, sorting } = options;
+  // const queryURI = encodeURIComponent(query);
+  // const { from, to, source, sorting } = options;
 
-  axios.get(`https://newsapi.org/v2/everything?q=${queryURI}&from=${from}&to=${to}&language=${language}&sources=${source}&sortBy=${sorting}&pageSize=${pageSize}&page=1&apiKey=${process.env.API_KEY}`)
-    .then(({ data: { totalResults, articles } }) => {
-      generateArticleId(articles);
-      const newArticles = filterArticles(articles);
-      return {
-        newArticles,
-        totalResults,
-      };
-    })
-    .then(({ totalResults, newArticles }) => (
-      dispatch({
-        type: SEARCH_ARTICLES,
-        payload: {
-          page: 1,
-          totalResults,
-          lastQuery: query,
-          articles: newArticles,
-        },
-      })
-    ))
-    .catch(err => console.error(err));
+  // axios.get(`https://newsapi.org/v2/everything?q=${queryURI}&from=${from}&to=${to}&language=${language}&sources=${source}&sortBy=${sorting}&pageSize=${pageSize}&page=1&apiKey=${process.env.API_KEY}`)
+  //   .then(({ data: { totalResults, articles } }) => {
+  //     generateArticleId(articles);
+  //     const newArticles = filterArticles(articles);
+  //     return {
+  //       newArticles,
+  //       totalResults,
+  //     };
+  //   })
+  //   .then(({ totalResults, newArticles }) => (
+  //     dispatch({
+  //       type: SEARCH_ARTICLES,
+  //       payload: {
+  //         page: 1,
+  //         totalResults,
+  //         lastQuery: query,
+  //         articles: newArticles,
+  //       },
+  //     })
+  //   ))
+  //   .catch(err => console.error(err));
+
+  dispatch({
+    type: SEARCH_ARTICLES,
+    payload: {
+      page: 1,
+      totalResults: 20,
+      lastQuery: query,
+      articles: jsonResponse.business.articles,
+    },
+  });
 };
 
 export const loadNextPage = ({ ...args }) => (dispatch) => {

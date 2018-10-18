@@ -1,35 +1,37 @@
 @import '../helpers/layout', '../helpers/header';
 
+$search-height: 50%;
+$sort-height: 20%;
+$options-height: 100% - $search-height - $sort-height;
+
 .searchBar,
+.options_container,
 .options,
 .sort {
   display: flex;
-  align-items: center;
-}
-
-.searchBar,
-.options {
-  height: 40%;
 }
 
 .searchBar {
+  height: $search-height;
   justify-content: center;
+  align-items: flex-end;
+  padding-bottom: 10px;
   
   input,
   button {
-    height: 75%;
+    height: 45px;
   }
 
   input {
     width: 60%;
     font-size: 1.5rem;
-    padding-left: 5px;
+    padding-left: 8px;
     border: 1px solid lightgrey;
     border-radius: 5px;
   }
 
   button {
-    width: 40px;
+    width: 50px;
     margin: 0 10px;
     cursor: pointer;
 
@@ -39,7 +41,37 @@
   }
 }
 
-.sort {
-  height: 20%;
+.options_container {
+  height: $options-height;
+  width: 80%;
+  margin: 0 auto;
+  flex-direction: column;
   justify-content: space-between;
+  align-items: center;
+}
+
+.options {
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.optionsBtn {
+  font-size: 0.8rem;
+  font-style: italic;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.sort {
+  height: $sort-height;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.options p,
+.sort p {
+  display: inline-block;
+  margin-right: 0.2rem;
 }
