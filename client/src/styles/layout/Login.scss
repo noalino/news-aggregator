@@ -1,37 +1,100 @@
-.login {
-  border: 1px solid black;
+@import '../helpers/sizes', '../helpers/colors';
+
+$field-height: 50px;
+
+.login_container {
   position: relative;
-  display: block;
-  top: 15vh;
-  // left: 50%;
-  // transform: translate(-50%, -30%);
-  width: 300px;
-  // height: 500px;
+  top: $nav-height + 150px;
   margin: 0 auto;
+  width: 450px;
   text-align: center;
-  // display: flex;
-  // flex-direction: column;
-  // justify-content: flex-end;
-  // align-items: center;
+}
+
+.login {
+  width: 90%;
+  height: 300px;
+  background: rgba(84, 83, 97, 0.438);
+  padding: 10px 0;
+  margin: 0 auto 10px;
+  border-radius: 5px;
+  border-top-left-radius: 15%;
+  border-top-right-radius: 15%;
+
+  & > p {
+    height: 20%;
+    // color: royalblue;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+  }
+
+  & > i {
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    font-size: 50px;
+    color: $action-color;
+    background: #fff;
+    border-radius: 50%;
+    padding: 16px 19px;
+  }
 }
 
 .loginForm {
-  font-size: 2rem;
-  width: 80%;
+  width: 70%;
+  height: 80%;
   margin: 0 auto;
-  text-align: left;
   display: flex;
   flex-direction: column;
 
-  & input {
-    font-size: 1rem;
-    margin-bottom: 5px;
+  & > button {
+    height: $field-height;
+    font-size: 1.5rem;
+    background: $action-color;
+    border: none;
+    border-radius: 5px;
+    margin: 10px 0;
+  }
+}
+
+.field {
+  background: #fff;
+  margin: 10px 0;
+  border-radius: 5px;
+
+  & > input,
+  i {
+    font-size: 1.5rem;
   }
 
-  & button {
-    font-size: 1rem;
-    // width: 80%;
-    // align-self: center;
-    margin: 5px 0;
+  & > input {
+    // color: black;
+    width: 75%;
+    height: $field-height;
+    padding-left: 10px;
+    background: transparent;
+    border: none;
+
+    &::placeholder {
+      color: #999;
+    }
+  }
+
+  & > i {
+    width: 25%;
+    color: #999;
+  } 
+}
+
+.redirect {
+  width: 90%;
+  padding: 5px 0;
+  margin: 5px auto;
+  border-top: 2px solid black;
+
+  & > a {
+    color: darken($action-color, 10%);
+    text-decoration: none;
   }
 }

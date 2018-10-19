@@ -47,7 +47,7 @@ class Login extends Component {
         password: '',
         errMessage: '',
       });
-      this.usernameInput.current.focus();
+      // this.usernameInput.current.focus();
     }
   }
 
@@ -71,14 +71,17 @@ class Login extends Component {
     const { log, isAuthenticated } = this.props;
 
     return (
-      isAuthenticated
-        ? <Redirect to="/" />
-        : (
+      isAuthenticated ? (
+        <Redirect to="/" />
+      ) : (
+        <div className={styles.login_container}>
           <div className={styles.login}>
+            <i className="far fa-user" />
             <p>{errMessage}</p>
+            {/* <p>Username already exists</p> */}
             <form className={styles.loginForm} onSubmit={this.onSubmit}>
-              <label htmlFor="username">
-                Username
+              <label htmlFor="username" className={styles.field}>
+                <i className="fas fa-user" />
                 <input
                   type="text"
                   name="username"
@@ -88,12 +91,11 @@ class Login extends Component {
                   maxLength="18"
                   onChange={this.handleChangeInput}
                   placeholder="Username"
-                  autoFocus // eslint-disable-line jsx-a11y/no-autofocus
                   required
                 />
               </label>
-              <label htmlFor="password">
-                Password
+              <label htmlFor="password" className={styles.field}>
+                <i className="fas fa-lock" />
                 <input
                   type="password"
                   name="password"
@@ -107,26 +109,26 @@ class Login extends Component {
                   required
                 />
               </label>
-              <p>Password must contain at least 8 characters</p>
               <button type="submit">
                 {/* Insert spinner instead of 'loading'
                     Use Transition to show login check before redirecting */}
                 {/* eslint-disable-next-line no-nested-ternary */}
-                {loading ? 'Loading' : (log === 'login' ? 'Log in' : 'Create account')}
+                {loading ? 'Loading' : (log === 'login' ? 'Login' : 'Create account')}
               </button>
             </form>
-            {
-              log === 'signup'
-              && (
-                <p>
-                  Already have an account ?
-                  {' '}
-                  <Link to="/login">Sign in here!</Link>
-                </p>
-              )
-            }
           </div>
-        )
+          {
+            log === 'login'
+            && (
+              <p className={styles.redirect}>
+                Don&apos;t have an account?
+                {' '}
+                <Link to="/signup"><strong>Sign up here!</strong></Link>
+              </p>
+            )
+          }
+        </div>
+      )
     );
   }
 }
