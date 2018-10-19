@@ -1,5 +1,7 @@
-// export const getQuery = param => param.match(/[^\?q=]/gi).reduce((a, b) => a + b);
-export const getQuery = param => param.match(/[^?q=]/gi).reduce((a, b) => a + b);
+const findQuery = str => str.match(/[^?q=]/gi).reduce((a, b) => a + b);
+export const getQuery = url => (
+  url ? decodeURIComponent(findQuery(url)) : ''
+);
 
 /** UPDATE TO COMPARE ALL OBJECTS */
 export const isEqual = (obj1, obj2) => { // Works with objects of same length & same key order only

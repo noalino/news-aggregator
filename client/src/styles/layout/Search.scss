@@ -1,44 +1,9 @@
-@import '../helpers/layout', '../helpers/header';
+@import '../helpers/layout', '../helpers/header', '../helpers/sizes';
 
-$search-height: 50%;
-$sort-height: 20%;
-$options-height: 100% - $search-height - $sort-height;
-
-.searchBar,
 .options_container,
 .options,
 .sort {
   display: flex;
-}
-
-.searchBar {
-  height: $search-height;
-  justify-content: center;
-  align-items: flex-end;
-  padding-bottom: 10px;
-  
-  input,
-  button {
-    height: 45px;
-  }
-
-  input {
-    width: 60%;
-    font-size: 1.5rem;
-    padding-left: 8px;
-    border: 1px solid lightgrey;
-    border-radius: 5px;
-  }
-
-  button {
-    width: 50px;
-    margin: 0 10px;
-    cursor: pointer;
-
-    i {
-      font-size: 1.5rem;
-    }
-  }
 }
 
 .options_container {

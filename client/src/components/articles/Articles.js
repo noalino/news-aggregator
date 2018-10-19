@@ -1,19 +1,22 @@
 import React, { Fragment } from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { getQuery } from '../../_utils';
 
 // import Loader from '../loader/Loader';
 import Article from './Article';
 import styles from '../../styles/articles/Articles.scss';
 
-const Articles = ({ articles, lastQuery }) => {
+const Articles = ({ articles, location: { search } }) => {
   console.log('articles rendering');
+  const query = getQuery(search);
   const results = articles.length;
 
   return (
     <Fragment>
       {
-        (lastQuery !== '' && results < 1) ? (
+        (query && results < 1) ? (
           <h3>No Results Found</h3>
         ) : (
           <div className={styles.container}>
@@ -27,12 +30,11 @@ const Articles = ({ articles, lastQuery }) => {
 
 Articles.propTypes = {
   articles: PropTypes.instanceOf(Array).isRequired,
-  lastQuery: PropTypes.string.isRequired,
+  location: PropTypes.instanceOf(Object).isRequired,
 };
 
 const mapStateToProps = state => ({
   articles: state.articles.articles,
-  lastQuery: state.articles.lastQuery,
 });
 
-export default connect(mapStateToProps)(Articles);
+export default withRouter(connect(mapStateToProps)(Articles));

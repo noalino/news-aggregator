@@ -1,19 +1,22 @@
 /* eslint-disable no-shadow */
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { loadNextPage } from '../../actions/articlesActions';
+import { getQuery } from '../../_utils';
 
 import styles from '../../styles/layout/Footer.scss';
 
-const Footer = ({ totalResults, loadNextPage, ...searchArgs }) => {
+const Footer = ({ totalResults, loadNextPage, location, ...searchArgs }) => {
   const { articles, page, pageSize } = searchArgs;
+  const query = getQuery(location.search);
   const results = articles.length;
 
   return (
     <footer className={styles.footer}>
       {totalResults > (page * pageSize) && (
-        <button type="button" onClick={() => loadNextPage(searchArgs)}>
+        <button type="button" onClick={() => loadNextPage({ query, ...searchArgs })}>
           {/* See more */}
           <i className="fa fa-caret-down" />
         </button>
@@ -38,18 +41,17 @@ Footer.defaultProps = {
 
 Footer.propTypes = {
   articles: PropTypes.instanceOf(Array).isRequired,
-  lastQuery: PropTypes.string.isRequired,
   page: PropTypes.number,
   pageSize: PropTypes.number.isRequired,
   totalResults: PropTypes.number.isRequired,
   language: PropTypes.string.isRequired,
   options: PropTypes.instanceOf(Object).isRequired,
+  location: PropTypes.instanceOf(Object).isRequired,
   loadNextPage: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   articles: state.articles.articles,
-  lastQuery: state.articles.lastQuery,
   page: state.articles.page,
   pageSize: state.articles.pageSize,
   totalResults: state.articles.totalResults,
@@ -57,4 +59,4 @@ const mapStateToProps = state => ({
   options: state.articles.options,
 });
 
-export default connect(mapStateToProps, { loadNextPage })(Footer);
+export default withRouter(connect(mapStateToProps, { loadNextPage })(Footer));

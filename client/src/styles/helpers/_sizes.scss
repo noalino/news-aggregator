@@ -6,6 +6,10 @@ $side-margin: 5vw;
 $sidebar-width: 20vw - $side-margin;
 $container-width: 100vw - 2 * ($sidebar-width + $side-margin);
 
+$search-height: 50%;
+$sort-height: 20%;
+$options-height: 100% - $search-height - $sort-height;
+
 %sidebar-position {
   position: fixed;
   width: $sidebar-width;

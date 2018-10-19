@@ -6,31 +6,32 @@ import PropTypes from 'prop-types';
 import { searchArticles, updateOptions, fetchSources, resetArticles } from '../../actions/articlesActions';
 import { getQuery, isEqual } from '../../_utils';
 
+import SearchBar from '../search/SearchBar';
 import Buttons from '../sidebar/Buttons';
 import Articles from '../articles/Articles';
 import Footer from './Footer';
 import styles from '../../styles/layout/Search.scss';
 
-export class Search extends Component {
-  constructor(props) {
-    super(props);
-    const { location: { search } } = this.props;
-    this.state = {
-      // Initialize query to the one from nav searchbar or URL if it exists
-      query: search ? decodeURIComponent(getQuery(search)) : '',
-      optionsOpen: false,
-    };
-  }
+class Search extends Component {
+  state = {
+    query: '',
+    optionsOpen: false,
+  };
 
   componentDidMount() {
-    const { query } = this.state;
-    const { country, language, fetchSources, searchArticles } = this.props;
+    const {
+      country,
+      language,
+      fetchSources,
+      location: { search },
+    } = this.props;
+    const query = getQuery(search);
     console.log('Search component mounting');
 
     fetchSources({ country, language });
 
-    if (query !== '') {
-      const { pageSize, options } = this.props;
+    if (query) {
+      const { searchArticles, pageSize, options } = this.props;
       searchArticles({
         query,
         options,
@@ -77,20 +78,18 @@ export class Search extends Component {
       language,
       pageSize,
     } = this.props;
-    const decodedQuery = search ? decodeURIComponent(getQuery(search)) : '';
+    const query = getQuery(search);
 
-    this.setState({ query: decodedQuery }, () => {
-      updateOptions(options);
-      return (
-        decodedQuery !== ''
-          ? searchArticles({
-            query: this.state.query,
-            options,
-            pageSize,
-            language,
-          }) : resetArticles()
-      );
-    });
+    updateOptions(options);
+
+    return query ? (
+      searchArticles({
+        query,
+        options,
+        pageSize,
+        language,
+      })
+    ) : resetArticles();
   }
 
   handleInputChange = (e) => {
@@ -116,7 +115,8 @@ export class Search extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     const { query } = this.state;
-    const { lastQuery, options, location, history } = this.props;
+    const { options, location, history } = this.props;
+    const lastQuery = getQuery(location.search);
 
     // Avoid pushing when query & options don't change (makes navigation easier)
     if (query !== '' && (query !== lastQuery || !isEqual(options, location.state))) {
@@ -125,27 +125,14 @@ export class Search extends Component {
   }
 
   render() {
-    const { query, optionsOpen } = this.state;
-    const { lastQuery, sources, options } = this.props;
+    const { optionsOpen } = this.state;
+    const { sources, options, location } = this.props;
+    const lastQuery = getQuery(location.search);
 
     return (
       <div className={styles.showcase}>
         <form className={styles.header} role="search" onSubmit={this.onSubmit}>
-          <div className={styles.searchBar}>
-            <input
-              type="search"
-              name="query"
-              placeholder="Search articles..."
-              autoComplete="true"
-              aria-label="Search articles"
-              value={query}
-              onChange={this.handleInputChange}
-              autoFocus // eslint-disable-line jsx-a11y/no-autofocus
-            />
-            <button type="button">
-              <i className="fas fa-search" />
-            </button>
-          </div>
+          <SearchBar key={location.search} onChange={this.handleInputChange} />
 
           <div className={styles.options_container}>
             <button type="button" className={styles.optionsBtn} onClick={this.triggerOptions}>
@@ -179,8 +166,7 @@ export class Search extends Component {
             )}
           </div>
 
-          {lastQuery !== ''
-          && (
+          {lastQuery && (
             <div className={styles.sort}>
               <h3>
                 Results for:
@@ -209,7 +195,6 @@ export class Search extends Component {
 }
 
 Search.propTypes = {
-  lastQuery: PropTypes.string.isRequired,
   country: PropTypes.string.isRequired,
   language: PropTypes.string.isRequired,
   sources: PropTypes.instanceOf(Array).isRequired,
@@ -225,7 +210,6 @@ Search.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  lastQuery: state.articles.lastQuery,
   country: state.articles.country.code,
   language: state.articles.country.language.code,
   sources: state.articles.sources,

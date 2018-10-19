@@ -8,7 +8,7 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  // country: window.navigator.language.split('-')[1].toLowerCase(),
+  articles: [],
   country: {
     code: 'us',
     name: 'United States',
@@ -17,10 +17,7 @@ const initialState = {
       name: 'English',
     },
   },
-  lastQuery: '',
   sources: [],
-  articles: [],
-
   page: 1,
   pageSize: 20,
   totalResults: 0,
@@ -48,7 +45,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         totalResults: action.payload.totalResults,
-        lastQuery: action.payload.lastQuery,
         articles: action.payload.articles,
         page: action.payload.page,
       };
