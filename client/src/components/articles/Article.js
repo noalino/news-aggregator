@@ -7,48 +7,24 @@ import { addBookmark, deleteBookmark } from '../../actions/userActions';
 import styles from '../../styles/articles/Article.scss';
 
 class Article extends Component {
-  state = {
-    isBookmark: false,
-  }
-
-  componentDidMount() {
-    // console.log('article mounting');
-    const { bookmarks, article, isAuthenticated } = this.props;
-    // Set isBookmark to true if user is authenticated & article in bookmarks
-    this.setState({
-      isBookmark: isAuthenticated
-        ? bookmarks.findIndex(item => item.id === article.id) !== -1 : false,
-    });
-  }
-
-  componentDidUpdate(prevProps) {
-    const { isBookmark } = this.state;
-    const { isAuthenticated, bookmarks, article } = this.props;
-    // Set bookmark on page refreshing
-    if (isAuthenticated && bookmarks.length !== prevProps.bookmarks.length) {
-      this.setState({ isBookmark: bookmarks.findIndex(item => item.id === article.id) !== -1 });
-    }
-    // Remove bookmark from article when user logs out
-    if (!isAuthenticated && isBookmark) {
-      this.setState({ isBookmark: false });
-    }
-  }
-
   updateBookmarks = () => {
-    if (this.props.isAuthenticated) {
-      const { isBookmark } = this.state;
-      const { addBookmark, deleteBookmark, article } = this.props;
+    const { isAuthenticated } = this.props;
+    if (isAuthenticated) {
+      const { addBookmark, deleteBookmark, article, bookmarks } = this.props;
+      const isBookmark = isAuthenticated ? (
+        bookmarks.findIndex(item => item.id === article.id) !== -1
+      ) : false;
 
-      this.setState(prevState => ({ isBookmark: !prevState.isBookmark }), () => (
-        !isBookmark ? addBookmark(article) : deleteBookmark(article.id)
-      ));
+      return !isBookmark ? addBookmark(article) : deleteBookmark(article.id);
     }
+    return null;
   }
 
   render() {
-    const { isBookmark } = this.state;
-    const { article } = this.props;
-    // console.log('article rendering');
+    const { isAuthenticated, bookmarks, article } = this.props;
+    const isBookmark = isAuthenticated ? (
+      bookmarks.findIndex(item => item.id === article.id) !== -1
+    ) : false;
 
     return (
       <article className={styles.article}>
