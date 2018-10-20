@@ -1,31 +1,35 @@
 /* eslint-disable no-shadow, react/destructuring-assignment */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { searchArticles, updateOptions, fetchSources, resetArticles } from '../../actions/articlesActions';
 import { getQuery, isEqual } from '../../_utils';
 
 import SearchBar from '../search/SearchBar';
+import Options from '../search/Options';
+import Sort from '../search/Sort';
 import Buttons from '../sidebar/Buttons';
 import Articles from '../articles/Articles';
 import Footer from './Footer';
 import styles from '../../styles/layout/Search.scss';
 
 class Search extends Component {
-  state = {
-    query: '',
-    optionsOpen: false,
-  };
+  constructor(props) {
+    super(props);
+    const { location: { search } } = this.props;
+    this.state = {
+      // Initialize query to the one from nav searchbar or URL if it exists
+      query: getQuery(search),
+    };
+  }
 
   componentDidMount() {
+    const { query } = this.state;
     const {
       country,
       language,
       fetchSources,
-      location: { search },
     } = this.props;
-    const query = getQuery(search);
     console.log('Search component mounting');
 
     fetchSources({ country, language });
@@ -106,84 +110,27 @@ class Search extends Component {
     }
   }
 
-  triggerOptions = () => {
-    this.setState(prevState => ({
-      optionsOpen: !prevState.optionsOpen,
-    }));
-  }
-
   onSubmit = (e) => {
     e.preventDefault();
     const { query } = this.state;
     const { options, location, history } = this.props;
-    const lastQuery = getQuery(location.search);
 
-    // Avoid pushing when query & options don't change (makes navigation easier)
-    if (query !== '' && (query !== lastQuery || !isEqual(options, location.state))) {
+    // Avoid pushing when query is empty OR options don't change (makes navigation easier)
+    if (query || !isEqual(options, location.state)) {
       history.push(`${location.pathname}?q=${encodeURIComponent(query)}`, options);
     }
   }
 
   render() {
-    const { optionsOpen } = this.state;
-    const { sources, options, location } = this.props;
+    const { location } = this.props;
     const lastQuery = getQuery(location.search);
 
     return (
       <div className={styles.showcase}>
         <form className={styles.header} role="search" onSubmit={this.onSubmit}>
           <SearchBar key={location.search} onChange={this.handleInputChange} />
-
-          <div className={styles.options_container}>
-            <button type="button" className={styles.optionsBtn} onClick={this.triggerOptions}>
-              {optionsOpen ? 'Hide ' : 'Show '}
-              Advanced Search
-            </button>
-            {optionsOpen && (
-              <div className={styles.options}>
-                <div>
-                  <label htmlFor="from">
-                    <p>From:</p>
-                    <input type="date" name="from" id="from" value={options.from} onChange={this.handleInputChange} />
-                  </label>
-                </div>
-                <div>
-                  <label htmlFor="to">
-                    <p>To:</p>
-                    <input type="date" name="to" id="to" value={options.to} onChange={this.handleInputChange} />
-                  </label>
-                </div>
-                <div>
-                  <label htmlFor="source">
-                    <p>Source:</p>
-                    <select name="source" id="source" value={options.source} onChange={this.handleInputChange} size="1">
-                      <option value="">All</option>
-                      {sources.map(src => <option key={src.id} value={src.id}>{src.name}</option>)}
-                    </select>
-                  </label>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {lastQuery && (
-            <div className={styles.sort}>
-              <h3>
-                Results for:
-                {` ${lastQuery}`}
-              </h3>
-              <div>
-                <label htmlFor="sorting">
-                  <p>Sort by:</p>
-                  <select name="sorting" id="sorting" value={options.sorting} size="1" onChange={this.handleInputChange}>
-                    <option value="publishedAt">Published At</option>
-                    <option value="relevancy">Relevancy</option>
-                    <option value="popularity">Popularity</option>
-                  </select>
-                </label>
-              </div>
-            </div>
-          )}
+          <Options onChange={this.handleInputChange} />
+          {lastQuery && <Sort onChange={this.handleInputChange} />}
         </form>
 
         <Buttons />
@@ -197,13 +144,11 @@ class Search extends Component {
 Search.propTypes = {
   country: PropTypes.string.isRequired,
   language: PropTypes.string.isRequired,
-  sources: PropTypes.instanceOf(Array).isRequired,
   searchArticles: PropTypes.func.isRequired,
   fetchSources: PropTypes.func.isRequired,
   resetArticles: PropTypes.func.isRequired,
   location: PropTypes.instanceOf(Object).isRequired,
   history: PropTypes.instanceOf(Object).isRequired,
-
   pageSize: PropTypes.number.isRequired,
   options: PropTypes.instanceOf(Object).isRequired,
   updateOptions: PropTypes.func.isRequired,
@@ -212,15 +157,13 @@ Search.propTypes = {
 const mapStateToProps = state => ({
   country: state.articles.country.code,
   language: state.articles.country.language.code,
-  sources: state.articles.sources,
-
   pageSize: state.articles.pageSize,
   options: state.articles.options,
 });
 
-export default withRouter(connect(mapStateToProps, {
+export default connect(mapStateToProps, {
   searchArticles,
   updateOptions,
   fetchSources,
   resetArticles,
-})(Search));
+})(Search);

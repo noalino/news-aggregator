@@ -5,6 +5,7 @@ import {
   NEXT_SEARCH_ARTICLES,
   FETCH_SOURCES,
   UPDATE_OPTIONS,
+  ERROR,
 } from '../actions/types';
 
 const initialState = {
@@ -27,6 +28,8 @@ const initialState = {
     source: '',
     sorting: 'publishedAt',
   },
+  error: false,
+  errMessage: '',
 };
 
 export default (state = initialState, action) => {
@@ -35,11 +38,13 @@ export default (state = initialState, action) => {
       return {
         ...state,
         country: action.payload,
+        error: false,
       };
     case FETCH_ARTICLES:
       return {
         ...state,
         articles: action.payload,
+        error: false,
       };
     case SEARCH_ARTICLES:
       return {
@@ -47,6 +52,7 @@ export default (state = initialState, action) => {
         totalResults: action.payload.totalResults,
         articles: action.payload.articles,
         page: action.payload.page,
+        error: false,
       };
     case NEXT_SEARCH_ARTICLES:
       return {
@@ -54,16 +60,26 @@ export default (state = initialState, action) => {
         totalResults: action.payload.totalResults,
         articles: action.payload.articles,
         page: action.payload.page,
+        error: false,
       };
     case FETCH_SOURCES:
       return {
         ...state,
         sources: action.payload,
+        error: false,
       };
     case UPDATE_OPTIONS:
       return {
         ...state,
         options: action.payload,
+      };
+    case ERROR:
+      return {
+        ...state,
+        error: true,
+        errMessage: action.payload,
+        totalResults: 0,
+        articles: [],
       };
     default:
       return state;

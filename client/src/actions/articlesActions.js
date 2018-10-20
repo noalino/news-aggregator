@@ -6,6 +6,7 @@ import {
   NEXT_SEARCH_ARTICLES,
   UPDATE_OPTIONS,
   FETCH_SOURCES,
+  ERROR,
 } from './types';
 import { generateArticleId, filterArticles } from '../_utils';
 import jsonResponse from '../data';
@@ -81,7 +82,12 @@ export const searchArticles = ({ ...args }) => (dispatch) => {
         },
       })
     ))
-    .catch(err => console.error(err));
+    .catch(() => (
+      dispatch({
+        type: ERROR,
+        payload: 'Sorry, we could not handle your request.',
+      })
+    ));
 
   // dispatch({
   //   type: SEARCH_ARTICLES,

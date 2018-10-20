@@ -1,0 +1,33 @@
+@import '../helpers/sizes';
+
+.container,
+.options {
+  display: flex;
+  align-items: center;
+}
+
+.container {
+  height: $options-height;
+  width: 80%;
+  margin: 0 auto;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.options {
+  width: 100%;
+  justify-content: space-around;
+}
+
+.optionsBtn {
+  font-size: 0.8rem;
+  font-style: italic;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.options p {
+  display: inline-block;
+  margin-right: 0.2rem;
+}

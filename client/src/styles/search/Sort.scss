@@ -1,0 +1,16 @@
+@import '../helpers/sizes';
+
+.sort {
+  display: flex;
+}
+
+.sort {
+  height: $sort-height;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sort p {
+  display: inline-block;
+  margin-right: 0.2rem;
+}
