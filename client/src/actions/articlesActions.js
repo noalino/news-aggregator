@@ -20,7 +20,7 @@ export const changeCountry = country => (dispatch) => {
 };
 
 export const resetArticles = () => (dispatch) => {
-  console.log('reset lastQuery & totalResults & empty articles list');
+  console.log('reset totalResults & empty articles list');
   dispatch({
     type: SEARCH_ARTICLES,
     payload: {

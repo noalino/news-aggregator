@@ -5,7 +5,7 @@ const { getJwtHeaderPayload, getJwtSignature } = require('../_helpers/cookieHand
 
 const authenticate = async ({ user }, res) => {
   res.json({
-    success: user ? true : false,
+    success: user !== null,
     message: ''
   });
 };
@@ -16,8 +16,8 @@ const signUp = async (req, res, next) => {
       if (err) { return next(err); }
 
       res.json({
-        success: user ? true : false,
-        message
+        success: user !== null,
+        message: user ? '' : message
       });
 
     } catch (err) { return next(err); }
@@ -59,7 +59,7 @@ const logIn = async (req, res, next) => {
         });
         res.json({
           success: true,
-          message
+          message: ''
         });
       });
     } catch (err) { return next(err); }

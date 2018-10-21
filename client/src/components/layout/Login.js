@@ -3,122 +3,36 @@ import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { resetLogin } from '../../actions/userActions';
 
-import { logIn, signUp } from '../../actions/userActions';
+import LoginForm from '../login/LoginForm';
+
 import styles from '../../styles/layout/Login.scss';
 
 class Login extends Component {
-  constructor() {
-    super();
-    this.state = {
-      username: '',
-      password: '',
-      errMessage: '',
-      loading: false,
-    };
-
-    this.usernameInput = React.createRef();
-    this.passwordInput = React.createRef();
-  }
-
   componentDidUpdate(prevProps) {
-    const { username, password, loading } = this.state;
-    const { isRegistered, isAuthenticated, logIn, error, message, log } = this.props;
-
-    if (error && message !== prevProps.message) {
-      this.setState({
-        password: '',
-        errMessage: message,
-      });
-      this.usernameInput.current.focus();
+    const { logAction, resetLogin } = this.props;
+    const { logAction: prevLogAction } = prevProps;
+    if (logAction !== prevLogAction) {
+      resetLogin();
     }
-    // Log in when user has successfully signed up
-    if (!error && isRegistered && !isAuthenticated) {
-      logIn({ username, password });
-    }
-    // Stop loading when user is authenticated
-    if ((error || isAuthenticated) && loading) {
-      this.setState({ loading: false });
-    }
-    // Reset credentials when user switches between Login & Signup
-    if (log !== prevProps.log) {
-      this.setState({
-        username: '',
-        password: '',
-        errMessage: '',
-      });
-      // this.usernameInput.current.focus();
-    }
-  }
-
-  handleChangeInput = (e) => {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
-  }
-
-  onSubmit = (e) => {
-    e.preventDefault();
-    const { username, password } = this.state;
-    const { log, logIn, signUp } = this.props;
-
-    this.setState({ loading: true }, () => (
-      log === 'login' ? logIn({ username, password }) : signUp({ username, password })
-    ));
   }
 
   render() {
-    const { username, password, loading, errMessage } = this.state;
-    const { log, isAuthenticated } = this.props;
-
+    const { logAction, isAuthenticate, errMessage } = this.props;
     return (
-      isAuthenticated ? (
+      isAuthenticate ? (
         <Redirect to="/" />
       ) : (
-        <div className={styles.login_container}>
+        <div className={styles.container}>
           <div className={styles.login}>
             <i className="far fa-user" />
             <p>{errMessage}</p>
             {/* <p>Username already exists</p> */}
-            <form className={styles.loginForm} onSubmit={this.onSubmit}>
-              <label htmlFor="username" className={styles.field}>
-                <i className="fas fa-user" />
-                <input
-                  type="text"
-                  name="username"
-                  id="username"
-                  ref={this.usernameInput}
-                  value={username}
-                  maxLength="18"
-                  onChange={this.handleChangeInput}
-                  placeholder="Username"
-                  required
-                />
-              </label>
-              <label htmlFor="password" className={styles.field}>
-                <i className="fas fa-lock" />
-                <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  ref={this.passwordInput}
-                  value={password}
-                  minLength="8"
-                  maxLength="32"
-                  onChange={this.handleChangeInput}
-                  placeholder="Password"
-                  required
-                />
-              </label>
-              <button type="submit">
-                {/* Insert spinner instead of 'loading'
-                    Use Transition to show login check before redirecting */}
-                {/* eslint-disable-next-line no-nested-ternary */}
-                {loading ? 'Loading' : (log === 'login' ? 'Login' : 'Create account')}
-              </button>
-            </form>
+            <LoginForm key={logAction} logAction={logAction} />
           </div>
           {
-            log === 'login'
+            logAction === 'login'
             && (
               <p className={styles.redirect}>
                 Don&apos;t have an account?
@@ -133,25 +47,16 @@ class Login extends Component {
   }
 }
 
-Login.defaultProps = {
-  message: '',
-};
-
 Login.propTypes = {
-  log: PropTypes.string.isRequired,
-  isAuthenticated: PropTypes.bool.isRequired,
-  isRegistered: PropTypes.bool.isRequired,
-  error: PropTypes.bool.isRequired,
-  message: PropTypes.string,
-  logIn: PropTypes.func.isRequired,
-  signUp: PropTypes.func.isRequired,
+  logAction: PropTypes.string.isRequired,
+  isAuthenticate: PropTypes.bool.isRequired,
+  errMessage: PropTypes.string.isRequired,
+  resetLogin: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.user.isAuthenticated,
-  isRegistered: state.user.isRegistered,
-  error: state.user.error,
-  message: state.user.message,
+  isAuthenticate: state.user.isAuthenticate,
+  errMessage: state.user.errMessage,
 });
 
-export default connect(mapStateToProps, { logIn, signUp })(Login);
+export default connect(mapStateToProps, { resetLogin })(Login);

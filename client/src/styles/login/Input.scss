@@ -1,0 +1,30 @@
+@import '../helpers/sizes';
+
+.field {
+  background: #fff;
+  margin: 10px 0;
+  border-radius: 5px;
+
+  & > input,
+  i {
+    font-size: 1.5rem;
+  }
+
+  & > input {
+    // color: black;
+    width: 75%;
+    height: $field-height;
+    padding-left: 10px;
+    background: transparent;
+    border: none;
+
+    &::placeholder {
+      color: #999;
+    }
+  }
+
+  & > i {
+    width: 25%;
+    color: #999;
+  } 
+}

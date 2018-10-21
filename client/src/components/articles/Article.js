@@ -8,10 +8,10 @@ import styles from '../../styles/articles/Article.scss';
 
 class Article extends Component {
   updateBookmarks = () => {
-    const { isAuthenticated } = this.props;
-    if (isAuthenticated) {
+    const { isAuthenticate } = this.props;
+    if (isAuthenticate) {
       const { addBookmark, deleteBookmark, article, bookmarks } = this.props;
-      const isBookmark = isAuthenticated ? (
+      const isBookmark = isAuthenticate ? (
         bookmarks.findIndex(item => item.id === article.id) !== -1
       ) : false;
 
@@ -21,8 +21,8 @@ class Article extends Component {
   }
 
   render() {
-    const { isAuthenticated, bookmarks, article } = this.props;
-    const isBookmark = isAuthenticated ? (
+    const { isAuthenticate, bookmarks, article } = this.props;
+    const isBookmark = isAuthenticate ? (
       bookmarks.findIndex(item => item.id === article.id) !== -1
     ) : false;
 
@@ -50,12 +50,12 @@ Article.propTypes = {
   addBookmark: PropTypes.func.isRequired,
   deleteBookmark: PropTypes.func.isRequired,
   bookmarks: PropTypes.instanceOf(Array).isRequired,
-  isAuthenticated: PropTypes.bool.isRequired,
+  isAuthenticate: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
   bookmarks: state.user.bookmarks,
-  isAuthenticated: state.user.isAuthenticated,
+  isAuthenticate: state.user.isAuthenticate,
 });
 
 export default connect(mapStateToProps, { addBookmark, deleteBookmark })(Article);

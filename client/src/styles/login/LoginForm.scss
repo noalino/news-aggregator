@@ -1,0 +1,24 @@
+@import '../helpers/sizes', '../helpers/colors';
+
+.loginForm {
+  width: 70%;
+  height: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+
+  & > button {
+    height: $field-height;
+    font-size: 1.5rem;
+    background: $action-color;
+    border: none;
+    border-radius: 5px;
+    margin: 10px 0;
+    cursor: pointer;
+
+    &:disabled {
+      background: darken($action-color, 10%);
+      cursor: auto;
+    }
+  }
+}

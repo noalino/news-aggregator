@@ -10,3 +10,4 @@ export const ERROR = 'ERROR';
 export const AUTHENTICATE = 'AUTHENTICATE';
 export const REGISTER = 'REGISTER';
 export const LOGOUT = 'LOGOUT';
+export const RESET = 'RESET';

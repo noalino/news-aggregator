@@ -1,5 +1,4 @@
-// $nav-height: 2.5rem;
-// $header-height: 10rem;
+/* LAYOUT */
 $nav-height: 40px;
 $header-height: 150px;
 $side-margin: 5vw;
@@ -15,3 +14,6 @@ $options-height: 100% - $search-height - $sort-height;
   width: $sidebar-width;
   top: $nav-height + $header-height;
 }
+
+/* LOGIN */
+$field-height: 50px;

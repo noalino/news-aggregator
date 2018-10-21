@@ -24,8 +24,8 @@ class App extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { isAuthenticated, fetchBookmarks } = this.props; // eslint-disable-line no-shadow
-    if (isAuthenticated && isAuthenticated !== prevProps.isAuthenticated) {
+    const { isAuthenticate, fetchBookmarks } = this.props; // eslint-disable-line no-shadow
+    if (isAuthenticate && isAuthenticate !== prevProps.isAuthenticate) {
       fetchBookmarks();
     }
   }
@@ -37,8 +37,8 @@ class App extends Component {
           <Navbar />
           <Switch>
             <Route exact path="/" render={() => <Redirect to="/general" />} />
-            <Route path="/login" render={props => <Login {...props} log="login" />} />
-            <Route path="/signup" render={props => <Login {...props} log="signup" />} />
+            <Route path="/login" render={props => <Login {...props} logAction="login" />} />
+            <Route path="/signup" render={props => <Login {...props} logAction="signup" />} />
             <Route path="/search" component={Search} />
             <PrivateRoute path="/bookmarks" component={Bookmarks} />
             <Route path="/:topic" component={Index} />
@@ -50,13 +50,13 @@ class App extends Component {
 }
 
 App.propTypes = {
-  isAuthenticated: PropTypes.bool.isRequired,
+  isAuthenticate: PropTypes.bool.isRequired,
   authenticate: PropTypes.func.isRequired,
   fetchBookmarks: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.user.isAuthenticated,
+  isAuthenticate: state.user.isAuthenticate,
 });
 
 export default connect(mapStateToProps, { authenticate, fetchBookmarks })(App);

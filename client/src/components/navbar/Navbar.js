@@ -15,7 +15,7 @@ class Navbar extends Component {
   }
 
   render() {
-    const { isAuthenticated } = this.props;
+    const { isAuthenticate } = this.props;
     return (
       <nav className={styles.nav}>
         <ul>
@@ -31,7 +31,7 @@ class Navbar extends Component {
           </div>
           <div className={styles.rightSide}>
             {
-              !isAuthenticated ? (
+              !isAuthenticate ? (
                 <Fragment>
                   <li>
                     <Link to="/login">
@@ -70,11 +70,11 @@ class Navbar extends Component {
 
 Navbar.propTypes = {
   logOut: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool.isRequired,
+  isAuthenticate: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.user.isAuthenticated,
+  isAuthenticate: state.user.isAuthenticate,
 });
 
 export default connect(mapStateToProps, { logOut })(Navbar);

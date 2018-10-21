@@ -1,10 +1,10 @@
-import { AUTHENTICATE, REGISTER, LOGOUT, FETCH_BOOKMARKS } from '../actions/types';
+import { AUTHENTICATE, REGISTER, LOGOUT, RESET, FETCH_BOOKMARKS } from '../actions/types';
 
 const initialState = {
-  isAuthenticated: false,
-  isRegistered: false,
+  isAuthenticate: false,
+  isRegister: false,
   error: false,
-  message: '',
+  errMessage: '',
   bookmarks: [],
 };
 
@@ -13,24 +13,31 @@ export default (state = initialState, action) => {
     case AUTHENTICATE:
       return {
         ...state,
-        isAuthenticated: action.payload.success,
+        isAuthenticate: action.payload.success,
         error: !action.payload.success,
-        message: action.payload.message,
+        errMessage: action.payload.message,
       };
     case REGISTER:
       return {
         ...state,
-        isRegistered: action.payload.success,
+        isRegister: action.payload.success,
         error: !action.payload.success,
-        message: action.payload.message,
+        errMessage: action.payload.message,
       };
     case LOGOUT:
       return {
         ...state,
-        isAuthenticated: false,
-        isRegistered: false,
-        message: '',
+        isAuthenticate: false,
+        isRegister: false,
+        error: false,
+        errMessage: '',
         bookmarks: [],
+      };
+    case RESET:
+      return {
+        ...state,
+        error: false,
+        errMessage: '',
       };
     case FETCH_BOOKMARKS:
       return {

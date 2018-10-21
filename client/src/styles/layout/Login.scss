@@ -1,8 +1,6 @@
 @import '../helpers/sizes', '../helpers/colors';
 
-$field-height: 50px;
-
-.login_container {
+.container {
   position: relative;
   top: $nav-height + 150px;
   margin: 0 auto;
@@ -17,8 +15,8 @@ $field-height: 50px;
   padding: 10px 0;
   margin: 0 auto 10px;
   border-radius: 5px;
-  border-top-left-radius: 15%;
-  border-top-right-radius: 15%;
+  // border-top-left-radius: 15%;
+  // border-top-right-radius: 15%;
 
   & > p {
     height: 20%;
@@ -39,52 +37,6 @@ $field-height: 50px;
     border-radius: 50%;
     padding: 16px 19px;
   }
-}
-
-.loginForm {
-  width: 70%;
-  height: 80%;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-
-  & > button {
-    height: $field-height;
-    font-size: 1.5rem;
-    background: $action-color;
-    border: none;
-    border-radius: 5px;
-    margin: 10px 0;
-  }
-}
-
-.field {
-  background: #fff;
-  margin: 10px 0;
-  border-radius: 5px;
-
-  & > input,
-  i {
-    font-size: 1.5rem;
-  }
-
-  & > input {
-    // color: black;
-    width: 75%;
-    height: $field-height;
-    padding-left: 10px;
-    background: transparent;
-    border: none;
-
-    &::placeholder {
-      color: #999;
-    }
-  }
-
-  & > i {
-    width: 25%;
-    color: #999;
-  } 
 }
 
 .redirect {

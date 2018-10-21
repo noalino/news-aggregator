@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AUTHENTICATE, REGISTER, LOGOUT, FETCH_BOOKMARKS } from './types';
+import { AUTHENTICATE, REGISTER, LOGOUT, RESET, FETCH_BOOKMARKS } from './types';
 
 const authenticate = () => (dispatch) => {
   axios.post('http://localhost:5000/api/authenticate', {}, { withCredentials: true })
@@ -47,6 +47,8 @@ const logOut = () => (dispatch) => {
     .catch(err => console.error(err));
 };
 
+const resetLogin = () => dispatch => dispatch({ type: RESET });
+
 const fetchBookmarks = () => (dispatch) => {
   axios.get('http://localhost:5000/api/user/bookmarks', { withCredentials: true })
     .then(({ data }) => {
@@ -88,6 +90,7 @@ export {
   logIn,
   signUp,
   logOut,
+  resetLogin,
   fetchBookmarks,
   addBookmark,
   deleteBookmark,
