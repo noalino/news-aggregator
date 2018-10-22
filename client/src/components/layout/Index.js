@@ -27,7 +27,8 @@ class Index extends Component {
   }
 
   componentWillUnmount() {
-    this.props.resetArticles(); // eslint-disable-line react/destructuring-assignment
+    // eslint-disable-next-line react/destructuring-assignment
+    this.props.resetArticles();
   }
 
   render() {

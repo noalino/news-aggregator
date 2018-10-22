@@ -1,8 +1,7 @@
-import articlesReducer from './articlesReducer';
-import { SEARCH_ARTICLES } from '../actions/types';
+import articlesReducer from '../../src/reducers/articlesReducer';
+import { SEARCH_ARTICLES } from '../../src/actions/types';
 
 describe('articles reducer', () => {
-
   it('returns initial state', () => {
     expect(articlesReducer(undefined, {})).toEqual(
       {
@@ -11,13 +10,13 @@ describe('articles reducer', () => {
           name: 'United States',
           language: {
             code: 'en',
-            name: 'English'
-          }
+            name: 'English',
+          },
         },
         lastQuery: '',
         sources: [],
-        articles: []
-      }
+        articles: [],
+      },
     );
   });
 
@@ -25,15 +24,15 @@ describe('articles reducer', () => {
     // given
     const beforeState = {
       lastQuery: '',
-      articles: []
+      articles: [],
     };
-    const action = {type: SEARCH_ARTICLES, payload: { lastQuery: 'bitcoin', articles: ['test']}};
+    const action = { type: SEARCH_ARTICLES, payload: { lastQuery: 'bitcoin', articles: ['test'] } };
     // when
     const afterState = articlesReducer(beforeState, action);
     // then
     expect(afterState).toEqual({
       lastQuery: 'bitcoin',
-      articles: ['test']
+      articles: ['test'],
     });
   });
 });

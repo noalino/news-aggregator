@@ -10,6 +10,7 @@ import {
 } from './types';
 import { generateArticleId, filterArticles } from '../_utils';
 import jsonResponse from '../data';
+import { page1, page2 } from '../searchData';
 
 export const changeCountry = country => (dispatch) => {
   console.log('changing country');
@@ -93,8 +94,8 @@ export const searchArticles = ({ ...args }) => (dispatch) => {
   //   type: SEARCH_ARTICLES,
   //   payload: {
   //     page: 1,
-  //     totalResults: 20,
-  //     articles: jsonResponse.business.articles,
+  //     totalResults: page1.totalResults,
+  //     articles: page1.articles,
   //   },
   // });
 };
@@ -126,6 +127,16 @@ export const loadNextPage = ({ ...args }) => (dispatch) => {
       })
     ))
     .catch(err => console.error(err));
+
+  // const newArticles = articles.push(page2.articles);
+  // dispatch({
+  //   type: NEXT_SEARCH_ARTICLES,
+  //   payload: {
+  //     page: nextPage,
+  //     totalResults: page2.totalResults,
+  //     articles: newArticles,
+  //   },
+  // });
 };
 
 export const fetchSources = ({ country, language }) => (dispatch) => {

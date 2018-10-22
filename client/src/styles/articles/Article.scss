@@ -11,7 +11,7 @@
   
   display: grid;
   grid-template-columns: auto 5%;
-  grid-template-rows: repeat(4, auto);
+  grid-template-rows: 5% repeat(2, auto) 5%;
   grid-gap: 0.7em;
   grid-template-areas:
     "source bookmark"

@@ -1,8 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import '../../setup.test';
 // Import non-connected Search component
-import { Search } from './Search';
+import { Search } from '../../../src/components/layout/Search';
 
 
 describe('<Search />', () => {
@@ -22,8 +21,8 @@ describe('<Search />', () => {
         name: 'United States',
         language: {
           code: 'en',
-          name: 'English'
-        }
+          name: 'English',
+        },
       },
       lastQuery: '',
       sources: [],
@@ -31,16 +30,15 @@ describe('<Search />', () => {
       history: [],
       location: {
         search: '',
-        state: undefined
+        state: undefined,
       },
       searchArticles: mockSearchfn,
       fetchSources: mockFetchSrcfn,
-      resetArticles: mockResetfn
+      resetArticles: mockResetfn,
     };
   });
 
   describe('When component mounts', () => {
-
     describe('with no query', () => {
       beforeEach(() => {
         wrapper = shallow(<Search {...props} />);
@@ -59,7 +57,7 @@ describe('<Search />', () => {
       beforeEach(() => {
         const propsWithQuery = {
           ...props,
-          location: { search: '?q=bitcoin', state: undefined }
+          location: { search: '?q=bitcoin', state: undefined },
         };
         wrapper = shallow(<Search {...propsWithQuery} />);
       });
@@ -75,15 +73,14 @@ describe('<Search />', () => {
   });
 
   describe('When country/language changes', () => {
-    
     describe('with no query', () => {
       beforeEach(() => {
         const newProps = {
           ...props,
-          country: { language: { code: 'fr' }}
+          country: { language: { code: 'fr' } },
         };
         wrapper = shallow(<Search {...props} />);
-        wrapper.setProps({...newProps});
+        wrapper.setProps({ ...newProps });
       });
 
       it('should fetch sources', () => {
@@ -101,10 +98,10 @@ describe('<Search />', () => {
         const newProps = {
           ...props,
           location: { search: '?q=bitcoin', state: undefined },
-          country: { language: { code: 'fr' }}
+          country: { language: { code: 'fr' } },
         };
         wrapper = shallow(<Search {...props} />);
-        wrapper.setProps({...newProps});
+        wrapper.setProps({ ...newProps });
       });
 
       it('should fetch sources', () => {
@@ -119,12 +116,11 @@ describe('<Search />', () => {
   });
 
   describe('When query changes', () => {
-
     describe('with no options (request from nav searchbar)', () => {
       beforeEach(() => {
         const noOptionsProps = {
           ...props,
-          location: { search: '?q=bitcoin', state: undefined }
+          location: { search: '?q=bitcoin', state: undefined },
         };
         wrapper = shallow(<Search {...noOptionsProps} />);
       });
@@ -133,9 +129,9 @@ describe('<Search />', () => {
         beforeEach(() => {
           const newProps = {
             ...props,
-            location: { search: '', state: undefined }
+            location: { search: '', state: undefined },
           };
-          wrapper.setProps({...newProps});
+          wrapper.setProps({ ...newProps });
         });
 
         it('should reset articles', () => {
@@ -148,9 +144,9 @@ describe('<Search />', () => {
         beforeEach(() => {
           const newProps = {
             ...props,
-            location: { search: '?q=bitcoin', state: undefined }
+            location: { search: '?q=bitcoin', state: undefined },
           };
-          wrapper.setProps({...newProps});
+          wrapper.setProps({ ...newProps });
         });
 
         it('should not search articles', () => {
@@ -162,9 +158,9 @@ describe('<Search />', () => {
         beforeEach(() => {
           const newProps = {
             ...props,
-            location: { search: '?q=art', state: undefined }
+            location: { search: '?q=art', state: undefined },
           };
-          wrapper.setProps({...newProps});
+          wrapper.setProps({ ...newProps });
         });
 
         it('should search articles', () => {
@@ -179,7 +175,7 @@ describe('<Search />', () => {
       beforeEach(() => {
         const optionsProps = {
           ...props,
-          location: { search: '?q=bitcoin', state: { from: '', to: '', source: '', sorting: 'publishedAt'} }
+          location: { search: '?q=bitcoin', state: { from: '', to: '', source: '', sorting: 'publishedAt' } },
         };
         wrapper = shallow(<Search {...optionsProps} />);
       });
@@ -188,9 +184,9 @@ describe('<Search />', () => {
         beforeEach(() => {
           const newProps = {
             ...props,
-            location: { search: '', state: { from: '', to: '', source: '', sorting: 'publishedAt'} }
+            location: { search: '', state: { from: '', to: '', source: '', sorting: 'publishedAt' } },
           };
-          wrapper.setProps({...newProps});
+          wrapper.setProps({ ...newProps });
         });
 
         it('should reset articles', () => {
@@ -206,9 +202,9 @@ describe('<Search />', () => {
         beforeEach(() => {
           const newProps = {
             ...props,
-            location: { search: '?q=bitcoin', state: { from: '', to: '', source: '', sorting: 'publishedAt'} }
+            location: { search: '?q=bitcoin', state: { from: '', to: '', source: '', sorting: 'publishedAt' } },
           };
-          wrapper.setProps({...newProps});
+          wrapper.setProps({ ...newProps });
         });
 
         it('should not search articles', () => {
@@ -220,9 +216,9 @@ describe('<Search />', () => {
         beforeEach(() => {
           const newProps = {
             ...props,
-            location: { search: '?q=art', state: { from: '', to: '', source: '', sorting: 'publishedAt'} }
+            location: { search: '?q=art', state: { from: '', to: '', source: '', sorting: 'publishedAt' } },
           };
-          wrapper.setProps({...newProps});
+          wrapper.setProps({ ...newProps });
         });
 
         it('should search articles', () => {
@@ -237,20 +233,20 @@ describe('<Search />', () => {
   describe('When options change', () => { // SIMULATE SUBMIT FOR ALL OPTIONS CHANGES
     describe('with no query', () => {
       beforeEach(() => {
-          const noQueryProps = {
-            ...props,
-            location: { search: '', state: { from: '', to: '', source: '', sorting: 'publishedAt'} }
-          };
-          wrapper = shallow(<Search {...noQueryProps} />);
-        });
+        const noQueryProps = {
+          ...props,
+          location: { search: '', state: { from: '', to: '', source: '', sorting: 'publishedAt' } },
+        };
+        wrapper = shallow(<Search {...noQueryProps} />);
+      });
 
       describe('when options === previous options', () => {
         beforeEach(() => {
           const newProps = {
             ...props,
-            location: { search: '', state: { from: '', to: '', source: '', sorting: 'publishedAt'} }
+            location: { search: '', state: { from: '', to: '', source: '', sorting: 'publishedAt' } },
           };
-          wrapper.setProps({...newProps});
+          wrapper.setProps({ ...newProps });
         });
 
         it('should not search articles', () => {
@@ -262,9 +258,9 @@ describe('<Search />', () => {
         beforeEach(() => {
           const newProps = {
             ...props,
-            location: { search: '', state: { from: '30-01-1992', to: '20-09-2018', source: 'le-monde', sorting: 'relevancy'} }
+            location: { search: '', state: { from: '30-01-1992', to: '20-09-2018', source: 'le-monde', sorting: 'relevancy' } },
           };
-          wrapper.setProps({...newProps});
+          wrapper.setProps({ ...newProps });
         });
 
         it('should not search articles', () => {
@@ -278,7 +274,7 @@ describe('<Search />', () => {
       beforeEach(() => {
         const withQueryProps = {
           ...props,
-          location: { search: '?q=bitcoin', state: { from: '', to: '', source: '', sorting: 'publishedAt'} }
+          location: { search: '?q=bitcoin', state: { from: '', to: '', source: '', sorting: 'publishedAt' } },
         };
         wrapper = shallow(<Search {...withQueryProps} />);
       });
@@ -287,9 +283,9 @@ describe('<Search />', () => {
         beforeEach(() => {
           const newProps = {
             ...props,
-            location: { search: '?q=bitcoin', state: { from: '', to: '', source: '', sorting: 'publishedAt'} }
+            location: { search: '?q=bitcoin', state: { from: '', to: '', source: '', sorting: 'publishedAt' } },
           };
-          wrapper.setProps({...newProps});
+          wrapper.setProps({ ...newProps });
         });
 
         it('should not search articles', () => {
@@ -302,9 +298,9 @@ describe('<Search />', () => {
         beforeEach(() => {
           const newProps = {
             ...props,
-            location: { search: '?q=bitcoin', state: { from: '30-01-1992', to: '20-09-2018', source: 'le-monde', sorting: 'relevancy'} }
+            location: { search: '?q=bitcoin', state: { from: '30-01-1992', to: '20-09-2018', source: 'le-monde', sorting: 'relevancy' } },
           };
-          wrapper.setProps({...newProps});
+          wrapper.setProps({ ...newProps });
         });
 
         it('should search articles', () => {
@@ -360,4 +356,3 @@ describe('<Search />', () => {
   //   });
   // });
 });
-

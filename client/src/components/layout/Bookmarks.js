@@ -22,9 +22,10 @@ class Bookmarks extends Component {
     }
   }
 
-  // componentWillUnmount() {
-  //   resetArticles();
-  // }
+  componentWillUnmount() {
+    // eslint-disable-next-line react/destructuring-assignment
+    this.props.resetArticles();
+  }
 
   render() {
     return (
@@ -41,7 +42,7 @@ class Bookmarks extends Component {
 
 Bookmarks.propTypes = {
   displayBookmarks: PropTypes.func.isRequired,
-  // resetArticles: PropTypes.func.isRequired,
+  resetArticles: PropTypes.func.isRequired,
   bookmarks: PropTypes.instanceOf(Array).isRequired,
 };
 

@@ -1,4 +1,4 @@
-/* eslint-disable no-shadow, react/destructuring-assignment */
+/* eslint-disable no-shadow */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -11,7 +11,8 @@ import Articles from '../articles/Articles';
 import Footer from './Footer';
 import styles from '../../styles/layout/Search.scss';
 
-class Search extends Component {
+// 'export' for test purposes (not connected to Redux store)
+export class Search extends Component {
   componentDidMount() {
     const {
       country,
@@ -59,6 +60,7 @@ class Search extends Component {
   }
 
   componentWillUnmount() {
+    // eslint-disable-next-line react/destructuring-assignment
     this.props.resetArticles();
   }
 
