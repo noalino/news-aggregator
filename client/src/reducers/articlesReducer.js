@@ -2,7 +2,6 @@ import {
   CHANGE_COUNTRY,
   FETCH_ARTICLES,
   SEARCH_ARTICLES,
-  NEXT_SEARCH_ARTICLES,
   FETCH_SOURCES,
   UPDATE_OPTIONS,
   ERROR,
@@ -47,14 +46,6 @@ export default (state = initialState, action) => {
         error: false,
       };
     case SEARCH_ARTICLES:
-      return {
-        ...state,
-        totalResults: action.payload.totalResults,
-        articles: action.payload.articles,
-        page: action.payload.page,
-        error: false,
-      };
-    case NEXT_SEARCH_ARTICLES:
       return {
         ...state,
         totalResults: action.payload.totalResults,

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { searchArticles, updateOptions, fetchSources, resetArticles } from '../../actions/articlesActions';
-import { getQuery, isEqual } from '../../_utils';
+import { getQuery, isObjectsEqual } from '../../_utils';
 
 import SearchForm from '../search/SearchForm';
 import Buttons from '../sidebar/Buttons';
@@ -53,7 +53,7 @@ export class Search extends Component {
       this.handleReqChange(options);
 
     // Handle query coming from main searchbar
-    } else if (state !== undefined && (search !== prevLocSearch || !isEqual(state, prevLocState))) {
+    } else if (state !== undefined && (search !== prevLocSearch || !isObjectsEqual(state, prevLocState))) {
       console.log('main searchbar request');
       this.handleReqChange(state);
     }

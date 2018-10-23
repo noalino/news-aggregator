@@ -4,7 +4,8 @@ export const getQuery = url => (
 );
 
 /** UPDATE TO COMPARE ALL OBJECTS */
-export const isEqual = (obj1, obj2) => { // Works with objects of same length & same key order only
+// Works with objects of same length & same key order only
+export const isObjectsEqual = (obj1, obj2) => {
   if (obj2 === undefined) {
     return false;
   }
@@ -22,11 +23,24 @@ export const isEqual = (obj1, obj2) => { // Works with objects of same length & 
   return true;
 };
 
+// export const isArraysEqual = (a, b) => {
+//   if (a === b) return true;
+//   if (a == null || b == null) return false;
+//   if (a.length !== b.length) return false;
+//   for (let i = 0; i < a.length; i++) {
+//     if (a[i] !== b[i]) return false;
+//   }
+//   return true;
+// };
+
 // Add id to each article
-export const generateArticleId = articles => (
+export const generateIdAndLoad = articles => (
   articles.forEach((article) => {
     const { publishedAt, source, title } = article;
-    article.id = `${publishedAt}_${source.id}_${title}`; // eslint-disable-line no-param-reassign
+    // eslint-disable-next-line no-param-reassign
+    article.id = `${publishedAt}_${source.id}_${title}`;
+    // eslint-disable-next-line no-param-reassign, no-return-assign
+    article.loaded = false;
   })
 );
 

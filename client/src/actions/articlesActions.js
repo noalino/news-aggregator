@@ -3,14 +3,11 @@ import {
   CHANGE_COUNTRY,
   FETCH_ARTICLES,
   SEARCH_ARTICLES,
-  NEXT_SEARCH_ARTICLES,
   UPDATE_OPTIONS,
   FETCH_SOURCES,
   ERROR,
 } from './types';
-import { generateArticleId, filterArticles } from '../_utils';
-import jsonResponse from '../data';
-import { page1, page2 } from '../searchData';
+import { generateIdAndLoad, filterArticles } from '../_utils';
 
 export const changeCountry = country => (dispatch) => {
   console.log('changing country');
@@ -31,24 +28,21 @@ export const resetArticles = () => (dispatch) => {
   });
 };
 
-export const fetchArticles = (country, category) => (dispatch) => {
-  console.log('fetching articles...');
-  axios.get(`https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${process.env.API_KEY}`)
-    .then(({ data: { articles } }) => {
-      generateArticleId(articles);
-      return filterArticles(articles);
-    })
-    .then(articles => (
-      dispatch({
-        type: FETCH_ARTICLES,
-        payload: articles,
-      })
-    ))
-    .catch(err => console.error(err));
-  // dispatch({
-  //   type: FETCH_ARTICLES,
-  //   payload: jsonResponse.all.articles,
-  // });
+export const fetchArticles = (country, category) => async (dispatch) => {
+  // const url = 'src/data/data_all.json';
+  const url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${process.env.API_KEY}`;
+  try {
+    const res = await axios.get(url);
+    const { articles } = res.data;
+    await generateIdAndLoad(articles);
+    const newArticles = await filterArticles(articles);
+    dispatch({
+      type: FETCH_ARTICLES,
+      payload: newArticles,
+    });
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 export const updateOptions = options => dispatch => (
@@ -58,85 +52,62 @@ export const updateOptions = options => dispatch => (
   })
 );
 
-export const searchArticles = ({ ...args }) => (dispatch) => {
-  console.log('searching articles...');
-  const { query, options, language, pageSize } = args;
-  const queryURI = encodeURIComponent(query);
-  const { from, to, source, sorting } = options;
+export const searchArticles = ({ ...args }) => async (dispatch) => {
+  try {
+    console.log('searching articles...');
+    const { query, options, language, pageSize } = args;
+    const queryURI = encodeURIComponent(query);
+    const { from, to, source, sorting } = options;
+    // const url = 'src/data/page1.json';
+    const url = `https://newsapi.org/v2/everything?q=${queryURI}&from=${from}&to=${to}&language=${language}&sources=${source}&sortBy=${sorting}&pageSize=${pageSize}&page=1&apiKey=${process.env.API_KEY}`;
 
-  axios.get(`https://newsapi.org/v2/everything?q=${queryURI}&from=${from}&to=${to}&language=${language}&sources=${source}&sortBy=${sorting}&pageSize=${pageSize}&page=1&apiKey=${process.env.API_KEY}`)
-    .then(({ data: { totalResults, articles } }) => {
-      generateArticleId(articles);
-      const newArticles = filterArticles(articles);
-      return {
-        newArticles,
+    const res = await axios.get(url);
+    const { totalResults, articles } = res.data;
+    await generateIdAndLoad(articles);
+    const newArticles = await filterArticles(articles);
+
+    dispatch({
+      type: SEARCH_ARTICLES,
+      payload: {
+        page: 1,
         totalResults,
-      };
-    })
-    .then(({ totalResults, newArticles }) => (
-      dispatch({
-        type: SEARCH_ARTICLES,
-        payload: {
-          page: 1,
-          totalResults,
-          articles: newArticles,
-        },
-      })
-    ))
-    .catch(() => (
-      dispatch({
-        type: ERROR,
-        payload: 'Sorry, we could not handle your request.',
-      })
-    ));
-
-  // dispatch({
-  //   type: SEARCH_ARTICLES,
-  //   payload: {
-  //     page: 1,
-  //     totalResults: page1.totalResults,
-  //     articles: page1.articles,
-  //   },
-  // });
+        articles: newArticles,
+      },
+    });
+  } catch (err) {
+    dispatch({
+      type: ERROR,
+      payload: 'Sorry, we could not handle your request.',
+    });
+  }
 };
 
-export const loadNextPage = ({ ...args }) => (dispatch) => {
-  console.log('loading next page...');
-  const { articles, query, options, language, page, pageSize } = args;
-  const queryURI = encodeURIComponent(query);
-  const { from, to, source, sorting } = options;
-  const nextPage = page + 1;
+export const loadNextPage = ({ ...args }) => async (dispatch) => {
+  try {
+    console.log('loading next page...');
+    const { articles, query, options, language, page, pageSize } = args;
+    const queryURI = encodeURIComponent(query);
+    const { from, to, source, sorting } = options;
+    const nextPage = page + 1;
+    // const url = 'src/data/page2.json';
+    const url = `https://newsapi.org/v2/everything?q=${queryURI}&from=${from}&to=${to}&language=${language}&sources=${source}&sortBy=${sorting}&pageSize=${pageSize}&page=${nextPage}&apiKey=${process.env.API_KEY}`;
 
-  axios.get(`https://newsapi.org/v2/everything?q=${queryURI}&from=${from}&to=${to}&language=${language}&sources=${source}&sortBy=${sorting}&pageSize=${pageSize}&page=${nextPage}&apiKey=${process.env.API_KEY}`)
-    .then(({ data: { totalResults, articles: nextArticles } }) => {
-      generateArticleId(nextArticles);
-      const newArticles = filterArticles(articles.concat(nextArticles));
-      return {
-        newArticles,
+    const res = await axios.get(url);
+    const { totalResults, articles: nextArticles } = res.data;
+    await generateIdAndLoad(nextArticles);
+    const newArticles = await filterArticles(articles.concat(nextArticles));
+
+    dispatch({
+      type: SEARCH_ARTICLES,
+      payload: {
+        page: nextPage,
         totalResults,
-      };
-    })
-    .then(({ totalResults, newArticles }) => (
-      dispatch({
-        type: NEXT_SEARCH_ARTICLES,
-        payload: {
-          page: nextPage,
-          totalResults,
-          articles: newArticles,
-        },
-      })
-    ))
-    .catch(err => console.error(err));
-
-  // const newArticles = articles.push(page2.articles);
-  // dispatch({
-  //   type: NEXT_SEARCH_ARTICLES,
-  //   payload: {
-  //     page: nextPage,
-  //     totalResults: page2.totalResults,
-  //     articles: newArticles,
-  //   },
-  // });
+        articles: newArticles,
+      },
+    });
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 export const fetchSources = ({ country, language }) => (dispatch) => {

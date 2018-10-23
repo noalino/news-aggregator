@@ -37,6 +37,7 @@ class Article extends Component {
 
   render() {
     const { loading } = this.state;
+    // const loading = true;
     const { isAuthenticate, bookmarks, article } = this.props;
     const isImage = article.urlToImage !== null;
     const isBookmark = isAuthenticate ? (
@@ -46,7 +47,14 @@ class Article extends Component {
     return (
       <Fragment>
         {/* LOAD IMAGE FOR LOADING STATE PURPOSES */}
-        {isImage && <img src={article.urlToImage} style={{display: 'none'}} onLoad={this.loadArticle} />}
+        {/* ON ERROR / WAIT FOR ALL ARTICLES TO SHOW THEM ALL */}
+        {isImage && (
+          <img
+            src={article.urlToImage}
+            style={{display: 'none'}}
+            onLoad={this.loadArticle}
+          />
+        )}
         {loading ? (
           <Loader />
         ) : (
@@ -77,7 +85,6 @@ class Article extends Component {
 
 Article.propTypes = {
   article: PropTypes.instanceOf(Object).isRequired,
-  index: PropTypes.number.isRequired,
   addBookmark: PropTypes.func.isRequired,
   deleteBookmark: PropTypes.func.isRequired,
   bookmarks: PropTypes.instanceOf(Array).isRequired,
@@ -85,6 +92,7 @@ Article.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  articles: state.articles.articles,
   bookmarks: state.user.bookmarks,
   isAuthenticate: state.user.isAuthenticate,
 });

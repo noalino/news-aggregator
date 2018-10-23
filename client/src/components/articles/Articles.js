@@ -4,13 +4,11 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getQuery } from '../../_utils';
 
-import Loader from '../loader/Loader';
 import Article from './Article';
 import styles from '../../styles/articles/Articles.scss';
-/** SET FUNCTION THAT RETURN LOADING STATE (REMOVE LOADER WHEN ALL ARTICLES ARE NOT LOADING) */
-/** LOADER WITH ARTICLE LOADING STYLE */
+
 const Articles = ({ articles, location: { search }, error, errMessage }) => {
-  console.log('articles rendering', articles);
+  console.log('articles rendering');
   const query = getQuery(search);
   const results = articles.length;
 
