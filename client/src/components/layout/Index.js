@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import { fetchArticles, resetArticles } from '../../actions/articlesActions';
 
 import Sidebar from '../sidebar/Sidebar';
@@ -48,7 +49,7 @@ class Index extends Component {
       <div className={styles.showcase}>
         <header className={styles.header}>
           <h1 className={styles.title}>Top Stories</h1>
-          <p className={styles.date}>Monday, August 20, 2018</p>
+          <p className={styles.date}>{moment(Date.now()).format('MMMM D, YYYY')}</p>
         </header>
         <Sidebar />
         <Articles />

@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import { addBookmark, deleteBookmark } from '../../actions/userActions';
 
 import styles from '../../styles/articles/Article.scss';
@@ -36,7 +37,7 @@ class Article extends Component {
         <div className={styles.info}>
           <p className={styles.source}>{source.name}</p>
           {' - '}
-          <p className={styles.date}>{publishedAt}</p>
+          <p className={styles.date}>{moment(publishedAt).fromNow()}</p>
         </div>
       </article>
     );

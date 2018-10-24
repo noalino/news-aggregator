@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 import styles from '../../styles/search/Options.scss';
 
@@ -18,6 +19,8 @@ class Options extends Component {
   render() {
     const { optionsOpen } = this.state;
     const { onChange, sources, options } = this.props;
+    const { from, to, source } = options;
+
     return (
       <div className={styles.container}>
         <button type="button" className={styles.optionsBtn} onClick={this.triggerOptions}>
@@ -29,19 +32,36 @@ class Options extends Component {
             <div>
               <label htmlFor="from">
                 <p>From:</p>
-                <input type="date" name="from" id="from" value={options.from} onChange={e => onChange(e)} />
+                <input
+                  type="date"
+                  name="from"
+                  id="from"
+                  value={from}
+                  // ONE MONTH AGO (FROM API DEV REQUIREMENTS)
+                  min={moment().subtract(1, 'months').format('YYYY-MM-DD')}
+                  max={to || moment().format('YYYY-MM-DD')}
+                  onChange={e => onChange(e)}
+                />
               </label>
             </div>
             <div>
               <label htmlFor="to">
                 <p>To:</p>
-                <input type="date" name="to" id="to" value={options.to} onChange={e => onChange(e)} />
+                <input
+                  type="date"
+                  name="to"
+                  id="to"
+                  value={to}
+                  min={from || moment().subtract(1, 'months').format('YYYY-MM-DD')}
+                  max={moment().format('YYYY-MM-DD')}
+                  onChange={e => onChange(e)}
+                />
               </label>
             </div>
             <div>
               <label htmlFor="source">
                 <p>Source:</p>
-                <select name="source" id="source" value={options.source} onChange={e => onChange(e)} size="1">
+                <select name="source" id="source" value={source} onChange={e => onChange(e)} size="1">
                   <option value="">All</option>
                   {sources.map(src => <option key={src.id} value={src.id}>{src.name}</option>)}
                 </select>
