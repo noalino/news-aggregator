@@ -1,0 +1,42 @@
+.article {
+  width: 100%;
+  padding: 15px 20px;
+  // padding: 5px 10px;
+  border: none;
+  box-shadow: 0 2px 15px 0 lightgrey;
+  
+  display: grid;
+  grid-template-columns: auto 5%;
+  grid-template-rows: repeat(2, auto);
+  grid-gap: 0.3rem;
+  grid-template-areas:
+    "title bookmark"
+    "info .";
+
+  & > i {
+    grid-area: bookmark;
+    font-size: 16px;
+    justify-self: end;
+  }
+}
+
+.title {
+  grid-area: title;
+  font-size: 1.5rem;
+  color: black;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.info {
+  grid-area: info;
+}
+
+.source,
+.date {
+  display: inline;
+  font-size: 0.3rem;
+}

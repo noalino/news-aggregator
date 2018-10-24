@@ -33,14 +33,14 @@ export const isObjectsEqual = (obj1, obj2) => {
 //   return true;
 // };
 
+export const numberWithCommas = x => x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
 // Add id to each article
-export const generateIdAndLoad = articles => (
+export const generateId = articles => (
   articles.forEach((article) => {
     const { publishedAt, source, title } = article;
     // eslint-disable-next-line no-param-reassign
     article.id = `${publishedAt}_${source.id}_${title}`;
-    // eslint-disable-next-line no-param-reassign, no-return-assign
-    article.loaded = false;
   })
 );
 

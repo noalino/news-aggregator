@@ -10,11 +10,19 @@ import Footer from './Footer';
 import styles from '../../styles/layout/Index.scss';
 
 class Index extends Component {
+  constructor() {
+    super();
+    this.timer = null;
+  }
+
   componentDidMount() {
     const { match: { params: { topic } }, country, fetchArticles } = this.props;
     console.log('Index mounting');
 
     fetchArticles(country.code, topic);
+    // FETCH ARTICLES EVERY MINUTE
+    // this.timer = setInterval(() => console.log('counting'), 3000);
+    // this.timer = setInterval(() => fetchArticles(country.code, topic), 60000);
   }
 
   componentDidUpdate(prevProps) {
@@ -23,12 +31,16 @@ class Index extends Component {
       console.log('Index updating');
 
       fetchArticles(country.code, topic);
+      // FETCH ARTICLES EVERY MINUTE
+      // this.timer = setInterval(() => fetchArticles(country.code, topic), 60000);
     }
   }
 
   componentWillUnmount() {
     // eslint-disable-next-line react/destructuring-assignment
     this.props.resetArticles();
+
+    // clearInterval(this.timer);
   }
 
   render() {

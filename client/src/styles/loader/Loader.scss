@@ -1,51 +1,30 @@
+@import '../helpers/article';
+
 $color: lightgrey;
 
 .article {
-  width: 100%;
   height: 300px;
-  margin: 0.3rem 0.5rem;
-  padding: 1rem 1.2rem;
-  border: none;
-  box-shadow: 0 2px 15px 0 $color;
   
-  display: grid;
-  grid-template-columns: auto 5%;
-  grid-template-rows: 5% repeat(2, auto) 5%;
-  grid-gap: 0.7rem;
-  grid-template-areas:
-    "source bookmark"
-    "img img"
-    "text text"
-    "date date";
-
   & > i {
-    grid-area: bookmark;
     color: $color;
-    font-size: 1em;
-    justify-self: end;
   }
 }
 
 .image {
-  grid-area: img;
   background: $color;
 }
 
 .source {
-  grid-area: source;
   background: $color;
   width: 40%;
 }
 
 .date {
-  grid-area: date;
   background: $color;
   width: 40%;
-  justify-self: end;
 }
 
 .text {
-  grid-area: text;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -58,7 +37,7 @@ $color: lightgrey;
   }
 
   @for $i from 3 through 5 {
-    &>div:nth-child(#{$i}) {
+    & > div:nth-child(#{$i}) {
       height: 10%;
       background: $color;
     }

@@ -7,7 +7,7 @@ import { getQuery } from '../../_utils';
 import Article from './Article';
 import styles from '../../styles/articles/Articles.scss';
 
-const Articles = ({ articles, location: { search }, error, errMessage }) => {
+const Articles = ({ articles, totalResults, location: { search }, error, errMessage }) => {
   console.log('articles rendering');
   const query = getQuery(search);
   const results = articles.length;
@@ -15,16 +15,17 @@ const Articles = ({ articles, location: { search }, error, errMessage }) => {
   if (error) {
     return <p>{errMessage}</p>;
   }
-  if (query && results < 1) {
-    return <p>No Results Found</p>;
+  if (query && totalResults === 0) return null;
+  if (results === 0) {
+    console.log('loading');
+    return <p>Loading</p>;
   }
 
   return (
     <div className={styles.container}>
-      {articles.map((article, i) => (
+      {articles.map(article => (
         <Article
           key={article.id}
-          index={i}
           article={{ ...article }}
         />
       ))}
@@ -34,6 +35,7 @@ const Articles = ({ articles, location: { search }, error, errMessage }) => {
 
 Articles.propTypes = {
   articles: PropTypes.instanceOf(Array).isRequired,
+  totalResults: PropTypes.bool.isRequired,
   location: PropTypes.instanceOf(Object).isRequired,
   error: PropTypes.bool.isRequired,
   errMessage: PropTypes.string.isRequired,
@@ -41,6 +43,7 @@ Articles.propTypes = {
 
 const mapStateToProps = state => ({
   articles: state.articles.articles,
+  totalResults: state.articles.totalResults,
   error: state.articles.error,
   errMessage: state.articles.errMessage,
 });

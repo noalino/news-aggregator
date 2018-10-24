@@ -7,7 +7,7 @@ import {
   FETCH_SOURCES,
   ERROR,
 } from './types';
-import { generateIdAndLoad, filterArticles } from '../_utils';
+import { generateId, filterArticles } from '../_utils';
 
 export const changeCountry = country => (dispatch) => {
   console.log('changing country');
@@ -29,19 +29,24 @@ export const resetArticles = () => (dispatch) => {
 };
 
 export const fetchArticles = (country, category) => async (dispatch) => {
-  // const url = 'src/data/data_all.json';
-  const url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${process.env.API_KEY}`;
+  console.log('fetching articles');
+  const url = 'src/data/data_all.json';
+  // const url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${process.env.API_KEY}`;
   try {
     const res = await axios.get(url);
     const { articles } = res.data;
-    await generateIdAndLoad(articles);
+    await generateId(articles);
     const newArticles = await filterArticles(articles);
     dispatch({
       type: FETCH_ARTICLES,
       payload: newArticles,
     });
   } catch (err) {
-    console.error(err);
+    // console.error(err);
+    dispatch({
+      type: ERROR,
+      payload: '404 Not Found',
+    });
   }
 };
 
@@ -63,7 +68,7 @@ export const searchArticles = ({ ...args }) => async (dispatch) => {
 
     const res = await axios.get(url);
     const { totalResults, articles } = res.data;
-    await generateIdAndLoad(articles);
+    await generateId(articles);
     const newArticles = await filterArticles(articles);
 
     dispatch({
@@ -94,7 +99,7 @@ export const loadNextPage = ({ ...args }) => async (dispatch) => {
 
     const res = await axios.get(url);
     const { totalResults, articles: nextArticles } = res.data;
-    await generateIdAndLoad(nextArticles);
+    await generateId(nextArticles);
     const newArticles = await filterArticles(articles.concat(nextArticles));
 
     dispatch({
