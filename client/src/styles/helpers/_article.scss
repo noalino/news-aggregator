@@ -15,20 +15,13 @@
 
   & > i {
     grid-area: bookmark;
-    font-size: 16px;
+    font-size: 20px;
     justify-self: end;
   }
 }
 
 .title {
   grid-area: title;
-  font-size: 1.5rem;
-  color: black;
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
 }
 
 .info {
@@ -38,5 +31,4 @@
 .source,
 .date {
   display: inline;
-  font-size: 0.3rem;
 }

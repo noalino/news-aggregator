@@ -20,7 +20,7 @@ class Index extends Component {
     console.log('Index mounting');
 
     fetchArticles(country.code, topic);
-    // FETCH ARTICLES EVERY MINUTE
+    // FETCH ARTICLES EVERY MINUTE (LIMIT 1,000 REQUESTS/DAY API)
     // this.timer = setInterval(() => console.log('counting'), 3000);
     // this.timer = setInterval(() => fetchArticles(country.code, topic), 60000);
   }

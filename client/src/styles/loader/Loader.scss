@@ -3,51 +3,25 @@
 $color: lightgrey;
 
 .article {
-  height: 300px;
-  
+
   & > i {
     color: $color;
   }
+
 }
 
-.image {
+.title,
+.info {
   background: $color;
 }
 
-.source {
-  background: $color;
-  width: 40%;
+.title {
+  width: 90%;
+  height: 25px;
+  margin-bottom: 5px;
 }
 
-.date {
-  background: $color;
-  width: 40%;
-}
-
-.text {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  
-  @for $i from 1 through 2 {
-    & > div:nth-child(#{$i}) {
-      height: 12%;
-      background: $color;
-    }
-  }
-
-  @for $i from 3 through 5 {
-    & > div:nth-child(#{$i}) {
-      height: 10%;
-      background: $color;
-    }
-  }
-
-  & > div:nth-child(2) {
-    width: 30%;
-  }
-
-  & > div:last-child {
-    width: 40%;
-  }
+.info {
+  width: 35%;
+  height: 15px;
 }

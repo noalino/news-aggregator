@@ -1,7 +1,6 @@
 @import '../helpers/article', '../helpers/colors';
 
 .article {
-  // font-size: 1rem;
   
   & > i {
     color: $bookmark-color;
@@ -9,39 +8,17 @@
   }
 }
 
-.image {
-  max-width: 100%;
-  justify-self: center;
-  align-self: center;
-}
-
-.source {
-  font-size: 1rem;
-  text-decoration: underline;
-}
-
-.date {
-  font-size: 0.8rem;
-  // align-self: end;
-}
-
-.text {
+.title {
+  font-size: 1.5rem;
   color: black;
   text-decoration: none;
-  justify-self: start;
-  align-self: start;
-
-  & > h3 {
-    font-size: 1.1rem;
-  }
-
-  & > p {
-    font-size: 1rem;
-    line-height: 1.1rem;
-    margin-top: 0.2rem;
-  }
 
   &:hover {
     text-decoration: underline;
   }
+}
+
+.source,
+.date {
+  font-size: 1rem;
 }
