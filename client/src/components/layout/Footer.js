@@ -4,19 +4,19 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { loadNextPage } from '../../actions/articlesActions';
-import { getQuery } from '../../_utils';
+import { getParams } from '../../_utils';
 
 import styles from '../../styles/layout/Footer.scss';
 
-const Footer = ({ totalResults, loadNextPage, location, ...searchArgs }) => {
-  const { articles, page, pageSize } = searchArgs;
-  const query = getQuery(location.search);
+const Footer = ({ totalResults, loadNextPage, location: { search }, ...args }) => {
+  const { articles, page, pageSize, language } = args;
+  const searchArgs = { ...getParams(search), articles, page, pageSize, language };
   const results = articles.length;
 
   return (
     <footer className={styles.footer}>
       {totalResults > (page * pageSize) && (
-        <button type="button" onClick={() => loadNextPage({ query, ...searchArgs })}>
+        <button type="button" onClick={() => loadNextPage(searchArgs)}>
           {/* See more */}
           <i className="fa fa-caret-down" />
         </button>
@@ -45,7 +45,6 @@ Footer.propTypes = {
   pageSize: PropTypes.number.isRequired,
   totalResults: PropTypes.number.isRequired,
   language: PropTypes.string.isRequired,
-  options: PropTypes.instanceOf(Object).isRequired,
   location: PropTypes.instanceOf(Object).isRequired,
   loadNextPage: PropTypes.func.isRequired,
 };
@@ -56,7 +55,6 @@ const mapStateToProps = state => ({
   pageSize: state.articles.pageSize,
   totalResults: state.articles.totalResults,
   language: state.articles.country.language.code,
-  options: state.articles.options,
 });
 
 export default withRouter(connect(mapStateToProps, { loadNextPage })(Footer));

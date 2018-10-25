@@ -3,7 +3,6 @@ import {
   CHANGE_COUNTRY,
   FETCH_ARTICLES,
   SEARCH_ARTICLES,
-  UPDATE_OPTIONS,
   FETCH_SOURCES,
   ERROR,
 } from './types';
@@ -50,19 +49,13 @@ export const fetchArticles = (country, category) => async (dispatch) => {
   }
 };
 
-export const updateOptions = options => dispatch => (
-  dispatch({
-    type: UPDATE_OPTIONS,
-    payload: { ...options },
-  })
-);
-
 export const searchArticles = ({ ...args }) => async (dispatch) => {
   try {
     console.log('searching articles...');
     const { query, options, language, pageSize } = args;
     const queryURI = encodeURIComponent(query);
-    const { from, to, source, sorting } = options;
+    const { from, to, source, sortBy } = options;
+    const sorting = sortBy === 'date' ? 'publishedAt' : sortBy;
     // const url = 'src/data/page1.json';
     const url = `https://newsapi.org/v2/everything?q=${queryURI}&from=${from}&to=${to}&language=${language}&sources=${source}&sortBy=${sorting}&pageSize=${pageSize}&page=1&apiKey=${process.env.API_KEY}`;
 
@@ -90,13 +83,24 @@ export const searchArticles = ({ ...args }) => async (dispatch) => {
 export const loadNextPage = ({ ...args }) => async (dispatch) => {
   try {
     console.log('loading next page...');
-    const { articles, query, options, language, page, pageSize } = args;
+    const {
+      articles,
+      query,
+      from,
+      to,
+      source,
+      sortBy,
+      language,
+      page,
+      pageSize,
+    } = args;
     const queryURI = encodeURIComponent(query);
-    const { from, to, source, sorting } = options;
+    const sorting = sortBy === 'date' ? 'publishedAt' : sortBy;
     const nextPage = page + 1;
     // const url = 'src/data/page2.json';
     const url = `https://newsapi.org/v2/everything?q=${queryURI}&from=${from}&to=${to}&language=${language}&sources=${source}&sortBy=${sorting}&pageSize=${pageSize}&page=${nextPage}&apiKey=${process.env.API_KEY}`;
 
+    console.log(args);
     const res = await axios.get(url);
     const { totalResults, articles: nextArticles } = res.data;
     await generateId(nextArticles);

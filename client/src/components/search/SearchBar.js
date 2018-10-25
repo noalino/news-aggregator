@@ -1,51 +1,35 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { getQuery } from '../../_utils';
+
 import styles from '../../styles/search/SearchBar.scss';
 
-class SearchBar extends Component {
-  constructor(props) {
-    super(props);
-    const { location: { search } } = this.props;
-    this.state = {
-      // Initialize query to the one from nav searchbar or URL if it exists
-      query: getQuery(search),
-    };
-  }
+const SearchBar = ({ query, onChange, className, focus }) => (
+  <div className={styles[className]}>
+    <input
+      type="search"
+      name="query"
+      placeholder="Search articles..."
+      autoComplete="true"
+      aria-label="Search articles"
+      value={query}
+      onChange={onChange}
+      autoFocus={focus} // eslint-disable-line jsx-a11y/no-autofocus
+    />
+    <button type="submit">
+      <i className="fas fa-search" />
+    </button>
+  </div>
+);
 
-  handleInputChange = (e) => {
-    e.persist();
-    const { name, value } = e.target;
-    const { onChange } = this.props;
-    this.setState({ [name]: value }, () => onChange(e));
-  }
-
-  render() {
-    const { query } = this.state;
-    return (
-      <div className={styles.searchBar}>
-        <input
-          type="search"
-          name="query"
-          placeholder="Search articles..."
-          autoComplete="true"
-          aria-label="Search articles"
-          value={query}
-          onChange={this.handleInputChange}
-          autoFocus // eslint-disable-line jsx-a11y/no-autofocus
-        />
-        <button type="submit">
-          <i className="fas fa-search" />
-        </button>
-      </div>
-    );
-  }
-}
-
-SearchBar.propTypes = {
-  location: PropTypes.instanceOf(Object).isRequired,
-  onChange: PropTypes.func.isRequired,
+SearchBar.defaultProps = {
+  query: '',
 };
 
-export default withRouter(SearchBar);
+SearchBar.propTypes = {
+  query: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  className: PropTypes.string.isRequired,
+  focus: PropTypes.bool.isRequired,
+};
+
+export default SearchBar;

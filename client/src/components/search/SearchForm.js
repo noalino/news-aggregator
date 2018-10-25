@@ -1,10 +1,7 @@
-/* eslint-disable no-shadow, react/destructuring-assignment */
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { updateOptions } from '../../actions/articlesActions';
-import { getQuery, isEqual } from '../../_utils';
+import { getParams, setSearchParams } from '../../_utils';
 
 import SearchBar from './SearchBar';
 import Options from './Options';
@@ -15,45 +12,58 @@ class SearchForm extends Component {
   constructor(props) {
     super(props);
     const { location: { search } } = this.props;
+    const { query, from, to, source, sortBy } = getParams(search);
+    // Initialize query & options from URL
     this.state = {
-      // Initialize query to the one from nav searchbar or URL if it exists
-      query: getQuery(search),
+      query: query || '',
+      from: from || '',
+      to: to || '',
+      source: source || '',
+      sortBy: sortBy || 'date',
     };
   }
 
   handleInputChange = (e) => {
     const { name, value } = e.target;
-    const { options, updateOptions, sortChange } = this.props;
-    const newOptions = { ...options, [name]: value };
+    const { history, location } = this.props;
 
-    if (name === 'query') {
-      this.setState({ [name]: value });
-    } else if (name === 'sorting') {
-      sortChange(newOptions);
-    } else {
-      updateOptions(newOptions);
-    }
+    this.setState({ [name]: value }, () => {
+      if (name === 'sortBy') {
+        history.replace(`${location.pathname}?${setSearchParams(this.state)}`);
+      }
+    });
   }
 
   onSubmit = (e) => {
     e.preventDefault();
     const { query } = this.state;
-    const { options, location, history } = this.props;
+    const { location, history } = this.props;
 
-    // Avoid pushing when query is empty OR options don't change (makes navigation easier)
-    if (query || !isEqual(options, location.state)) {
-      history.push(`${location.pathname}?q=${encodeURIComponent(query)}`, options);
+    if (query) {
+      history.push(`${location.pathname}?${setSearchParams(this.state)}`);
     }
   }
 
   render() {
-    const { location } = this.props;
-    const lastQuery = getQuery(location.search);
+    const { query, ...options } = this.state;
+    const { location, optionsOpen, toggleOptions } = this.props;
+    const lastQuery = getParams(location.search).query;
 
     return (
       <form className={styles.header} role="search" onSubmit={this.onSubmit}>
-        <SearchBar key={location.search} onChange={this.handleInputChange} />
-        <Options onChange={this.handleInputChange} />
+        {/* <SearchBar key={location.search} className="search" query={query} onChange={this.handleInputChange} focus /> */}
+        <SearchBar
+          className="search"
+          query={query}
+          onChange={this.handleInputChange}
+          focus
+        />
+        <Options
+          options={options}
+          onChange={this.handleInputChange}
+          optionsOpen={optionsOpen}
+          toggleOptions={toggleOptions}
+        />
         {lastQuery && <Sort onChange={this.handleInputChange} />}
       </form>
     );
@@ -63,13 +73,8 @@ class SearchForm extends Component {
 SearchForm.propTypes = {
   location: PropTypes.instanceOf(Object).isRequired,
   history: PropTypes.instanceOf(Object).isRequired,
-  options: PropTypes.instanceOf(Object).isRequired,
-  updateOptions: PropTypes.func.isRequired,
-  sortChange: PropTypes.func.isRequired,
+  optionsOpen: PropTypes.bool.isRequired,
+  toggleOptions: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
-  options: state.articles.options,
-});
-
-export default withRouter(connect(mapStateToProps, { updateOptions })(SearchForm));
+export default withRouter(SearchForm);

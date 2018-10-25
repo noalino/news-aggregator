@@ -1,6 +1,27 @@
 @import '../helpers/sizes';
 
-.searchBar {
+.nav {
+  display: flex;
+
+  input {
+    // font-size: 1rem;
+    align-self: center;
+  }
+
+  button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+
+    i {
+      color: #fff;
+      font-size: 1.5rem;
+      padding: 0.4rem;
+    }
+  }
+}
+
+.search {
   height: $search-height;
   display: flex;
   justify-content: center;

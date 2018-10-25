@@ -3,7 +3,6 @@ import {
   FETCH_ARTICLES,
   SEARCH_ARTICLES,
   FETCH_SOURCES,
-  UPDATE_OPTIONS,
   ERROR,
 } from '../actions/types';
 
@@ -21,12 +20,6 @@ const initialState = {
   page: 1,
   pageSize: 20,
   totalResults: 0,
-  options: {
-    from: '',
-    to: '',
-    source: '',
-    sorting: 'publishedAt',
-  },
   error: false,
   errMessage: '',
 };
@@ -58,11 +51,6 @@ export default (state = initialState, action) => {
         ...state,
         sources: action.payload,
         error: false,
-      };
-    case UPDATE_OPTIONS:
-      return {
-        ...state,
-        options: action.payload,
       };
     case ERROR:
       return {

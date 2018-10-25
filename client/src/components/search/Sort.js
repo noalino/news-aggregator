@@ -2,12 +2,12 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getQuery, numberWithCommas } from '../../_utils';
+import { getParams, numberWithCommas } from '../../_utils';
 
 import styles from '../../styles/search/Sort.scss';
 
-const Sort = ({ totalResults, options, onChange, location: { search } }) => {
-  const query = getQuery(search);
+const Sort = ({ totalResults, onChange, location: { search } }) => {
+  const { query, ...options } = getParams(search);
   const resultWord = totalResults === 0 || totalResults === 1 ? 'result' : 'results';
   const message = `${numberWithCommas(totalResults)} ${resultWord} for: ${query}`;
   return (
@@ -16,8 +16,8 @@ const Sort = ({ totalResults, options, onChange, location: { search } }) => {
       <div>
         <label htmlFor="sorting">
           <p>Sort by:</p>
-          <select name="sorting" id="sorting" value={options.sorting} size="1" onChange={e => onChange(e)}>
-            <option value="publishedAt">Published At</option>
+          <select name="sortBy" id="sorting" value={options.sortBy} size="1" onChange={onChange}>
+            <option value="date">Date</option>
             <option value="relevancy">Relevancy</option>
             <option value="popularity">Popularity</option>
           </select>
@@ -29,14 +29,12 @@ const Sort = ({ totalResults, options, onChange, location: { search } }) => {
 
 Sort.propTypes = {
   totalResults: PropTypes.number.isRequired,
-  options: PropTypes.instanceOf(Object).isRequired,
   onChange: PropTypes.func.isRequired,
   location: PropTypes.instanceOf(Object).isRequired,
 };
 
 const mapStateToProps = state => ({
   totalResults: state.articles.totalResults,
-  options: state.articles.options,
 });
 
 export default withRouter(connect(mapStateToProps)(Sort));

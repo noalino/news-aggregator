@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { logOut } from '../../actions/userActions';
 
-import SearchBar from './SearchBar';
+import SearchNav from './SearchNav';
 import CountryDropdown from './CountryDropdown';
 import styles from '../../styles/navbar/Navbar.scss';
 
@@ -56,7 +56,7 @@ class Navbar extends Component {
               )
             }
             <li>
-              <SearchBar />
+              <SearchNav />
             </li>
             <li>
               <CountryDropdown />

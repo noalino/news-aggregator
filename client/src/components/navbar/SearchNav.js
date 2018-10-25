@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import SearchBar from '../search/SearchBar';
 
-import styles from '../../styles/navbar/SearchBar.scss';
+// import styles from '../../styles/navbar/SearchNav.scss';
 
-class SearchBar extends Component {
+class SearchNav extends Component {
   state = { query: '' };
 
   handleInputChange = (e) => {
@@ -28,26 +29,15 @@ class SearchBar extends Component {
   render() {
     const { query } = this.state;
     return (
-      <form id={styles.searchbar} onSubmit={this.redirectToSearch}>
-        <input
-          type="search"
-          name="query"
-          placeholder="Search articles..."
-          autoComplete="true"
-          aria-label="Search articles"
-          value={query}
-          onChange={this.handleInputChange}
-        />
-        <button type="submit">
-          <i className="fas fa-search" />
-        </button>
+      <form onSubmit={this.redirectToSearch}>
+        <SearchBar className="nav" query={query} onChange={this.handleInputChange} focus={false} />
       </form>
     );
   }
 }
 
-SearchBar.propTypes = {
+SearchNav.propTypes = {
   history: PropTypes.instanceOf(Object).isRequired,
 };
 
-export default withRouter(SearchBar);
+export default withRouter(SearchNav);
