@@ -5,13 +5,13 @@ import moment from 'moment';
 
 import styles from '../../styles/search/Options.scss';
 
-const Options = ({ onChange, sources, options, optionsOpen, toggleOptions }) => {
+const Options = ({ onChange, sources, options, optionsOpen, toggleOptions, resetOptions }) => {
   const { from, to, source } = options;
   return (
     <div className={styles.container}>
       <button type="button" className={styles.optionsBtn} onClick={toggleOptions}>
-        {optionsOpen ? 'Hide ' : 'Show '}
         Advanced Search
+        <i className={`fa fa-caret-${optionsOpen ? 'up' : 'down'}`} />
       </button>
       {optionsOpen && (
         <div className={styles.options}>
@@ -53,6 +53,7 @@ const Options = ({ onChange, sources, options, optionsOpen, toggleOptions }) => 
               </select>
             </label>
           </div>
+          <button type="button" onClick={resetOptions}>Reset</button>
         </div>
       )}
     </div>
@@ -65,6 +66,7 @@ Options.propTypes = {
   options: PropTypes.instanceOf(Object).isRequired,
   optionsOpen: PropTypes.bool.isRequired,
   toggleOptions: PropTypes.func.isRequired,
+  resetOptions: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

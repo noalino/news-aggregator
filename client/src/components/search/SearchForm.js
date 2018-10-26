@@ -23,6 +23,14 @@ class SearchForm extends Component {
     };
   }
 
+  resetOptions = () => {
+    this.setState({
+      from: '',
+      to: '',
+      source: '',
+    });
+  }
+
   handleInputChange = (e) => {
     const { name, value } = e.target;
     const { history, location } = this.props;
@@ -51,7 +59,6 @@ class SearchForm extends Component {
 
     return (
       <form className={styles.header} role="search" onSubmit={this.onSubmit}>
-        {/* <SearchBar key={location.search} className="search" query={query} onChange={this.handleInputChange} focus /> */}
         <SearchBar
           className="search"
           query={query}
@@ -63,6 +70,7 @@ class SearchForm extends Component {
           onChange={this.handleInputChange}
           optionsOpen={optionsOpen}
           toggleOptions={toggleOptions}
+          resetOptions={this.resetOptions}
         />
         {lastQuery && <Sort onChange={this.handleInputChange} />}
       </form>

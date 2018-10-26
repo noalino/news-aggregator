@@ -4,15 +4,15 @@ import PropTypes from 'prop-types';
 import { changeCountry } from '../../actions/articlesActions';
 
 import flagFr from '../../assets/images/flags/fr.png';
-import flagEs from '../../assets/images/flags/es.png';
+// import flagEs from '../../assets/images/flags/es.png';
 import flagDe from '../../assets/images/flags/de.png';
 import flagGb from '../../assets/images/flags/gb.png';
 import flagUs from '../../assets/images/flags/us.png';
 import styles from '../../styles/navbar/CountryDropdown.scss';
 
 class CountryDropdown extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       isOpen: false,
     };
@@ -42,9 +42,13 @@ class CountryDropdown extends Component {
 
     switch (e.which) {
       case 13: { // ENTER key
-        const { countries } = this.props;
-        const country = countries.find(item => item.code === activeElement.id);
-        this.handleClick(country, e);
+        if (activeElement === this.toggleButton.current) {
+          this.triggerDropdown(e);
+        } else {
+          const { countries } = this.props;
+          const country = countries.find(item => item.code === activeElement.id);
+          this.handleClick(country, e);
+        }
         break;
       }
       case 38: // UP arrow key
@@ -114,7 +118,7 @@ class CountryDropdown extends Component {
           aria-expanded={isOpen}
         >
           <img className={styles.flag} src={this.getFlagImg(country.code)} alt={country.name} />
-          <i className="fa fa-caret-down" />
+          <i className={`fa fa-caret-${isOpen ? 'up' : 'down'}`} />
         </button>
 
         {
