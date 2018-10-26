@@ -26,6 +26,7 @@ export class Search extends Component {
     } = this.props;
     const { query, ...options } = getParams(search);
     console.log('Search component mounting');
+    console.log(getParams(search));
 
     fetchSources({ country, language });
 

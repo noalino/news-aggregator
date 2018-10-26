@@ -34,8 +34,8 @@ export const fetchArticles = (country, category) => async (dispatch) => {
   try {
     const res = await axios.get(url);
     const { articles } = res.data;
-    await generateId(articles);
-    const newArticles = await filterArticles(articles);
+    const articlesWithId = await generateId(articles);
+    const newArticles = await filterArticles(articlesWithId);
     dispatch({
       type: FETCH_ARTICLES,
       payload: newArticles,
@@ -61,8 +61,8 @@ export const searchArticles = ({ ...args }) => async (dispatch) => {
 
     const res = await axios.get(url);
     const { totalResults, articles } = res.data;
-    await generateId(articles);
-    const newArticles = await filterArticles(articles);
+    const articlesWithId = await generateId(articles);
+    const newArticles = await filterArticles(articlesWithId);
 
     dispatch({
       type: SEARCH_ARTICLES,
@@ -103,8 +103,8 @@ export const loadNextPage = ({ ...args }) => async (dispatch) => {
     console.log(args);
     const res = await axios.get(url);
     const { totalResults, articles: nextArticles } = res.data;
-    await generateId(nextArticles);
-    const newArticles = await filterArticles(articles.concat(nextArticles));
+    const articlesWithId = await generateId(nextArticles);
+    const newArticles = await filterArticles(articles.concat(articlesWithId));
 
     dispatch({
       type: SEARCH_ARTICLES,
