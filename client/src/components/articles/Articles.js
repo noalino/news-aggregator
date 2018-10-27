@@ -18,9 +18,7 @@ const Articles = ({ articles, totalResults, pageSize, location: { search }, erro
 
   /** LOADING WHEN NO ARTICLES && ARTICLES !== PREV ARTICLES */
   if (results === 0) {
-    console.log('loading');
-    // return <p>Loading</p>;
-    // return <Loader /> times pageSize
+    return <Loader pageSize={pageSize} />;
   }
 
   return (

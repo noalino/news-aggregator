@@ -1,7 +1,7 @@
 @import '../helpers/article', '../helpers/colors';
 
 .article {
-  
+
   & > i {
     color: $bookmark-color;
     cursor: pointer;

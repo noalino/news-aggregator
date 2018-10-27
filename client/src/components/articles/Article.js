@@ -1,13 +1,25 @@
 /* eslint-disable no-shadow, react/destructuring-assignment */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Transition } from 'react-transition-group';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { addBookmark, deleteBookmark } from '../../actions/userActions';
 
+import { duration, defaultStyle, transitionStyles } from '../../transition';
 import styles from '../../styles/articles/Article.scss';
 
 class Article extends Component {
+  state = {
+    animation: false,
+  };
+
+  componentDidMount() {
+    if (this.props.article.newest) {
+      this.setState({ animation: true });
+    }
+  }
+
   updateBookmarks = () => {
     const { isAuthenticate } = this.props;
     if (isAuthenticate) {
@@ -22,26 +34,32 @@ class Article extends Component {
   }
 
   render() {
+    const { animation } = this.state;
     const { isAuthenticate, bookmarks, article } = this.props;
-    const { source, url, title, publishedAt, newest } = article;
-    /** ANIMATION IF NEWEST === TRUE */
+    const { source, url, title, publishedAt } = article;
     const isBookmark = isAuthenticate ? (
       bookmarks.findIndex(item => item.id === article.id) !== -1
     ) : false;
 
     return (
-      <article className={styles.article}>
-        <a className={styles.title} href={url} target="_blank" rel="noreferrer noopener">
-          <h4>{title}</h4>
-          {/* {newest && <p>New</p>} */}
-        </a>
-        <i className={`${isBookmark ? 'fas' : 'far'} fa-bookmark`} onClick={this.updateBookmarks} />
-        <div className={styles.info}>
-          <p className={styles.source}>{source.name}</p>
-          {' - '}
-          <p className={styles.date}>{moment(publishedAt).fromNow()}</p>
-        </div>
-      </article>
+      <Transition in={animation} timeout={duration}>
+        {state => (
+          <article
+            className={styles.article}
+            style={{ ...defaultStyle, ...transitionStyles[state] }}
+          >
+            <i className={`${isBookmark ? 'fas' : 'far'} fa-bookmark`} onClick={this.updateBookmarks} />
+            <a className={styles.title} href={url} target="_blank" rel="noreferrer noopener">
+              <h4>{title}</h4>
+            </a>
+            <div className={styles.info}>
+              <p className={styles.source}>{source.name}</p>
+              {' - '}
+              <p className={styles.date}>{moment(publishedAt).fromNow()}</p>
+            </div>
+          </article>
+        )}
+      </Transition>
     );
   }
 }

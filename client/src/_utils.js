@@ -1,5 +1,7 @@
-/* Transform url string | '?q=test&sortBy=date' |
-  to object             | { query: test, sortBy: date } | */
+/*
+  Transform url string | '?q=test&sortBy=date' |
+  to object            | { query: test, sortBy: date } |
+*/
 export const getParams = url => (
   url ? (
     Object.assign(...url.slice(1).split('&')
@@ -10,8 +12,10 @@ export const getParams = url => (
   ) : {}
 );
 
-/* Transform object | { query: test, sortBy: date } |
-   to url string    | '?q=test&sortBy=date' | */
+/*
+  Transform object | { query: test, sortBy: date } |
+  to url string    | '?q=test&sortBy=date' |
+*/
 export const setSearchParams = params => (
   Object.entries(params)
     .map(param => (
@@ -26,7 +30,7 @@ export const setSearchParams = params => (
 export const numberWithCommas = x => x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
 // Add id to each article
-function generateId(articles) {
+async function generateId(articles) {
   return articles.map((article) => {
     const { publishedAt, source, title } = article;
     return {
@@ -37,13 +41,13 @@ function generateId(articles) {
 }
 
 // Remove duplicates
-function filterArticles(articles) {
+async function filterArticles(articles) {
   return articles.filter((article, index, self) => (
     index === self.findIndex(({ id }) => id === article.id)
   ));
 }
 
-function addNewestParam(newArticles, articles) {
+async function addNewestParam(newArticles, articles) {
   return newArticles.map((article) => {
     // if oldArticles.length > 0 &&
     if (articles.findIndex(({ id }) => id === article.id) === -1) {
@@ -68,8 +72,8 @@ export const searchUtils = async (articles) => {
 export const loadNextUtils = async ({ articles, newArticles }) => {
   const withId = await generateId(newArticles);
   const addNewest = async (prevArt, nextArt) => {
-    const prev = await prevArt.map(article => ({ ...article, newest: false }));
-    const next = await nextArt.map(article => ({ ...article, newest: true }));
+    const prev = prevArt.map(article => ({ ...article, newest: false }));
+    const next = nextArt.map(article => ({ ...article, newest: true }));
     return prev.concat(next);
   };
   const articlesWithNewest = await addNewest(articles, withId);
