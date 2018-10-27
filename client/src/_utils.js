@@ -26,19 +26,52 @@ export const setSearchParams = params => (
 export const numberWithCommas = x => x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
 // Add id to each article
-export const generateId = articles => (
-  articles.map((article) => {
+function generateId(articles) {
+  return articles.map((article) => {
     const { publishedAt, source, title } = article;
     return {
       ...article,
       id: `${publishedAt}_${source.id}_${title}`,
     };
-  })
-);
+  });
+}
 
 // Remove duplicates
-export const filterArticles = articles => (
-  articles.filter((article, index, self) => (
-    index === self.findIndex(item => item.id === article.id)
-  ))
-);
+function filterArticles(articles) {
+  return articles.filter((article, index, self) => (
+    index === self.findIndex(({ id }) => id === article.id)
+  ));
+}
+
+function addNewestParam(newArticles, articles) {
+  return newArticles.map((article) => {
+    // if oldArticles.length > 0 &&
+    if (articles.findIndex(({ id }) => id === article.id) === -1) {
+      return { ...article, newest: true };
+    }
+    return { ...article, newest: false };
+  });
+}
+
+export const fetchUtils = async ({ articles, newArticles }) => {
+  const withId = await generateId(newArticles);
+  const filtered = await filterArticles(withId);
+  return addNewestParam(filtered, articles);
+};
+
+export const searchUtils = async (articles) => {
+  const withId = await generateId(articles);
+  const filtered = await filterArticles(withId);
+  return filtered.map(article => ({ ...article, newest: true }));
+};
+
+export const loadNextUtils = async ({ articles, newArticles }) => {
+  const withId = await generateId(newArticles);
+  const addNewest = async (prevArt, nextArt) => {
+    const prev = await prevArt.map(article => ({ ...article, newest: false }));
+    const next = await nextArt.map(article => ({ ...article, newest: true }));
+    return prev.concat(next);
+  };
+  const articlesWithNewest = await addNewest(articles, withId);
+  return filterArticles(articlesWithNewest);
+};

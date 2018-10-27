@@ -23,7 +23,8 @@ class Article extends Component {
 
   render() {
     const { isAuthenticate, bookmarks, article } = this.props;
-    const { source, url, title, publishedAt } = article;
+    const { source, url, title, publishedAt, newest } = article;
+    /** ANIMATION IF NEWEST === TRUE */
     const isBookmark = isAuthenticate ? (
       bookmarks.findIndex(item => item.id === article.id) !== -1
     ) : false;
@@ -32,6 +33,7 @@ class Article extends Component {
       <article className={styles.article}>
         <a className={styles.title} href={url} target="_blank" rel="noreferrer noopener">
           <h4>{title}</h4>
+          {/* {newest && <p>New</p>} */}
         </a>
         <i className={`${isBookmark ? 'fas' : 'far'} fa-bookmark`} onClick={this.updateBookmarks} />
         <div className={styles.info}>

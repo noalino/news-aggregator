@@ -17,31 +17,34 @@ class Index extends Component {
   }
 
   componentDidMount() {
-    const { match: { params: { topic } }, country, fetchArticles } = this.props;
+    const { match: { params: { topic } }, country, articles, fetchArticles } = this.props;
     console.log('Index mounting');
 
-    fetchArticles(country.code, topic);
+    fetchArticles(articles, country.code, topic);
     // FETCH ARTICLES EVERY MINUTE (LIMIT 1,000 REQUESTS/DAY API)
-    // this.timer = setInterval(() => console.log('counting'), 3000);
-    // this.timer = setInterval(() => fetchArticles(country.code, topic), 60000);
+    // this.timer = setInterval(this.fetchTimer, 60000);
+    // this.timer = setInterval(this.fetchTimer, 5000);
   }
 
   componentDidUpdate(prevProps) {
-    const { match: { params: { topic } }, country, fetchArticles } = this.props;
+    const { match: { params: { topic } }, country, articles, fetchArticles } = this.props;
+
     if (topic !== prevProps.match.params.topic || country.code !== prevProps.country.code) {
       console.log('Index updating');
-
-      fetchArticles(country.code, topic);
-      // FETCH ARTICLES EVERY MINUTE
-      // this.timer = setInterval(() => fetchArticles(country.code, topic), 60000);
+      fetchArticles(articles, country.code, topic);
+      // this.timer = setInterval(this.fetchTimer, 60000);
     }
   }
 
   componentWillUnmount() {
     // eslint-disable-next-line react/destructuring-assignment
     this.props.resetArticles();
-
     // clearInterval(this.timer);
+  }
+
+  fetchTimer = () => {
+    const { fetchArticles, articles, country, match: { params: { topic } } } = this.props;
+    fetchArticles(articles, country.code, topic);
   }
 
   render() {
@@ -62,12 +65,14 @@ class Index extends Component {
 Index.propTypes = {
   match: PropTypes.instanceOf(Object).isRequired,
   country: PropTypes.instanceOf(Object).isRequired,
+  articles: PropTypes.instanceOf(Array).isRequired,
   fetchArticles: PropTypes.func.isRequired,
   resetArticles: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   country: state.articles.country,
+  articles: state.articles.articles,
 });
 
 export default connect(mapStateToProps, { fetchArticles, resetArticles })(Index);

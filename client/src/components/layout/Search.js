@@ -26,7 +26,6 @@ export class Search extends Component {
     } = this.props;
     const { query, ...options } = getParams(search);
     console.log('Search component mounting');
-    console.log(getParams(search));
 
     fetchSources({ country, language });
 
@@ -93,7 +92,6 @@ export class Search extends Component {
     return (
       <div className={styles.showcase}>
         <SearchForm key={search} optionsOpen={optionsOpen} toggleOptions={this.toggleOptions} />
-        {/* <SearchForm /> */}
         <Buttons />
         <Articles />
         <Footer />

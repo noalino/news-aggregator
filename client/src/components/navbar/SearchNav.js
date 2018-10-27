@@ -19,7 +19,7 @@ class SearchNav extends Component {
     const { query } = this.state;
 
     if (query !== '') {
-      history.push(`/search?q=${encodeURIComponent(query)}`);
+      history.push(`/search?q=${encodeURIComponent(query)}&sortBy=date`);
       this.setState({ query: '' });
     } else {
       history.push('/search');

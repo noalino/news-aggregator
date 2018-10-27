@@ -6,7 +6,7 @@ import {
   FETCH_SOURCES,
   ERROR,
 } from './types';
-import { generateId, filterArticles } from '../_utils';
+import { fetchUtils, searchUtils, loadNextUtils } from '../_utils';
 
 export const changeCountry = country => (dispatch) => {
   console.log('changing country');
@@ -27,18 +27,18 @@ export const resetArticles = () => (dispatch) => {
   });
 };
 
-export const fetchArticles = (country, category) => async (dispatch) => {
+export const fetchArticles = (articles, country, category) => async (dispatch) => {
   console.log('fetching articles');
-  const url = 'src/data/data_all.json';
-  // const url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${process.env.API_KEY}`;
+  // const url = 'src/data/data_all.json';
+  const url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${process.env.API_KEY}`;
   try {
     const res = await axios.get(url);
-    const { articles } = res.data;
-    const articlesWithId = await generateId(articles);
-    const newArticles = await filterArticles(articlesWithId);
+    const { articles: newArticles } = res.data;
+    const payload = await fetchUtils({ articles, newArticles });
+
     dispatch({
       type: FETCH_ARTICLES,
-      payload: newArticles,
+      payload,
     });
   } catch (err) {
     // console.error(err);
@@ -49,6 +49,9 @@ export const fetchArticles = (country, category) => async (dispatch) => {
   }
 };
 
+/*
+  CREATE FUNCTION TO GENERATE PARAMS FOR API URL (LIKE SEARCH URL)
+*/
 export const searchArticles = ({ ...args }) => async (dispatch) => {
   try {
     console.log('searching articles...');
@@ -56,20 +59,19 @@ export const searchArticles = ({ ...args }) => async (dispatch) => {
     const queryURI = encodeURIComponent(query);
     const { from, to, source, sortBy } = options;
     const sorting = sortBy === 'date' ? 'publishedAt' : sortBy;
-    const url = 'src/data/page1.json';
-    // const url = `https://newsapi.org/v2/everything?q=${queryURI}&from=${from}&to=${to}&language=${language}&sources=${source}&sortBy=${sorting}&pageSize=${pageSize}&page=1&apiKey=${process.env.API_KEY}`;
+    // const url = 'src/data/page1.json';
+    const url = `https://newsapi.org/v2/everything?q=${queryURI}&from=${from}&to=${to}&language=${language}&sources=${source}&sortBy=${sorting}&pageSize=${pageSize}&page=1&apiKey=${process.env.API_KEY}`;
 
     const res = await axios.get(url);
-    const { totalResults, articles } = res.data;
-    const articlesWithId = await generateId(articles);
-    const newArticles = await filterArticles(articlesWithId);
+    const { totalResults, articles: newArticles } = res.data;
+    const articles = await searchUtils(newArticles);
 
     dispatch({
       type: SEARCH_ARTICLES,
       payload: {
         page: 1,
         totalResults,
-        articles: newArticles,
+        articles,
       },
     });
   } catch (err) {
@@ -100,18 +102,16 @@ export const loadNextPage = ({ ...args }) => async (dispatch) => {
     // const url = 'src/data/page2.json';
     const url = `https://newsapi.org/v2/everything?q=${queryURI}&from=${from}&to=${to}&language=${language}&sources=${source}&sortBy=${sorting}&pageSize=${pageSize}&page=${nextPage}&apiKey=${process.env.API_KEY}`;
 
-    console.log(args);
     const res = await axios.get(url);
-    const { totalResults, articles: nextArticles } = res.data;
-    const articlesWithId = await generateId(nextArticles);
-    const newArticles = await filterArticles(articles.concat(articlesWithId));
+    const { totalResults, articles: newArticles } = res.data;
+    const nextArticles = await loadNextUtils({ articles, newArticles });
 
     dispatch({
       type: SEARCH_ARTICLES,
       payload: {
         page: nextPage,
         totalResults,
-        articles: newArticles,
+        articles: nextArticles,
       },
     });
   } catch (err) {
