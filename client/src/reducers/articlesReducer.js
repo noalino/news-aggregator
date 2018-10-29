@@ -3,11 +3,13 @@ import {
   FETCH_ARTICLES,
   SEARCH_ARTICLES,
   FETCH_SOURCES,
+  LOAD,
   ERROR,
 } from '../actions/types';
 
 const initialState = {
   articles: [],
+  isLoading: false,
   country: {
     code: 'us',
     name: 'United States',
@@ -32,10 +34,16 @@ export default (state = initialState, action) => {
         country: action.payload,
         error: false,
       };
+    case LOAD:
+      return {
+        ...state,
+        isLoading: action.payload,
+      };
     case FETCH_ARTICLES:
       return {
         ...state,
         articles: action.payload,
+        isLoading: false,
         error: false,
       };
     case SEARCH_ARTICLES:
@@ -44,6 +52,7 @@ export default (state = initialState, action) => {
         totalResults: action.payload.totalResults,
         articles: action.payload.articles,
         page: action.payload.page,
+        isLoading: false,
         error: false,
       };
     case FETCH_SOURCES:

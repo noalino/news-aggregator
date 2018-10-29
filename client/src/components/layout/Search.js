@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { searchArticles, fetchSources, resetArticles } from '../../actions/articlesActions';
+import { fetchArticles, searchArticles, fetchSources, resetArticles } from '../../actions/articlesActions';
 import { getParams } from '../../_utils';
 
 import SearchForm from '../search/SearchForm';
@@ -30,8 +30,8 @@ export class Search extends Component {
     fetchSources({ country, language });
 
     if (query) {
-      const { searchArticles, pageSize } = this.props;
-      searchArticles({
+      const { fetchArticles, searchArticles, pageSize } = this.props;
+      fetchArticles(searchArticles, {
         query,
         options,
         pageSize,
@@ -45,7 +45,6 @@ export class Search extends Component {
     const { search } = location;
     const { search: prevSearch } = prevProps.location;
     const { query, ...options } = getParams(search);
-
     if (country !== prevProps.country) {
       // Fetch source list & reset source when language changes
       fetchSources({ country, language });
@@ -62,6 +61,7 @@ export class Search extends Component {
 
   handleReqChange = (options) => {
     const {
+      fetchArticles,
       searchArticles,
       resetArticles,
       location: { search },
@@ -71,7 +71,7 @@ export class Search extends Component {
     const { query } = getParams(search);
 
     return query ? (
-      searchArticles({
+      fetchArticles(searchArticles, {
         query,
         options,
         pageSize,
@@ -103,6 +103,7 @@ export class Search extends Component {
 Search.propTypes = {
   country: PropTypes.string.isRequired,
   language: PropTypes.string.isRequired,
+  fetchArticles: PropTypes.func.isRequired,
   searchArticles: PropTypes.func.isRequired,
   fetchSources: PropTypes.func.isRequired,
   resetArticles: PropTypes.func.isRequired,
@@ -117,6 +118,7 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
+  fetchArticles,
   searchArticles,
   fetchSources,
   resetArticles,

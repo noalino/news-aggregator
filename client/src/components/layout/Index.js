@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { fetchArticles, resetArticles } from '../../actions/articlesActions';
+import { fetchArticles, getHeadlines, resetArticles } from '../../actions/articlesActions';
 
 import Sidebar from '../sidebar/Sidebar';
 import Articles from '../articles/Articles';
@@ -17,21 +17,26 @@ class Index extends Component {
   }
 
   componentDidMount() {
-    const { match: { params: { topic } }, country, articles, fetchArticles } = this.props;
+    const { match, country, articles, fetchArticles, getHeadlines } = this.props;
+    const { params: { topic } } = match;
+    const { code } = country;
     console.log('Index mounting');
 
-    fetchArticles(articles, country.code, topic);
+    fetchArticles(getHeadlines, { articles, country: code, topic });
+
     // FETCH ARTICLES EVERY MINUTE (LIMIT 1,000 REQUESTS/DAY API)
     // this.timer = setInterval(this.fetchTimer, 60000);
     // this.timer = setInterval(this.fetchTimer, 5000);
   }
 
   componentDidUpdate(prevProps) {
-    const { match: { params: { topic } }, country, articles, fetchArticles } = this.props;
+    const { match, country, articles, fetchArticles, getHeadlines } = this.props;
+    const { params: { topic } } = match;
+    const { code } = country;
 
-    if (topic !== prevProps.match.params.topic || country.code !== prevProps.country.code) {
+    if (topic !== prevProps.match.params.topic || code !== prevProps.country.code) {
       console.log('Index updating');
-      fetchArticles(articles, country.code, topic);
+      fetchArticles(getHeadlines, { articles, country: code, topic });
       // this.timer = setInterval(this.fetchTimer, 60000);
     }
   }
@@ -43,8 +48,8 @@ class Index extends Component {
   }
 
   fetchTimer = () => {
-    const { fetchArticles, articles, country, match: { params: { topic } } } = this.props;
-    fetchArticles(articles, country.code, topic);
+    const { getHeadlines, articles, country: { code }, match: { params: { topic } } } = this.props;
+    getHeadlines({ articles, country: code, topic });
   }
 
   render() {
@@ -67,6 +72,7 @@ Index.propTypes = {
   country: PropTypes.instanceOf(Object).isRequired,
   articles: PropTypes.instanceOf(Array).isRequired,
   fetchArticles: PropTypes.func.isRequired,
+  getHeadlines: PropTypes.func.isRequired,
   resetArticles: PropTypes.func.isRequired,
 };
 
@@ -75,4 +81,4 @@ const mapStateToProps = state => ({
   articles: state.articles.articles,
 });
 
-export default connect(mapStateToProps, { fetchArticles, resetArticles })(Index);
+export default connect(mapStateToProps, { fetchArticles, getHeadlines, resetArticles })(Index);

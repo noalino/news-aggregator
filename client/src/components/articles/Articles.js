@@ -8,33 +8,32 @@ import Loader from '../loader/Loader';
 import Article from './Article';
 import styles from '../../styles/articles/Articles.scss';
 
-const Articles = ({ articles, totalResults, pageSize, location: { search }, error, errMessage }) => {
+const Articles = ({ articles, isLoading, totalResults, pageSize, location, error, errMessage }) => {
   console.log('articles rendering');
-  const { query } = getParams(search);
-  const results = articles.length;
+  const { query } = getParams(location.search);
 
   if (error) return <p>{errMessage}</p>;
-  if (query && totalResults === 0) return null;
-
-  /** LOADING WHEN NO ARTICLES && ARTICLES !== PREV ARTICLES */
-  if (results === 0) {
-    return <Loader pageSize={pageSize} />;
-  }
+  if (query && totalResults === 0 && !isLoading) return null;
 
   return (
     <div className={styles.container}>
-      {articles.map(article => (
-        <Article
-          key={article.id}
-          article={{ ...article }}
-        />
-      ))}
+      {isLoading || true ? (
+        <Loader pageSize={pageSize} />
+      ) : (
+        articles.map(article => (
+          <Article
+            key={article.id}
+            article={{ ...article }}
+          />
+        ))
+      )}
     </div>
   );
 };
 
 Articles.propTypes = {
   articles: PropTypes.instanceOf(Array).isRequired,
+  isLoading: PropTypes.bool.isRequired,
   totalResults: PropTypes.number.isRequired,
   pageSize: PropTypes.number.isRequired,
   location: PropTypes.instanceOf(Object).isRequired,
@@ -44,6 +43,7 @@ Articles.propTypes = {
 
 const mapStateToProps = state => ({
   articles: state.articles.articles,
+  isLoading: state.articles.isLoading,
   totalResults: state.articles.totalResults,
   pageSize: state.articles.pageSize,
   error: state.articles.error,

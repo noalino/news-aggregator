@@ -4,9 +4,11 @@ import {
   FETCH_ARTICLES,
   SEARCH_ARTICLES,
   FETCH_SOURCES,
+  LOAD,
   ERROR,
 } from './types';
 import { fetchUtils, searchUtils, loadNextUtils } from '../_utils';
+import Loader from '../components/loader/Loader';
 
 export const changeCountry = country => (dispatch) => {
   console.log('changing country');
@@ -27,11 +29,12 @@ export const resetArticles = () => (dispatch) => {
   });
 };
 
-export const fetchArticles = (articles, country, category) => async (dispatch) => {
-  console.log('fetching articles');
-  // const url = 'src/data/data_all.json';
-  const url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${process.env.API_KEY}`;
+export const getHeadlines = args => async (dispatch) => {
   try {
+    console.log('get headlines');
+    const { articles, country, topic } = args;
+    const url = 'src/data/data_all.json';
+    // const url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${topic}&apiKey=${process.env.API_KEY}`;
     const res = await axios.get(url);
     const { articles: newArticles } = res.data;
     const payload = await fetchUtils({ articles, newArticles });
@@ -41,7 +44,6 @@ export const fetchArticles = (articles, country, category) => async (dispatch) =
       payload,
     });
   } catch (err) {
-    // console.error(err);
     dispatch({
       type: ERROR,
       payload: '404 Not Found',
@@ -52,7 +54,7 @@ export const fetchArticles = (articles, country, category) => async (dispatch) =
 /*
   CREATE FUNCTION TO GENERATE PARAMS FOR API URL (LIKE SEARCH URL)
 */
-export const searchArticles = ({ ...args }) => async (dispatch) => {
+export const searchArticles = args => async (dispatch) => {
   try {
     console.log('searching articles...');
     const { query, options, language, pageSize } = args;
@@ -82,7 +84,7 @@ export const searchArticles = ({ ...args }) => async (dispatch) => {
   }
 };
 
-export const loadNextPage = ({ ...args }) => async (dispatch) => {
+export const searchNextArticles = args => async (dispatch) => {
   try {
     console.log('loading next page...');
     const {
@@ -114,6 +116,18 @@ export const loadNextPage = ({ ...args }) => async (dispatch) => {
         articles: nextArticles,
       },
     });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const fetchArticles = (action, args) => async (dispatch) => {
+  try {
+    await dispatch({
+      type: LOAD,
+      payload: true,
+    });
+    action(args);
   } catch (err) {
     console.error(err);
   }
