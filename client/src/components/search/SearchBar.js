@@ -6,7 +6,7 @@ import styles from '../../styles/search/SearchBar.scss';
 const SearchBar = ({ query, onChange, className, focus }) => (
   <div className={styles[className]}>
     <input
-      type="search"
+      type="text"
       name="query"
       placeholder="Search articles..."
       autoComplete="true"

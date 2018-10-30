@@ -1,18 +1,18 @@
-@import '../helpers/sizes', '../helpers/colors';
+@import '../helpers/sizes', '../helpers/colors', '../helpers/fonts';
 
 %links {
+  font-family: $nav-font;
   font-size: 1.5rem;
   color: #fff;
   padding: 0 0.5rem;
 }
 
-.nav {
+#nav {
   position: fixed;
   top: 0;
   width: 100vw;
   height: $nav-height;
   background: $primary-color;
-  font-size: 1rem;
   display: flex;
   align-items: center;
   z-index: 2;
@@ -32,9 +32,9 @@
         @extend %links;
         text-decoration: none;
         
-        & > i {
-          display: none;
-        }
+        // & > i {
+        //   display: none;
+        // }
       }
 
       & > button {
@@ -44,27 +44,27 @@
         margin: 0 0.3rem;
         cursor: pointer;
 
-        & > i {
-          display: none;
-        }
+        // & > i {
+        //   display: none;
+        // }
       }
     }
   }
 }
 
-.rightSide {
+.navActions {
   display: flex;
   align-items: center;
 
   & li {
-    margin: 0 0.3rem;
+    margin: 0 0.8rem;
 
     &:first-child {
       margin-left: 0;
     }
 
     &:last-child {
-      margin-right: 0;
+      margin: 0;
     }
   }
 }

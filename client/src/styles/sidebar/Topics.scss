@@ -1,4 +1,28 @@
-@import '../helpers/sizes', '../helpers/colors';
+@import '../helpers/sizes', '../helpers/colors', '../helpers/fonts';
+
+%topic {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background: transparent;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.4rem 1rem;
+  transition: transform 120ms ease-out;
+
+  & > h4 {
+    font-family: $nav-font;
+    font-size: 1rem;
+    color: $dark-font-color;
+  }
+
+  & > i {
+    width: 45px;
+    font-size: 1.6rem;
+  }
+}
+
+$border-color: #ddd;
 
 .topics {
   @extend %sidebar-position;
@@ -6,12 +30,17 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: flex-start;
+  // align-items: flex-start;
+  align-items: center;
 
   h2 {
-    font-size: 2.5rem;
-    text-transform: uppercase;
+    color: $dark-font-color;
+    font-family: 'Federo', sans-serif;
+    font-size: 2.6rem;
     letter-spacing: 0.8rem;
+    text-transform: uppercase;
+    border-bottom: 2px solid $dark-font-color;
+    padding-left: 10px;
   }
 
   ul {
@@ -19,34 +48,39 @@
     list-style: none;
     
     & > li {
-      margin: 1.2rem 0;
-      
-      & > a {
-        background: lightgrey;
-        // background: $background-color;
-        font-size: 1rem;
-        color: #000;
-        text-transform: uppercase;
-        text-decoration: none;
-        padding: 0.4rem 1rem;
-
-        & > i {
-          margin-right: 0.2rem;
-        }
-      }
+      margin: 1rem 0;
     }
   }
 }
 
-// @media screen and (max-width: 1024px) and (orientation: portrait) {
-@media screen and (max-width: 700px) {
-  .topics {
-    width: 100%;
-    position: relative;
-    top: 0;
-    left: 0;
+.topic {
+  @extend %topic;
+  border-top: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+
+  &:hover {
+    border-top: 2px solid $border-color;
+    border-bottom: 2px solid $border-color;
+    transform: scale(0.92);
   }
 }
+
+.topicActive {
+  @extend %topic;
+  border-top: 2px solid $border-color;
+  border-bottom: 2px solid $border-color;
+  transform: scale(0.92);
+}
+
+// @media screen and (max-width: 1024px) and (orientation: portrait) {
+// @media screen and (max-width: 700px) {
+//   .topics {
+//     width: 100%;
+//     position: relative;
+//     top: 0;
+//     left: 0;
+//   }
+// }
 
 // @media screen and (min-width: 2000px) {
 //   .topics {

@@ -1,4 +1,4 @@
-@import '../helpers/colors', '../helpers/sizes';
+@import '../helpers/colors', '../helpers/sizes', '../helpers/fonts';
 
 .buttons {
   @extend %sidebar-position;
@@ -10,35 +10,26 @@
 }
 
 .bookmarks {
-  width: 75%;
+  width: 60%;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  font-family: $nav-font;
   font-size: 1rem;
-  background: lightgrey;
-  color: #000;
+  // background: lightgrey;
+  background: transparent;
+  color: $dark-font-color;
   padding: 0.5rem;
   text-transform: uppercase;
   text-decoration: none;
   cursor: pointer;
-  
-  // align-items: baseline;
-  // margin-bottom: 0;
-    
+      
   & > i {
+    font-size: 1.3rem;
     color: $bookmark-color;
+    margin-top: 3px;
   }
 }
-
-// .drop_area {
-//   width: 80%;
-//   height: 150px;
-//   border: 2px dashed lightgrey;
-//   border-top: none;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-// }
 
 // @media screen and (max-width: 1024px) and (orientation: portrait) {
 // @media screen and (max-width: 700px) {

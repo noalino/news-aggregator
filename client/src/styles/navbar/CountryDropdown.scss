@@ -1,4 +1,4 @@
-@import '../helpers/sizes';
+@import '../helpers/sizes', '../helpers/colors';
 
 $width: 3.5rem;
 $flag-size: 2rem;
@@ -6,19 +6,35 @@ $flag-size: 2rem;
 .dropbtn {
   width: $width;
   height: $nav-height;
+  background: transparent;
+  border: none;
   display: flex;
   justify-content: space-around;
   align-items: center;
   margin: 0;
   padding: 0;
+  outline: none;
   cursor: pointer;
+
+  // & > i {
+  //   font-size: 1rem;
+  //   // color: $background-color;
+  //   color: #fff;
+  // }
+
+  &:focus {
+    background: $background-color;
+    // & > i {
+    //   color: $primary-color;
+    // }
+  }
 }
 
 .dropdownContent {
   position: absolute;
   top: $nav-height;
   width: $width;
-  background: lightgrey;
+  background: $background-color;
   margin: 0;
   padding: 0;
   list-style-type: none;
@@ -31,7 +47,7 @@ $flag-size: 2rem;
     cursor: pointer;
 
     &:hover {
-      background: #fff;
+      background: $primary-color;
     }
   }
 }

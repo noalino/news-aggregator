@@ -118,7 +118,7 @@ class CountryDropdown extends Component {
           aria-expanded={isOpen}
         >
           <img className={styles.flag} src={this.getFlagImg(country.code)} alt={country.name} />
-          <i className={`fa fa-caret-${isOpen ? 'up' : 'down'}`} />
+          {/* <i className={`fa fa-caret-${isOpen ? 'up' : 'down'}`} /> */}
         </button>
 
         {

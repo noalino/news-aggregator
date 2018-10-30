@@ -17,7 +17,7 @@ class Navbar extends Component {
   render() {
     const { isAuthenticate } = this.props;
     return (
-      <nav className={styles.nav}>
+      <nav id={styles.nav}>
         <ul>
           <div>
             <li id={styles.menu} aria-label="menu button" role="menuitem">
@@ -29,19 +29,19 @@ class Navbar extends Component {
               <Link to="/" id={styles.logo}>News</Link>
             </li>
           </div>
-          <div className={styles.rightSide}>
+          <div className={styles.navActions}>
             {
               !isAuthenticate ? (
                 <Fragment>
                   <li>
                     <Link to="/login">
-                      <i className="fas fa-sign-in-alt" />
+                      {/* <i className="fas fa-sign-in-alt" /> */}
                       Log in
                     </Link>
                   </li>
                   <li>
                     <Link to="/signup">
-                      <i className="fas fa-sign-in-alt" />
+                      {/* <i className="fas fa-sign-in-alt" /> */}
                       Sign up
                     </Link>
                   </li>
@@ -49,7 +49,7 @@ class Navbar extends Component {
               ) : (
                 <li>
                   <button type="button" onClick={this.logout}>
-                    <i className="fas fa-sign-out-alt" />
+                    {/* <i className="fas fa-sign-out-alt" /> */}
                     Log out
                   </button>
                 </li>

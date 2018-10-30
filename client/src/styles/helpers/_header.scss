@@ -1,10 +1,12 @@
-@import 'colors', 'sizes';
+@import 'colors', 'sizes', 'fonts';
 
 .header {
   height: 100%;
   width: $container-width;
   background: $background-color;
+  color: $dark-font-color;
   border-bottom: 3px $primary-color solid;
+  font-family: $header-font;
   // &:after {
   //   content: '';
   //   display: block;

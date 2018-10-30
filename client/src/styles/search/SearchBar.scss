@@ -1,22 +1,41 @@
-@import '../helpers/sizes';
+@import '../helpers/sizes', '../helpers/colors', '../helpers/fonts';
 
 .nav {
   display: flex;
 
   input {
-    // font-size: 1rem;
     align-self: center;
+    font-size: 0.9rem;
+    width: 170px;
+    padding: 4px 6px;
+    margin-right: 8px;
+    border: none;
+    border-radius: 2px;
+
+    &::placeholder {
+      font-family: $placeholder-font;
+    }
   }
 
   button {
+    height: $nav-height;
+    width: $nav-height;
     background: transparent;
     border: none;
+    outline: none;
     cursor: pointer;
 
     i {
       color: #fff;
       font-size: 1.5rem;
-      padding: 0.4rem;
+    }
+
+    &:focus {
+      background: $background-color;
+
+      & i {
+        color: $primary-color;
+      }
     }
   }
 }
@@ -39,6 +58,10 @@
     padding-left: 8px;
     border: 1px solid lightgrey;
     border-radius: 5px;
+
+    &::placeholder {
+      font-family: $placeholder-font;
+    }
   }
 
   button {
