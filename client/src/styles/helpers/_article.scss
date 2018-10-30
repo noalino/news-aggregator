@@ -1,7 +1,6 @@
 .article {
   width: 100%;
   padding: 15px 20px;
-  // padding: 5px 10px;
   border: none;
   box-shadow: 0 2px 15px 0 lightgrey;
   
@@ -15,7 +14,7 @@
 
   & > i {
     grid-area: bookmark;
-    font-size: 20px;
+    font-size: 1.5rem;
     justify-self: end;
   }
 }

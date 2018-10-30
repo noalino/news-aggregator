@@ -17,14 +17,16 @@ const Articles = ({ articles, isLoading, totalResults, pageSize, location, error
 
   return (
     <div className={styles.container}>
-      {isLoading || true ? (
+      {isLoading ? (
         <Loader pageSize={pageSize} />
       ) : (
         articles.map(article => (
-          <Article
-            key={article.id}
-            article={{ ...article }}
-          />
+          article.title && (
+            <Article
+              key={article.id}
+              article={{ ...article }}
+            />
+          )
         ))
       )}
     </div>

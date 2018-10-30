@@ -1,62 +1,51 @@
-@import '../helpers/article', '../helpers/sizes';
+@import '../helpers/article';
 
-$color: #ddd;
+$color: rgba(165, 165, 165, 0.1);
 
 .article {
-  height: 90px;
-  background: linear-gradient(to right, $color 5%, darken($color, 10%) 20%, $color 35%);
-  background-size: 100% 100%;
-  animation-duration: 1s;
-  animation-fill-mode: forwards;
-  animation-iteration-count: infinite;
-  // animation-name: placeHolderShimmer;
-  animation-timing-function: linear;
+  grid-gap: 0.7rem;
 
   & > i {
-    font-size: 1.5rem;
-    color: $color;
-    z-index: 10;
-  }
-  
-  & div:last-child {
-    position: relative;
-    background: #fff;
-    height: 100px;
-    width: $container-width;
-    // top: $header-height + $nav-height;
-    // z-index: 10;
+    animation: bookmark_pulse 1s infinite ease-in-out;
   }
 }
 
-// .animation {
-//   height: 100%;
-//   width: 100%;
-//   position: absolute;
-  
-// }
+.title,
+.info {
+  animation: pulse 1s infinite ease-in-out;
+}
 
-// .title,
-// .info {
-//   background: #fff;
-// }
+.title {
+  height: 1.5rem;
+  width: 90%;
+  margin-bottom: 5px;
+}
 
-// .title {
-//   height: 1.5rem;
-//   width: 90%;
-//   margin-bottom: 5px;
-// }
+.info {
+  height: 1rem;
+  width: 35%;
+}
 
-// .info {
-//   height: 1rem;
-//   width: 35%;
-// }
-
-@keyframes placeHolderShimmer {
+@keyframes pulse {
   0% {
-    background-position: 0 0
+    background-color: $color;
   }
-
+  50% {
+    background-color: darken($color, 100%);
+  }
   100% {
-    background-position: $container-width 0
+    background-color: $color;
+  }
+}
+
+@keyframes bookmark_pulse {
+  0% {
+    color: $color;
+  }
+  50% {
+    color: darken($color, 100%);
+  }
+  100% {
+    color: $color;
   }
 }

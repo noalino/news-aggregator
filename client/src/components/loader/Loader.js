@@ -8,12 +8,9 @@ const Loader = ({ pageSize }) => {
   for (let i = 0; i < pageSize; i++) {
     array.push(
       <div className={styles.article} key={i}>
-        <i className="far fa-bookmark" />
-        {/* <div className={styles.title} />
-        <div className={styles.info} /> */}
-        <div />
-        <div />
-        <div />
+        <i className="fas fa-bookmark" />
+        <div className={styles.title} />
+        <div className={styles.info} />
       </div>,
     );
   }
