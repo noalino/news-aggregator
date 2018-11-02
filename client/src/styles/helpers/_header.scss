@@ -6,7 +6,8 @@
   background: $background-color;
   color: $dark-font-color;
   border-bottom: 3px $primary-color solid;
-  font-family: $header-font;
+  padding-bottom: 5px;
+
   // &:after {
   //   content: '';
   //   display: block;

@@ -26,7 +26,7 @@ $border-color: #ddd;
 
 .topics {
   @extend %sidebar-position;
-  left: $side-margin;
+  // left: $side-margin;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

@@ -9,14 +9,17 @@ import styles from '../../styles/search/Sort.scss';
 const Sort = ({ totalResults, onChange, location: { search } }) => {
   const { query, ...options } = getParams(search);
   const resultWord = totalResults === 0 || totalResults === 1 ? 'result' : 'results';
-  const message = `${numberWithCommas(totalResults)} ${resultWord} for: ${query}`;
+  const message = `${numberWithCommas(totalResults)} ${resultWord} for: `;
   return (
     <div className={styles.sort}>
-      <h3>{message}</h3>
+      <p>
+        {message}
+        <strong>{query}</strong>
+      </p>
       <div>
         <label htmlFor="sorting">
           <p>Sort by:</p>
-          <select name="sortBy" id="sorting" value={options.sortBy} size="1" onChange={onChange}>
+          <select name="sortBy" id="sorting" className={styles.select} value={options.sortBy} onChange={onChange}>
             <option value="date">Date</option>
             <option value="relevancy">Relevancy</option>
             <option value="popularity">Popularity</option>

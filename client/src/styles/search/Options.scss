@@ -1,4 +1,4 @@
-@import '../helpers/sizes';
+@import '../helpers/sizes', '../helpers/fonts', '../helpers/colors', '../helpers/selectDropdown';
 
 .container,
 .options {
@@ -17,17 +17,44 @@
 .options {
   width: 100%;
   justify-content: space-around;
+  font-family: $options-font;
+  font-size: 0.9rem;
+  color: $dark-font-color;
+
+  & p {
+    display: inline-block;
+    margin-right: 0.2rem;
+  }
+
+  & input[type=date] {
+    font-family: $nav-font;
+    font-size: 0.8rem;
+    padding-left: 3px;
+    border: 1px solid $primary-color;
+    border-radius: 5px;
+  }
+
+  & select {
+    @extend %selectDropdown;
+  }
+
+  & button {
+    font-family: $options-font;
+    font-size: 0.9rem;
+    color: $dark-font-color;
+    background: transparent;
+    border: none;
+    padding: 2px 8px;
+    cursor: pointer;
+  }
 }
 
 .optionsBtn {
+  font-family: $nav-font;
   font-size: 0.8rem;
   font-style: italic;
+  color: $dark-font-color;
   background: transparent;
   border: none;
   cursor: pointer;
-}
-
-.options p {
-  display: inline-block;
-  margin-right: 0.2rem;
 }

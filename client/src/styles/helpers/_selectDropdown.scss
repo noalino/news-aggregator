@@ -1,0 +1,14 @@
+@import './fonts', './colors';
+
+%selectDropdown {
+  height: 1.3rem;
+  background: transparent;
+  color: $dark-font-color;
+  font-family: $nav-font;
+  font-size: 0.8rem;
+  border: 1px solid $primary-color;
+  border-radius: 5px;
+  overflow: hidden;
+  // outline: none;
+  cursor: pointer;
+}

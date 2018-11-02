@@ -11,7 +11,6 @@ const Options = ({ onChange, sources, options, optionsOpen, toggleOptions, reset
     <div className={styles.container}>
       <button type="button" className={styles.optionsBtn} onClick={toggleOptions}>
         Advanced Search
-        <i className={`fa fa-caret-${optionsOpen ? 'up' : 'down'}`} />
       </button>
       {optionsOpen && (
         <div className={styles.options}>
@@ -23,7 +22,7 @@ const Options = ({ onChange, sources, options, optionsOpen, toggleOptions, reset
                 name="from"
                 id="from"
                 value={from}
-                // ONE MONTH AGO (FROM API DEV REQUIREMENTS)
+                // ONE MONTH AGO (FROM NEWSAPI DEV REQUIREMENTS)
                 min={moment().subtract(1, 'months').format('YYYY-MM-DD')}
                 max={to || moment().format('YYYY-MM-DD')}
                 onChange={onChange}

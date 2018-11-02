@@ -1,10 +1,15 @@
 @import '../helpers/sizes', '../helpers/colors', '../helpers/fonts';
 
+input:-webkit-autofill {
+  box-shadow: 0 0 0px 1000px #fff inset;
+}
+
 .nav {
   display: flex;
 
   input {
     align-self: center;
+    color: $dark-font-color;
     font-size: 0.9rem;
     width: 170px;
     padding: 4px 6px;
@@ -51,13 +56,16 @@
   button {
     height: 45px;
   }
-
+  
   input {
     width: 60%;
+    color: $dark-font-color;
     font-size: 1.5rem;
-    padding-left: 8px;
+    padding-left: 15px;
     border: 1px solid lightgrey;
-    border-radius: 5px;
+    border-right: none;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
 
     &::placeholder {
       font-family: $placeholder-font;
@@ -66,10 +74,14 @@
 
   button {
     width: 50px;
-    margin: 0 10px;
+    background: $primary-color;
+    border: none;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
     cursor: pointer;
 
     i {
+      color: #fff;
       font-size: 1.5rem;
     }
   }

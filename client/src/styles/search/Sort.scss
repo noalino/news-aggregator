@@ -1,16 +1,25 @@
-@import '../helpers/sizes';
-
-.sort {
-  display: flex;
-}
+@import '../helpers/sizes', '../helpers/fonts', '../helpers/colors', '../helpers/selectDropdown';
 
 .sort {
   height: $sort-height;
+  display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
+  font-family: $options-font;
+  color: $dark-font-color;
+
+  & label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    & > p {
+      font-size: 0.9rem;
+      margin-right: 0.2rem;
+    }
+  }
 }
 
-.sort p {
-  display: inline-block;
-  margin-right: 0.2rem;
+.select {
+  @extend %selectDropdown;
 }

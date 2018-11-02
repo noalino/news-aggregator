@@ -1,12 +1,14 @@
 /* LAYOUT */
 $nav-height: 40px;
 $header-height: 150px;
-$side-margin: 5vw;
-$sidebar-width: 25vw - $side-margin;
-$container-width: 100vw - 2 * ($sidebar-width + $side-margin);
+// $side-margin: 2vw;
+// $sidebar-width: 20vw - $side-margin;
+// $container-width: 100vw - 2 * ($sidebar-width + $side-margin);
+$sidebar-width: 25vw;
+$container-width: 100vw - 2 * $sidebar-width;
 
 $search-height: 50%;
-$sort-height: 20%;
+$sort-height: 22%;
 $options-height: 100% - $search-height - $sort-height;
 
 %sidebar-position {
