@@ -1,4 +1,4 @@
-@import '../helpers/sizes', '../helpers/colors';
+@import '../helpers/sizes', '../helpers/colors', '../helpers/fonts';
 
 .container {
   position: relative;
@@ -11,16 +11,15 @@
 .login {
   width: 90%;
   height: 300px;
-  background: rgba(84, 83, 97, 0.438);
+  background: lighten($dark-font-color, 75%);
   padding: 10px 0;
   margin: 0 auto 10px;
   border-radius: 5px;
-  // border-top-left-radius: 15%;
-  // border-top-right-radius: 15%;
 
   & > p {
     height: 20%;
-    // color: royalblue;
+    color: $dark-font-color;
+    font-family: $nav-font;
     display: flex;
     justify-content: center;
     align-items: flex-end;
@@ -44,6 +43,8 @@
   padding: 5px 0;
   margin: 5px auto;
   border-top: 2px solid $primary-color;
+  color: $dark-font-color;
+  font-family: $nav-font;
 
   & > a {
     color: darken($action-color, 10%);
