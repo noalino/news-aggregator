@@ -1,10 +1,28 @@
 @import '../helpers/article', '../helpers/colors', '../helpers/fonts';
 
 .article {
+  transition: transform 150ms ease-out,
+              opacity 300ms ease-in;
 
-  & > i {
-    color: $bookmark-color;
+  &[state=entering] {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  &[state=entered] {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  & > button {
+    font-size: 1.5rem;
+    justify-self: end;
+    background: transparent;
+    border: none;
     cursor: pointer;
+    
+    & > i {
+      color: $bookmark-color;
+    }
   }
 }
 

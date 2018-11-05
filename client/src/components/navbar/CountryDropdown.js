@@ -108,7 +108,7 @@ class CountryDropdown extends Component {
     const { countries, country } = this.props;
 
     return (
-      <div className={styles.dropdown} onBlur={this.onBlurHandler} onFocus={this.onFocusHandler}>
+      <li className={styles.dropdown} onBlur={this.onBlurHandler} onFocus={this.onFocusHandler}>
         <button
           type="button"
           ref={this.toggleButton}
@@ -140,7 +140,7 @@ class CountryDropdown extends Component {
           )
         }
 
-      </div>
+      </li>
     );
   }
 }

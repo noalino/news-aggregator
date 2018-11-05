@@ -1,27 +1,5 @@
 @import '../helpers/sizes', '../helpers/colors', '../helpers/fonts';
 
-%topic {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  background: transparent;
-  text-transform: uppercase;
-  text-decoration: none;
-  padding: 0.4rem 1rem;
-  transition: transform 120ms ease-out;
-
-  & > h4 {
-    font-family: $nav-font;
-    font-size: 1rem;
-    color: $dark-font-color;
-  }
-
-  & > i {
-    width: 45px;
-    font-size: 1.6rem;
-  }
-}
-
 $border-color: #ddd;
 
 .topics {
@@ -54,22 +32,34 @@ $border-color: #ddd;
 }
 
 .topic {
-  @extend %topic;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background: transparent;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.4rem 1rem;
   border-top: 2px solid transparent;
   border-bottom: 2px solid transparent;
+  transition: transform 120ms ease-out;
 
+  & > h4 {
+    font-family: $nav-font;
+    font-size: 1rem;
+    color: $dark-font-color;
+  }
+
+  & > i {
+    width: 45px;
+    font-size: 1.6rem;
+  }
+
+  &[active=true],
   &:hover {
     border-top: 2px solid $border-color;
     border-bottom: 2px solid $border-color;
     transform: scale(0.92);
   }
-}
-
-.topicActive {
-  @extend %topic;
-  border-top: 2px solid $border-color;
-  border-bottom: 2px solid $border-color;
-  transform: scale(0.92);
 }
 
 // @media screen and (max-width: 1024px) and (orientation: portrait) {

@@ -8,7 +8,6 @@ import {
   ERROR,
 } from './types';
 import { fetchUtils, searchUtils, loadNextUtils } from '../_utils';
-import Loader from '../components/loader/Loader';
 
 export const changeCountry = country => (dispatch) => {
   console.log('changing country');

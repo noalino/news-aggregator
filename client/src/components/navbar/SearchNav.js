@@ -3,8 +3,6 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import SearchBar from '../search/SearchBar';
 
-// import styles from '../../styles/navbar/SearchNav.scss';
-
 class SearchNav extends Component {
   state = { query: '' };
 

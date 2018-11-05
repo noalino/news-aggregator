@@ -12,11 +12,9 @@
     "title bookmark"
     "info .";
 
-  & > i {
+  & i {
     grid-area: bookmark;
-    font-size: 1.5rem;
-    justify-self: end;
-  }
+  } 
 }
 
 .title {

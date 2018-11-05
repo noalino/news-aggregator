@@ -9,7 +9,7 @@ const Topics = ({ topicsList, match: { params } }) => (
     <ul>
       {topicsList.map(topic => (
         <li key={topic.name}>
-          <Link to={topic.name} className={styles[params.topic === topic.name ? 'topicActive' : 'topic']}>
+          <Link to={topic.name} className={styles.topic} active={params.topic === topic.name ? 'true' : 'false'}>
             <i className={topic.icon} style={{ color: topic.color }} />
             <h4>{topic.name}</h4>
           </Link>

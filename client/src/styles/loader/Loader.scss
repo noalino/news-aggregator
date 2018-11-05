@@ -6,6 +6,8 @@ $color: rgba(165, 165, 165, 0.1);
   grid-gap: 0.7rem;
 
   & > i {
+    font-size: 1.5rem;
+    justify-self: end;
     animation: bookmark_pulse 1s infinite ease-in-out;
   }
 }

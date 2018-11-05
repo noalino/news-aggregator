@@ -26,6 +26,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 app.use(cors({
   origin: 'http://localhost:8080',
+  // origin: 'http://localhost:5500',
   optionsSuccessStatus: 200,
   credentials: true // To receive cookies from client
 }));

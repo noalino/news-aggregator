@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import { addBookmark, deleteBookmark } from '../../actions/userActions';
 
-import { duration, defaultStyle, transitionStyles } from '../../transition';
 import styles from '../../styles/articles/Article.scss';
 
 class Article extends Component {
@@ -42,13 +41,12 @@ class Article extends Component {
     ) : false;
 
     return (
-      <Transition in={animation} timeout={duration}>
+      <Transition in={animation} timeout={150}>
         {state => (
-          <article
-            className={styles.article}
-            style={{ ...defaultStyle, ...transitionStyles[state] }}
-          >
-            <i className={`${isBookmark ? 'fas' : 'far'} fa-bookmark`} onClick={this.updateBookmarks} />
+          <article className={styles.article} state={state}>
+            <button type="button" onClick={this.updateBookmarks}>
+              <i className={`${isBookmark ? 'fas' : 'far'} fa-bookmark`} />
+            </button>
             <a className={styles.title} href={url} target="_blank" rel="noreferrer noopener">
               <h4>{title}</h4>
             </a>

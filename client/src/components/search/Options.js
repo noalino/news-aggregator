@@ -46,7 +46,7 @@ const Options = ({ onChange, sources, options, optionsOpen, toggleOptions, reset
           <div>
             <label htmlFor="source">
               <p>Source:</p>
-              <select name="source" id="source" value={source} onChange={onChange} size="1">
+              <select name="source" id="source" value={source} onChange={onChange}>
                 <option value="">All</option>
                 {sources.map(src => <option key={src.id} value={src.id}>{src.name}</option>)}
               </select>
