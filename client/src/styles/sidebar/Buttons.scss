@@ -1,8 +1,9 @@
 @import '../helpers/colors', '../helpers/sizes', '../helpers/fonts';
 
 .buttons {
-  @extend %sidebar-position;
-  // right: $side-margin;
+  // @extend %sidebar-position;
+  position: fixed;
+  width: 25vw;
   right: 0;
   display: flex;
   flex-direction: column;
@@ -32,6 +33,37 @@
   }
 }
 
+$breakpoints: (
+  1440px: 150px + 40px,
+  1024px: 125px + 40px,
+  768px: 100px + 40px
+);
+
+@each $width, $height in $breakpoints {
+  @if $width == 1024px {
+    @media screen and (max-width: 1024px) {
+      .bookmarks {
+        font-size: 0.8rem;
+        & > i {
+          font-size: 1rem;
+          margin: 1px 10px 0 0;
+        }
+      }
+    }
+  }
+  @media screen and (max-width: $width) {
+    .buttons {
+      top: $height;
+    }
+  }
+}
+
+@media screen and (min-width: 1441px) {
+  .buttons {
+    top: 150px + 40px;
+  }
+}
+
 // @media screen and (max-width: 1024px) and (orientation: portrait) {
 // @media screen and (max-width: 700px) {
 //   .buttons {
@@ -39,18 +71,5 @@
 //     position: relative;
 //     top: 0;
 //     right: 0;
-//   }
-// }
-
-// @media screen and (min-width: 2000px) {
-//   .buttons {
-//     display: flex;
-//     flex-direction: column;
-//     align-items: flex-start;
-//     padding-left: 4em;
-
-//     button {
-//       margin: 1em 0;
-//     }
 //   }
 // }

@@ -44,12 +44,12 @@ class Article extends Component {
       <Transition in={animation} timeout={150}>
         {state => (
           <article className={styles.article} state={state}>
-            <button type="button" onClick={this.updateBookmarks}>
-              <i className={`${isBookmark ? 'fas' : 'far'} fa-bookmark`} />
-            </button>
             <a className={styles.title} href={url} target="_blank" rel="noreferrer noopener">
               <h4>{title}</h4>
             </a>
+            <button type="button" onClick={this.updateBookmarks}>
+              <i className={`${isBookmark ? 'fas' : 'far'} fa-bookmark`} />
+            </button>
             <div className={styles.info}>
               <p className={styles.source}>{source.name}</p>
               {' - '}

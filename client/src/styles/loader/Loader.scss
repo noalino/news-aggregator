@@ -8,6 +8,7 @@ $color: rgba(165, 165, 165, 0.1);
   & > i {
     font-size: 1.5rem;
     justify-self: end;
+    // align-self: flex-start;
     animation: bookmark_pulse 1s infinite ease-in-out;
   }
 }

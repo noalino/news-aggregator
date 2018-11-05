@@ -1,9 +1,6 @@
 /* LAYOUT */
 $nav-height: 40px;
 $header-height: 150px;
-// $side-margin: 2vw;
-// $sidebar-width: 20vw - $side-margin;
-// $container-width: 100vw - 2 * ($sidebar-width + $side-margin);
 $sidebar-width: 25vw;
 $container-width: 100vw - 2 * $sidebar-width;
 
@@ -11,11 +8,18 @@ $search-height: 50%;
 $sort-height: 22%;
 $options-height: 100% - $search-height - $sort-height;
 
-%sidebar-position {
-  position: fixed;
-  width: $sidebar-width;
-  top: $nav-height + $header-height;
-}
+// %sidebar-position {
+//   position: fixed;
+//   width: $sidebar-width;
+//   top: $nav-height + $header-height;
+// }
 
 /* LOGIN */
 $field-height: 50px;
+
+// @media screen and (max-width: 1024px) {
+//   $header-height: 50px !global;
+// }
+// @media screen and (min-width: 1024px) {
+//   $header-height: 150px !global;
+// }

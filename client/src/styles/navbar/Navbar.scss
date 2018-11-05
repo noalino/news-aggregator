@@ -41,7 +41,6 @@
         @extend %links;
         background: transparent;
         border: none;
-        margin: 0 0.3rem;
         cursor: pointer;
 
         // & > i {
@@ -85,4 +84,10 @@
   font-size: 1.5rem;
   text-transform: uppercase;
   // padding: 0;
+}
+
+@media screen and (max-width: 768px) {
+  %links {
+    font-size: 1.2rem;
+  }
 }

@@ -1,4 +1,4 @@
-@import '../helpers/layout', '../helpers/header';
+@import '../helpers/layout', '../helpers/header', '../helpers/fonts';
 
 .header {
   display: flex;
@@ -7,6 +7,26 @@
   
   & > h1 {
     font-family: $header-font;
+    font-size: 4rem;
+  }
+}
+
+$breakpoints: (
+  1440px: 4rem,
+  1024px: 3.5rem,
+  768px: 3rem
+);
+
+@each $width, $size in $breakpoints {
+  @media screen and (max-width: $width) {
+    .header > h1 {
+      font-size: $size;
+    }
+  }
+}
+
+@media screen and (min-width: 1441px) {
+  .header > h1 {
     font-size: 4rem;
   }
 }

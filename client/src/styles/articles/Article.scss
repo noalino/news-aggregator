@@ -14,8 +14,8 @@
   }
 
   & > button {
-    font-size: 1.5rem;
     justify-self: end;
+    align-self: flex-start;
     background: transparent;
     border: none;
     cursor: pointer;
@@ -28,7 +28,6 @@
 
 .title {
   font-family: $article-title-font;
-  font-size: 1.5rem;
   color: $dark-font-color;
   text-decoration: none;
 
@@ -40,7 +39,6 @@
 .source,
 .date {
   color: $dark-font-color;
-  font-size: 1rem;
   font-family: $article-source-font;
 }
 
@@ -51,4 +49,43 @@
 
 .date {
   font-weight: 300;
+}
+
+@media screen and (min-width: 1025px) {
+  .article > button {
+    font-size: 1.5rem;
+  }
+  .title {
+    font-size: 1.5rem;
+  }
+  .source,
+  .date {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .article > button {
+    font-size: 1.2rem;
+  }
+  .title {
+    font-size: 1.2rem;
+  }
+  .source,
+  .date {
+    font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .article > button {
+    font-size: 1rem;
+  }
+  .title {
+    font-size: 1rem;
+  }
+  .source,
+  .date {
+    font-size: 0.6rem;
+  }
 }

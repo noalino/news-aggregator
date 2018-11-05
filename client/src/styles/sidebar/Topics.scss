@@ -3,8 +3,9 @@
 $border-color: #ddd;
 
 .topics {
-  @extend %sidebar-position;
-  // left: $side-margin;
+  // @extend %sidebar-position;
+  position: fixed;
+  width: 25vw;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -62,6 +63,50 @@ $border-color: #ddd;
   }
 }
 
+$breakpoints: (
+  1440px: 150px + 40px,
+  1024px: 125px + 40px,
+  768px: 100px + 40px
+);
+
+@each $width, $height in $breakpoints {
+  @if $width == 1024px {
+    @media screen and (max-width: $width) {
+      .topics {
+        & ul > li {
+          margin: 0.3rem 0;
+        }
+        & > h2 {
+          font-size: 1.8rem;
+          letter-spacing: 0.5rem;
+          padding-left: 7px;
+        }
+      }
+      .topic {
+        padding: 0.35rem 1rem;
+        & > h4 {
+          font-size: 0.7rem;
+        }
+        & > i {
+          width: 32px;
+          font-size: 1.2rem;
+        }
+      }
+    }
+  }
+  @media screen and (max-width: $width) {
+    .topics {
+      top: $height;
+    }
+  }
+}
+
+@media screen and (min-width: 1441px) {
+  .topics {
+    top: 150px + 40px;
+  }
+}
+
 // @media screen and (max-width: 1024px) and (orientation: portrait) {
 // @media screen and (max-width: 700px) {
 //   .topics {
@@ -69,16 +114,5 @@ $border-color: #ddd;
 //     position: relative;
 //     top: 0;
 //     left: 0;
-//   }
-// }
-
-// @media screen and (min-width: 2000px) {
-//   .topics {
-//     align-items: flex-end;
-//     padding-right: 4em;
-
-//     ul {
-//       margin: 1.5em 0;
-//     }
 //   }
 // }

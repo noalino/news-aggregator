@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { changeCountry } from '../../actions/articlesActions';
 
 import flagFr from '../../assets/images/flags/fr.png';
-// import flagEs from '../../assets/images/flags/es.png';
 import flagDe from '../../assets/images/flags/de.png';
 import flagGb from '../../assets/images/flags/gb.png';
 import flagUs from '../../assets/images/flags/us.png';
@@ -96,7 +95,6 @@ class CountryDropdown extends Component {
     switch (country) {
       case 'de': return flagDe;
       case 'fr': return flagFr;
-      // case 'es': return flagEs;
       case 'gb': return flagGb;
       case 'us': return flagUs;
       default: return flagUs;
@@ -108,7 +106,7 @@ class CountryDropdown extends Component {
     const { countries, country } = this.props;
 
     return (
-      <li className={styles.dropdown} onBlur={this.onBlurHandler} onFocus={this.onFocusHandler}>
+      <div className={styles.dropdown} onBlur={this.onBlurHandler} onFocus={this.onFocusHandler}>
         <button
           type="button"
           ref={this.toggleButton}
@@ -118,7 +116,6 @@ class CountryDropdown extends Component {
           aria-expanded={isOpen}
         >
           <img className={styles.flag} src={this.getFlagImg(country.code)} alt={country.name} />
-          {/* <i className={`fa fa-caret-${isOpen ? 'up' : 'down'}`} /> */}
         </button>
 
         {
@@ -140,7 +137,7 @@ class CountryDropdown extends Component {
           )
         }
 
-      </li>
+      </div>
     );
   }
 }
@@ -163,15 +160,6 @@ CountryDropdown.defaultProps = {
         name: 'Deutsch',
       },
     },
-    /** ONLY AVAILABLE FOR SEARCH ARTICLES */
-    // {
-    //   code: 'es',
-    //   name: 'Spain',
-    //   language: {
-    //     code: 'es',
-    //     name: 'Español',
-    //   },
-    // },
     {
       code: 'gb',
       name: 'United Kingdom',

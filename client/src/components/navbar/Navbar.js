@@ -48,8 +48,8 @@ const Navbar = ({ isAuthenticate, logOut }) => (
             </li>
           )
         }
-        <SearchNav />
-        <CountryDropdown />
+        <li><SearchNav /></li>
+        <li><CountryDropdown /></li>
       </div>
     </ul>
   </nav>

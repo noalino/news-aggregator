@@ -14,7 +14,6 @@
     
     & > i {
       color: $dark-font-color;
-      font-size: 1.5rem;
     }
     
     &:hover,
@@ -27,13 +26,34 @@
 
   & > p {
     font-family: $nav-font;
-    font-size: 1rem;
     color: $dark-font-color;
     margin: 10px 0;
     text-align: center;
 
     & > a {
       color: $dark-font-color;
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .footer {
+    & > button > i {
+      font-size: 1.2rem;
+    }
+    & > p {
+      font-size: 0.8rem;
+    }
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .footer {
+    & > button > i {
+      font-size: 1.5rem;
+    }
+    & > p {
+      font-size: 1rem;
     }
   }
 }

@@ -23,3 +23,31 @@
 .select {
   @extend %selectDropdown;
 }
+
+@media screen and (min-width: 1600px) {
+  .sort > p,
+  .sort label > p {
+    font-size: 0.9rem;
+  }
+}
+
+@media screen and (max-width: 1599px) {
+  .sort > p,
+  .sort label > p {
+    font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .sort > p,
+  .sort label > p {
+    font-size: 0.7rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .sort > p,
+  .sort label > p {
+    font-size: 0.6rem;
+  }
+}

@@ -1,42 +1,33 @@
 @import 'colors', 'sizes', 'fonts';
 
 .header {
-  height: 100%;
-  width: $container-width;
+  // height: 100%;
+  // height: $header-height;
+  // height: 150px;
+  // width: $container-width;
+  width: 100%;
   background: $background-color;
   color: $dark-font-color;
   border-bottom: 3px $primary-color solid;
   padding-bottom: 5px;
-
-  // &:after {
-  //   content: '';
-  //   display: block;
-  //   position: relative;
-  //   bottom: 0;
-  //   width: $container-width;
-  //   height: 3px;
-  //   background: $primary-color;
-  //   margin: 0 auto;
-  //   box-shadow: 0 3px 7px 1px rgba(0, 0, 0, 0.5);
-  // }
 }
 
-// @media screen and (max-width: 500px) {
-//   .header {
-//     width: $container-width + 2 * $side-margin;
-//     left: (100vw - $container-width) / 2 - $side-margin;
-//     &:after {
-//       width: $container-width + 2 * $side-margin;
-//     }
-//   }
-// }
+$breakpoints: (
+  1440px: 150px,
+  1024px: 125px,
+  768px: 100px
+);
 
-// @media screen and (min-width: 501px) and (max-width: 700px) {
-//   .header {
-//     width: $container-width + 4 * $side-margin;
-//     left: $sidebar-width + 3 * $side-margin;
-//     &:after {
-//       width: $container-width + 4 * $side-margin;
-//     }
-//   }
-// }
+@each $width, $height in $breakpoints {
+  @media screen and (max-width: $width) {
+    .header {
+      height: $height;
+    }
+  }
+}
+
+@media screen and (min-width: 1441px) {
+  .header {
+    height: 150px;
+  }
+}

@@ -1,7 +1,7 @@
 @import '../helpers/sizes', '../helpers/colors';
 
 $width: 3.5rem;
-$flag-size: 2rem;
+$flag-size: 32px;
 
 .dropbtn {
   width: $width;
@@ -14,19 +14,10 @@ $flag-size: 2rem;
   margin: 0;
   padding: 0;
   outline: none;
-  cursor: pointer;
-
-  // & > i {
-  //   font-size: 1rem;
-  //   // color: $background-color;
-  //   color: #fff;
-  // }
+  // cursor: pointer;
 
   &:focus {
     background: $background-color;
-    // & > i {
-    //   color: $primary-color;
-    // }
   }
 }
 
@@ -44,9 +35,11 @@ $flag-size: 2rem;
     display: flex;
     justify-content: center;
     margin: 0;
+    outline: none;
     cursor: pointer;
 
-    &:hover {
+    &:hover,
+    &:focus {
       background: $primary-color;
     }
   }
