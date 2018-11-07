@@ -11,7 +11,8 @@
   position: fixed;
   top: 0;
   width: 100vw;
-  height: $nav-height;
+  // height: $nav-height;
+  height: 40px;
   background: $primary-color;
   display: flex;
   align-items: center;
@@ -89,5 +90,11 @@
 @media screen and (max-width: 768px) {
   %links {
     font-size: 1.2rem;
+  }
+  #nav {
+    height: 35px;
+  }
+  .navActions li {
+    margin: 0 0.4rem;
   }
 }

@@ -46,22 +46,14 @@ input:-webkit-autofill {
 }
 
 .search {
-  height: $search-height;
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  // padding-bottom: 10px;
-
-  input,
-  button {
-    // height: 45px;
-  }
+  padding-top: 10px;
   
   input {
     width: 60%;
     color: $dark-font-color;
-    // font-size: 1.5rem;
-    // padding-left: 15px;
     border: 1px solid lightgrey;
     border-right: none;
     border-top-left-radius: 5px;
@@ -73,7 +65,6 @@ input:-webkit-autofill {
   }
 
   button {
-    // width: 50px;
     background: $primary-color;
     border: none;
     border-top-right-radius: 5px;
@@ -82,20 +73,12 @@ input:-webkit-autofill {
 
     i {
       color: #fff;
-      // font-size: 1.5rem;
     }
   }
 }
 
-// $breakpoints: (
-//   1440px: 4rem,
-//   1024px: 3.5rem,
-//   768px: 3rem
-// );
-
 @media screen and (min-width: 1600px) {
   .search {
-    padding-bottom: 10px;
 
     input,
     button {
@@ -119,7 +102,6 @@ input:-webkit-autofill {
 
 @media screen and (max-width: 1599px) {
   .search {
-    padding-bottom: 10px;
 
     input,
     button {
@@ -143,7 +125,6 @@ input:-webkit-autofill {
 
 @media screen and (max-width: 1024px) {
   .search {
-    padding-bottom: 6px;
 
     input,
     button {
@@ -166,8 +147,15 @@ input:-webkit-autofill {
 }
 
 @media screen and (max-width: 768px) {
+  .nav {
+    input {
+      display: none;
+    }
+    button > i {
+      font-size: 1.2rem;
+    }
+  }
   .search {
-    padding-bottom: 4px;
 
     input,
     button {

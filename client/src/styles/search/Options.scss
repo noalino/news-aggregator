@@ -8,21 +8,22 @@
 
 .container {
   width: 100%;
-  height: $options-height;
-  margin: 0 auto;
+  // height: $options-height;
+  padding: 10px 0;
   flex-direction: column;
   justify-content: space-between;
 }
 
 .options {
   width: 100%;
-  justify-content: space-around;
+  justify-content: center;
   font-family: $options-font;
   color: $dark-font-color;
+  margin-top: 5px;
 
   & p {
     display: inline-block;
-    margin-right: 0.2rem;
+    margin: 0 0.2rem 0 0.4rem;
   }
 
   & input[type=date] {
@@ -42,6 +43,7 @@
     background: transparent;
     border: none;
     padding: 2px 8px;
+    margin-left: 0.4rem;
     cursor: pointer;
   }
 }
@@ -56,9 +58,21 @@
 }
 
 @media screen and (min-width: 1600px) {
-  .container {
-    width: 80%;
+  .options {
+    font-size: 1rem;
+    & input[type=date] {
+      font-size: 0.9rem;
+    }
+    & button {
+      font-size: 1rem;
+    }
   }
+  .optionsBtn {
+    font-size: 0.9rem;
+  }
+}
+
+@media screen and (max-width: 1599px) {
   .options {
     font-size: 0.9rem;
     & input[type=date] {
@@ -73,10 +87,29 @@
   }
 }
 
-@media screen and (max-width: 1599px) {
-  .container {
-    width: 80%;
+@media screen and (max-width: 1208px) {
+  .options {
+    justify-content: space-around;
+    & input[type=date] {
+      margin: 2px 0;
+    }
+    & > div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    & p {
+      margin: 0 0.2rem 0 0;
+    }
+    & button {
+      margin: 2px 0;
+      align-self: center;
+    }
   }
+}
+
+@media screen and (max-width: 768px) {
   .options {
     font-size: 0.8rem;
     & input[type=date] {
@@ -88,35 +121,5 @@
   }
   .optionsBtn {
     font-size: 0.7rem;
-  }
-}
-
-@media screen and (max-width: 1024px) {
-  .options {
-    font-size: 0.7rem;
-    & input[type=date] {
-      font-size: 0.6rem;
-    }
-    & button {
-      font-size: 0.7rem;
-    }
-  }
-  .optionsBtn {
-    font-size: 0.6rem;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .options {
-    font-size: 0.6rem;
-    & input[type=date] {
-      font-size: 0.5rem;
-    }
-    & button {
-      font-size: 0.6rem;
-    }
-  }
-  .optionsBtn {
-    font-size: 0.5rem;
   }
 }

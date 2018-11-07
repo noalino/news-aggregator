@@ -3,7 +3,7 @@
 .showcase {
   max-width: $container-width;
   margin: 0 auto;
-  margin-top: $nav-height;
+  margin-top: 40px;
   display: grid;
   grid-template-columns: 100%;
   // grid-template-rows: $header-height repeat(2, auto);
@@ -24,4 +24,10 @@
 
 .footer {
   grid-area: footer;
+}
+
+@media screen and (max-width: 768px) {
+  .showcase {
+    margin-top: 35px;
+  }
 }

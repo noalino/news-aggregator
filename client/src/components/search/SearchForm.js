@@ -63,7 +63,6 @@ class SearchForm extends Component {
           className="search"
           query={query}
           onChange={this.handleInputChange}
-          focus
         />
         <Options
           options={options}

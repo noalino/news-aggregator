@@ -28,8 +28,6 @@ const Options = ({ onChange, sources, options, optionsOpen, toggleOptions, reset
                 onChange={onChange}
               />
             </label>
-          </div>
-          <div>
             <label htmlFor="to">
               <p>To:</p>
               <input
@@ -51,8 +49,8 @@ const Options = ({ onChange, sources, options, optionsOpen, toggleOptions, reset
                 {sources.map(src => <option key={src.id} value={src.id}>{src.name}</option>)}
               </select>
             </label>
+            <button type="button" onClick={resetOptions}>Reset</button>
           </div>
-          <button type="button" onClick={resetOptions}>Reset</button>
         </div>
       )}
     </div>

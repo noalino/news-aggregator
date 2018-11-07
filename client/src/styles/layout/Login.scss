@@ -2,7 +2,7 @@
 
 .container {
   position: relative;
-  top: $nav-height + 150px;
+  top: 40px + 150px;
   margin: 0 auto;
   width: 450px;
   text-align: center;
@@ -49,5 +49,11 @@
   & > a {
     color: darken($action-color, 10%);
     text-decoration: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    top: 35px + 150px;
   }
 }

@@ -33,43 +33,40 @@
   }
 }
 
-$breakpoints: (
-  1440px: 150px + 40px,
-  1024px: 125px + 40px,
-  768px: 100px + 40px
-);
-
-@each $width, $height in $breakpoints {
-  @if $width == 1024px {
-    @media screen and (max-width: 1024px) {
-      .bookmarks {
-        font-size: 0.8rem;
-        & > i {
-          font-size: 1rem;
-          margin: 1px 10px 0 0;
-        }
-      }
-    }
-  }
-  @media screen and (max-width: $width) {
-    .buttons {
-      top: $height;
-    }
-  }
-}
-
 @media screen and (min-width: 1441px) {
   .buttons {
     top: 150px + 40px;
   }
 }
 
-// @media screen and (max-width: 1024px) and (orientation: portrait) {
-// @media screen and (max-width: 700px) {
-//   .buttons {
-//     width: 100%;
-//     position: relative;
-//     top: 0;
-//     right: 0;
-//   }
-// }
+@media screen and (max-width: 1440px) {
+  .buttons {
+    top: 150px + 40px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .buttons {
+    top: 125px + 40px;
+  }
+  .bookmarks {
+    font-size: 0.8rem;
+    & > i {
+      font-size: 1rem;
+      margin: 1px 10px 0 0;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .buttons {
+    top: 100px + 40px;
+  }
+  .bookmarks {
+    font-size: 0.7rem;
+    & > i {
+      font-size: 0.9rem;
+      margin: 1px 10px 0 0;
+    }
+  }
+}

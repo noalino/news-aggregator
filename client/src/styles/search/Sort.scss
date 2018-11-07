@@ -1,7 +1,7 @@
 @import '../helpers/sizes', '../helpers/fonts', '../helpers/colors', '../helpers/selectDropdown';
 
 .sort {
-  height: $sort-height;
+  // height: $sort-height;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -14,7 +14,6 @@
     align-items: center;
   
     & > p {
-      font-size: 0.9rem;
       margin-right: 0.2rem;
     }
   }
@@ -27,27 +26,27 @@
 @media screen and (min-width: 1600px) {
   .sort > p,
   .sort label > p {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 }
 
 @media screen and (max-width: 1599px) {
   .sort > p,
   .sort label > p {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
 }
 
-@media screen and (max-width: 1024px) {
-  .sort > p,
-  .sort label > p {
-    font-size: 0.7rem;
-  }
-}
+// @media screen and (max-width: 1024px) {
+//   .sort > p,
+//   .sort label > p {
+//     font-size: 0.7rem;
+//   }
+// }
 
 @media screen and (max-width: 768px) {
   .sort > p,
   .sort label > p {
-    font-size: 0.6rem;
+    font-size: 0.8rem;
   }
 }
