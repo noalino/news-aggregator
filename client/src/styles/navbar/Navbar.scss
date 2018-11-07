@@ -32,10 +32,6 @@
       & > a {
         @extend %links;
         text-decoration: none;
-        
-        // & > i {
-        //   display: none;
-        // }
       }
 
       & > button {
@@ -43,10 +39,6 @@
         background: transparent;
         border: none;
         cursor: pointer;
-
-        // & > i {
-        //   display: none;
-        // }
       }
     }
   }
@@ -69,16 +61,14 @@
   }
 }
 
+.navMenu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 #menu {
   display: none;
-  padding: 0 0.5rem;
-  cursor: pointer;
-
-  & > div {
-    width: 20px;
-    height: 3px;
-    background-color: #fff;
-  }
 }
 
 #logo {
@@ -96,5 +86,22 @@
   }
   .navActions li {
     margin: 0 0.4rem;
+  }
+  #logo {
+    display: none;
+  }
+  #menu {
+    display: block;
+    padding: 9px;
+    cursor: pointer;
+    & > div {
+      width: 25px;
+      height: 2px;
+      background-color: #fff;
+      border-radius: 2px;
+      &:nth-child(2) {
+        margin: 5px 0;
+      }
+    }
   }
 }

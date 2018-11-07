@@ -12,8 +12,15 @@ import styles from '../../styles/navbar/Navbar.scss';
 const Navbar = ({ isAuthenticate, logOut }) => (
   <nav id={styles.nav}>
     <ul>
-      <div>
-        <li id={styles.menu} aria-label="menu button" role="menuitem">
+      <div className={styles.navMenu}>
+        <li
+          id={styles.menu}
+          aria-label="menu button"
+          role="menuitem"
+          tabIndex="0"
+          // onClick={toggleSidebar}
+          // onKeyEnter={toggleSidebar}
+        >
           <div />
           <div />
           <div />

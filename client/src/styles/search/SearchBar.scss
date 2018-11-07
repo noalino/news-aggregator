@@ -23,8 +23,8 @@ input:-webkit-autofill {
   }
 
   button {
-    height: $nav-height;
-    width: $nav-height;
+    height: 40px;
+    width: 40px;
     background: transparent;
     border: none;
     outline: none;
@@ -151,8 +151,12 @@ input:-webkit-autofill {
     input {
       display: none;
     }
-    button > i {
-      font-size: 1.2rem;
+    button {
+      width: 35px;
+      height: 35px;
+      & > i {
+        font-size: 1.2rem;
+      }
     }
   }
   .search {

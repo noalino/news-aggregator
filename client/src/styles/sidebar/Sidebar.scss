@@ -1,4 +1,9 @@
-@import '../helpers/sizes';
+@import '../helpers/sizes', '../helpers/colors';
+
+@mixin sidebar-animation($from) {
+  transform: translate3d($from, 0, 0);
+  // transition: transform 0.3s ease-in-out;
+}
 
 .sidebar {
   position: fixed; // Avoid showcase to collapse
@@ -8,49 +13,70 @@
   // display: flex;
   // flex-direction: column;
   // align-items: center;
-  top: $nav-height;
+  // top: 35px;
   left: 0;
+  height: 100%;
+  display: flex;
+  z-index: 3;
 }
 
-@media screen and (max-width: 500px) {
-  %sidebar-pos {
-    position: fixed;
-    height: 100vh;
-    width: 100vw;
-    top: $nav-height;
-    left: 0;
-    display: flex;
-    z-index: 3;
-  }
-  @mixin sidebar-animation($from) {
-    transform: translate3d($from, 0, 0);
-    // transition: transform 0.3s ease-in-out;
-  }
-
+@media screen and (max-width: 768px) {
   .sidebar {
-    @extend %sidebar-pos;
+    width: 100vw;
   }
-
-  .sidebarOpen {
-    @extend %sidebar-pos;
-    .sidebar__list,
-    .sidebar__clickCatcher {
-      transform: translate3d(0, 0, 0);
-    }
+  // .sidebar__content,
+  // .sidebar__clickCatcher {
+  //   flex: 1 1 auto;
+  // }
+  .sidebar__content {
+    width: 45%;
+    min-width: 320px;
+    background: $background-color;
+    // @include sidebar-animation(-100vw);
   }
-
-  .sidebar__list,
   .sidebar__clickCatcher {
-    flex: 1 1 auto;
-  }
-
-  .sidebar__list {
-    @include sidebar-animation(-100vw);
-    background: #fff;
-  }
-
-  .sidebar__clickCatcher {
-    @include sidebar-animation(100vw);
+    // @include sidebar-animation(100vw);
+    height: 100%;
+    width: 100%;
     background: rgba(0, 0, 0, 0.5);
   }
+  // .sidebar[open=true] {
+  //   .sidebar__content,
+  //   .sidebar__clickCatcher {
+  //     transform: translate3d(0, 0, 0);
+  //   }
+  // }
 }
+
+// @media screen and (max-width: 500px) {
+//   %sidebar-pos {
+//     width: 100vw;
+//   }
+
+//   .sidebar {
+//     @extend %sidebar-pos;
+//   }
+
+//   .sidebar[open=true] {
+//     @extend %sidebar-pos;
+//     .sidebar__content,
+//     .sidebar__clickCatcher {
+//       transform: translate3d(0, 0, 0);
+//     }
+//   }
+
+//   .sidebar__content,
+//   .sidebar__clickCatcher {
+//     flex: 1 1 auto;
+//   }
+
+//   .sidebar__content {
+//     @include sidebar-animation(-100vw);
+//     background: #fff;
+//   }
+
+//   .sidebar__clickCatcher {
+//     @include sidebar-animation(100vw);
+//     background: rgba(0, 0, 0, 0.5);
+//   }
+// }

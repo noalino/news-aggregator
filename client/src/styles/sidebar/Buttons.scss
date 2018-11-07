@@ -39,13 +39,13 @@
   }
 }
 
-@media screen and (max-width: 1440px) {
+@media screen and (min-width: 1025px) and (max-width: 1440px) {
   .buttons {
     top: 150px + 40px;
   }
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (min-width: 769px) and (max-width: 1024px) {
   .buttons {
     top: 125px + 40px;
   }
@@ -58,14 +58,16 @@
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 1px) and (max-width: 768px) {
   .buttons {
-    top: 100px + 40px;
+    position: relative;
+    width: 100%;
+    margin-top: 20px;
   }
   .bookmarks {
-    font-size: 0.7rem;
+    font-size: 1rem;
     & > i {
-      font-size: 0.9rem;
+      font-size: 1.2rem;
       margin: 1px 10px 0 0;
     }
   }

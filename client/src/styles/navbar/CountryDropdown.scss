@@ -5,7 +5,7 @@ $flag-size: 32px;
 
 .dropbtn {
   width: $width;
-  height: $nav-height;
+  height: 40px;
   background: transparent;
   border: none;
   display: flex;
@@ -48,4 +48,10 @@ $flag-size: 32px;
 .flag {
   width: $flag-size;
   height: $flag-size;
+}
+
+@media screen and (max-width: 768px) {
+  .dropbtn {
+    height: 35px;
+  }
 }

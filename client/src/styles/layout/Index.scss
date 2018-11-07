@@ -1,4 +1,12 @@
-@import '../helpers/layout', '../helpers/header', '../helpers/fonts';
+@import '../helpers/layout', '../helpers/colors', '../helpers/fonts';
+
+.header {
+  width: 100%;
+  background: $background-color;
+  color: $dark-font-color;
+  border-bottom: 3px $primary-color solid;
+  padding-bottom: 5px;
+}
 
 .title,
 .date {
@@ -20,25 +28,11 @@
   font-family: $date-font;
 }
 
-$breakpoints: (
-  1440px: 4rem,
-  1024px: 3.5rem,
-  768px: 3rem
-);
-
-@each $width, $size in $breakpoints {
-  @media screen and (max-width: $width) {
-    .title {
-      font-size: $size;
-    }
-    .date {
-      font-size: $size * 0.4;
-    }
+@media screen and (min-width: 1px) and (max-width: 768px) {
+  $size: 3rem;
+  .header {
+    height: 100px;
   }
-}
-
-@media screen and (min-width: 1441px) {
-  $size: 4rem;
   .title {
     font-size: $size;
   }
@@ -46,3 +40,52 @@ $breakpoints: (
     font-size: $size * 0.4;
   }
 }
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  $size: 3.5rem;
+  .header {
+    height: 125px;
+  }
+  .title {
+    font-size: $size;
+  }
+  .date {
+    font-size: $size * 0.4;
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1440px) {
+  $size: 4rem;
+  .header {
+    height: 150px;
+  }
+  .title {
+    font-size: $size;
+  }
+  .date {
+    font-size: $size * 0.4;
+  }
+}
+
+@media screen and (min-width: 1441px) {
+  $size: 4rem;
+  .header {
+    height: 150px;
+  }
+  .title {
+    font-size: $size;
+  }
+  .date {
+    font-size: $size * 0.4;
+  }
+}
+// @each $width, $size in $breakpoints {
+//   @media screen and (max-width: $width) {
+//     .title {
+//       font-size: $size;
+//     }
+//     .date {
+//       font-size: $size * 0.4;
+//     }
+//   }
+// }
