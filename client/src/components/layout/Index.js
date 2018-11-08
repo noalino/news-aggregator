@@ -59,7 +59,7 @@ class Index extends Component {
           <h1 className={styles.title}>Top Stories</h1>
           <p className={styles.date}>{moment(Date.now()).format('MMMM D, YYYY')}</p>
         </header>
-        <Sidebar />
+        <Sidebar view="index" />
         <Articles />
         <Footer />
       </div>

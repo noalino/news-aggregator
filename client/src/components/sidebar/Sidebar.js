@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Topics from './Topics';
 import Buttons from './Buttons';
 import styles from '../../styles/sidebar/Sidebar.scss';
@@ -7,7 +8,7 @@ class Sidebar extends Component {
   constructor() {
     super();
     this.state = {
-      isOpen: false,
+      isOpen: true,
     };
     this.timeOutId = null;
   }
@@ -31,15 +32,16 @@ class Sidebar extends Component {
 
   render() {
     const { isOpen } = this.state;
+    const { view } = this.props;
     /** SEE COUNTRYDROPDOWN TO CLOSE SIDEBAR ON CLICK OUTSIDE AREA */
     return (
-      <div className={styles.sidebar} open={isOpen}>
+      <div className={styles.sidebar} status={isOpen ? 'open' : 'close'}>
         <div
           className={styles.sidebar__content}
           onBlur={this.onBlurHandler}
           onFocus={this.onFocusHandler}
         >
-          <Topics />
+          <Topics view={view} />
           <Buttons />
         </div>
         <div
@@ -53,5 +55,9 @@ class Sidebar extends Component {
     );
   }
 }
+
+Sidebar.propTypes = {
+  view: PropTypes.string.isRequired,
+};
 
 export default Sidebar;

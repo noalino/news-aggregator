@@ -37,8 +37,10 @@ class App extends Component {
           <Navbar />
           <Switch>
             <Route exact path="/" render={() => <Redirect to="/general" />} />
-            <Route path="/login" render={props => <Login {...props} logAction="login" />} />
-            <Route path="/signup" render={props => <Login {...props} logAction="signup" />} />
+            {/* <Route path="/login" render={props => <Login {...props} logAction="login" />} />
+            <Route path="/signup" render={props => <Login {...props} logAction="signup" />} /> */}
+            <Route path="/login" render={() => <Login logAction="login" />} />
+            <Route path="/signup" render={() => <Login logAction="signup" />} />
             <Route path="/search" component={Search} />
             <PrivateRoute path="/bookmarks" component={Bookmarks} />
             <Route path="/:topic" component={Index} />

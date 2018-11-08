@@ -12,6 +12,10 @@ $border-color: #ddd;
   // align-items: flex-start;
   align-items: center;
 
+  &[view=search] {
+    display: none;
+  }
+
   h2 {
     color: $dark-font-color;
     font-family: 'Federo', sans-serif;
@@ -98,6 +102,9 @@ $border-color: #ddd;
     position: relative;
     width: 100%;
     margin-top: 10vh;
+    &[view=search] {
+      display: flex;
+    }
     & ul > li {
       margin: 0.3rem 0;
     }

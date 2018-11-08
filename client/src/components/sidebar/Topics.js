@@ -3,8 +3,8 @@ import { withRouter, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from '../../styles/sidebar/Topics.scss';
 
-const Topics = ({ topicsList, match: { params } }) => (
-  <div className={styles.topics}>
+const Topics = ({ topicsList, match: { params }, view }) => (
+  <div className={styles.topics} view={view}>
     <h2>Topics</h2>
     <ul>
       {topicsList.map(topic => (
@@ -62,6 +62,7 @@ Topics.defaultProps = {
 Topics.propTypes = {
   topicsList: PropTypes.instanceOf(Array),
   match: PropTypes.instanceOf(Object).isRequired,
+  view: PropTypes.string.isRequired,
 };
 
 export default withRouter(Topics);

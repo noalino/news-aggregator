@@ -15,6 +15,12 @@ body {
   background: $background-color;
 }
 
+@media screen and (max-width: 768px) {
+  * {
+    outline: none;
+  }
+}
+
 // .app {
 //   background: $background-color;
 // }

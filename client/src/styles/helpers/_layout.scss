@@ -1,7 +1,8 @@
 @import 'sizes', 'colors';
 
 .showcase {
-  max-width: $container-width;
+  // max-width: $container-width;
+  width: 100vw - 2 * 25vw;
   margin: 0 auto;
   margin-top: 40px;
   display: grid;
@@ -28,6 +29,7 @@
 
 @media screen and (max-width: 768px) {
   .showcase {
+    width: 75vw;
     margin-top: 35px;
   }
 }
