@@ -1,19 +1,7 @@
 @import '../helpers/sizes', '../helpers/colors';
 
-// @mixin sidebar-animation($from) {
-  // transform: translate3d($from, 0, 0);
-  // transition: transform 0.3s ease-in-out;
-// }
-
 .sidebar {
   position: fixed; // Avoid showcase to collapse
-  // width: $sidebar-width + 2 * $side-margin;
-  // top: $nav-height + $header-height;
-  // left: $side-margin;
-  // display: flex;
-  // flex-direction: column;
-  // align-items: center;
-  // top: 35px;
   left: 0;
   height: 100%;
   display: flex;
@@ -21,70 +9,106 @@
 }
 
 @media screen and (max-width: 768px) {
-  .sidebar[status=open] {
-    width: 100vw;
-    & .sidebar__content,
-    & .sidebar__clickCatcher {
-      display: block;
-      flex: 1 1 auto;
-      transform: translateY(0);
-    }
-    & .sidebar__content {
-      width: 45%;
-      min-width: 320px;
-      background: $background-color;
-    }
-    & .sidebar__clickCatcher {
-      height: 100%;
-      width: 100%;
-      background: rgba(0, 0, 0, 0.5);
-    }
+  .sidebar__content,
+  .sidebar__clickCatcher {
+    display: block;
+    // transition: transform 150ms ease-in-out;
   }
 
-  .sidebar[status=close] {
-    display: none;
-    & .sidebar__content,
-    & .sidebar__clickCatcher {
+  .sidebar__content {
+    width: 45%;
+    min-width: 320px;
+    background: $background-color;
+  }
+  
+  .sidebar__clickCatcher {
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  .sidebar {
+    width: 100vw;
+
+    &[state=entering] {
+      display: flex;
+      opacity: 0;
+
+      .sidebar__content {
+        transform: translateX(-100%);
+      }
+      .sidebar__clickCatcher {
+        transform: translateX(100%);
+      }
+    }
+
+    &[state=entered] {
+      .sidebar__content,
+      .sidebar__clickCatcher {
+        opacity: 1;
+        transform: translateX(0);
+        transition: transform 150ms ease-out;
+      }
+    }
+
+    &[state=exiting] {
+      .sidebar__content,
+      .sidebar__clickCatcher {
+        transition: transform 150ms ease-in;
+      }
+      .sidebar__content {
+        transform: translateX(-100%);
+      }
+      .sidebar__clickCatcher {
+        transform: translateX(100%);
+      }
+    }
+
+    &[state=exited] {
       display: none;
-    }
-    & .sidebar__content {
-      transform: translateY(-100vw);
-    }
-    & .sidebar__clickCatcher {
-      transform: translateY(100vw);
     }
   }
 }
 
-// @media screen and (max-width: 500px) {
-//   %sidebar-pos {
-//     width: 100vw;
-//   }
-
+// @media screen and (max-width: 768px) {
 //   .sidebar {
-//     @extend %sidebar-pos;
-//   }
-
-//   .sidebar[open=true] {
-//     @extend %sidebar-pos;
-//     .sidebar__content,
-//     .sidebar__clickCatcher {
-//       transform: translate3d(0, 0, 0);
+//     &[state=entering] {
+//       display: flex;
 //     }
-//   }
-
-//   .sidebar__content,
-//   .sidebar__clickCatcher {
-//     flex: 1 1 auto;
-//   }
-
-//   .sidebar__content {
-//     @include sidebar-animation(-100vw);
-//     background: #fff;
-//   }
-
-//   .sidebar__clickCatcher {
-//     @include sidebar-animation(100vw);
-//     background: rgba(0, 0, 0, 0.5);
+//     &[state=exited] {
+//       display: none;
+//     }
+//     & .sidebar__content,
+//     & .sidebar__clickCatcher {
+//       display: block;
+//       // flex: 1 1 auto;
+//       &[state=entering],
+//       &[state=exited] {
+//         opacity: 0;
+//       }
+//       &[state=entered],
+//       &[state=exiting] {
+//         opacity: 1;
+//         transform: translateX(0);
+//       }
+//     }
+//     & .sidebar__content {
+//       width: 45%;
+//       min-width: 320px;
+//       background: $background-color;
+//       &[state=entering],
+//       &[state=exited] {
+//         transform: translateX(-100vw);
+//       }
+//     }
+//     & .sidebar__clickCatcher {
+//       height: 100%;
+//       width: 100%;
+//       background: rgba(0, 0, 0, 0.5);
+//       &[state=entering],
+//       &[state=exited] {
+//         transform: translateX(100vw);
+//       }
+//     }
 //   }
 // }

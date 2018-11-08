@@ -10,3 +10,5 @@ export const AUTHENTICATE = 'AUTHENTICATE';
 export const REGISTER = 'REGISTER';
 export const LOGOUT = 'LOGOUT';
 export const RESET = 'RESET';
+
+export const TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR';

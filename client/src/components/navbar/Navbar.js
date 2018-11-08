@@ -3,13 +3,14 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { logOut } from '../../actions/userActions';
+import { toggleSidebar } from '../../actions/layoutActions';
 
 import SearchNav from './SearchNav';
 import CountryDropdown from './CountryDropdown';
 import styles from '../../styles/navbar/Navbar.scss';
 
 // eslint-disable-next-line no-shadow
-const Navbar = ({ isAuthenticate, logOut }) => (
+const Navbar = ({ isAuthenticate, logOut, toggleSidebar, sidebarOpen }) => (
   <nav id={styles.nav}>
     <ul>
       <div className={styles.navMenu}>
@@ -18,8 +19,8 @@ const Navbar = ({ isAuthenticate, logOut }) => (
           aria-label="menu button"
           role="menuitem"
           tabIndex="0"
-          // onClick={toggleSidebar}
-          // onKeyEnter={toggleSidebar}
+          onClick={() => toggleSidebar(!sidebarOpen)}
+          // onKeyUp={() => toggleSidebar(!sidebarOpen)}
         >
           <div />
           <div />
@@ -35,13 +36,11 @@ const Navbar = ({ isAuthenticate, logOut }) => (
             <Fragment>
               <li>
                 <Link to="/login">
-                  {/* <i className="fas fa-sign-in-alt" /> */}
                   Log in
                 </Link>
               </li>
               <li>
                 <Link to="/signup">
-                  {/* <i className="fas fa-sign-in-alt" /> */}
                   Sign up
                 </Link>
               </li>
@@ -49,7 +48,6 @@ const Navbar = ({ isAuthenticate, logOut }) => (
           ) : (
             <li>
               <button type="button" onClick={() => logOut()}>
-                {/* <i className="fas fa-sign-out-alt" /> */}
                 Log out
               </button>
             </li>
@@ -65,10 +63,13 @@ const Navbar = ({ isAuthenticate, logOut }) => (
 Navbar.propTypes = {
   logOut: PropTypes.func.isRequired,
   isAuthenticate: PropTypes.bool.isRequired,
+  sidebarOpen: PropTypes.bool.isRequired,
+  toggleSidebar: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   isAuthenticate: state.user.isAuthenticate,
+  sidebarOpen: state.layout.sidebarOpen,
 });
 
-export default connect(mapStateToProps, { logOut })(Navbar);
+export default connect(mapStateToProps, { logOut, toggleSidebar })(Navbar);
