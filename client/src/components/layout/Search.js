@@ -6,7 +6,7 @@ import { fetchArticles, searchArticles, fetchSources, resetArticles } from '../.
 import { getParams } from '../../_utils';
 
 import SearchForm from '../search/SearchForm';
-import Sidebar from '../sidebar/Sidebar';
+import Buttons from '../sidebar/Buttons';
 import Articles from '../articles/Articles';
 import Footer from './Footer';
 import styles from '../../styles/layout/Search.scss';
@@ -92,7 +92,7 @@ export class Search extends Component {
     return (
       <div className={styles.showcase}>
         <SearchForm key={search} optionsOpen={optionsOpen} toggleOptions={this.toggleOptions} />
-        <Sidebar view="search" />
+        <Buttons />
         <Articles />
         <Footer />
       </div>

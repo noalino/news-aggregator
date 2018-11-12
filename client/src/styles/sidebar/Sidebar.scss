@@ -1,11 +1,7 @@
 @import '../helpers/sizes', '../helpers/colors';
 
 .sidebar {
-  position: fixed; // Avoid showcase to collapse
-  left: 0;
-  height: 100%;
-  display: flex;
-  z-index: 2;
+  display: none;
 }
 
 @media screen and (max-width: 768px) {
@@ -28,10 +24,14 @@
   }
 
   .sidebar {
+    display: flex;
+    position: fixed; // Avoid showcase to collapse
+    left: 0;
     width: 100vw;
+    height: 100%;
+    z-index: 2;
 
     &[state=entering] {
-      display: flex;
       opacity: 0;
 
       .sidebar__content {

@@ -28,7 +28,7 @@ class Sidebar extends Component {
   }
 
   render() {
-    const { view, sidebarOpen } = this.props;
+    const { sidebarOpen } = this.props;
     return (
       <Transition in={sidebarOpen} timeout={150}>
         {state => (
@@ -38,8 +38,8 @@ class Sidebar extends Component {
               onBlur={this.onBlurHandler}
               onFocus={this.onFocusHandler}
             >
-              <Topics view={view} />
-              <Buttons />
+              <Topics sidebar />
+              <Buttons sidebar />
             </div>
             <div
               // role="button"
@@ -56,7 +56,6 @@ class Sidebar extends Component {
 }
 
 Sidebar.propTypes = {
-  view: PropTypes.string.isRequired,
   sidebarOpen: PropTypes.bool.isRequired,
   toggleSidebar: PropTypes.func.isRequired,
 };

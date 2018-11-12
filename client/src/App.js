@@ -8,6 +8,7 @@ import { authenticate, fetchBookmarks } from './actions/userActions';
 import PrivateRoute from './PrivateRoute';
 
 import Navbar from './components/navbar/Navbar';
+import Sidebar from './components/sidebar/Sidebar';
 import Index from './components/layout/Index';
 import Login from './components/layout/Login';
 import Search from './components/layout/Search'; // eslint-disable-line import/no-named-as-default
@@ -35,6 +36,7 @@ class App extends Component {
       <Router>
         <div className={styles.app}>
           <Navbar />
+          <Sidebar />
           <Switch>
             <Route exact path="/" render={() => <Redirect to="/general" />} />
             {/* <Route path="/login" render={props => <Login {...props} logAction="login" />} />

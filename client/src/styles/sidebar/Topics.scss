@@ -12,10 +12,6 @@ $border-color: #ddd;
   // align-items: flex-start;
   align-items: center;
 
-  &[view=search] {
-    display: none;
-  }
-
   h2 {
     color: $dark-font-color;
     font-family: 'Federo', sans-serif;
@@ -67,6 +63,15 @@ $border-color: #ddd;
   }
 }
 
+// .topics[sidebar=false] {
+//   .topic {
+//     &[active=true],
+//     &:hover {
+//       transform: scale(0.92);
+//     }
+//   }
+// }
+
 @media screen and (min-width: 1025px) {
   .topics {
     top: 150px + 40px;
@@ -98,13 +103,13 @@ $border-color: #ddd;
 }
 
 @media screen and (min-width: 1px) and (max-width: 768px) {
-  .topics {
+  .topics[sidebar=false] {
+    display: none;
+  }
+  .topics[sidebar=true] {
     position: relative;
     width: 100%;
     margin-top: 10vh;
-    &[view=search] {
-      display: flex;
-    }
     & ul > li {
       margin: 0.3rem 0;
     }

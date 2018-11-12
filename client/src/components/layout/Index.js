@@ -1,11 +1,12 @@
 /* eslint-disable no-shadow */
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { fetchArticles, getHeadlines, resetArticles } from '../../actions/articlesActions';
 
-import Sidebar from '../sidebar/Sidebar';
+import Topics from '../sidebar/Topics';
+import Buttons from '../sidebar/Buttons';
 import Articles from '../articles/Articles';
 import Footer from './Footer';
 import styles from '../../styles/layout/Index.scss';
@@ -54,15 +55,18 @@ class Index extends Component {
 
   render() {
     return (
-      <div className={styles.showcase}>
-        <header className={styles.header}>
-          <h1 className={styles.title}>Top Stories</h1>
-          <p className={styles.date}>{moment(Date.now()).format('MMMM D, YYYY')}</p>
-        </header>
-        <Sidebar view="index" />
-        <Articles />
-        <Footer />
-      </div>
+      <Fragment>
+        <Topics />
+        <Buttons />
+        <div className={styles.showcase}>
+          <header className={styles.header}>
+            <h1 className={styles.title}>Top Stories</h1>
+            <p className={styles.date}>{moment(Date.now()).format('MMMM D, YYYY')}</p>
+          </header>
+          <Articles />
+          <Footer />
+        </div>
+      </Fragment>
     );
   }
 }

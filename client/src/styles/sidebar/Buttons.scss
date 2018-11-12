@@ -60,9 +60,14 @@
 
 @media screen and (min-width: 1px) and (max-width: 768px) {
   .buttons {
-    position: relative;
-    width: 100%;
-    margin-top: 20px;
+    &[sidebar=false] {
+      display: none;
+    }
+    &[sidebar=true] {
+      position: relative;
+      width: 100%;
+      margin-top: 20px;
+    }
   }
   .bookmarks {
     font-size: 1rem;

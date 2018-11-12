@@ -1,6 +1,7 @@
 @import '../helpers/layout', '../helpers/colors', '../helpers/fonts';
 
 .header {
+  height: 100px;
   width: 100%;
   background: $background-color;
   color: $dark-font-color;
@@ -16,17 +17,28 @@
   }
 }
 
-@media screen and (min-width: 1px) and (max-width: 768px) {
-  $size: 3rem;
-  .header {
-    height: 100px;
-  }
+@media screen and (min-width: 1px) and (max-width: 400px) {
+  $size: 2rem;
   .header > h1 {
     font-size: $size;
   }
 }
 
-@media screen and (min-width: 768px) and (max-width: 1024px) {
+@media screen and (min-width: 401px) and (max-width: 500px) {
+  $size: 2.5rem;
+  .header > h1 {
+    font-size: $size;
+  }
+}
+
+@media screen and (min-width: 501px) and (max-width: 768px) {
+  $size: 3rem;
+  .header > h1 {
+    font-size: $size;
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
   $size: 3.5rem;
   .header {
     height: 125px;
@@ -36,7 +48,7 @@
   }
 }
 
-@media screen and (min-width: 1024px) and (max-width: 1440px) {
+@media screen and (min-width: 1025px) and (max-width: 1440px) {
   $size: 4rem;
   .header {
     height: 150px;

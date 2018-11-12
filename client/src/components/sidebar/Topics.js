@@ -3,13 +3,13 @@ import { withRouter, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from '../../styles/sidebar/Topics.scss';
 
-const Topics = ({ topicsList, match: { params }, view }) => (
-  <div className={styles.topics} view={view}>
+const Topics = ({ topicsList, match: { params }, sidebar }) => (
+  <div className={styles.topics} sidebar={`${sidebar}`}>
     <h2>Topics</h2>
     <ul>
       {topicsList.map(topic => (
         <li key={topic.name}>
-          <Link to={topic.name} className={styles.topic} active={params.topic === topic.name ? 'true' : 'false'}>
+          <Link to={topic.name} className={styles.topic} active={`${params.topic === topic.name}`}>
             <i className={topic.icon} style={{ color: topic.color }} />
             <h4>{topic.name}</h4>
           </Link>
@@ -20,6 +20,7 @@ const Topics = ({ topicsList, match: { params }, view }) => (
 );
 
 Topics.defaultProps = {
+  sidebar: false,
   topicsList: [
     {
       name: 'business',
@@ -62,7 +63,7 @@ Topics.defaultProps = {
 Topics.propTypes = {
   topicsList: PropTypes.instanceOf(Array),
   match: PropTypes.instanceOf(Object).isRequired,
-  view: PropTypes.string.isRequired,
+  sidebar: PropTypes.bool,
 };
 
 export default withRouter(Topics);
