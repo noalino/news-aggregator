@@ -20,64 +20,53 @@ class CountryDropdown extends Component {
     this.timeOutId = null;
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const { isOpen } = this.state;
-    if (isOpen && isOpen !== prevState.isOpen) {
-      document.addEventListener('keydown', this.keyNavigation);
-    } else if (!isOpen && isOpen !== prevState.isOpen) {
-      document.removeEventListener('keydown', this.keyNavigation);
-    }
-  }
-
-  triggerDropdown = (e) => {
-    e.preventDefault();
+  toggleDropdown = () => {
     this.setState(prevState => ({ isOpen: !prevState.isOpen }));
   }
 
   keyNavigation = (e) => {
-    const { activeElement } = document;
-    const firstItem = this.countryList.current.firstChild;
-    const lastItem = this.countryList.current.lastChild;
+    const { isOpen } = this.state;
 
-    switch (e.which) {
-      case 13: { // ENTER key
-        if (activeElement === this.toggleButton.current) {
-          this.triggerDropdown(e);
-        } else {
-          const { countries } = this.props;
-          const country = countries.find(item => item.code === activeElement.id);
-          this.handleClick(country, e);
-        }
-        break;
-      }
-      case 38: // UP arrow key
-        e.preventDefault();
-        // Stop script if focus on toggle element
-        if (activeElement === this.toggleButton.current) {
+    if (isOpen) {
+      const activeElement = e.target;
+      const { firstChild } = this.countryList.current;
+      const { lastChild } = this.countryList.current;
+
+      switch (e.which) {
+        case 13: { // ENTER key
+          if (activeElement !== this.toggleButton.current) {
+            const { countries } = this.props;
+            const country = countries.find(item => item.code === activeElement.id);
+            this.handleCountryClick(country);
+          }
           break;
-        } else if (activeElement === firstItem) {
-          lastItem.focus();
-        } else {
-          activeElement.previousSibling.focus();
         }
-        break;
-      case 40: // DOWN arrow key
-        e.preventDefault();
-        if (activeElement === this.toggleButton.current || activeElement === lastItem) {
-          firstItem.focus();
-        } else {
-          activeElement.nextSibling.focus();
-        }
-        break;
-      default:
-        break;
+        case 38: // UP arrow key
+          e.preventDefault();
+          if (activeElement === firstChild) {
+            lastChild.focus();
+          } else if (activeElement !== this.toggleButton.current) {
+            activeElement.previousSibling.focus();
+          }
+          break;
+        case 40: // DOWN arrow key
+          e.preventDefault();
+          if (activeElement === this.toggleButton.current || activeElement === lastChild) {
+            firstChild.focus();
+          } else {
+            activeElement.nextSibling.focus();
+          }
+          break;
+        default:
+          break;
+      }
     }
   }
 
-  handleClick = (country, e) => {
+  handleCountryClick = (country) => {
     const { changeCountry } = this.props; // eslint-disable-line no-shadow
     changeCountry(country);
-    this.triggerDropdown(e);
+    this.toggleDropdown();
   }
 
   // Close dropdown when not active
@@ -111,32 +100,31 @@ class CountryDropdown extends Component {
           type="button"
           ref={this.toggleButton}
           className={styles.dropbtn}
-          onClick={this.triggerDropdown}
+          onClick={this.toggleDropdown}
+          onKeyDown={this.keyNavigation}
           aria-haspopup="true"
           aria-expanded={isOpen}
         >
           <img className={styles.flag} src={this.getFlagImg(country.code)} alt={country.name} />
         </button>
 
-        {
-          isOpen && (
-            <ul className={styles.dropdownContent} ref={this.countryList}>
-              {countries.map(ctry => (
-                // eslint-disable-next-line
-                <li
-                  key={ctry.code}
-                  id={ctry.code}
-                  className={styles.country}
-                  tabIndex="0"
-                  onClick={this.handleClick.bind(this, ctry)}
-                >
-                  <img className={styles.flag} src={this.getFlagImg(ctry.code)} alt={ctry.name} />
-                </li>
-              ))}
-            </ul>
-          )
-        }
-
+        {isOpen && (
+          <ul className={styles.dropdownContent} ref={this.countryList}>
+            {countries.map(ctry => (
+              <li
+                key={ctry.code}
+                id={ctry.code}
+                className={styles.country}
+                role="menuitem"
+                tabIndex="0"
+                onClick={() => this.handleCountryClick(ctry)}
+                onKeyDown={this.keyNavigation}
+              >
+                <img className={styles.flag} src={this.getFlagImg(ctry.code)} alt={ctry.name} />
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     );
   }
