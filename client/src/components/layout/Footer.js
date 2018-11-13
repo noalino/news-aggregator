@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { searchNextArticles } from '../../actions/articlesActions';
 import { getParams } from '../../_utils';
 
+import styleGrid from '../../styles/helpers/_layout.scss';
 import styles from '../../styles/layout/Footer.scss';
 
 const Footer = ({ totalResults, searchNextArticles, location: { search }, ...args }) => {
@@ -14,7 +15,7 @@ const Footer = ({ totalResults, searchNextArticles, location: { search }, ...arg
   const results = articles.length;
 
   return (
-    <footer className={styles.footer}>
+    <footer className={`${styleGrid.footer} ${styles.footer}`}>
       {totalResults > (page * pageSize) && (
         <button type="button" onClick={() => searchNextArticles(searchArgs)}>
           {/* See more */}

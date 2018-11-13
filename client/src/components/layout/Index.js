@@ -9,6 +9,8 @@ import Topics from '../sidebar/Topics';
 import Buttons from '../sidebar/Buttons';
 import Articles from '../articles/Articles';
 import Footer from './Footer';
+
+import styleGrid from '../../styles/helpers/_layout.scss';
 import styles from '../../styles/layout/Index.scss';
 
 class Index extends Component {
@@ -56,16 +58,16 @@ class Index extends Component {
   render() {
     return (
       <Fragment>
-        <Topics />
-        <Buttons />
-        <div className={styles.showcase}>
-          <header className={styles.header}>
+        <div className={styleGrid.showcase}>
+          <header className={`${styleGrid.header} ${styles.header}`}>
             <h1 className={styles.title}>Top Stories</h1>
             <p className={styles.date}>{moment(Date.now()).format('MMMM D, YYYY')}</p>
           </header>
           <Articles />
           <Footer />
         </div>
+        <Topics />
+        <Buttons />
       </Fragment>
     );
   }

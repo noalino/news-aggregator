@@ -1,114 +1,95 @@
 @import '../helpers/sizes', '../helpers/colors';
 
+.sidebar__content,
+.sidebar__clickCatcher {
+  display: flex;
+  // transition: transform 150ms ease-in-out;
+}
+
+.sidebar__content {
+  position: relative;
+  top: -$nav-height;
+  min-width: 320px;
+  background: $background-color;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.sidebar__clickCatcher {
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
 .sidebar {
-  display: none;
-}
+  display: flex;
+  position: fixed; // Avoid showcase to collapse
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2;
 
-@media screen and (max-width: 768px) {
-  .sidebar__content,
-  .sidebar__clickCatcher {
-    display: block;
-    // transition: transform 150ms ease-in-out;
+  &[state=entering] {
+    opacity: 0;
+
+    .sidebar__content {
+      transform: translateX(-100%);
+    }
+
+    .sidebar__clickCatcher {
+      transform: translateX(100%);
+    }
   }
 
+  &[state=entered] {
+
+    .sidebar__content,
+    .sidebar__clickCatcher {
+      opacity: 1;
+      transform: translateX(0);
+      transition: transform 150ms ease-out;
+    }
+  }
+
+  &[state=exiting] {
+
+    .sidebar__content,
+    .sidebar__clickCatcher {
+      transition: transform 150ms ease-in;
+    }
+
+    .sidebar__content {
+      transform: translateX(-100%);
+    }
+
+    .sidebar__clickCatcher {
+      transform: translateX(100%);
+    }
+  }
+
+  &[state=exited] {
+    display: none;
+  }
+}
+
+@media screen and (orientation: portrait) {
+  $sidebar-width: 45%;
   .sidebar__content {
-    width: 45%;
-    min-width: 320px;
-    background: $background-color;
+    width: $sidebar-width;
   }
-  
   .sidebar__clickCatcher {
-    height: 100%;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.5);
-  }
-
-  .sidebar {
-    display: flex;
-    position: fixed; // Avoid showcase to collapse
-    left: 0;
-    width: 100vw;
-    height: 100%;
-    z-index: 2;
-
-    &[state=entering] {
-      opacity: 0;
-
-      .sidebar__content {
-        transform: translateX(-100%);
-      }
-      .sidebar__clickCatcher {
-        transform: translateX(100%);
-      }
-    }
-
-    &[state=entered] {
-      .sidebar__content,
-      .sidebar__clickCatcher {
-        opacity: 1;
-        transform: translateX(0);
-        transition: transform 150ms ease-out;
-      }
-    }
-
-    &[state=exiting] {
-      .sidebar__content,
-      .sidebar__clickCatcher {
-        transition: transform 150ms ease-in;
-      }
-      .sidebar__content {
-        transform: translateX(-100%);
-      }
-      .sidebar__clickCatcher {
-        transform: translateX(100%);
-      }
-    }
-
-    &[state=exited] {
-      display: none;
-    }
+    width: 100% - $sidebar-width;
   }
 }
 
-// @media screen and (max-width: 768px) {
-//   .sidebar {
-//     &[state=entering] {
-//       display: flex;
-//     }
-//     &[state=exited] {
-//       display: none;
-//     }
-//     & .sidebar__content,
-//     & .sidebar__clickCatcher {
-//       display: block;
-//       // flex: 1 1 auto;
-//       &[state=entering],
-//       &[state=exited] {
-//         opacity: 0;
-//       }
-//       &[state=entered],
-//       &[state=exiting] {
-//         opacity: 1;
-//         transform: translateX(0);
-//       }
-//     }
-//     & .sidebar__content {
-//       width: 45%;
-//       min-width: 320px;
-//       background: $background-color;
-//       &[state=entering],
-//       &[state=exited] {
-//         transform: translateX(-100vw);
-//       }
-//     }
-//     & .sidebar__clickCatcher {
-//       height: 100%;
-//       width: 100%;
-//       background: rgba(0, 0, 0, 0.5);
-//       &[state=entering],
-//       &[state=exited] {
-//         transform: translateX(100vw);
-//       }
-//     }
-//   }
-// }
+@media screen and (orientation: landscape) {
+  .sidebar__content {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .sidebar {
+    display: none;
+  }
+}

@@ -9,13 +9,12 @@ import SearchForm from '../search/SearchForm';
 import Buttons from '../sidebar/Buttons';
 import Articles from '../articles/Articles';
 import Footer from './Footer';
-import styles from '../../styles/layout/Search.scss';
+
+import styleGrid from '../../styles/helpers/_layout.scss';
 
 // 'export' for test purposes (not connected to Redux store)
 export class Search extends Component {
-  state = {
-    optionsOpen: false,
-  };
+  state = { optionsOpen: false };
 
   componentDidMount() {
     const {
@@ -90,7 +89,7 @@ export class Search extends Component {
     const { optionsOpen } = this.state;
     const { location: { search } } = this.props;
     return (
-      <div className={styles.showcase}>
+      <div className={styleGrid.showcase}>
         <SearchForm key={search} optionsOpen={optionsOpen} toggleOptions={this.toggleOptions} />
         <Buttons />
         <Articles />

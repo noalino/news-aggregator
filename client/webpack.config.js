@@ -40,10 +40,9 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/, // /^(?!.*\.test\.js$).*\.js$/ to exclude *.test.js files (doesn't change bundle size)
+        test: /\.js$/,
         use: [
           'babel-loader',
-          // 'eslint-loader',
         ],
         exclude: path.resolve(__dirname, 'node_modules'),
         include: path.resolve(__dirname, 'src'),
@@ -81,13 +80,6 @@ module.exports = {
           },
         ],
       },
-      // {
-      //   test: /\.svg$/,
-      //   loader: 'svg-sprite-loader',
-      //   options: {
-      //     publicPath: 'images/'
-      //   }
-      // }
     ],
   },
   devServer: {
@@ -96,7 +88,7 @@ module.exports = {
   plugins: [
     htmlPlugin,
     cssPlugin,
-    // syncPlugin,
+    syncPlugin,
     cleanPlugin,
     DotenvPlugin,
   ],

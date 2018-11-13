@@ -151,12 +151,8 @@ input:-webkit-autofill {
     input {
       display: none;
     }
-    button {
-      width: 35px;
-      height: 35px;
-      & > i {
-        font-size: 1.2rem;
-      }
+    button > i {
+      font-size: 1.2rem;      
     }
   }
   .search {

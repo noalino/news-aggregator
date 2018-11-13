@@ -1,11 +1,12 @@
-@import '../helpers/sizes', '../helpers/colors';
+@import '../helpers/colors';
 
-$width: 3.5rem;
+$width: 50px;
+$nav-height: 40px;
 $flag-size: 32px;
 
 .dropbtn {
   width: $width;
-  height: 40px;
+  height: $nav-height;
   background: transparent;
   border: none;
   display: flex;
@@ -14,7 +15,7 @@ $flag-size: 32px;
   margin: 0;
   padding: 0;
   outline: none;
-  // cursor: pointer;
+  cursor: pointer;
 
   &:focus {
     background: $background-color;
@@ -48,10 +49,4 @@ $flag-size: 32px;
 .flag {
   width: $flag-size;
   height: $flag-size;
-}
-
-@media screen and (max-width: 768px) {
-  .dropbtn {
-    height: 35px;
-  }
 }

@@ -12,9 +12,7 @@ import styles from '../../styles/navbar/CountryDropdown.scss';
 class CountryDropdown extends Component {
   constructor() {
     super();
-    this.state = {
-      isOpen: false,
-    };
+    this.state = { isOpen: false };
     this.toggleButton = React.createRef();
     this.countryList = React.createRef();
     this.timeOutId = null;

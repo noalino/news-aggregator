@@ -1,13 +1,9 @@
-@import 'sizes', 'colors';
-
 .showcase {
-  // max-width: $container-width;
-  width: 100vw - 2 * 25vw;
+  width: 75vw;
   margin: 0 auto;
   margin-top: 40px;
   display: grid;
   grid-template-columns: 100%;
-  // grid-template-rows: $header-height repeat(2, auto);
   grid-template-rows: repeat(3, auto);
   grid-template-areas:
     "header"
@@ -27,9 +23,8 @@
   grid-area: footer;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 769px) {
   .showcase {
-    width: 75vw;
-    margin-top: 35px;
+    width: 100vw - 2 * 25vw;
   }
 }

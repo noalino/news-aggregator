@@ -1,7 +1,13 @@
-@import '../helpers/layout', '../helpers/colors', '../helpers/fonts';
+@import '../helpers/sizes', '../helpers/colors', '../helpers/fonts';
+
+$font-size: 3rem;
+$font-size-breakpoints: (
+  769px: 3.5em,
+  1025px: 4rem,
+);
 
 .header {
-  height: 100px;
+  height: $header-height;
   width: 100%;
   background: $background-color;
   color: $dark-font-color;
@@ -19,71 +25,31 @@
   align-items: center;
   height: 75%;
   font-family: $header-font;
-  // font-size: 4rem;
+  font-size: $font-size;
 }
 
 .date {
   align-items: flex-start;
   height: 25%;
-  // font-size: 1.5rem;
+  font-size: $font-size * 0.4;
   font-family: $date-font;
 }
 
-@media screen and (min-width: 1px) and (max-width: 768px) {
-  $size: 3rem;
-  .title {
-    font-size: $size;
-  }
-  .date {
-    font-size: $size * 0.4;
+@each $width, $height in $header-height-breakpoints {
+  @media screen and (min-width: $width) {
+    .header {
+      height: $height;
+    }
   }
 }
 
-@media screen and (min-width: 769px) and (max-width: 1024px) {
-  $size: 3.5rem;
-  .header {
-    height: 125px;
-  }
-  .title {
-    font-size: $size;
-  }
-  .date {
-    font-size: $size * 0.4;
+@each $width, $size in $font-size-breakpoints {
+  @media screen and (min-width: $width) {
+    .title {
+      font-size: $size;
+    }
+    .date {
+      font-size: $size * 0.4;
+    }
   }
 }
-
-@media screen and (min-width: 1025px) and (max-width: 1440px) {
-  $size: 4rem;
-  .header {
-    height: 150px;
-  }
-  .title {
-    font-size: $size;
-  }
-  .date {
-    font-size: $size * 0.4;
-  }
-}
-
-@media screen and (min-width: 1441px) {
-  $size: 4rem;
-  .header {
-    height: 150px;
-  }
-  .title {
-    font-size: $size;
-  }
-  .date {
-    font-size: $size * 0.4;
-  }
-}
-// @each $width, $size in $breakpoints {
-//   @media screen and (max-width: $width) {
-//     .title {
-//       font-size: $size;
-//     }
-//     .date {
-//       font-size: $size * 0.4;
-//     }
-//   }
-// }

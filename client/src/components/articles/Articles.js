@@ -6,6 +6,8 @@ import { getParams } from '../../_utils';
 
 import Loader from '../loader/Loader';
 import Article from './Article';
+
+import styleGrid from '../../styles/helpers/_layout.scss';
 import styles from '../../styles/articles/Articles.scss';
 
 const Articles = ({ articles, isLoading, totalResults, pageSize, location, error, errMessage }) => {
@@ -16,7 +18,7 @@ const Articles = ({ articles, isLoading, totalResults, pageSize, location, error
   if (query && totalResults === 0 && !isLoading) return null;
 
   return (
-    <div className={styles.container}>
+    <div className={`${styleGrid.container} ${styles.container}`}>
       {isLoading ? (
         <Loader pageSize={pageSize} />
       ) : (

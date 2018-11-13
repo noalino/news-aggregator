@@ -33,22 +33,7 @@
   }
 }
 
-@media screen and (min-width: 1441px) {
-  .buttons {
-    top: 150px + 40px;
-  }
-}
-
-@media screen and (min-width: 1025px) and (max-width: 1440px) {
-  .buttons {
-    top: 150px + 40px;
-  }
-}
-
 @media screen and (min-width: 769px) and (max-width: 1024px) {
-  .buttons {
-    top: 125px + 40px;
-  }
   .bookmarks {
     font-size: 0.8rem;
     & > i {
@@ -74,6 +59,14 @@
     & > i {
       font-size: 1.2rem;
       margin: 1px 10px 0 0;
+    }
+  }
+}
+
+@each $width, $header-height in $header-height-breakpoints {
+  @media screen and (min-width: $width) {
+    .buttons {
+      top: $header-height + $nav-height;
     }
   }
 }
