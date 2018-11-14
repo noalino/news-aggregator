@@ -1,4 +1,4 @@
-@import '../helpers/sizes', '../helpers/colors';
+@import '../helpers/colors';
 
 .loginForm {
   width: 70%;
@@ -8,7 +8,7 @@
   flex-direction: column;
 
   & > button {
-    height: $field-height;
+    height: 50px;
     font-size: 1.5rem;
     color: #fff;
     background: $action-color;

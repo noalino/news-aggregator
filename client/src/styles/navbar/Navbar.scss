@@ -2,7 +2,7 @@
 
 %links {
   font-family: $nav-font;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: #fff;
   padding: 0 0.5rem;
 }
@@ -11,8 +11,7 @@
   position: fixed;
   top: 0;
   width: 100vw;
-  // height: $nav-height;
-  height: 40px;
+  height: $nav-height;
   background: $primary-color;
   display: flex;
   align-items: center;
@@ -49,7 +48,7 @@
   align-items: center;
 
   & li {
-    margin: 0 0.8rem;
+    margin: 0 0.2rem;
 
     &:first-child {
       margin-left: 0;
@@ -68,37 +67,42 @@
 }
 
 #menu {
-  display: none;
+  display: block;
+  padding: 9px;
+  cursor: pointer;
+
+  & > div {
+    width: 25px;
+    height: 2px;
+    background-color: #fff;
+    border-radius: 2px;
+
+    &:nth-child(2) {
+      margin: 5px 0;
+    }
+  }
 }
 
 #logo {
-  font-size: 1.5rem;
-  text-transform: uppercase;
-  // padding: 0;
+  display: none;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 769px) {
   %links {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
   }
+
   .navActions li {
-    margin: 0 0.2rem;
+    margin: 0 0.8rem;
   }
+
   #logo {
-    display: none;
+    display: inline-block;
+    font-size: 1.5rem;
+    text-transform: uppercase;
   }
+
   #menu {
-    display: block;
-    padding: 9px;
-    cursor: pointer;
-    & > div {
-      width: 25px;
-      height: 2px;
-      background-color: #fff;
-      border-radius: 2px;
-      &:nth-child(2) {
-        margin: 5px 0;
-      }
-    }
+    display: none;
   }
 }

@@ -6,6 +6,8 @@ import { displayBookmarks, resetArticles } from '../../actions/articlesActions';
 
 import Articles from '../articles/Articles';
 import Footer from './Footer';
+
+import styleGrid from '../../styles/helpers/_layout.scss';
 import styles from '../../styles/layout/Bookmarks.scss';
 
 class Bookmarks extends Component {
@@ -29,8 +31,8 @@ class Bookmarks extends Component {
 
   render() {
     return (
-      <div className={styles.showcase}>
-        <div className={styles.header}>
+      <div className={styleGrid.showcase}>
+        <div className={`${styleGrid.header} ${styles.header}`}>
           <h1>My Bookmarks</h1>
         </div>
         <Articles />

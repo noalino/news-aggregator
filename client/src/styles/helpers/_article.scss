@@ -1,5 +1,7 @@
 .article {
   width: 100%;
+  padding: 10px 14px;
+  margin-bottom: 7px;
   border: none;
   box-shadow: 0 2px 15px 0 lightgrey;
   
@@ -9,6 +11,7 @@
   grid-template-areas:
     "title bookmark"
     "info .";
+  grid-gap: 0.1rem;
 
   & i {
     grid-area: bookmark;
@@ -23,28 +26,17 @@
   grid-area: info;
 }
 
-.source,
-.date {
-  display: inline;
+@media screen and (min-width: 769px) {
+  .article {
+    padding: 12px 16px;
+    margin-bottom: 9px;
+    grid-gap: 0.2rem;
+  }
 }
 
 @media screen and (min-width: 1025px) {
   .article {
     padding: 15px 20px;
     grid-gap: 0.3rem;
-  }
-}
-
-@media screen and (max-width: 1024px) {
-  .article {
-    padding: 12px 16px;
-    grid-gap: 0.2rem;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .article {
-    padding: 10px 14px;
-    grid-gap: 0.1rem;
   }
 }

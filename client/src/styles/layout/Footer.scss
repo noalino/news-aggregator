@@ -13,6 +13,7 @@
     cursor: pointer;
     
     & > i {
+      font-size: 1.2rem;
       color: $dark-font-color;
     }
     
@@ -26,23 +27,13 @@
 
   & > p {
     font-family: $nav-font;
+    font-size: 0.8rem;
     color: $dark-font-color;
     margin: 10px 0;
     text-align: center;
 
     & > a {
       color: $dark-font-color;
-    }
-  }
-}
-
-@media screen and (max-width: 1024px) {
-  .footer {
-    & > button > i {
-      font-size: 1.2rem;
-    }
-    & > p {
-      font-size: 0.8rem;
     }
   }
 }

@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import { addBookmark, deleteBookmark } from '../../actions/userActions';
 
+import styleGrid from '../../styles/helpers/_article.scss';
 import styles from '../../styles/articles/Article.scss';
 
 class Article extends Component {
@@ -43,14 +44,14 @@ class Article extends Component {
     return (
       <Transition in={animation} timeout={150}>
         {state => (
-          <article className={styles.article} state={state}>
-            <a className={styles.title} href={url} target="_blank" rel="noreferrer noopener">
+          <article className={`${styleGrid.article} ${styles.article}`} state={state}>
+            <a className={`${styleGrid.title} ${styles.title}`} href={url} target="_blank" rel="noreferrer noopener">
               <h4>{title}</h4>
             </a>
             <button type="button" onClick={this.updateBookmarks}>
               <i className={`${isBookmark ? 'fas' : 'far'} fa-bookmark`} />
             </button>
-            <div className={styles.info}>
+            <div className={`${styleGrid.info} ${styles.info}`}>
               <p className={styles.source}>{source.name}</p>
               {' - '}
               <p className={styles.date}>{moment(publishedAt).fromNow()}</p>

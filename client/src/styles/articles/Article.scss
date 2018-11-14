@@ -1,4 +1,4 @@
-@import '../helpers/article', '../helpers/colors', '../helpers/fonts';
+@import '../helpers/colors', '../helpers/fonts';
 
 .article {
   transition: transform 150ms ease-out,
@@ -14,6 +14,7 @@
   }
 
   & > button {
+    font-size: 1rem;
     justify-self: end;
     align-self: flex-start;
     background: transparent;
@@ -28,6 +29,7 @@
 
 .title {
   font-family: $article-title-font;
+  font-size: 1rem;
   color: $dark-font-color;
   text-decoration: none;
 
@@ -38,8 +40,10 @@
 
 .source,
 .date {
+  display: inline;
   color: $dark-font-color;
   font-family: $article-source-font;
+  font-size: 0.6rem;
 }
 
 .source {
@@ -51,20 +55,7 @@
   font-weight: 300;
 }
 
-@media screen and (min-width: 1025px) {
-  .article > button {
-    font-size: 1.5rem;
-  }
-  .title {
-    font-size: 1.5rem;
-  }
-  .source,
-  .date {
-    font-size: 1rem;
-  }
-}
-
-@media screen and (max-width: 1024px) {
+@media screen and (min-width: 769px) {
   .article > button {
     font-size: 1.2rem;
   }
@@ -77,15 +68,15 @@
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 1025px) {
   .article > button {
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
   .title {
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
   .source,
   .date {
-    font-size: 0.6rem;
+    font-size: 1rem;
   }
 }
