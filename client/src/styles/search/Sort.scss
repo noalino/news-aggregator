@@ -1,7 +1,7 @@
 @import '../helpers/sizes', '../helpers/fonts', '../helpers/colors', '../helpers/selectDropdown';
 
 .sort {
-  // height: $sort-height;
+  height: $header-height * 0.25;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -48,5 +48,14 @@
   .sort > p,
   .sort label > p {
     font-size: 0.8rem;
+  }
+}
+
+@each $width, $height in $header-height-breakpoints {
+  @media screen and (min-width: $width) {
+    $min-height: $height - $header-padding - $header-border-size;
+    .sort {
+      height: $min-height * 0.25;
+    }
   }
 }

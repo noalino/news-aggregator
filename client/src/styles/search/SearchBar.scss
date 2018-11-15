@@ -1,58 +1,36 @@
 @import '../helpers/sizes', '../helpers/colors', '../helpers/fonts';
 
-input:-webkit-autofill {
-  box-shadow: 0 0 0px 1000px #fff inset;
-}
+$input-height: 35px;
+$input-height-breakpoints: (
+  769px: 40px,
+  1025px: 45px,
+  // 1600px: 50px,
+);
 
-.nav {
-  display: flex;
-
-  input {
-    align-self: center;
-    color: $dark-font-color;
-    font-size: 0.9rem;
-    width: 170px;
-    padding: 4px 6px;
-    margin-right: 8px;
-    border: none;
-    border-radius: 2px;
-
-    &::placeholder {
-      font-family: $placeholder-font;
-    }
-  }
-
-  button {
-    height: 40px;
-    width: 40px;
-    background: transparent;
-    border: none;
-    outline: none;
-    cursor: pointer;
-
-    i {
-      color: #fff;
-      font-size: 1.5rem;
-    }
-
-    &:focus {
-      background: $background-color;
-
-      & i {
-        color: $primary-color;
-      }
-    }
-  }
-}
+$font-size: 1rem;
+$font-size-breakpoints: (
+  769px: 1.2rem,
+  1025px: 1.4rem,
+  // 1600px: 1.5rem,
+);
 
 .search {
+  height: $header-height * 0.5;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
   display: flex;
-  justify-content: center;
   align-items: flex-end;
-  padding-top: 10px;
   
-  input {
-    width: 60%;
+  & > input,
+  & > button {
+    height: $input-height;
+  }
+
+  & > input {
+    width: 100%;
+    font-size: $font-size;
+    padding-left: 8px;
     color: $dark-font-color;
     border: 1px solid lightgrey;
     border-right: none;
@@ -64,114 +42,71 @@ input:-webkit-autofill {
     }
   }
 
-  button {
+  & > button {
+    width: $input-height;
     background: $primary-color;
     border: none;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
     cursor: pointer;
 
-    i {
+    & > i {
+      font-size: $font-size;
       color: #fff;
     }
   }
 }
 
-@media screen and (min-width: 1600px) {
+@media screen and (min-width: 769px) {
   .search {
-
-    input,
-    button {
-      height: 45px;
-    }
-
-    input {
-      font-size: 1.5rem;
-      padding-left: 15px;
-    }
-
-    button {
-      width: 50px;
-
-      i {
-        font-size: 1.5rem;
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 1599px) {
-  .search {
-
-    input,
-    button {
-      height: 40px;
-    }
-
-    input {
-      font-size: 1.4rem;
-      padding-left: 12px;
-    }
-
-    button {
-      width: 45px;
-
-      i {
-        font-size: 1.4rem;
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 1024px) {
-  .search {
-
-    input,
-    button {
-      height: 35px;
-    }
-
-    input {
-      font-size: 1.2rem;
+    max-width: 400px;
+    & > input {
       padding-left: 10px;
     }
+  }
+}
 
-    button {
-      width: 40px;
+@media screen and (min-width: 1025px) {
+  .search > input {
+    padding-left: 12px;
+  }
+}
 
-      i {
-        font-size: 1.2rem;
+// @media screen and (min-width: 1600px) {
+//   .search > input {
+//     padding-left: 15px;
+//   }
+// }
+
+@each $width, $height in $header-height-breakpoints {
+  @media screen and (min-width: $width) {
+    $min-height: $height - $header-padding - $header-border-size;
+    .search {
+      height: $min-height * 0.5;
+    }
+  }
+}
+
+@each $width, $height in $input-height-breakpoints {
+  @media screen and (min-width: $width) {
+    .search {
+      & > input,
+      & > button {
+        height: $height;
+      }
+      & > button {
+        width: $height;
       }
     }
   }
 }
 
-@media screen and (max-width: 768px) {
-  .nav {
-    input {
-      display: none;
-    }
-    button > i {
-      font-size: 1.2rem;      
-    }
-  }
-  .search {
-
-    input,
-    button {
-      height: 30px;
-    }
-
-    input {
-      font-size: 1rem;
-      padding-left: 8px;
-    }
-
-    button {
-      width: 35px;
-
-      i {
-        font-size: 1rem;
+@each $width, $size in $font-size-breakpoints {
+  @media screen and (min-width: $width) {
+    .search {
+      & > input,
+      & > button > i {
+        font-size: $size;
       }
     }
   }

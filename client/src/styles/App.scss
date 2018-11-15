@@ -15,6 +15,11 @@ body {
   background: $background-color;
 }
 
+/* REMOVE YELLOW BACKGROUND ON AUTOCOMPLETE */
+input:-webkit-autofill {
+  box-shadow: 0 0 0px 1000px #fff inset;
+}
+
 @media screen and (max-width: 768px) {
   * {
     outline: none;

@@ -28,7 +28,7 @@ class SearchNav extends Component {
     const { query } = this.state;
     return (
       <form onSubmit={this.redirectToSearch}>
-        <SearchBar className="nav" query={query} onChange={this.handleInputChange} />
+        <SearchBar parent="nav" query={query} onChange={this.handleInputChange} />
       </form>
     );
   }

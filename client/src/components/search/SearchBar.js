@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import styles from '../../styles/search/SearchBar.scss';
+import stylesNav from '../../styles/navbar/SearchNav.scss';
+import stylesSearch from '../../styles/search/SearchBar.scss';
 
-const SearchBar = ({ query, onChange, className }) => (
-  <div className={styles[className]}>
+const SearchBar = ({ query, onChange, parent }) => (
+  <div className={parent === 'search' ? stylesSearch.search : stylesNav.search}>
     <input
       type="text"
       name="query"
@@ -27,7 +28,7 @@ SearchBar.defaultProps = {
 SearchBar.propTypes = {
   query: PropTypes.string,
   onChange: PropTypes.func.isRequired,
-  className: PropTypes.string.isRequired,
+  parent: PropTypes.string.isRequired,
 };
 
 export default SearchBar;

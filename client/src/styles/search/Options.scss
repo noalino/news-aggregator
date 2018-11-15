@@ -7,9 +7,8 @@
 }
 
 .container {
+  height: $header-height * 0.25;
   width: 100%;
-  // height: $options-height;
-  padding: 10px 0;
   flex-direction: column;
   justify-content: space-between;
 }
@@ -121,5 +120,14 @@
   }
   .optionsBtn {
     font-size: 0.7rem;
+  }
+}
+
+@each $width, $height in $header-height-breakpoints {
+  @media screen and (min-width: $width) {
+    $min-height: $height - $header-padding - $header-border-size;
+    .optionsBtn {
+      height: $min-height * 0.25;
+    }
   }
 }

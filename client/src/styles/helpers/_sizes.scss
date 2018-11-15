@@ -1,8 +1,11 @@
-/* LAYOUT */
+/* NAV */
 $nav-height: 40px;
 
+/* HEADER */
 $header-height: 100px;
 $header-height-breakpoints: (
   769px: 120px,
   1025px: 140px,
 );
+$header-padding: 5px;
+$header-border-size: 3px;

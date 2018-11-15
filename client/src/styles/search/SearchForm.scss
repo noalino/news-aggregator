@@ -1,9 +1,9 @@
-@import '../helpers/colors', '../helpers/fonts';
+@import '../helpers/sizes', '../helpers/colors', '../helpers/fonts';
 
 .header {
   width: 100%;
   background: $background-color;
   color: $dark-font-color;
-  border-bottom: 3px $primary-color solid;
-  padding-bottom: 5px;
+  border-bottom: $header-border-size $primary-color solid;
+  padding-bottom: $header-padding;
 }

@@ -60,7 +60,7 @@ class SearchForm extends Component {
     return (
       <form className={styles.header} role="search" onSubmit={this.onSubmit}>
         <SearchBar
-          className="search"
+          parent="search"
           query={query}
           onChange={this.handleInputChange}
         />

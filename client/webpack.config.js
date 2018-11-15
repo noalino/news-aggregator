@@ -88,7 +88,7 @@ module.exports = {
   plugins: [
     htmlPlugin,
     cssPlugin,
-    syncPlugin,
+    // syncPlugin,
     cleanPlugin,
     DotenvPlugin,
   ],
