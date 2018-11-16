@@ -6,7 +6,7 @@
   box-shadow: 0 2px 15px 0 lightgrey;
   
   display: grid;
-  grid-template-columns: auto 5%;
+  grid-template-columns: auto 10%;
   grid-template-rows: repeat(2, auto);
   grid-template-areas:
     "title bookmark"

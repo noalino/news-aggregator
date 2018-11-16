@@ -7,7 +7,7 @@ export const getParams = url => (
     Object.assign(...url.slice(1).split('&')
       .map(param => param.split('='))
       .map(([key, value]) => (
-        { [key === 'q' ? 'query' : key]: value }
+        { [key === 'q' ? 'query' : key]: decodeURIComponent(value) }
       )))
   ) : {}
 );

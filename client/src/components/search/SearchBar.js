@@ -14,6 +14,7 @@ const SearchBar = ({ query, onChange, parent }) => (
       aria-label="Search articles"
       value={query}
       onChange={onChange}
+      // autoFocus // eslint-disable-line
     />
     <button type="submit">
       <i className="fas fa-search" />

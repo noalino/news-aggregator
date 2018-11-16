@@ -16,16 +16,14 @@ const Sort = ({ totalResults, onChange, location: { search } }) => {
         {message}
         <strong>{query}</strong>
       </p>
-      <div>
-        <label htmlFor="sorting">
-          <p>Sort by:</p>
-          <select name="sortBy" id="sorting" className={styles.select} value={options.sortBy} onChange={onChange}>
-            <option value="date">Date</option>
-            <option value="relevancy">Relevancy</option>
-            <option value="popularity">Popularity</option>
-          </select>
-        </label>
-      </div>
+      <label htmlFor="sorting">
+        <p>Sort by:</p>
+        <select name="sortBy" id="sorting" className={styles.select} value={options.sortBy} onChange={onChange}>
+          <option value="date">Date</option>
+          <option value="relevancy">Relevancy</option>
+          <option value="popularity">Popularity</option>
+        </select>
+      </label>
     </div>
   );
 };

@@ -1,16 +1,33 @@
-@import '../helpers/sizes', '../helpers/fonts', '../helpers/colors', '../helpers/selectDropdown';
+@import '../helpers/breakpoints',
+        '../helpers/sizes',
+        '../helpers/fonts',
+        '../helpers/colors',
+        '../helpers/selectDropdown';
+
+$font-size-breakpoints: (
+  $sm: 0.6rem,
+  $md: 0.7rem,
+  $lg: 0.8rem,
+  $xl: 0.9rem,
+  $xxl: 1.2rem,
+);
 
 .sort {
-  height: $header-height * 0.25;
+  // Set min-height to let height adjust dynamically if query takes multiple lines
+  min-height: $header-height * 0.25;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   font-family: $options-font;
   color: $dark-font-color;
 
-  & label {
+  & > label {
+    width: 40%;
+    /* To change when font-size is set, to avoid wrapping */
+    // min-width: 125px; // To change on media queries
+    // max-width: 180px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
   
     & > p {
@@ -23,39 +40,22 @@
   @extend %selectDropdown;
 }
 
-@media screen and (min-width: 1600px) {
-  .sort > p,
-  .sort label > p {
-    font-size: 1rem;
-  }
-}
-
-@media screen and (max-width: 1599px) {
-  .sort > p,
-  .sort label > p {
-    font-size: 0.9rem;
-  }
-}
-
-// @media screen and (max-width: 1024px) {
-//   .sort > p,
-//   .sort label > p {
-//     font-size: 0.7rem;
-//   }
-// }
-
-@media screen and (max-width: 768px) {
-  .sort > p,
-  .sort label > p {
-    font-size: 0.8rem;
-  }
-}
-
 @each $width, $height in $header-height-breakpoints {
   @media screen and (min-width: $width) {
     $min-height: $height - $header-padding - $header-border-size;
     .sort {
-      height: $min-height * 0.25;
+      min-height: $min-height * 0.25;
+    }
+  }
+}
+
+@each $breakpoint, $size in $font-size-breakpoints {
+  @media screen and (min-width: nth($breakpoint, 1)) and (max-width: nth($breakpoint, 2)) {
+    .sort {
+      & > p,
+      & > label > p {
+        font-size: $size;
+      }
     }
   }
 }
