@@ -4,12 +4,10 @@
         '../helpers/colors',
         '../helpers/selectDropdown';
 
+$font-size: 0.8rem;
 $font-size-breakpoints: (
-  $sm: 0.6rem,
-  $md: 0.7rem,
-  $lg: 0.8rem,
   $xl: 0.9rem,
-  $xxl: 1.2rem,
+  $xxl: 1rem,
 );
 
 .sort {
@@ -21,16 +19,19 @@ $font-size-breakpoints: (
   font-family: $options-font;
   color: $dark-font-color;
 
+  & > p {
+    font-size: $font-size;
+  }
+
   & > label {
-    width: 40%;
-    /* To change when font-size is set, to avoid wrapping */
-    // min-width: 125px; // To change on media queries
-    // max-width: 180px;
+    margin-left: 10px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
   
     & > p {
+      white-space: nowrap;
+      font-size: $font-size;
       margin-right: 0.2rem;
     }
   }

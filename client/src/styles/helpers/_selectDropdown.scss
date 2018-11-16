@@ -1,16 +1,15 @@
 @import 'breakpoints', 'fonts', 'colors';
 
+$font-size: 0.7rem;
 $font-size-breakpoints: (
-  $sm: 0.6rem,
-  $md: 0.7rem,
-  $lg: 0.8rem,
-  $xl: 0.9rem,
-  $xxl: 1.2rem,
+  $xl: 0.8rem,
+  $xxl: 0.9rem,
 );
 
 %selectDropdown {
-  height: 1rem;
-  font-size: 0.6rem;
+  height: $font-size + 0.4rem;
+  padding: 0 0.2rem;
+  font-size: $font-size;
   font-family: $nav-font;
   color: $dark-font-color;
   background: transparent;
@@ -21,25 +20,11 @@ $font-size-breakpoints: (
   cursor: pointer;
 }
 
-// @media screen and (min-width: 769px) {
-//   %selectDropdown {
-//     height: 1.2rem;
-//     font-size: 0.7rem;
-//   }
-// }
-
-// @media screen and (min-width: 1600px) {
-//   %selectDropdown {
-//     height: 1.3rem;
-//     font-size: 0.8rem;
-//   }
-// }
-
 @each $breakpoint, $size in $font-size-breakpoints {
   @media screen and (min-width: nth($breakpoint, 1)) and (max-width: nth($breakpoint, 2)) {
     %selectDropdown {
-      height: $size;
-      font-size: $size - 0.4rem;
+      height: $size + 0.4rem;
+      font-size: $size;
     }
   }
 }
