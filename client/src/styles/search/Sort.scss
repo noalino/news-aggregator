@@ -4,15 +4,15 @@
         '../helpers/colors',
         '../helpers/selectDropdown';
 
-$font-size: 0.8rem;
+$font-size: 0.9rem;
 $font-size-breakpoints: (
-  $xl: 0.9rem,
-  $xxl: 1rem,
+  $xl: 1rem,
+  $xxl: 1.1rem,
 );
 
 .sort {
   // Set min-height to let height adjust dynamically if query takes multiple lines
-  min-height: $header-height * 0.25;
+  min-height: $min-height * $sort-size;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -45,7 +45,7 @@ $font-size-breakpoints: (
   @media screen and (min-width: $width) {
     $min-height: $height - $header-padding - $header-border-size;
     .sort {
-      min-height: $min-height * 0.25;
+      min-height: $min-height * $sort-size;
     }
   }
 }

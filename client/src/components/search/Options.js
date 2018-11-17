@@ -1,56 +1,86 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import DatePicker from 'react-datepicker';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { minSearchDate, dateFormat } from '../../_utils';
 
 import styles from '../../styles/search/Options.scss';
+import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 
-const Options = ({ onChange, sources, options, optionsOpen, toggleOptions, resetOptions }) => {
+const Options = ({
+  onChange,
+  onDateChange,
+  sources,
+  options,
+  optionsOpen,
+  toggleOptions,
+  resetOptions,
+}) => {
   const { from, to, source } = options;
   return (
     <div className={styles.container}>
       <button type="button" className={styles.optionsBtn} onClick={toggleOptions}>
         Advanced Search
       </button>
-      {optionsOpen && (
+      {(optionsOpen || true) && (
         <div className={styles.options}>
-          <div>
-            <label htmlFor="from">
-              <p>From:</p>
-              <input
-                type="date"
-                name="from"
-                id="from"
-                value={from}
-                // ONE MONTH AGO (FROM NEWSAPI DEV REQUIREMENTS)
-                min={moment().subtract(1, 'months').format('YYYY-MM-DD')}
-                max={to || moment().format('YYYY-MM-DD')}
-                onChange={onChange}
-              />
-            </label>
-            <label htmlFor="to">
-              <p>To:</p>
-              <input
-                type="date"
-                name="to"
-                id="to"
-                value={to}
-                min={from || moment().subtract(1, 'months').format('YYYY-MM-DD')}
-                max={moment().format('YYYY-MM-DD')}
-                onChange={onChange}
-              />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="source">
-              <p>Source:</p>
-              <select name="source" id="source" value={source} onChange={onChange}>
-                <option value="">All</option>
-                {sources.map(src => <option key={src.id} value={src.id}>{src.name}</option>)}
-              </select>
-            </label>
-            <button type="button" onClick={resetOptions}>Reset</button>
-          </div>
+          <label htmlFor="from">
+            <p>From:</p>
+            {/* <input
+              type="date"
+              name="from"
+              id="from"
+              value={from}
+              min={minSearchDate.format('YYYY-MM-DD')}
+              max={to || moment().format('YYYY-MM-DD')}
+              onChange={onChange}
+            /> */}
+            <DatePicker
+              // id="from"
+              // name="from"
+              className={styles.date}
+              selected={from}
+              onChange={date => onDateChange('from', date)}
+              dateFormat={dateFormat}
+              minDate={minSearchDate}
+              maxDate={to || moment()}
+              showDisabledMonthNavigation
+              placeholderText={`${minSearchDate.format(dateFormat)}`}
+            />
+          </label>
+          <label htmlFor="to">
+            <p>To:</p>
+            {/* <input
+              type="date"
+              name="to"
+              id="to"
+              value={to}
+              min={from || minSearchDate.format('YYYY-MM-DD')}
+              max={moment().format('YYYY-MM-DD')}
+              onChange={onChange}
+            /> */}
+            <DatePicker
+              // id="to"
+              // name="to"
+              className={styles.date}
+              selected={to}
+              onChange={date => onDateChange('to', date)}
+              dateFormat={dateFormat}
+              minDate={from || minSearchDate}
+              maxDate={moment()}
+              showDisabledMonthNavigation
+              placeholderText={`${moment().format(dateFormat)}`}
+            />
+          </label>
+          <label htmlFor="source">
+            <p>Source:</p>
+            <select name="source" id="source" value={source} onChange={onChange}>
+              <option value="">All</option>
+              {sources.map(src => <option key={src.id} value={src.id}>{src.name}</option>)}
+            </select>
+          </label>
+          <button type="button" onClick={resetOptions}>Reset</button>
         </div>
       )}
     </div>
@@ -59,6 +89,7 @@ const Options = ({ onChange, sources, options, optionsOpen, toggleOptions, reset
 
 Options.propTypes = {
   onChange: PropTypes.func.isRequired,
+  onDateChange: PropTypes.func.isRequired,
   sources: PropTypes.instanceOf(Array).isRequired,
   options: PropTypes.instanceOf(Object).isRequired,
   optionsOpen: PropTypes.bool.isRequired,

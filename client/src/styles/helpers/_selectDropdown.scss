@@ -7,6 +7,7 @@ $font-size-breakpoints: (
 );
 
 %selectDropdown {
+  max-width: 125px;
   height: $font-size + 0.4rem;
   padding: 0 0.2rem;
   font-size: $font-size;

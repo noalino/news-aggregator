@@ -12,21 +12,15 @@ class SearchForm extends Component {
   constructor(props) {
     super(props);
     const { location: { search } } = this.props;
-    const { query, from, to, source, sortBy } = getParams(search);
     // Initialize query & options from URL
-    this.state = {
-      query: query || '',
-      from: from || '',
-      to: to || '',
-      source: source || '',
-      sortBy: sortBy || 'date',
-    };
+    // const { query, from, to, source, sortBy } = getParams(search);
+    this.state = { ...getParams(search) };
   }
 
   resetOptions = () => {
     this.setState({
-      from: '',
-      to: '',
+      from: null,
+      to: null,
       source: '',
     });
   }
@@ -40,6 +34,10 @@ class SearchForm extends Component {
         history.replace(`${location.pathname}?${setSearchParams(this.state)}`);
       }
     });
+  }
+
+  handleDateChange = (name, date) => {
+    this.setState({ [name]: date });
   }
 
   onSubmit = (e) => {
@@ -67,6 +65,7 @@ class SearchForm extends Component {
         <Options
           options={options}
           onChange={this.handleInputChange}
+          onDateChange={this.handleDateChange}
           optionsOpen={optionsOpen}
           toggleOptions={toggleOptions}
           resetOptions={this.resetOptions}

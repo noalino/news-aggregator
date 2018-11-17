@@ -1,14 +1,60 @@
+import moment from 'moment';
+
+export const dateFormat = 'YYYY/MM/DD';
+
+// ONE MONTH AGO (FROM NEWSAPI DEV REQUIREMENTS)
+export const minSearchDate = moment().subtract(1, 'months');
+
 /*
   Transform url string | '?q=test&sortBy=date' |
   to object            | { query: test, sortBy: date } |
 */
+
+// export const getParams = url => (
+//   url ? (
+//     Object.assign(...url.slice(1).split('&')
+//       .map(param => param.split('='))
+//       .map(([key, value]) => (
+//         { [key === 'q' ? 'query' : key]: decodeURIComponent(value) }
+//       )))
+//   ) : {}
+// );
+
+// export const getParams = url => (
+//   url ? (
+//     Object.assign(...url.slice(1).split('&')
+//       .map(param => param.split('='))
+//       .map(([key, value]) => {
+//         if (key === 'from' || key === 'to') {
+//           const valueFromURL = value && moment(value, 'YYYY-MM-DD').isValid() ? moment(value) : null;
+//           return { [key]: valueFromURL };
+//         }
+//         return (
+//           { [key === 'q' ? 'query' : key]: decodeURIComponent(value) }
+//         );
+//       }))
+//   ) : {}
+// );
+
 export const getParams = url => (
   url ? (
     Object.assign(...url.slice(1).split('&')
       .map(param => param.split('='))
-      .map(([key, value]) => (
-        { [key === 'q' ? 'query' : key]: decodeURIComponent(value) }
-      )))
+      .map(([keyURL, valueURL]) => {
+        const key = keyURL === 'q' ? 'query' : keyURL;
+        const value = valueURL ? decodeURIComponent(valueURL) : '';
+
+        if (key === 'from' || key === 'to') {
+          return ({
+            [key]: value && moment(value, 'YYYY-MM-DD').isValid() ? moment(value) : null,
+          });
+        }
+        // if (key === 'sortBy') {
+        //   console.log('value', value);
+        //   return { [key]: value || 'date' };
+        // }
+        return { [key]: value };
+      }))
   ) : {}
 );
 
@@ -16,13 +62,42 @@ export const getParams = url => (
   Transform object | { query: test, sortBy: date } |
   to url string    | '?q=test&sortBy=date' |
 */
+// export const setSearchParams = params => (
+//   Object.entries(params)
+//     .map((param) => {
+//       const paramURL = (param[0] === 'from' || param[0] === 'to') ? (
+//         param[1].format('YYYY-MM-DD')
+//       ) : (
+//         param[1]
+//       );
+
+//       return (
+//         paramURL ? (
+//           `${param[0] === 'query' ? 'q' : param[0]}=${encodeURIComponent(paramURL.trim())}`
+//         ) : ''
+//       );
+//     })
+//     .filter(param => param !== '')
+//     .join('&')
+// );
+
 export const setSearchParams = params => (
   Object.entries(params)
-    .map(param => (
-      param[1] ? (
-        `${param[0] === 'query' ? 'q' : param[0]}=${encodeURIComponent(param[1])}`
-      ) : ''
-    ))
+    .map(([key, value]) => {
+      let paramURL;
+      if (value) {
+        if (key === 'from' || key === 'to') {
+          paramURL = value.format('YYYY-MM-DD');
+        } else {
+          paramURL = value.trim();
+        }
+      }
+      return (
+        paramURL ? (
+          `${key === 'query' ? 'q' : key}=${encodeURIComponent(paramURL.trim())}`
+        ) : ''
+      );
+    })
     .filter(param => param !== '')
     .join('&')
 );

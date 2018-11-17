@@ -11,3 +11,9 @@ $header-height-breakpoints: (
 );
 $header-padding: 5px;
 $header-border-size: 3px;
+$min-height: $header-height - $header-padding - $header-border-size;
+
+/* SEARCH FORM */
+$search-size: 0.5;
+$options-size: 0.25;
+$sort-size: 0.25;
