@@ -9,33 +9,6 @@ export const minSearchDate = moment().subtract(1, 'months');
   Transform url string | '?q=test&sortBy=date' |
   to object            | { query: test, sortBy: date } |
 */
-
-// export const getParams = url => (
-//   url ? (
-//     Object.assign(...url.slice(1).split('&')
-//       .map(param => param.split('='))
-//       .map(([key, value]) => (
-//         { [key === 'q' ? 'query' : key]: decodeURIComponent(value) }
-//       )))
-//   ) : {}
-// );
-
-// export const getParams = url => (
-//   url ? (
-//     Object.assign(...url.slice(1).split('&')
-//       .map(param => param.split('='))
-//       .map(([key, value]) => {
-//         if (key === 'from' || key === 'to') {
-//           const valueFromURL = value && moment(value, 'YYYY-MM-DD').isValid() ? moment(value) : null;
-//           return { [key]: valueFromURL };
-//         }
-//         return (
-//           { [key === 'q' ? 'query' : key]: decodeURIComponent(value) }
-//         );
-//       }))
-//   ) : {}
-// );
-
 export const getParams = url => (
   url ? (
     Object.assign(...url.slice(1).split('&')
@@ -49,10 +22,6 @@ export const getParams = url => (
             [key]: value && moment(value, 'YYYY-MM-DD').isValid() ? moment(value) : null,
           });
         }
-        // if (key === 'sortBy') {
-        //   console.log('value', value);
-        //   return { [key]: value || 'date' };
-        // }
         return { [key]: value };
       }))
   ) : {}
@@ -62,25 +31,6 @@ export const getParams = url => (
   Transform object | { query: test, sortBy: date } |
   to url string    | '?q=test&sortBy=date' |
 */
-// export const setSearchParams = params => (
-//   Object.entries(params)
-//     .map((param) => {
-//       const paramURL = (param[0] === 'from' || param[0] === 'to') ? (
-//         param[1].format('YYYY-MM-DD')
-//       ) : (
-//         param[1]
-//       );
-
-//       return (
-//         paramURL ? (
-//           `${param[0] === 'query' ? 'q' : param[0]}=${encodeURIComponent(paramURL.trim())}`
-//         ) : ''
-//       );
-//     })
-//     .filter(param => param !== '')
-//     .join('&')
-// );
-
 export const setSearchParams = params => (
   Object.entries(params)
     .map(([key, value]) => {

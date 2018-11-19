@@ -1,14 +1,14 @@
 @import '../helpers/sizes', '../helpers/colors', '../helpers/fonts';
 
-$button-width: 13%;
+$button-width: 15%;
 
-$input-height: 35px;
+$input-height: 40px;
 $input-height-breakpoints: (
   769px: 40px,
   1025px: 45px,
 );
 
-$font-size: 1rem;
+$font-size: 1.1rem;
 $font-size-breakpoints: (
   769px: 1.2rem,
   1025px: 1.4rem,
@@ -16,10 +16,10 @@ $font-size-breakpoints: (
 
 .search {
   position: relative;
-  height: $min-height * $search-size;
+  // height: $min-height * $search-size;
   width: 100%;
   max-width: 300px;
-  margin: 0 auto;
+  margin: 15px auto 0;
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -74,28 +74,29 @@ $font-size-breakpoints: (
 }
 
 @media screen and (min-width: 769px) {
-  $blur-width: 10px;
+  // $blur-width: 10px;
   .search {
     max-width: 400px;
+    margin: 0 auto;
     & > input {
       padding-left: 7px;
     }
-    &:after {
-      width: $blur-width;
-    }
+    // &:after {
+    //   width: $blur-width;
+    // }
   }
 }
 
 @media screen and (min-width: 1025px) {
-  $blur-width: 12px;
+  // $blur-width: 12px;
   .search {
     max-width: 450px;
     & > input {
       padding-left: 8px;
     }
-    &:after {
-      width: $blur-width;
-    }
+    // &:after {
+    //   width: $blur-width;
+    // }
   }
 }
 
@@ -115,9 +116,9 @@ $font-size-breakpoints: (
       & > button {
         height: $height;
       }
-      &:after {
-        height: $height - 2px;
-      }
+      // &:after {
+      //   height: $height - 2px;
+      // }
     }
   }
 }

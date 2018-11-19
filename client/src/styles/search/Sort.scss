@@ -4,7 +4,7 @@
         '../helpers/colors',
         '../helpers/selectDropdown';
 
-$font-size: 0.9rem;
+$font-size: 1rem;
 $font-size-breakpoints: (
   $xl: 1rem,
   $xxl: 1.1rem,
@@ -14,17 +14,22 @@ $font-size-breakpoints: (
   // Set min-height to let height adjust dynamically if query takes multiple lines
   min-height: $min-height * $sort-size;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+  flex-direction: column-reverse;
+  // justify-content: space-between;
+  // align-items: flex-end;
+  justify-content: flex-end;
+  align-items: flex-start;
+  // flex-wrap: wrap-reverse;
   font-family: $options-font;
   color: $dark-font-color;
 
   & > p {
     font-size: $font-size;
+    margin-top: 0.3rem;
   }
 
   & > label {
-    margin-left: 10px;
+    // margin-left: 10px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -40,6 +45,8 @@ $font-size-breakpoints: (
 .select {
   @extend %selectDropdown;
 }
+
+// @media screen and (min-width: )
 
 @each $width, $height in $header-height-breakpoints {
   @media screen and (min-width: $width) {

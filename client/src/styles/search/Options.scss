@@ -1,6 +1,6 @@
 @import '../helpers/breakpoints', '../helpers/sizes', '../helpers/fonts', '../helpers/colors', '../helpers/selectDropdown';
 
-$font-size: 0.9rem;
+$font-size: 1rem;
 $font-size-breakpoints: (
   $xl: 1rem,
   $xxl: 1.1rem,
@@ -30,24 +30,26 @@ $font-size-breakpoints: (
   font-family: $options-font;
   font-size: $font-size;
   color: $dark-font-color;
-  margin: 7px 0;
+  margin-bottom: 10px;
 
   & > label {
-    margin: 0.1rem 0 0;
+    margin: 0.5rem 0 0;
 
     & > p {
       display: inline-block;
       width: $font-size * 4;
+      text-align: right;
+      margin-right: 0.2rem;
     }
   
-    & > input[type=date] {
-      height: 1.1rem;
-      font-family: $nav-font;
-      font-size: $font-size - 0.1rem;
-      padding-left: 3px;
-      border: 1px solid $primary-color;
-      border-radius: 5px;
-    }
+    // & > input[type=date] {
+      // height: 1.1rem;
+      // font-family: $nav-font;
+      // font-size: $font-size - 0.1rem;
+      // padding-left: 3px;
+      // border: 1px solid $primary-color;
+      // border-radius: 5px;
+    // }
   
     & > select {
       @extend %selectDropdown;
@@ -68,19 +70,27 @@ $font-size-breakpoints: (
   }
 }
 
-// .date {
-//   display: none;
-// }
+.date {
+  // display: none;
+  max-width: 125px;
+  height: 1.3rem;
+  font-family: $nav-font;
+  font-size: 0.9rem;
+  padding-left: 3px;
+  border: 1px solid $primary-color;
+  border-radius: 5px;
+}
 
 .optionsBtn {
-  height: $min-height * $options-size * 0.8;
+  // height: $min-height * $options-size * 0.8;
   font-family: $nav-font;
-  font-size: $font-size;
+  font-size: $font-size - 0.1rem;
   font-style: italic;
   color: $dark-font-color;
   background: transparent;
-  padding: 0 10px;
-  margin: ($min-height * $options-size * 0.2 / 2) 0;
+  padding: 8px 10px;
+  // margin: ($min-height * $options-size * 0.2 / 2) 0;
+  margin: 2px 0 5px;
   border: none;
   cursor: pointer;
 }
@@ -94,7 +104,6 @@ $font-size-breakpoints: (
 
       & > p {
         width: auto;
-        margin-right: 0.2rem;
       }
     }
 
@@ -105,15 +114,18 @@ $font-size-breakpoints: (
   }
 }
 
-// @media screen and (min-width: 769px) {
-//   .options input[type=date] {
-//     display: none;
-//   }
+@media screen and (min-width: 769px) {
+  .optionsBtn {
+    padding: 0;
+  }
+  // .options input[type=date] {
+  //   display: none;
+  // }
 
-//   .date {
-//     display: block;
-//   }
-// }
+  // .date {
+  //   display: block;
+  // }
+}
 
 @each $breakpoint, $size in $font-size-breakpoints {
   @media screen and (min-width: nth($breakpoint, 1)) and (max-width: nth($breakpoint, 2)) {
@@ -125,9 +137,9 @@ $font-size-breakpoints: (
           width: $size * 4;
         }
 
-        & > input[type=date] {
-          font-size: $size - 0.1rem;
-        }
+        // & > input[type=date] {
+        //   font-size: $size - 0.1rem;
+        // }
       }
 
       & > button {
@@ -136,7 +148,7 @@ $font-size-breakpoints: (
     }
 
     .optionsBtn {
-      font-size: $size;
+      font-size: $size - 0.1rem;
     }
   }
 }
