@@ -16,7 +16,6 @@ $font-size-breakpoints: (
 
 .search {
   position: relative;
-  // height: $min-height * $search-size;
   width: 100%;
   max-width: 300px;
   margin: 15px auto 0;
@@ -46,10 +45,12 @@ $font-size-breakpoints: (
   & > input {
     flex: 0 0 (100% - $button-width);
     font-size: $font-size;
-    padding: 0 2px 0 6px;
+    padding: 0 2px 0 8px;
     color: $dark-font-color;
     border: 1px solid lightgrey;
     border-right: none;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
 
@@ -79,7 +80,7 @@ $font-size-breakpoints: (
     max-width: 400px;
     margin: 0 auto;
     & > input {
-      padding-left: 7px;
+      padding-left: 9px;
     }
     // &:after {
     //   width: $blur-width;
@@ -92,7 +93,7 @@ $font-size-breakpoints: (
   .search {
     max-width: 450px;
     & > input {
-      padding-left: 8px;
+      padding-left: 10px;
     }
     // &:after {
     //   width: $blur-width;
@@ -100,6 +101,7 @@ $font-size-breakpoints: (
   }
 }
 
+/* Set height to match Buttons position from top */
 @each $width, $height in $header-height-breakpoints {
   @media screen and (min-width: $width) {
     $min-height: $height - $header-padding - $header-border-size;

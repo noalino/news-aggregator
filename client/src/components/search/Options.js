@@ -23,22 +23,12 @@ const Options = ({
       <button type="button" className={styles.optionsBtn} onClick={toggleOptions}>
         Advanced Search
       </button>
-      {(optionsOpen) && (
+      {optionsOpen && (
         <div className={styles.options}>
           <label htmlFor="from">
             <p>From:</p>
-            {/* <input
-              type="date"
-              name="from"
-              id="from"
-              value={from.format('YYYY-MM-DD')}
-              min={minSearchDate.format('YYYY-MM-DD')}
-              max={to.format('YYYY-MM-DD') || moment().format('YYYY-MM-DD')}
-              onChange={({ target }) => onDateChange('from', moment(target.value))}
-            /> */}
             <DatePicker
-              // id="from"
-              // name="from"
+              id="from"
               className={styles.date}
               selected={from}
               onChange={date => onDateChange('from', date)}
@@ -51,18 +41,8 @@ const Options = ({
           </label>
           <label htmlFor="to">
             <p>To:</p>
-            {/* <input
-              type="date"
-              name="to"
-              id="to"
-              value={to.format('YYYY-MM-DD')}
-              min={from.format('YYYY-MM-DD') || minSearchDate.format('YYYY-MM-DD')}
-              max={moment().format('YYYY-MM-DD')}
-              onChange={({ target }) => onDateChange('to', moment(target.value))}
-            /> */}
             <DatePicker
-              // id="to"
-              // name="to"
+              id="to"
               className={styles.date}
               selected={to}
               onChange={date => onDateChange('to', date)}

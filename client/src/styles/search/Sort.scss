@@ -11,15 +11,10 @@ $font-size-breakpoints: (
 );
 
 .sort {
-  // Set min-height to let height adjust dynamically if query takes multiple lines
-  min-height: $min-height * $sort-size;
   display: flex;
   flex-direction: column-reverse;
-  // justify-content: space-between;
-  // align-items: flex-end;
   justify-content: flex-end;
   align-items: flex-start;
-  // flex-wrap: wrap-reverse;
   font-family: $options-font;
   color: $dark-font-color;
 
@@ -29,7 +24,6 @@ $font-size-breakpoints: (
   }
 
   & > label {
-    // margin-left: 10px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -46,8 +40,20 @@ $font-size-breakpoints: (
   @extend %selectDropdown;
 }
 
-// @media screen and (min-width: )
+@media screen and (min-width: 550px) {
+  .sort {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
 
+    & > label {
+      margin-left: 10px;
+    }
+  }
+}
+
+/* Set height to match Buttons position from top
+   Set min-height to let height adjust dynamically if query takes multiple lines */
 @each $width, $height in $header-height-breakpoints {
   @media screen and (min-width: $width) {
     $min-height: $height - $header-padding - $header-border-size;
