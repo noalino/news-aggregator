@@ -1,15 +1,12 @@
-@import 'fonts', 'colors';
+@import 'sizes', 'fonts', 'colors';
 
 $font-size: 0.9rem;
-// $height: $font-size + 0.4rem;
-$height: 22px;
-$arrow-width: 22px;
 
 %selectDropdown {
   position: relative;
   appearance: none;
-  height: $height;
-  padding: 1px ($arrow-width + 2px) 1px 5px;
+  height: $search-input-height;
+  padding: 1px ($search-input-height + 2px) 1px 5px;
   font-size: $font-size;
   font-family: $nav-font;
   color: $dark-font-color;
@@ -30,7 +27,7 @@ $arrow-width: 22px;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: $arrow-width;
+  width: $search-input-height; // To make it square
   font-size: $font-size - 0.3rem;
   color: #fff;
   background: $primary-color;

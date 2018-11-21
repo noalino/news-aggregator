@@ -22,20 +22,6 @@ $font-size-breakpoints: (
   display: flex;
   justify-content: center;
   align-items: flex-end;
-
-  // &:after {
-  //   $blur-width: 8px;
-  //   content: "";
-  //   display: block;
-  //   position: absolute;
-  //   bottom: 1px;
-  //   right: $button-width + 1%; // +1%: to avoid hiding input outline
-  //   // right: $button-width;
-  //   height: $input-height - 2px; // -2px: input borders
-  //   width: $blur-width;
-  //   background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #fff 100%);
-  //   pointer-events: none;
-  // }
   
   & > input,
   & > button {
@@ -75,29 +61,23 @@ $font-size-breakpoints: (
 }
 
 @media screen and (min-width: 769px) {
-  // $blur-width: 10px;
   .search {
     max-width: 400px;
     margin: 0 auto;
+
     & > input {
       padding-left: 9px;
     }
-    // &:after {
-    //   width: $blur-width;
-    // }
   }
 }
 
 @media screen and (min-width: 1025px) {
-  // $blur-width: 12px;
   .search {
     max-width: 450px;
+
     & > input {
       padding-left: 10px;
     }
-    // &:after {
-    //   width: $blur-width;
-    // }
   }
 }
 
@@ -118,9 +98,6 @@ $font-size-breakpoints: (
       & > button {
         height: $height;
       }
-      // &:after {
-      //   height: $height - 2px;
-      // }
     }
   }
 }

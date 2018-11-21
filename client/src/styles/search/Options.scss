@@ -1,15 +1,6 @@
-@import '../helpers/breakpoints', '../helpers/sizes', '../helpers/fonts', '../helpers/colors', '../helpers/selectDropdown';
+@import '../helpers/sizes', '../helpers/fonts', '../helpers/colors', '../helpers/selectDropdown';
 
 $font-size: 1rem;
-$font-size-breakpoints: (
-  $xl: 1rem,
-  $xxl: 1.1rem,
-);
-
-/* Remove native date picker on desktops */
-// ::-webkit-calendar-picker-indicator {
-//   display: none;
-// }
 
 .container {
   width: 100%;
@@ -27,7 +18,7 @@ $font-size-breakpoints: (
   margin: 5px 0 10px;
   display: grid;
   grid-template-columns: auto 80px auto;
-  grid-template-rows: repeat(3, 22px) 30px;
+  grid-template-rows: repeat(3, $search-input-height) 30px;
   grid-template-areas:
     "from from from"
     "to to to"
@@ -107,7 +98,7 @@ $font-size-breakpoints: (
 @media screen and (min-width: 550px) and (max-width: 768px) {
   .options {
     grid-template-columns: repeat(2, auto);
-    grid-template-rows: 22px 30px;
+    grid-template-rows: $search-input-height 30px;
     grid-template-areas:
     "from source"
     "to reset";
@@ -127,14 +118,29 @@ $font-size-breakpoints: (
 @media screen and (min-width: 900px) {
   .options {
     grid-template-columns: repeat(2, auto);
-    grid-template-rows: 22px 30px;
+    grid-template-rows: $search-input-height 30px;
     grid-template-areas:
-      "from source"
-      "to reset";
+    "from source"
+    "to reset";
 
     & > button {
       margin: 0 50px;
     }
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  $font-size: 1.1rem;
+  .options {
+    font-size: $font-size;
+
+    & > button {
+      font-size: $font-size;
+    }
+  }
+
+  .optionsBtn {
+    font-size: $font-size - 0.1rem;
   }
 }
 
@@ -143,7 +149,7 @@ $font-size-breakpoints: (
     width: 85%;
     max-width: 700px;
     grid-template-columns: repeat(4, auto);
-    grid-template-rows: 22px;
+    grid-template-rows: $search-input-height;
     grid-template-areas:
       "from to source reset";
 
@@ -153,22 +159,6 @@ $font-size-breakpoints: (
 
     & > button {
       margin: 0;
-    }
-  }
-}
-
-@each $breakpoint, $size in $font-size-breakpoints {
-  @media screen and (min-width: nth($breakpoint, 1)) and (max-width: nth($breakpoint, 2)) {
-    .options {
-      font-size: $size;
-
-      & > button {
-        font-size: $size;
-      }
-    }
-
-    .optionsBtn {
-      font-size: $size - 0.1rem;
     }
   }
 }
