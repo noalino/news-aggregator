@@ -20,22 +20,27 @@ $font-size-breakpoints: (
 }
 
 .options {
+  max-width: 100%;
   font-family: $options-font;
   font-size: $font-size;
   color: $dark-font-color;
   margin: 5px 0 10px;
   display: grid;
   grid-template-columns: auto 80px auto;
-  grid-template-rows: repeat(3, auto) 30px;
+  grid-template-rows: repeat(3, 22px) 30px;
   grid-template-areas:
     "from from from"
     "to to to"
     "source source source"
     ". reset .";
   grid-gap: 0.5rem;
+  overflow: hidden;
 
   & > label {
+    max-width: 100%;
     align-self: center;
+    justify-self: center;
+    white-space: nowrap;
 
     &[for=from] {
       grid-area: from;
@@ -47,11 +52,16 @@ $font-size-breakpoints: (
 
     &[for=source] {
       grid-area: source;
+      position: relative;
+
+      &:after {
+        @extend %select-arrow;
+      }
     }
 
     & > p {
       display: inline-block;
-      width: $font-size * 4;
+      width: 65px;
       text-align: right;
       margin-right: 0.2rem;
     }
@@ -59,6 +69,15 @@ $font-size-breakpoints: (
     & > select,
     .date {
       @extend %selectDropdown;
+    }
+
+    & > select {
+      max-width: 170px;
+    }
+
+    & .date {
+      max-width: 95px;
+      padding-right: 0;
     }
   }
 
@@ -87,8 +106,8 @@ $font-size-breakpoints: (
 
 @media screen and (min-width: 550px) and (max-width: 768px) {
   .options {
-    grid-template-columns: repeat(2, 50%);
-    grid-template-rows: auto 30px;
+    grid-template-columns: repeat(2, auto);
+    grid-template-rows: 22px 30px;
     grid-template-areas:
     "from source"
     "to reset";
@@ -107,8 +126,8 @@ $font-size-breakpoints: (
 
 @media screen and (min-width: 900px) {
   .options {
-    grid-template-columns: repeat(2, 50%);
-    grid-template-rows: auto 30px;
+    grid-template-columns: repeat(2, auto);
+    grid-template-rows: 22px 30px;
     grid-template-areas:
       "from source"
       "to reset";
@@ -123,16 +142,16 @@ $font-size-breakpoints: (
   .options {
     width: 85%;
     max-width: 700px;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+    grid-template-columns: repeat(4, auto);
+    grid-template-rows: 22px;
+    grid-template-areas:
+      "from to source reset";
 
     & > label > p {
       width: auto;
     }
 
     & > button {
-      padding: 5px 8px;
       margin: 0;
     }
   }
@@ -142,10 +161,6 @@ $font-size-breakpoints: (
   @media screen and (min-width: nth($breakpoint, 1)) and (max-width: nth($breakpoint, 2)) {
     .options {
       font-size: $size;
-
-      & > label > p {
-        width: $size * 4;
-      }
 
       & > button {
         font-size: $size;

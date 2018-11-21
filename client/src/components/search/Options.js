@@ -23,7 +23,7 @@ const Options = ({
       <button type="button" className={styles.optionsBtn} onClick={toggleOptions}>
         Advanced Search
       </button>
-      {optionsOpen && (
+      {(optionsOpen || true) && (
         <div className={styles.options}>
           <label htmlFor="from">
             <p>From:</p>

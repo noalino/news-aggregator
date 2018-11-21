@@ -1,11 +1,15 @@
 @import 'fonts', 'colors';
 
 $font-size: 0.9rem;
+// $height: $font-size + 0.4rem;
+$height: 22px;
+$arrow-width: 22px;
 
 %selectDropdown {
-  max-width: 125px;
-  height: $font-size + 0.4rem;
-  padding: 0 0.3rem;
+  position: relative;
+  appearance: none;
+  height: $height;
+  padding: 1px ($arrow-width + 2px) 1px 5px;
   font-size: $font-size;
   font-family: $nav-font;
   color: $dark-font-color;
@@ -15,4 +19,30 @@ $font-size: 0.9rem;
   overflow: hidden;
   // outline: none;
   cursor: pointer;
+}
+
+%select-arrow {
+  content: '\25bc';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: $arrow-width;
+  font-size: $font-size - 0.3rem;
+  color: #fff;
+  background: $primary-color;
+  border: none;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  pointer-events: none;
+}
+
+/* Mozilla adjustement on input text */
+@media screen and (min--moz-device-pixel-ratio: 0) {
+  %selectDropdown {
+    text-indent: -2px;
+  }
 }

@@ -24,9 +24,14 @@ $font-size-breakpoints: (
   }
 
   & > label {
+    position: relative;
     display: flex;
     justify-content: flex-end;
-    align-items: center;
+    align-items: flex-end;
+
+    &:after {
+      @extend %select-arrow;
+    }
   
     & > p {
       white-space: nowrap;
@@ -38,6 +43,7 @@ $font-size-breakpoints: (
 
 .select {
   @extend %selectDropdown;
+  max-width: 125px;
 }
 
 @media screen and (min-width: 550px) {

@@ -58,6 +58,8 @@ class Index extends Component {
   render() {
     return (
       <Fragment>
+        <Topics />
+        <Buttons />
         <div className={styleGrid.showcase}>
           <header className={`${styleGrid.header} ${styles.header}`}>
             <h1 className={styles.title}>Top Stories</h1>
@@ -66,8 +68,6 @@ class Index extends Component {
           <Articles />
           <Footer />
         </div>
-        <Topics />
-        <Buttons />
       </Fragment>
     );
   }
