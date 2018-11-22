@@ -11,7 +11,6 @@ const Password = ({ value, onChange }) => (
       name="password"
       id="password"
       value={value}
-      minLength="6"
       onChange={e => onChange(e)}
       placeholder="Password"
       required

@@ -18,9 +18,13 @@
   border-radius: 5px;
 
   & > p {
+    width: $login-form-width;
+    max-width: $login-form-max-width;
     height: 20%;
+    margin: 0 auto;
     color: $dark-font-color;
     font-family: $nav-font;
+    font-size: 0.9rem;
     display: flex;
     justify-content: center;
     align-items: flex-end;
@@ -28,7 +32,7 @@
 
   & > i {
     position: absolute;
-    top: -50px;
+    top: -55px;
     left: 50%;
     transform: translate(-50%, 0);
     font-size: 50px;

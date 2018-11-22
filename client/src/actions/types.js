@@ -9,6 +9,7 @@ export const ERROR = 'ERROR';
 export const AUTHENTICATE = 'AUTHENTICATE';
 export const REGISTER = 'REGISTER';
 export const LOGOUT = 'LOGOUT';
+export const ERROR_MESSAGE = 'ERROR_MESSAGE';
 export const RESET = 'RESET';
 
 export const TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR';

@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { logIn, signUp } from '../../actions/userActions';
+import { logIn, signUp, setErrorMessage } from '../../actions/userActions';
 
 import Username from './Username';
 import Password from './Password';
@@ -32,16 +32,20 @@ class LoginForm extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    this.setState({ loading: true }, () => {
-      const { username, password } = this.state;
-      const { logAction, logIn, signUp } = this.props;
+    const { username, password } = this.state;
+    const { logAction, logIn, signUp, setErrorMessage } = this.props;
 
-      return logAction === 'login' ? (
-        logIn({ username, password })
-      ) : (
-        signUp({ username, password })
-      );
-    });
+    if (password.length < 6) {
+      setErrorMessage('Password must contain at least 6 characters');
+    } else {
+      this.setState({ loading: true }, () => (
+        logAction === 'login' ? (
+          logIn({ username, password })
+        ) : (
+          signUp({ username, password })
+        )
+      ));
+    }
   }
 
   render() {
@@ -55,8 +59,6 @@ class LoginForm extends Component {
         <Username value={username} onChange={this.handleChangeInput} />
         <Password value={password} onChange={this.handleChangeInput} />
         <button type="submit" disabled={isLoading}>
-          {/* Insert spinner instead of 'loading'
-              Use Transition to show login check before redirecting */}
           {isLoading ? 'Loading' : btnAction}
         </button>
       </form>
@@ -71,6 +73,7 @@ LoginForm.propTypes = {
   logAction: PropTypes.string.isRequired,
   logIn: PropTypes.func.isRequired,
   signUp: PropTypes.func.isRequired,
+  setErrorMessage: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -79,4 +82,4 @@ const mapStateToProps = state => ({
   error: state.user.error,
 });
 
-export default connect(mapStateToProps, { logIn, signUp })(LoginForm);
+export default connect(mapStateToProps, { logIn, signUp, setErrorMessage })(LoginForm);

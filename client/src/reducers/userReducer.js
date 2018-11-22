@@ -1,4 +1,4 @@
-import { AUTHENTICATE, REGISTER, LOGOUT, RESET, FETCH_BOOKMARKS } from '../actions/types';
+import { AUTHENTICATE, REGISTER, LOGOUT, ERROR_MESSAGE, RESET, FETCH_BOOKMARKS } from '../actions/types';
 
 const initialState = {
   isAuthenticate: false,
@@ -32,6 +32,11 @@ export default (state = initialState, action) => {
         error: false,
         errMessage: '',
         bookmarks: [],
+      };
+    case ERROR_MESSAGE:
+      return {
+        ...state,
+        errMessage: action.payload,
       };
     case RESET:
       return {

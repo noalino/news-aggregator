@@ -30,7 +30,6 @@ class Login extends Component {
         <div className={styles.login}>
           <i className="far fa-user" />
           <p>{errMessage}</p>
-          {/* <p>Username already exists</p> */}
           <LoginForm key={logAction} logAction={logAction} />
         </div>
         {
