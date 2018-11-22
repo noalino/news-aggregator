@@ -11,7 +11,7 @@ passport.use('signup', new LocalStrategy(
     } catch (err) {
       // Code for duplicate keys
       if (err.code === 11000) {
-        return done(null, false, { message: `Username ${username} is already taken.` });
+        return done(null, false, { message: `Username already taken` });
       }
       return done(err);
     }
@@ -23,12 +23,12 @@ passport.use('login', new LocalStrategy(
     try {
       const user = await User.findOne({ username });
       if (!user) {
-        return done(null, false, { message: 'User not found.' });
+        return done(null, false, { message: 'User not found' });
       }
 
       const validate = await user.isValidPassword(password);
       if (!validate) {
-        return done(null, false, { message: 'Incorrect password.' });
+        return done(null, false, { message: 'Incorrect password' });
       }
 
       return done(null, user, { message: `You are now logged in!` });

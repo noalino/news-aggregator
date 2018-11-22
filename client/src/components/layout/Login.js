@@ -13,6 +13,7 @@ class Login extends Component {
   componentDidUpdate(prevProps) {
     const { logAction, resetLogin } = this.props;
     const { logAction: prevLogAction } = prevProps;
+    /* Empty input fields when view changes (login/signup) */
     if (logAction !== prevLogAction) {
       resetLogin();
     }
@@ -20,29 +21,29 @@ class Login extends Component {
 
   render() {
     const { logAction, isAuthenticate, errMessage } = this.props;
+
+    if (isAuthenticate) {
+      return <Redirect to="/" />;
+    }
     return (
-      isAuthenticate ? (
-        <Redirect to="/" />
-      ) : (
-        <div className={styles.container}>
-          <div className={styles.login}>
-            <i className="far fa-user" />
-            <p>{errMessage}</p>
-            {/* <p>Username already exists</p> */}
-            <LoginForm key={logAction} logAction={logAction} />
-          </div>
-          {
-            logAction === 'login'
-            && (
-              <p className={styles.redirect}>
-                Don&apos;t have an account?
-                {' '}
-                <Link to="/signup"><strong>Sign up here!</strong></Link>
-              </p>
-            )
-          }
+      <div className={styles.container}>
+        <div className={styles.login}>
+          <i className="far fa-user" />
+          <p>{errMessage}</p>
+          {/* <p>Username already exists</p> */}
+          <LoginForm key={logAction} logAction={logAction} />
         </div>
-      )
+        {
+          logAction === 'login'
+          && (
+            <p className={styles.redirect}>
+              Don&apos;t have an account?
+              {' '}
+              <Link to="/signup"><strong>Sign up here!</strong></Link>
+            </p>
+          )
+        }
+      </div>
     );
   }
 }

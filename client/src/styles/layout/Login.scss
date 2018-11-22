@@ -2,9 +2,10 @@
 
 .container {
   position: relative;
-  top: $nav-height + 150px;
+  top: $nav-height + 100px;
+  width: 100vw;
+  max-width: 450px;
   margin: 0 auto;
-  width: 450px;
   text-align: center;
 }
 
@@ -49,5 +50,11 @@
   & > a {
     color: darken($action-color, 10%);
     text-decoration: none;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .container {
+    top: $nav-height + 150px;
   }
 }
