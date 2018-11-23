@@ -47,10 +47,10 @@ const logOut = () => (dispatch) => {
     .catch(err => console.error(err));
 };
 
-const setErrorMessage = msg => dispatch => (
+const setErrorMessage = message => dispatch => (
   dispatch({
     type: ERROR_MESSAGE,
-    payload: msg,
+    payload: message,
   })
 );
 

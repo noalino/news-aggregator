@@ -15,11 +15,24 @@ class CountryDropdown extends Component {
     this.state = { isOpen: false };
     this.toggleButton = React.createRef();
     this.countryList = React.createRef();
-    this.timeOutId = null;
   }
+  /* To close list on click outside of it */
+  // componentDidMount() {
+  //   document.addEventListener('mousedown', this.handleClick);
+  // }
+
+  // componentWillUnmount() {
+  //   document.removeEventListener('mousedown', this.handleClick);
+  // }
 
   toggleDropdown = () => {
     this.setState(prevState => ({ isOpen: !prevState.isOpen }));
+  }
+
+  handleCountryClick = (country) => {
+    const { changeCountry } = this.props; // eslint-disable-line no-shadow
+    changeCountry(country);
+    this.toggleDropdown();
   }
 
   keyNavigation = (e) => {
@@ -61,23 +74,6 @@ class CountryDropdown extends Component {
     }
   }
 
-  handleCountryClick = (country) => {
-    const { changeCountry } = this.props; // eslint-disable-line no-shadow
-    changeCountry(country);
-    this.toggleDropdown();
-  }
-
-  // Close dropdown when not active
-  onBlurHandler = () => {
-    this.timeOutId = setTimeout(() => {
-      this.setState({ isOpen: false });
-    });
-  }
-
-  onFocusHandler = () => {
-    clearTimeout(this.timeOutId);
-  }
-
   getFlagImg = (country) => {
     switch (country) {
       case 'de': return flagDe;
@@ -93,7 +89,7 @@ class CountryDropdown extends Component {
     const { countries, country } = this.props;
 
     return (
-      <div className={styles.dropdown} onBlur={this.onBlurHandler} onFocus={this.onFocusHandler}>
+      <div className={styles.dropdown}>
         <button
           type="button"
           ref={this.toggleButton}

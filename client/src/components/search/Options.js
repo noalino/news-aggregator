@@ -37,6 +37,7 @@ const Options = ({
               maxDate={to || moment()}
               showDisabledMonthNavigation
               placeholderText={`${minSearchDate.format(dateFormat)}`}
+              autoComplete="off"
             />
           </label>
           <label htmlFor="to">
@@ -51,6 +52,7 @@ const Options = ({
               maxDate={moment()}
               showDisabledMonthNavigation
               placeholderText={`${moment().format(dateFormat)}`}
+              autoComplete="off"
             />
           </label>
           <label htmlFor="source">

@@ -3,21 +3,18 @@ const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const { getJwtHeaderPayload, getJwtSignature } = require('../_helpers/cookieHandler');
 
-const authenticate = async ({ user }, res) => {
-  res.json({
-    success: user !== false,
-    message: ''
-  });
-};
+const authenticate = async ({ user }, res) => (
+  res.json({ success: user !== false })
+);
 
 const signUp = async (req, res, next) => {
-  passport.authenticate('signup', async (err, user, { message }) => {
+  passport.authenticate('signup', async (err, user, info) => {
     try {
       if (err) { return next(err); }
 
-      res.json({
+      return res.json({
         success: user !== false,
-        message: user ? '' : message
+        message: info ? info.message : '',
       });
 
     } catch (err) { return next(err); }
@@ -25,13 +22,14 @@ const signUp = async (req, res, next) => {
 };
 
 const logIn = async (req, res, next) => {
-  passport.authenticate('login', async (err, user, { message }) => {
+  passport.authenticate('login', async (err, user, info) => {
     try {
       if (err) { return next(err); }
       if (!user) {
+        const message = info ? info.message : '';
         return res.json({
           success: false,
-          message
+          message,
         });
       }
 
@@ -40,9 +38,11 @@ const logIn = async (req, res, next) => {
         
         const payload = { _id: user.id };
         const privateKey = await fs.readFileSync('./private.key', 'utf8');
+        const { APP_URL } = process.env;
         const options = {
-          issuer: 'Benoit Corp',
-          audience: 'http://localhost:8080',
+          issuer: 'Benoit G.',
+          // audience: 'http://localhost:8080',
+          audience: APP_URL,
           algorithm: 'RS256'
         };
         const token = await jwt.sign(payload, privateKey, options);
@@ -57,10 +57,9 @@ const logIn = async (req, res, next) => {
           httpOnly: true,
           sameSite: true
         });
-        res.json({
-          success: true,
-          message: ''
-        });
+
+        return res.json({ success: true });
+
       });
     } catch (err) { return next(err); }
   })(req, res, next);
@@ -69,7 +68,7 @@ const logIn = async (req, res, next) => {
 const logOut = (req, res) => {
   req.logout();
   res.clearCookie('jwt_header&payload');
-  res.end();
+  return res.end();
 }
 
 module.exports = {

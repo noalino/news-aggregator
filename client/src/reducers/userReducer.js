@@ -8,21 +8,21 @@ const initialState = {
   bookmarks: [],
 };
 
-export default (state = initialState, action) => {
-  switch (action.type) {
+export default (state = initialState, { type, payload }) => {
+  switch (type) {
     case AUTHENTICATE:
       return {
         ...state,
-        isAuthenticate: action.payload.success,
-        error: !action.payload.success,
-        errMessage: action.payload.message,
+        isAuthenticate: payload.success,
+        error: !payload.success,
+        errMessage: payload.message || '',
       };
     case REGISTER:
       return {
         ...state,
-        isRegister: action.payload.success,
-        error: !action.payload.success,
-        errMessage: action.payload.message,
+        isRegister: payload.success,
+        error: !payload.success,
+        errMessage: payload.message || '',
       };
     case LOGOUT:
       return {
@@ -36,7 +36,7 @@ export default (state = initialState, action) => {
     case ERROR_MESSAGE:
       return {
         ...state,
-        errMessage: action.payload,
+        errMessage: payload,
       };
     case RESET:
       return {
@@ -47,7 +47,7 @@ export default (state = initialState, action) => {
     case FETCH_BOOKMARKS:
       return {
         ...state,
-        bookmarks: action.payload,
+        bookmarks: payload,
       };
     default:
       return state;

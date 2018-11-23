@@ -23,10 +23,10 @@ dotenv.config();
 mongoose.Promise = global.Promise;
 
 const isProduction = process.env.NODE_ENV === 'production';
+const { APP_URL } = process.env;
 
 app.use(cors({
-  origin: 'http://localhost:8080',
-  // origin: 'http://localhost:5500',
+  origin: APP_URL,
   optionsSuccessStatus: 200,
   credentials: true // To receive cookies from client
 }));
@@ -59,9 +59,9 @@ app.use(errorHandler);
 // Serve static assets if in production
 if (isProduction) {
   // Set static folder
-  // app.use(express.static('client/build'));
   app.use(express.static(path.resolve(__dirname, 'client', 'build')));
 
+  // Set path to all routes
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });

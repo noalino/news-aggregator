@@ -4,16 +4,21 @@ $width: 50px;
 $nav-height: 40px;
 $flag-size: 32px;
 
-.dropbtn {
+.dropbtn,
+.dropdownContent {
   width: $width;
+  margin: 0;
+  padding: 0;
+  border: 1px solid $primary-color;
+}
+
+.dropbtn {
   height: $nav-height;
   background: transparent;
-  border: none;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin: 0;
-  padding: 0;
+  border-bottom: none;
   outline: none;
   cursor: pointer;
 
@@ -25,10 +30,8 @@ $flag-size: 32px;
 .dropdownContent {
   position: absolute;
   top: $nav-height;
-  width: $width;
   background: $background-color;
-  margin: 0;
-  padding: 0;
+  border-top: none;
   list-style-type: none;
 
   & > .country {

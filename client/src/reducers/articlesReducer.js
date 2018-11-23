@@ -26,46 +26,46 @@ const initialState = {
   errMessage: '',
 };
 
-export default (state = initialState, action) => {
-  switch (action.type) {
+export default (state = initialState, { type, payload }) => {
+  switch (type) {
     case CHANGE_COUNTRY:
       return {
         ...state,
-        country: action.payload,
+        country: payload,
         error: false,
       };
     case LOAD:
       return {
         ...state,
-        isLoading: action.payload,
+        isLoading: payload,
       };
     case FETCH_ARTICLES:
       return {
         ...state,
-        articles: action.payload,
+        articles: payload,
         isLoading: false,
         error: false,
       };
     case SEARCH_ARTICLES:
       return {
         ...state,
-        totalResults: action.payload.totalResults,
-        articles: action.payload.articles,
-        page: action.payload.page,
+        totalResults: payload.totalResults,
+        articles: payload.articles,
+        page: payload.page,
         isLoading: false,
         error: false,
       };
     case FETCH_SOURCES:
       return {
         ...state,
-        sources: action.payload,
+        sources: payload,
         error: false,
       };
     case ERROR:
       return {
         ...state,
         error: true,
-        errMessage: action.payload,
+        errMessage: payload,
         totalResults: 0,
         articles: [],
       };
