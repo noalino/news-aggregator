@@ -11,9 +11,9 @@ const Username = ({ value, onChange }) => (
       name="username"
       id="username"
       value={value}
-      maxLength="18"
       onChange={e => onChange(e)}
       placeholder="Username"
+      maxLength="18"
       required
     />
   </label>

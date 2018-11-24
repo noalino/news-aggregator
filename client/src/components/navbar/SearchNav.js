@@ -15,13 +15,16 @@ class SearchNav extends Component {
     e.preventDefault();
     const { history } = this.props;
     const { query } = this.state;
+    const location = {
+      pathname: '/search',
+      search: query !== '' ? `?q=${encodeURIComponent(query)}&sortBy=date` : '',
+      state: {
+        requestFromNav: true,
+      },
+    };
 
-    if (query !== '') {
-      history.push(`/search?q=${encodeURIComponent(query)}&sortBy=date`);
-      this.setState({ query: '' });
-    } else {
-      history.push('/search');
-    }
+    history.push(location);
+    this.setState({ query: '' });
   }
 
   render() {
