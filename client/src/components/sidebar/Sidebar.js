@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { toggleSidebar } from '../../actions/layoutActions';
 
 import Topics from './Topics';
-import Buttons from './Buttons';
+import BookmarkButton from './BookmarkButton';
 import styles from '../../styles/sidebar/Sidebar.scss';
 
 // eslint-disable-next-line no-shadow
@@ -15,7 +15,7 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => (
       <div className={styles.sidebar} state={state}>
         <div className={styles.sidebar__content}>
           <Topics sidebar />
-          <Buttons sidebar />
+          <BookmarkButton sidebar />
         </div>
         <div
           role="presentation"

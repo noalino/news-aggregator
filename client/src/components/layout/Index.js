@@ -6,7 +6,7 @@ import moment from 'moment';
 import { fetchArticles, getHeadlines, resetArticles } from '../../actions/articlesActions';
 
 import Topics from '../sidebar/Topics';
-import Buttons from '../sidebar/Buttons';
+import BookmarkButton from '../sidebar/BookmarkButton';
 import Articles from '../articles/Articles';
 import Footer from './Footer';
 
@@ -59,7 +59,7 @@ class Index extends Component {
     return (
       <Fragment>
         <Topics />
-        <Buttons />
+        <BookmarkButton />
         <div className={styleGrid.showcase}>
           <header className={`${styleGrid.header} ${styles.header}`}>
             <h1 className={styles.title}>Top Stories</h1>

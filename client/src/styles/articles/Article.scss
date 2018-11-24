@@ -1,5 +1,7 @@
 @import '../helpers/colors', '../helpers/fonts';
 
+$font-size: 1rem;
+
 .article {
   transition: transform 150ms ease-out,
               opacity 300ms ease-in;
@@ -14,7 +16,7 @@
   }
 
   & > button {
-    font-size: 1rem;
+    font-size: $font-size;
     justify-self: end;
     align-self: flex-start;
     background: transparent;
@@ -29,7 +31,7 @@
 
 .title {
   font-family: $article-title-font;
-  font-size: 1rem;
+  font-size: $font-size;
   color: $dark-font-color;
   text-decoration: none;
 
@@ -43,7 +45,7 @@
   display: inline;
   color: $dark-font-color;
   font-family: $article-source-font;
-  font-size: 0.6rem;
+  font-size: $font-size * 0.75;
 }
 
 .source {
@@ -55,28 +57,52 @@
   font-weight: 300;
 }
 
-@media screen and (min-width: 769px) {
+@media screen and (max-width: 768px) and (orientation: landscape) {
+  .source,
+  .date {
+    font-size: $font-size * 0.5;
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  $font-size: 1.2rem;
   .article > button {
-    font-size: 1.2rem;
+    font-size: $font-size;
   }
   .title {
-    font-size: 1.2rem;
+    font-size: $font-size;
   }
   .source,
   .date {
-    font-size: 0.8rem;
+    font-size: $font-size * 0.75;
   }
 }
 
 @media screen and (min-width: 1025px) {
+  $font-size: 1.4rem;
   .article > button {
-    font-size: 1.5rem;
+    font-size: $font-size;
   }
   .title {
-    font-size: 1.5rem;
+    font-size: $font-size;
   }
   .source,
   .date {
-    font-size: 1rem;
+    font-size: $font-size * 0.75;
   }
 }
+
+// @each $width, $size in $font-size-breakpoints {
+//   @media screen and (min-width: $width) {
+//     .article > button {
+//       font-size: $size;
+//     }
+//     .title {
+//       font-size: $size;
+//     }
+//     .source,
+//     .date {
+//       font-size: $size * 0.75;
+//     }
+//   }
+// }

@@ -1,3 +1,5 @@
+@import '../helpers/fonts', '../helpers/colors';
+
 $input-width: 80%;
 
 .field {
@@ -11,15 +13,16 @@ $input-width: 80%;
   }
 
   & > input {
-    // color: black;
     width: $input-width;
     height: 50px;
+    font-family: $placeholder-font;
+    color: $dark-font-color;
     padding: 0 2px 0 10px;
     background: transparent;
     border: none;
 
     &::placeholder {
-      color: #999;
+      color: $placeholder-color;
     }
   }
 

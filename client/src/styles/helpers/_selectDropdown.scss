@@ -6,9 +6,9 @@ $font-size: 0.9rem;
   position: relative;
   appearance: none;
   height: $search-input-height;
-  padding: 1px ($search-input-height + 2px) 1px 5px;
+  padding: 0 ($search-input-height + 2px) 0 5px;
   font-size: $font-size;
-  font-family: $nav-font;
+  font-family: $placeholder-font;
   color: $dark-font-color;
   background: transparent;
   border: 1px solid $primary-color;
@@ -16,6 +16,10 @@ $font-size: 0.9rem;
   overflow: hidden;
   // outline: none;
   cursor: pointer;
+
+  &::placeholder {
+    color: $placeholder-color;
+  }
 }
 
 %select-arrow {

@@ -25,6 +25,7 @@
     color: $dark-font-color;
     font-family: $nav-font;
     font-size: 0.9rem;
+    line-height: 1rem;
     display: flex;
     justify-content: center;
     align-items: flex-end;
@@ -45,11 +46,11 @@
 
 .redirect {
   width: 90%;
-  padding: 5px 0;
-  margin: 5px auto;
+  margin: 0 auto;
   border-top: 2px solid $primary-color;
   color: $dark-font-color;
   font-family: $nav-font;
+  font-size: 1rem;
 
   & > a {
     color: darken($action-color, 10%);

@@ -6,7 +6,7 @@ import { fetchArticles, searchArticles, fetchSources, resetArticles } from '../.
 import { getParams } from '../../_utils';
 
 import SearchForm from '../search/SearchForm';
-import Buttons from '../sidebar/Buttons';
+import BookmarkButton from '../sidebar/BookmarkButton';
 import Articles from '../articles/Articles';
 import Footer from './Footer';
 
@@ -91,7 +91,7 @@ export class Search extends Component {
     return (
       <div className={styleGrid.showcase}>
         <SearchForm key={search} optionsOpen={optionsOpen} toggleOptions={this.toggleOptions} />
-        <Buttons />
+        <BookmarkButton />
         <Articles />
         <Footer />
       </div>

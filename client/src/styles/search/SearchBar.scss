@@ -30,6 +30,7 @@ $font-size-breakpoints: (
 
   & > input {
     flex: 0 0 (100% - $button-width);
+    font-family: $placeholder-font;
     font-size: $font-size;
     padding: 0 2px 0 8px;
     color: $dark-font-color;
@@ -41,7 +42,7 @@ $font-size-breakpoints: (
     border-bottom-left-radius: 5px;
 
     &::placeholder {
-      font-family: $placeholder-font;
+      color: $placeholder-color;
     }
   }
 

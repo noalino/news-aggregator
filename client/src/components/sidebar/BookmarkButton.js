@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { toggleSidebar } from '../../actions/layoutActions';
 
-import styles from '../../styles/sidebar/Buttons.scss';
+import styles from '../../styles/sidebar/BookmarkButton.scss';
 
 // eslint-disable-next-line no-shadow
-const Buttons = ({ sidebar, toggleSidebar }) => (
+const BookmarkButton = ({ sidebar, toggleSidebar }) => (
   <div className={styles.buttons} sidebar={`${sidebar}`}>
     <Link to="/bookmarks" className={styles.bookmarks} onClick={() => toggleSidebar(false)}>
       <i className="fas fa-bookmark" />
@@ -16,13 +16,13 @@ const Buttons = ({ sidebar, toggleSidebar }) => (
   </div>
 );
 
-Buttons.defaultProps = {
+BookmarkButton.defaultProps = {
   sidebar: false,
 };
 
-Buttons.propTypes = {
+BookmarkButton.propTypes = {
   sidebar: PropTypes.bool,
   toggleSidebar: PropTypes.func.isRequired,
 };
 
-export default connect(null, { toggleSidebar })(Buttons);
+export default connect(null, { toggleSidebar })(BookmarkButton);

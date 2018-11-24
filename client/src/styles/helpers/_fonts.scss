@@ -1,10 +1,18 @@
-$nav-font: 'Ubuntu', sans-serif;
+/* NAV */
+$nav-font: 'Mukta', Arial, Helvetica, sans-serif;
 
-$header-font: 'Patua One', cursive;
-$date-font: 'Playfair Display', serif;
+/* HEADER */
+$header-font: 'Bree Serif', 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+$date-font: 'Playfair Display', 'Times New Roman', Times, serif;
 
-$options-font: 'Arvo', sans-serif;
-$placeholder-font: 'Lato', sans-serif;
+/* TOPICS & BUTTONS */
+$topics-header-font: 'Federo', Tahoma, Geneva, sans-serif;
+$topic-font: 'Lato', 'Trebuchet MS', Helvetica, sans-serif;
 
-$article-title-font: 'Oswald', sans-serif;
-$article-source-font: 'Poppins', sans-serif;
+/* SEARCH */
+$options-font: 'Arvo', Tahoma, Helvetica, sans-serif;
+$placeholder-font: 'Lato', 'Trebuchet MS', sans-serif;
+
+/* ARTICLE */
+$article-title-font: 'Merriweather', Tahoma, Geneva, sans-serif;
+$article-source-font: 'Roboto Condensed', 'Trebuchet MS', Helvetica, sans-serif;

@@ -1,4 +1,4 @@
-@import '../helpers/sizes', '../helpers/colors';
+@import '../helpers/sizes', '../helpers/colors', '../helpers/fonts';
 
 .loginForm {
   width: $login-form-width;
@@ -10,6 +10,7 @@
 
   & > button {
     height: 50px;
+    font-family: $topic-font;
     font-size: 1.5rem;
     color: #fff;
     background: $action-color;
