@@ -58,6 +58,22 @@ app.use(errorHandler);
 
 // Serve static assets if in production
 if (isProduction) {
+  // Set headers to read compressed js file
+  app.get('*.js', (req, res, next) => {
+    req.url = req.url + '.gz';
+    res.set('Content-Encoding', 'gzip');
+    res.set('Content-Type', 'text/javascript');
+    next();
+  });
+
+  // Set headers to read compressed css file
+  app.get('*.css', (req, res, next) => {
+    req.url = req.url + '.gz';
+    res.set('Content-Encoding', 'gzip');
+    res.set('Content-Type', 'text/css');
+    next();
+  });
+
   // Set static folder
   app.use(express.static(path.resolve(__dirname, 'client', 'build')));
 

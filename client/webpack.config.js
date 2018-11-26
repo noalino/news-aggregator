@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 
@@ -24,6 +25,10 @@ const syncPlugin = new BrowserSyncPlugin(
     reload: false,
   },
 );
+
+const compressionPlugin = new CompressionPlugin({
+  test: /\.(js|css)(\?.*)?$/i,
+});
 
 const cleanPlugin = new CleanWebpackPlugin('build', {});
 
@@ -89,6 +94,7 @@ module.exports = {
     htmlPlugin,
     cssPlugin,
     // syncPlugin,
+    compressionPlugin,
     cleanPlugin,
     DotenvPlugin,
   ],

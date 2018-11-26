@@ -32,8 +32,8 @@ export const getHeadlines = args => async (dispatch) => {
   try {
     console.log('get headlines');
     const { articles, country, topic } = args;
-    const url = 'src/data/data_all.json';
-    // const url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${topic}&apiKey=${process.env.API_KEY}`;
+    // const url = 'src/data/data_all.json';
+    const url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${topic}&apiKey=${process.env.API_KEY}`;
     const res = await axios.get(url);
     const { articles: newArticles } = res.data;
     const payload = await fetchUtils({ articles, newArticles });
@@ -60,8 +60,8 @@ export const searchArticles = args => async (dispatch) => {
     const queryURI = encodeURIComponent(query);
     const { from, to, source, sortBy } = options;
     const sorting = sortBy === 'date' ? 'publishedAt' : sortBy;
-    const url = 'src/data/page1.json';
-    // const url = `https://newsapi.org/v2/everything?q=${queryURI}&from=${from}&to=${to}&language=${language}&sources=${source}&sortBy=${sorting}&pageSize=${pageSize}&page=1&apiKey=${process.env.API_KEY}`;
+    // const url = 'src/data/page1.json';
+    const url = `https://newsapi.org/v2/everything?q=${queryURI}&from=${from}&to=${to}&language=${language}&sources=${source}&sortBy=${sorting}&pageSize=${pageSize}&page=1&apiKey=${process.env.API_KEY}`;
 
     const res = await axios.get(url);
     const { totalResults, articles: newArticles } = res.data;
