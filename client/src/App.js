@@ -13,6 +13,7 @@ import Index from './components/layout/Index';
 import Login from './components/layout/Login';
 import Search from './components/layout/Search'; // eslint-disable-line import/no-named-as-default
 import Bookmarks from './components/layout/Bookmarks';
+import NotFound from './NotFound';
 
 import './assets/images/favicon.ico';
 import styles from './styles/App.scss';
@@ -39,14 +40,12 @@ class App extends Component {
           <Sidebar />
           <Switch>
             <Route exact path="/" render={() => <Redirect to="/general" />} />
-            {/* <Route path="/login" render={props => <Login {...props} logAction="login" />} />
-            <Route path="/signup" render={props => <Login {...props} logAction="signup" />} /> */}
-            <Route path="/login" render={() => <Login logAction="login" />} />
-            <Route path="/signup" render={() => <Login logAction="signup" />} />
-            <Route path="/search" component={Search} />
-            <PrivateRoute path="/bookmarks" component={Bookmarks} />
-            <Route path="/:topic" component={Index} />
-            {/* <Route component={NotFound} /> */}
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/signup" component={Login} />
+            <Route exact path="/search" component={Search} />
+            <PrivateRoute exact path="/bookmarks" component={Bookmarks} />
+            <Route exact path="/:topic" component={Index} />
+            <Route component={NotFound} />
           </Switch>
         </div>
       </Router>

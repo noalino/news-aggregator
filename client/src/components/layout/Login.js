@@ -11,16 +11,17 @@ import styles from '../../styles/layout/Login.scss';
 
 class Login extends Component {
   componentDidUpdate(prevProps) {
-    const { logAction, resetLogin } = this.props;
-    const { logAction: prevLogAction } = prevProps;
+    const { location: { pathname }, resetLogin } = this.props;
+    const { location: { pathname: prevPathname } } = prevProps;
     /* Empty input fields when view changes (login/signup) */
-    if (logAction !== prevLogAction) {
+    if (pathname !== prevPathname) {
       resetLogin();
     }
   }
 
   render() {
-    const { logAction, isAuthenticate, errMessage } = this.props;
+    const { location: { pathname }, isAuthenticate, errMessage } = this.props;
+    const logAction = pathname.slice(1);
 
     if (isAuthenticate) {
       return <Redirect to="/" />;
@@ -32,23 +33,21 @@ class Login extends Component {
           <p>{errMessage}</p>
           <LoginForm key={logAction} logAction={logAction} />
         </div>
-        {
-          logAction === 'login'
-          && (
-            <p className={styles.redirect}>
-              Don&apos;t have an account?
-              {' '}
-              <Link to="/signup"><strong>Sign up here!</strong></Link>
-            </p>
-          )
-        }
+        {logAction === 'login' && (
+          <p className={styles.redirect}>
+            Don&apos;t have an account?
+            {' '}
+            <Link to="/signup"><strong>Sign up here!</strong></Link>
+          </p>
+        )}
       </div>
     );
   }
 }
 
 Login.propTypes = {
-  logAction: PropTypes.string.isRequired,
+  // logAction: PropTypes.string.isRequired,
+  location: PropTypes.instanceOf(Object).isRequired,
   isAuthenticate: PropTypes.bool.isRequired,
   errMessage: PropTypes.string.isRequired,
   resetLogin: PropTypes.func.isRequired,

@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { fetchArticles, getHeadlines, resetArticles } from '../../actions/articlesActions';
+import { isValidTopic } from '../../_utils';
 
+import NotFound from '../../NotFound';
 import Topics from '../sidebar/Topics';
 import BookmarkButton from '../sidebar/BookmarkButton';
 import Articles from '../articles/Articles';
@@ -25,10 +27,12 @@ class Index extends Component {
     const { code } = country;
     console.log('Index mounting');
 
-    fetchArticles(getHeadlines, { articles, country: code, topic });
+    if (isValidTopic(topic)) {
+      fetchArticles(getHeadlines, { articles, country: code, topic });
 
-    // FETCH ARTICLES EVERY MINUTE (LIMIT 1,000 REQUESTS/DAY API)
-    // this.timer = setInterval(this.fetchTimer, 60000);
+      // FETCH ARTICLES EVERY MINUTE (LIMIT 1,000 REQUESTS/DAY API)
+      // this.timer = setInterval(this.fetchTimer, 60000);
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -36,7 +40,8 @@ class Index extends Component {
     const { params: { topic } } = match;
     const { code } = country;
 
-    if (topic !== prevProps.match.params.topic || code !== prevProps.country.code) {
+    if (isValidTopic(topic)
+      && (topic !== prevProps.match.params.topic || code !== prevProps.country.code)) {
       console.log('Index updating');
       fetchArticles(getHeadlines, { articles, country: code, topic });
       // this.timer = setInterval(this.fetchTimer, 60000);
@@ -55,10 +60,11 @@ class Index extends Component {
   }
 
   render() {
-    // const { topic } = this.props.match.params;
-    // if (topic not in topics) {
-    //   return <NotFound />;
-    // }
+    const { match: { params: { topic } } } = this.props;
+
+    if (!isValidTopic(topic)) {
+      return <NotFound />;
+    }
     return (
       <Fragment>
         <Topics />

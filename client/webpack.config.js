@@ -50,8 +50,9 @@ if (devMode) {
 module.exports = {
   // entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
+    path: path.resolve(__dirname, 'build'),
+    publicPath: '/', // Enable 404 page on nested routes
   },
   module: {
     rules: [
@@ -90,7 +91,7 @@ module.exports = {
             loader: 'file-loader',
             options: {
               name: '[name].[ext]',
-              publicPath: 'images/',
+              publicPath: '/images/', // Front slash to enable nested routes
               outputPath: 'images/',
             },
           },

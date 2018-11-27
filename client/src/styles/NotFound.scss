@@ -1,0 +1,50 @@
+@import './helpers/sizes', './helpers/fonts', './helpers/colors';
+
+$font-size: 1rem;
+
+.container {
+  position: relative;
+  top: $nav-height + 25px;
+  margin: 0 5vw;
+  text-align: center;
+
+  & > h1 {
+    font-family: $article-title-font;
+    font-size: $font-size;
+    color: $dark-font-color;
+
+    & > span {
+      font-size: $font-size * 2;
+    }
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  $font-size: 1.5rem;
+  .container > h1 {
+    font-size: $font-size;
+    & > span {
+      font-size: $font-size * 2;
+    }
+  }
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1440px) {
+  $font-size: 2rem;
+  .container > h1 {
+    font-size: $font-size;
+    & > span {
+      font-size: $font-size * 2;
+    }
+  }
+}
+
+@media screen and (min-width: 1441px) {
+  $font-size: 2.5rem;
+  .container > h1 {
+    font-size: $font-size;
+    & > span {
+      font-size: $font-size * 2;
+    }
+  }
+}

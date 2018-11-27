@@ -9,6 +9,8 @@ import {
 } from './types';
 import { fetchUtils, searchUtils, loadNextUtils } from '../_utils';
 
+const { NODE_ENV } = process.env;
+
 export const changeCountry = country => (dispatch) => {
   console.log('changing country');
   dispatch({
@@ -32,7 +34,12 @@ export const getHeadlines = args => async (dispatch) => {
   try {
     console.log('get headlines');
     const { articles, country, topic } = args;
-    const url = 'src/data/data_all.json';
+    const url = NODE_ENV === 'production' ? (
+      `https://newsapi.org/v2/top-headlines?country=${country}&category=${topic}&apiKey=${process.env.API_KEY}`
+    ) : (
+      'src/data/data_all.json'
+    );
+    // const url = 'src/data/data_all.json';
     // const url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${topic}&apiKey=${process.env.API_KEY}`;
     const res = await axios.get(url);
     const { articles: newArticles } = res.data;
@@ -60,7 +67,12 @@ export const searchArticles = args => async (dispatch) => {
     const queryURI = encodeURIComponent(query);
     const { from, to, source, sortBy } = options;
     const sorting = sortBy === 'date' ? 'publishedAt' : sortBy;
-    const url = 'src/data/page1.json';
+    const url = NODE_ENV === 'production' ? (
+      `https://newsapi.org/v2/everything?q=${queryURI}&from=${from}&to=${to}&language=${language}&sources=${source}&sortBy=${sorting}&pageSize=${pageSize}&page=1&apiKey=${process.env.API_KEY}`
+    ) : (
+      'src/data/page1.json'
+    );
+    // const url = 'src/data/page1.json';
     // const url = `https://newsapi.org/v2/everything?q=${queryURI}&from=${from}&to=${to}&language=${language}&sources=${source}&sortBy=${sorting}&pageSize=${pageSize}&page=1&apiKey=${process.env.API_KEY}`;
 
     const res = await axios.get(url);

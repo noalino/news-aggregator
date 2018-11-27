@@ -1,4 +1,9 @@
 import moment from 'moment';
+import topicsList from './_topics';
+
+export const isValidTopic = topic => (
+  topicsList.find(({ name }) => name === topic) || false
+);
 
 export const dateFormat = 'YYYY/MM/DD';
 
