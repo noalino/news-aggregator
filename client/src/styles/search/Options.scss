@@ -1,4 +1,4 @@
-@import '../helpers/sizes', '../helpers/fonts', '../helpers/colors', '../helpers/selectDropdown';
+@import '../helpers/sizes', '../helpers/fonts', '../helpers/colors', '../helpers/selectDropdown', '../helpers/datePicker';
 
 $font-size: 1rem;
 
@@ -15,7 +15,7 @@ $font-size: 1rem;
   font-family: $options-font;
   font-size: $font-size;
   color: $dark-font-color;
-  padding: 5px 0 10px;
+  padding: 5px 5px 10px;
   display: grid;
   grid-template-columns: auto 80px auto;
   grid-template-rows: repeat(3, $search-input-height) 30px;
@@ -63,7 +63,7 @@ $font-size: 1rem;
     }
 
     & > select {
-      max-width: 170px;
+      max-width: 160px;
     }
 
     & .date {

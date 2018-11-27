@@ -6,7 +6,6 @@ import moment from 'moment';
 import { minSearchDate, dateFormat } from '../../_utils';
 
 import styles from '../../styles/search/Options.scss';
-import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 
 const Options = ({
   onChange,
