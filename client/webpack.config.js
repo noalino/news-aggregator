@@ -35,6 +35,17 @@ const cleanPlugin = new CleanWebpackPlugin('build', {});
 const DotenvPlugin = new Dotenv();
 
 const devMode = process.env.NODE_ENV !== 'production';
+let plugins = [
+  DotenvPlugin,
+  htmlPlugin,
+  cssPlugin,
+];
+
+if (devMode) {
+  // plugins = [...plugins, syncPlugin];
+} else {
+  plugins = [...plugins, compressionPlugin, cleanPlugin];
+}
 
 module.exports = {
   // entry: './src/index.js',
@@ -90,12 +101,5 @@ module.exports = {
   devServer: {
     historyApiFallback: true, // Redirect 404s to /index.html
   },
-  plugins: [
-    htmlPlugin,
-    cssPlugin,
-    // syncPlugin,
-    compressionPlugin,
-    cleanPlugin,
-    DotenvPlugin,
-  ],
+  plugins,
 };

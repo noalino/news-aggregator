@@ -1,8 +1,7 @@
 /* eslint-disable no-shadow, react/destructuring-assignment */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Transition } from 'react-transition-group';
-// import Transition from 'react-transition-group/Transition';
+import Transition from 'react-transition-group/Transition';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { addBookmark, deleteBookmark } from '../../actions/userActions';

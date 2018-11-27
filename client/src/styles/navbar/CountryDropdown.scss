@@ -22,7 +22,8 @@ $flag-size: 32px;
   outline: none;
   cursor: pointer;
 
-  &:focus {
+  &:focus,
+  &[content=visible] {
     background: $background-color;
   }
 }

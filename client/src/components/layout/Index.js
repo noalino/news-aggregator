@@ -28,8 +28,7 @@ class Index extends Component {
     fetchArticles(getHeadlines, { articles, country: code, topic });
 
     // FETCH ARTICLES EVERY MINUTE (LIMIT 1,000 REQUESTS/DAY API)
-    this.timer = setInterval(this.fetchTimer, 60000);
-    // this.timer = setInterval(this.fetchTimer, 5000);
+    // this.timer = setInterval(this.fetchTimer, 60000);
   }
 
   componentDidUpdate(prevProps) {
@@ -40,14 +39,14 @@ class Index extends Component {
     if (topic !== prevProps.match.params.topic || code !== prevProps.country.code) {
       console.log('Index updating');
       fetchArticles(getHeadlines, { articles, country: code, topic });
-      this.timer = setInterval(this.fetchTimer, 60000);
+      // this.timer = setInterval(this.fetchTimer, 60000);
     }
   }
 
   componentWillUnmount() {
     // eslint-disable-next-line react/destructuring-assignment
     this.props.resetArticles();
-    clearInterval(this.timer);
+    // clearInterval(this.timer);
   }
 
   fetchTimer = () => {
@@ -56,6 +55,10 @@ class Index extends Component {
   }
 
   render() {
+    // const { topic } = this.props.match.params;
+    // if (topic not in topics) {
+    //   return <NotFound />;
+    // }
     return (
       <Fragment>
         <Topics />

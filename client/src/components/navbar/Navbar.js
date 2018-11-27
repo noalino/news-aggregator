@@ -20,7 +20,8 @@ const Navbar = ({ isAuthenticate, logOut, toggleSidebar, sidebarOpen }) => (
           role="menuitem"
           tabIndex="0"
           onClick={() => toggleSidebar(!sidebarOpen)}
-          // onKeyUp={() => toggleSidebar(!sidebarOpen)}
+          /* No key navigation because device size < tablet */
+          // onKeyDown={({ which }) => which === 13 && toggleSidebar(!sidebarOpen)}
         >
           <div />
           <div />

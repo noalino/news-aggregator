@@ -98,6 +98,7 @@ class CountryDropdown extends Component {
           onKeyDown={this.keyNavigation}
           aria-haspopup="true"
           aria-expanded={isOpen}
+          content={isOpen ? 'visible' : 'notVisible'}
         >
           <img className={styles.flag} src={this.getFlagImg(country.code)} alt={country.name} />
         </button>

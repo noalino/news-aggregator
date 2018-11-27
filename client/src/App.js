@@ -46,6 +46,7 @@ class App extends Component {
             <Route path="/search" component={Search} />
             <PrivateRoute path="/bookmarks" component={Bookmarks} />
             <Route path="/:topic" component={Index} />
+            {/* <Route component={NotFound} /> */}
           </Switch>
         </div>
       </Router>
