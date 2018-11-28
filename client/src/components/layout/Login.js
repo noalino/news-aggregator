@@ -46,7 +46,6 @@ class Login extends Component {
 }
 
 Login.propTypes = {
-  // logAction: PropTypes.string.isRequired,
   location: PropTypes.instanceOf(Object).isRequired,
   isAuthenticate: PropTypes.bool.isRequired,
   errMessage: PropTypes.string.isRequired,

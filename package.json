@@ -1,10 +1,11 @@
 {
-  "name": "news-aggregator",
+  "name": "news-aggregator-app-back",
   "version": "0.1.0",
-  "description": "Latest news available",
+  "description": "News Aggregator App Back",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "author": "Benoît Gelineau",
   "license": "MIT",
@@ -27,5 +28,8 @@
   },
   "devDependencies": {
     "nodemon": "^1.18.4"
+  },
+  "engines": {
+    "node": "10.8"
   }
 }

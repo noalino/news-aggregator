@@ -24,7 +24,6 @@ export class Search extends Component {
       location: { search },
     } = this.props;
     const { query, ...options } = getParams(search);
-    console.log('Search component mounting');
 
     fetchSources({ country, language });
 
@@ -44,6 +43,7 @@ export class Search extends Component {
     const { search } = location;
     const { search: prevSearch } = prevProps.location;
     const { query, ...options } = getParams(search);
+
     if (country !== prevProps.country) {
       // Fetch source list & reset source when language changes
       fetchSources({ country, language });

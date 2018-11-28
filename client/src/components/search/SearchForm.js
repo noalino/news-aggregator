@@ -13,7 +13,6 @@ class SearchForm extends Component {
     super(props);
     const { location: { search } } = this.props;
     // Initialize query & options from URL
-    // const { query, from, to, source, sortBy } = getParams(search);
     this.state = { ...getParams(search) };
   }
 

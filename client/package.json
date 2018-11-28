@@ -1,7 +1,7 @@
 {
-  "name": "news-aggregator",
+  "name": "news-aggregator-app-front",
   "version": "0.1.0",
-  "description": "News Aggregator App",
+  "description": "News Aggregator App Front",
   "main": "src/index.js",
   "scripts": {
     "start": "webpack --mode development",
@@ -19,6 +19,11 @@
       "\\.(s?css|less)$": "identity-obj-proxy"
     }
   },
+  "browserslist": [
+    "last 2 versions",
+    "> 0.2%",
+    "not dead"
+  ],
   "keywords": [
     "news",
     "articles",
@@ -56,6 +61,7 @@
     "babel-preset-react": "^6.24.1",
     "browser-sync": "^2.26.3",
     "browser-sync-webpack-plugin": "^2.2.2",
+    "browserslist": "^4.3.4",
     "clean-webpack-plugin": "^0.1.19",
     "compression-webpack-plugin": "^2.0.0",
     "css-loader": "^1.0.0",

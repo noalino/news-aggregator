@@ -18,7 +18,7 @@ class Bookmarks extends Component {
 
   componentDidUpdate(prevProps) {
     const { bookmarks, displayBookmarks } = this.props;
-    // Refresh view from bookmark removal
+    // Refresh view when user removes bookmark to an article
     if (bookmarks.length !== prevProps.bookmarks.length) {
       displayBookmarks(bookmarks);
     }

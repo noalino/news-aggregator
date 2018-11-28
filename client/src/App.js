@@ -20,7 +20,6 @@ import styles from './styles/App.scss';
 
 class App extends Component {
   componentDidMount() {
-    console.log('App mounting...');
     /* Verify user from token in cookie */
     this.props.authenticate(); // eslint-disable-line react/destructuring-assignment
   }

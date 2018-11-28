@@ -25,13 +25,11 @@ class Index extends Component {
     const { match, country, articles, fetchArticles, getHeadlines } = this.props;
     const { params: { topic } } = match;
     const { code } = country;
-    console.log('Index mounting');
 
     if (isValidTopic(topic)) {
       fetchArticles(getHeadlines, { articles, country: code, topic });
-
       // FETCH ARTICLES EVERY MINUTE (LIMIT 1,000 REQUESTS/DAY API)
-      // this.timer = setInterval(this.fetchTimer, 60000);
+      this.timer = setInterval(this.fetchTimer, 60000);
     }
   }
 
@@ -42,16 +40,15 @@ class Index extends Component {
 
     if (isValidTopic(topic)
       && (topic !== prevProps.match.params.topic || code !== prevProps.country.code)) {
-      console.log('Index updating');
       fetchArticles(getHeadlines, { articles, country: code, topic });
-      // this.timer = setInterval(this.fetchTimer, 60000);
+      this.timer = setInterval(this.fetchTimer, 60000);
     }
   }
 
   componentWillUnmount() {
+    clearInterval(this.timer);
     // eslint-disable-next-line react/destructuring-assignment
     this.props.resetArticles();
-    // clearInterval(this.timer);
   }
 
   fetchTimer = () => {

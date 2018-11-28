@@ -5,9 +5,9 @@ import styleGrid from '../../styles/helpers/_article.scss';
 import styles from '../../styles/loader/Loader.scss';
 
 const Loader = ({ pageSize }) => {
-  const array = [];
+  const articleTemplates = [];
   for (let i = 0; i < pageSize; i++) {
-    array.push(
+    articleTemplates.push(
       <div className={`${styleGrid.article} ${styles.article}`} key={i}>
         <i className="fas fa-bookmark" />
         <div className={`${styleGrid.title} ${styles.title}`} />
@@ -15,7 +15,7 @@ const Loader = ({ pageSize }) => {
       </div>,
     );
   }
-  return array;
+  return articleTemplates;
 };
 
 Loader.propTypes = {

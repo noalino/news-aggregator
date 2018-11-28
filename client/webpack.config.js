@@ -12,7 +12,6 @@ const htmlPlugin = new HtmlWebPackPlugin({
 
 const cssPlugin = new MiniCssExtractPlugin({
   filename: '[name].css',
-  // chunkFilename: '[id].css'
 });
 
 const syncPlugin = new BrowserSyncPlugin(
@@ -35,6 +34,7 @@ const cleanPlugin = new CleanWebpackPlugin('build', {});
 const DotenvPlugin = new Dotenv();
 
 const devMode = process.env.NODE_ENV !== 'production';
+
 let plugins = [
   DotenvPlugin,
   htmlPlugin,

@@ -1,6 +1,8 @@
 import { TOGGLE_SIDEBAR } from './types';
 
-export const toggleSidebar = (isOpen) => (dispatch) => dispatch({
+const toggleSidebar = isOpen => dispatch => dispatch({
   type: TOGGLE_SIDEBAR,
   payload: isOpen,
 });
+
+export default toggleSidebar;

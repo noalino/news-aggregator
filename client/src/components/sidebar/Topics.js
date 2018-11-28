@@ -1,13 +1,13 @@
+/* eslint-disable no-shadow */
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import topicsList from '../../_topics';
-import { toggleSidebar } from '../../actions/layoutActions';
+import toggleSidebar from '../../actions/layoutActions';
 import styles from '../../styles/sidebar/Topics.scss';
 
-// eslint-disable-next-line no-shadow
 const Topics = ({ topicsList, match: { params }, sidebar, toggleSidebar }) => (
   <div className={styles.topics} sidebar={`${sidebar}`}>
     <h2>Topics</h2>

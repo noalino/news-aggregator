@@ -19,7 +19,6 @@ const Footer = ({ totalResults, searchNextArticles, location: { search }, ...arg
     <footer className={`${styleGrid.footer} ${styles.footer}`}>
       {totalResults > (page * pageSize) && (
         <button type="button" onClick={() => searchNextArticles(searchArgs)}>
-          {/* See more */}
           <i className="fa fa-caret-down" />
         </button>
       )}

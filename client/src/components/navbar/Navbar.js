@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { logOut } from '../../actions/userActions';
-import { toggleSidebar } from '../../actions/layoutActions';
+import toggleSidebar from '../../actions/layoutActions';
 
 import SearchNav from './SearchNav';
 import CountryDropdown from './CountryDropdown';
@@ -14,14 +14,14 @@ const Navbar = ({ isAuthenticate, logOut, toggleSidebar, sidebarOpen }) => (
   <nav id={styles.nav}>
     <ul>
       <div className={styles.navMenu}>
+        {/* No key navigation because device size < tablet */
+        /* eslint-disable-next-line */}
         <li
           id={styles.menu}
           aria-label="menu button"
           role="menuitem"
           tabIndex="0"
           onClick={() => toggleSidebar(!sidebarOpen)}
-          /* No key navigation because device size < tablet */
-          // onKeyDown={({ which }) => which === 13 && toggleSidebar(!sidebarOpen)}
         >
           <div />
           <div />

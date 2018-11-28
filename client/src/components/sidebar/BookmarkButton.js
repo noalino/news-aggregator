@@ -1,12 +1,12 @@
+/* eslint-disable no-shadow */
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { toggleSidebar } from '../../actions/layoutActions';
+import toggleSidebar from '../../actions/layoutActions';
 
 import styles from '../../styles/sidebar/BookmarkButton.scss';
 
-// eslint-disable-next-line no-shadow
 const BookmarkButton = ({ sidebar, toggleSidebar }) => (
   <div className={styles.buttons} sidebar={`${sidebar}`}>
     <Link to="/bookmarks" className={styles.bookmarks} onClick={() => toggleSidebar(false)}>

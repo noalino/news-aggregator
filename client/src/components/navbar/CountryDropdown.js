@@ -16,14 +16,6 @@ class CountryDropdown extends Component {
     this.toggleButton = React.createRef();
     this.countryList = React.createRef();
   }
-  /* To close list on click outside of it */
-  // componentDidMount() {
-  //   document.addEventListener('mousedown', this.handleClick);
-  // }
-
-  // componentWillUnmount() {
-  //   document.removeEventListener('mousedown', this.handleClick);
-  // }
 
   toggleDropdown = () => {
     this.setState(prevState => ({ isOpen: !prevState.isOpen }));

@@ -1,14 +1,14 @@
+/* eslint-disable no-shadow */
 import React from 'react';
 import { connect } from 'react-redux';
 import Transition from 'react-transition-group/Transition';
 import PropTypes from 'prop-types';
-import { toggleSidebar } from '../../actions/layoutActions';
+import toggleSidebar from '../../actions/layoutActions';
 
 import Topics from './Topics';
 import BookmarkButton from './BookmarkButton';
 import styles from '../../styles/sidebar/Sidebar.scss';
 
-// eslint-disable-next-line no-shadow
 const Sidebar = ({ sidebarOpen, toggleSidebar }) => (
   <Transition in={sidebarOpen} timeout={150}>
     {state => (
