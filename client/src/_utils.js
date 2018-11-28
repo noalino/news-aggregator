@@ -5,11 +5,16 @@ export const isValidTopic = topic => (
   topicsList.find(({ name }) => name === topic) || false
 );
 
-export const dateFormat = 'YYYY/MM/DD';
-
 // ONE MONTH AGO (FROM NEWSAPI DEV REQUIREMENTS)
 export const minSearchDate = moment().subtract(1, 'months');
 
+export const dateFormat = 'YYYY/MM/DD';
+
+export const numberWithCommas = x => x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+/*----------------------------
+  SEARCH URL TRANSFORMATIONS
+----------------------------*/
 /*
   Transform url string | '?q=test&sortBy=date' |
   to object            | { query: test, sortBy: date } |
@@ -57,7 +62,27 @@ export const setSearchParams = params => (
     .join('&')
 );
 
-export const numberWithCommas = x => x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+/*---------------------
+   ARTICLES ACTIONS
+---------------------*/
+
+/* API URL SET UP */
+export const setSearchURL = ({
+  query,
+  options,
+  language,
+  loadPage = 1,
+  pageSize,
+}) => {
+  const queryURI = encodeURIComponent(query);
+  const { from, to, source, sortBy } = options;
+  const sorting = sortBy === 'date' ? 'publishedAt' : sortBy;
+  return (
+    `https://newsapi.org/v2/everything?q=${queryURI}&from=${from}&to=${to}&language=${language}&sources=${source}&sortBy=${sorting}&pageSize=${pageSize}&page=${loadPage}&apiKey=${process.env.API_KEY}`
+  );
+};
+
+/* ARTICLES MODIFICATIONS */
 
 // Add id to each article
 async function generateId(articles) {
@@ -79,7 +104,6 @@ async function filterArticles(articles) {
 
 async function addNewestParam(newArticles, articles) {
   return newArticles.map((article) => {
-    // if oldArticles.length > 0 &&
     if (articles.findIndex(({ id }) => id === article.id) === -1) {
       return { ...article, newest: true };
     }
@@ -87,23 +111,23 @@ async function addNewestParam(newArticles, articles) {
   });
 }
 
-export const fetchUtils = async ({ articles, newArticles }) => {
+export const fetchAction = async ({ articles, newArticles }) => {
   const withId = await generateId(newArticles);
   const filtered = await filterArticles(withId);
   return addNewestParam(filtered, articles);
 };
 
-export const searchUtils = async (articles) => {
+export const searchAction = async (articles) => {
   const withId = await generateId(articles);
   const filtered = await filterArticles(withId);
   return filtered.map(article => ({ ...article, newest: true }));
 };
 
-export const loadNextUtils = async ({ articles, newArticles }) => {
+export const loadNextAction = async ({ articles, newArticles }) => {
   const withId = await generateId(newArticles);
-  const addNewest = async (prevArt, nextArt) => {
-    const prev = prevArt.map(article => ({ ...article, newest: false }));
-    const next = nextArt.map(article => ({ ...article, newest: true }));
+  const addNewest = async (prevArticles, nextArticles) => {
+    const prev = prevArticles.map(article => ({ ...article, newest: false }));
+    const next = nextArticles.map(article => ({ ...article, newest: true }));
     return prev.concat(next);
   };
   const articlesWithNewest = await addNewest(articles, withId);

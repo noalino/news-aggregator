@@ -4,7 +4,7 @@ import {
   SEARCH_ARTICLES,
   FETCH_SOURCES,
   LOAD,
-  ERROR,
+  // ERROR,
 } from '../actions/types';
 
 const initialState = {
@@ -22,7 +22,7 @@ const initialState = {
   page: 1,
   pageSize: 20,
   totalResults: 0,
-  error: false,
+  // error: false,
   errMessage: '',
 };
 
@@ -32,7 +32,7 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         country: payload,
-        error: false,
+        // error: false,
       };
     case LOAD:
       return {
@@ -44,7 +44,7 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         articles: payload,
         isLoading: false,
-        error: false,
+        // error: false,
       };
     case SEARCH_ARTICLES:
       return {
@@ -53,22 +53,22 @@ export default (state = initialState, { type, payload }) => {
         articles: payload.articles,
         page: payload.page,
         isLoading: false,
-        error: false,
+        // error: false,
       };
     case FETCH_SOURCES:
       return {
         ...state,
         sources: payload,
-        error: false,
+        // error: false,
       };
-    case ERROR:
-      return {
-        ...state,
-        error: true,
-        errMessage: payload,
-        totalResults: 0,
-        articles: [],
-      };
+    // case ERROR:
+    //   return {
+    //     ...state,
+    //     error: true,
+    //     errMessage: payload,
+    //     totalResults: 0,
+    //     articles: [],
+    //   };
     default:
       return state;
   }

@@ -11,7 +11,8 @@ import styles from '../../styles/layout/Footer.scss';
 
 const Footer = ({ totalResults, searchNextArticles, location: { search }, ...args }) => {
   const { articles, page, pageSize, language } = args;
-  const searchArgs = { ...getParams(search), articles, page, pageSize, language };
+  const { query, ...options } = getParams(search);
+  const searchArgs = { query, options, articles, page, pageSize, language };
   const results = articles.length;
 
   return (

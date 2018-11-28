@@ -10,11 +10,12 @@ import Article from './Article';
 import styleGrid from '../../styles/helpers/_layout.scss';
 import styles from '../../styles/articles/Articles.scss';
 
-const Articles = ({ articles, isLoading, totalResults, pageSize, location, error, errMessage }) => {
+// const Articles = ({ articles, isLoading, totalResults, pageSize, location, error, errMessage }) => {
+const Articles = ({ articles, isLoading, totalResults, pageSize, location }) => {
   console.log('articles rendering');
   const { query } = getParams(location.search);
 
-  if (error) return <p>{errMessage}</p>;
+  // if (error) return <p>{errMessage}</p>;
   if (query && totalResults === 0 && !isLoading) return null;
 
   return (
@@ -41,8 +42,8 @@ Articles.propTypes = {
   totalResults: PropTypes.number.isRequired,
   pageSize: PropTypes.number.isRequired,
   location: PropTypes.instanceOf(Object).isRequired,
-  error: PropTypes.bool.isRequired,
-  errMessage: PropTypes.string.isRequired,
+  // error: PropTypes.bool.isRequired,
+  // errMessage: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -50,8 +51,8 @@ const mapStateToProps = state => ({
   isLoading: state.articles.isLoading,
   totalResults: state.articles.totalResults,
   pageSize: state.articles.pageSize,
-  error: state.articles.error,
-  errMessage: state.articles.errMessage,
+  // error: state.articles.error,
+  // errMessage: state.articles.errMessage,
 });
 
 export default withRouter(connect(mapStateToProps)(Articles));
