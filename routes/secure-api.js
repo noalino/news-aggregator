@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const bookmarks_controller = require('../controllers/bookmarks.controller');
+const bookmarks_controller = require('../controllers/bookmarksController');
 
 /** BOOKMARKS ROUTES */
 router.get('/bookmarks', bookmarks_controller.get_bookmarks);

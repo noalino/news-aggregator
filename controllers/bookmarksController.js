@@ -1,4 +1,4 @@
-const User = require('../models/User');
+const User = require('../models/user');
 
 const get_bookmarks = async ({ user: { _id } }, res) => {
   const user = await User.findById(_id).select('-password');

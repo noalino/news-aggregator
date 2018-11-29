@@ -35,7 +35,7 @@ const logIn = async (req, res, next) => {
 
       req.login(user, { session: false }, async error => {
         if (error) { return next(error); }
-        
+
         const payload = { _id: user.id };
         const privateKey = await fs.readFileSync('./private.key', 'utf8');
         const { APP_URL } = process.env;
@@ -46,7 +46,7 @@ const logIn = async (req, res, next) => {
           algorithm: 'RS256'
         };
         const token = await jwt.sign(payload, privateKey, options);
-        
+
         res.cookie('jwt_header&payload', getJwtHeaderPayload(token), {
           // secure: true,
           maxAge: 1000 * 60 * 30, // 30mn

@@ -15,7 +15,7 @@ const privateRoutes = require('./routes/secure-api');
 
 // Middlewares
 const verify_user = require('./routes/auth');
-const errorHandler = require('./_helpers/error-handler');
+const error_handler = require('./_helpers/errorHandler');
 
 const app = express();
 dotenv.config();
@@ -54,7 +54,7 @@ app.use('/api', publicRoutes);
 app.use('/api/user', verify_user, privateRoutes);
 
 // Global error handler
-app.use(errorHandler);
+app.use(error_handler);
 
 // Serve static assets if in production
 if (isProduction) {
