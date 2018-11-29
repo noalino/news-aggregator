@@ -2,7 +2,7 @@ import axios from 'axios';
 import { AUTHENTICATE, REGISTER, LOGOUT, ERROR_MESSAGE, RESET, FETCH_BOOKMARKS } from './types';
 
 const authenticate = () => (dispatch) => {
-  axios.post('http://localhost:5000/api/authenticate', {}, { withCredentials: true })
+  axios.post('api/authenticate', {}, { withCredentials: true })
     .then(({ data: status }) => {
       dispatch({
         type: AUTHENTICATE,
@@ -13,7 +13,7 @@ const authenticate = () => (dispatch) => {
 };
 
 const logIn = credentials => (dispatch) => {
-  axios.post('http://localhost:5000/api/login', { ...credentials }, { withCredentials: true })
+  axios.post('api/login', { ...credentials }, { withCredentials: true })
     .then(({ data: status }) => {
       dispatch({
         type: AUTHENTICATE,
@@ -24,7 +24,7 @@ const logIn = credentials => (dispatch) => {
 };
 
 const signUp = credentials => (dispatch) => {
-  axios.post('http://localhost:5000/api/signup', { ...credentials })
+  axios.post('api/signup', { ...credentials })
     .then(({ data: status }) => {
       dispatch({
         type: REGISTER,
@@ -35,7 +35,7 @@ const signUp = credentials => (dispatch) => {
 };
 
 const logOut = () => (dispatch) => {
-  axios.post('http://localhost:5000/api/logout', {}, { withCredentials: true })
+  axios.post('api/logout', {}, { withCredentials: true })
     .then(() => {
       dispatch({
         type: LOGOUT,
@@ -54,7 +54,7 @@ const setErrorMessage = message => dispatch => (
 const resetLogin = () => dispatch => dispatch({ type: RESET });
 
 const fetchBookmarks = () => (dispatch) => {
-  axios.get('http://localhost:5000/api/user/bookmarks', { withCredentials: true })
+  axios.get('api/user/bookmarks', { withCredentials: true })
     .then(({ data }) => {
       dispatch({
         type: FETCH_BOOKMARKS,
@@ -65,7 +65,7 @@ const fetchBookmarks = () => (dispatch) => {
 };
 
 const addBookmark = article => (dispatch) => {
-  axios.post('http://localhost:5000/api/user/bookmarks', { article }, { withCredentials: true })
+  axios.post('api/user/bookmarks', { article }, { withCredentials: true })
     .then(({ data }) => {
       dispatch({
         type: FETCH_BOOKMARKS,
@@ -76,7 +76,7 @@ const addBookmark = article => (dispatch) => {
 };
 
 const deleteBookmark = id => (dispatch) => {
-  axios.put('http://localhost:5000/api/user/bookmarks', { id }, { withCredentials: true })
+  axios.put('api/user/bookmarks', { id }, { withCredentials: true })
     .then(({ data }) => {
       dispatch({
         type: FETCH_BOOKMARKS,
