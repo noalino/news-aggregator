@@ -73,11 +73,11 @@ if (isProduction) {
   });
 
   // Set static folder
-  app.use(express.static(path.resolve(__dirname, 'client', 'build')));
+  app.use(express.static(path.join(__dirname, 'client', 'build')));
 
   // Set path to all routes
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
   });
 }
 
