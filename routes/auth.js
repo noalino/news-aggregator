@@ -10,7 +10,7 @@ const verify_user = (req, res, next) => {
       req.user = payload;
       // ADD NEW 30 MINUTES
       res.cookie('jwt_header&payload', req.cookies['jwt_header&payload'], {
-        // secure: true,
+        secure: true,
         maxAge: 1000 * 60 * 30, // 30mn
         sameSite: true
       });
