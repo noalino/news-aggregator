@@ -43,14 +43,14 @@ passport.use('login', new LocalStrategy(
 
 const JWTstrategy = require('passport-jwt').Strategy;
 const { cookieExtractor } = require('../_helpers/cookieHandler');
-const publicKey = fs.readFileSync('../public.key', 'utf8');
-const { APP_URL } = process.env;
+const { PUBLIC_KEY, APP_URL } = process.env;
+// const publicKey = fs.readFileSync('./public.key', 'utf8');
+const publicKey = PUBLIC_KEY.replace(/\\n/g, '\n');
 
 passport.use(new JWTstrategy({
   jwtFromRequest: cookieExtractor,
   secretOrKey: publicKey,
   issuer: 'Benoit G.',
-  // audience: 'http://localhost:8080',
   audience: APP_URL,
   algorithms: ['RS256']
 }, async (jwt_payload, done) => {

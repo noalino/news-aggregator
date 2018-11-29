@@ -1,5 +1,7 @@
-const cookieExtractor = ({ cookies }) => (cookies['jwt_header&payload'] && cookies['jwt_signature']) ?
- `${cookies['jwt_header&payload']}.${cookies['jwt_signature']}` : null;
+const cookieExtractor = ({ cookies }) => (
+  (cookies['jwt_header&payload'] && cookies['jwt_signature']) ?
+ `${cookies['jwt_header&payload']}.${cookies['jwt_signature']}` : null
+ );
 
 const getJwtHeaderPayload = token => {
   const array = token.split('.');

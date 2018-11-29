@@ -37,11 +37,11 @@ const logIn = async (req, res, next) => {
         if (error) { return next(error); }
 
         const payload = { _id: user.id };
-        const privateKey = await fs.readFileSync('../private.key', 'utf8');
-        const { APP_URL } = process.env;
+        const { APP_URL, PRIVATE_KEY } = process.env;
+        // const privateKey = await fs.readFileSync('./private.key', 'utf8');
+        const privateKey = PRIVATE_KEY.replace(/\\n/g, '\n');
         const options = {
           issuer: 'Benoit G.',
-          // audience: 'http://localhost:8080',
           audience: APP_URL,
           algorithm: 'RS256'
         };

@@ -20,10 +20,10 @@ const error_handler = require('./_helpers/errorHandler');
 const app = express();
 dotenv.config();
 
-mongoose.Promise = global.Promise;
+const { NODE_ENV, APP_URL, MONGODB_URI, PORT } = process.env;
+const isProduction = NODE_ENV === 'production';
 
-const isProduction = process.env.NODE_ENV === 'production';
-const { APP_URL } = process.env;
+mongoose.Promise = global.Promise;
 
 app.use(cors({
   origin: APP_URL,
@@ -39,9 +39,7 @@ app.use(morgan('dev'));
 
 // Connect to Mongo
 mongoose
-  .connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true
-  })
+  .connect(MONGODB_URI, { useNewUrlParser: true })
   .then(() => console.log('MongoDB Connected...'))
   .catch(err => console.log(err));
 
@@ -83,5 +81,5 @@ if (isProduction) {
   });
 }
 
-const port = process.env.PORT || 3000;
+const port = PORT || 3000;
 app.listen(port, () => console.log(`listening on port ${port}`));
