@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { fetchArticles, getHeadlines, resetArticles } from '../../actions/articlesActions';
-import { isValidTopic } from '../../_utils';
+import { isValidTopic, apiCallFrequency } from '../../_utils';
 
 import NotFound from '../../NotFound';
 import Topics from '../sidebar/Topics';
@@ -28,20 +28,19 @@ class Index extends Component {
 
     if (isValidTopic(topic)) {
       fetchArticles(getHeadlines, { articles, country: code, topic });
-      // FETCH ARTICLES EVERY MINUTE (LIMIT 1,000 REQUESTS/DAY API)
-      this.timer = setInterval(this.fetchTimer, 60000);
+      this.timer = setInterval(this.fetchTimer, apiCallFrequency);
     }
   }
 
   componentDidUpdate(prevProps) {
+    const { match: { params: { topic: prevTopic } }, country: { code: prevCode } } = prevProps;
     const { match, country, articles, fetchArticles, getHeadlines } = this.props;
     const { params: { topic } } = match;
     const { code } = country;
 
-    if (isValidTopic(topic)
-      && (topic !== prevProps.match.params.topic || code !== prevProps.country.code)) {
+    if (isValidTopic(topic) && (topic !== prevTopic || code !== prevCode)) {
       fetchArticles(getHeadlines, { articles, country: code, topic });
-      this.timer = setInterval(this.fetchTimer, 60000);
+      this.timer = setInterval(this.fetchTimer, apiCallFrequency);
     }
   }
 

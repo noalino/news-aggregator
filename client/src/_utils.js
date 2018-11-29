@@ -5,6 +5,9 @@ export const isValidTopic = topic => (
   topicsList.find(({ name }) => name === topic) || false
 );
 
+// FETCH ARTICLES EVERY MINUTE (LIMIT 1,000 REQUESTS/DAY API)
+export const apiCallFrequency = 60000;
+
 // ONE MONTH AGO (FROM NEWSAPI DEV REQUIREMENTS)
 export const minSearchDate = moment().subtract(1, 'months');
 

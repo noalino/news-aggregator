@@ -48,12 +48,12 @@ const logIn = async (req, res, next) => {
         const token = await jwt.sign(payload, privateKey, options);
 
         res.cookie('jwt_header&payload', getJwtHeaderPayload(token), {
-          // secure: true,
+          secure: true,
           maxAge: 1000 * 60 * 30, // 30mn
           sameSite: true
         });
         res.cookie('jwt_signature', getJwtSignature(token), {
-          // secure: true,
+          secure: true,
           httpOnly: true,
           sameSite: true
         });
