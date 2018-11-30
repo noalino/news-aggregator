@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { getParams, setSearchParams } from '../../_utils';
+import { getParams, setParams } from '../../_utils';
 
 import SearchBar from './SearchBar';
 import Options from './Options';
@@ -12,8 +12,10 @@ class SearchForm extends Component {
   constructor(props) {
     super(props);
     const { location: { search } } = this.props;
+    const { q: query, ...params } = getParams(search);
     // Initialize query & options from URL
-    this.state = { ...getParams(search) };
+    // this.state = { ...getParams(search) };
+    this.state = { query, ...params };
   }
 
   resetOptions = () => {
@@ -29,8 +31,9 @@ class SearchForm extends Component {
     const { history, location } = this.props;
 
     this.setState({ [name]: value }, () => {
+      const { query, ...state } = this.state;
       if (name === 'sortBy') {
-        history.replace(`${location.pathname}?${setSearchParams(this.state)}`);
+        history.replace(`${location.pathname}?${setParams({ q: query, ...state })}`);
       }
     });
   }
@@ -41,18 +44,21 @@ class SearchForm extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const { query } = this.state;
+    const { query, sortBy, ...state } = this.state;
+    // Sort by date by default
+    const sorting = sortBy || 'date';
     const { location, history } = this.props;
 
     if (query) {
-      history.push(`${location.pathname}?${setSearchParams(this.state)}`);
+      history.push(`${location.pathname}?${setParams({ q: query, sortBy: sorting, ...state })}`);
     }
   }
 
   render() {
     const { query, ...options } = this.state;
     const { location, optionsOpen, toggleOptions } = this.props;
-    const lastQuery = getParams(location.search).query;
+    // const lastQuery = getParams(location.search).query;
+    const lastQuery = getParams(location.search).q;
 
     return (
       <form className={styles.header} role="search" onSubmit={this.onSubmit}>
@@ -69,7 +75,7 @@ class SearchForm extends Component {
           toggleOptions={toggleOptions}
           resetOptions={this.resetOptions}
         />
-        {lastQuery && <Sort onChange={this.handleInputChange} />}
+        {lastQuery && <Sort sortBy={options.sortBy} onChange={this.handleInputChange} />}
       </form>
     );
   }

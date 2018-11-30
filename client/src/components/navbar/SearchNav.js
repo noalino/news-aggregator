@@ -15,6 +15,7 @@ class SearchNav extends Component {
     e.preventDefault();
     const { history, toggleSidebar } = this.props;
     const { query } = this.state;
+    // Set query & sort by date by default
     const location = {
       pathname: '/search',
       search: query !== '' ? `?q=${encodeURIComponent(query)}&sortBy=date` : '',

@@ -1,6 +1,8 @@
 import moment from 'moment';
 import topicsList from './_topics';
 
+const { API_KEY } = process.env;
+
 export const isValidTopic = topic => (
   topicsList.find(({ name }) => name === topic) || false
 );
@@ -16,18 +18,41 @@ export const dateFormat = 'YYYY/MM/DD';
 export const numberWithCommas = x => x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
 /*----------------------------
-  SEARCH URL TRANSFORMATIONS
+     URL TRANSFORMATIONS
 ----------------------------*/
+export const extractParams = ({ page = 1, ...args }) => {
+  const {
+    query,
+    options,
+    language,
+    pageSize,
+  } = args;
+  const { from, to, source, sortBy } = options;
+  const sorting = sortBy === 'date' ? 'publishedAt' : sortBy;
+
+  return {
+    q: query,
+    from,
+    to,
+    sources: source,
+    sortBy: sorting,
+    language,
+    pageSize,
+    page,
+    apiKey: API_KEY,
+  };
+};
+
 /*
   Transform url string | '?q=test&sortBy=date' |
-  to object            | { query: test, sortBy: date } |
+  to object            | { q: test, sortBy: date } |
 */
 export const getParams = url => (
   url ? (
     Object.assign(...url.slice(1).split('&')
       .map(param => param.split('='))
-      .map(([keyURL, valueURL]) => {
-        const key = keyURL === 'q' ? 'query' : keyURL;
+      .map(([key, valueURL]) => {
+        // const key = keyURL === 'q' ? 'query' : keyURL;
         const value = valueURL ? decodeURIComponent(valueURL) : '';
 
         if (key === 'from' || key === 'to') {
@@ -41,25 +66,21 @@ export const getParams = url => (
 );
 
 /*
-  Transform object | { query: test, sortBy: date } |
-  to url string    | '?q=test&sortBy=date' |
+  Transform object | { q: test, sortBy: date } |
+  to url string    | 'q=test&sortBy=date' |
 */
-export const setSearchParams = params => (
+export const setParams = params => (
   Object.entries(params)
     .map(([key, value]) => {
-      let paramURL;
+      let paramURL = value;
       if (value) {
-        if (key === 'from' || key === 'to') {
+        if (value instanceof moment) {
           paramURL = value.format('YYYY-MM-DD');
-        } else {
+        } else if (typeof value === 'string') {
           paramURL = value.trim();
         }
       }
-      return (
-        paramURL ? (
-          `${key === 'query' ? 'q' : key}=${encodeURIComponent(paramURL.trim())}`
-        ) : ''
-      );
+      return paramURL ? `${key}=${encodeURIComponent(paramURL)}` : '';
     })
     .filter(param => param !== '')
     .join('&')
@@ -68,22 +89,6 @@ export const setSearchParams = params => (
 /*---------------------
    ARTICLES ACTIONS
 ---------------------*/
-
-/* API URL SET UP */
-export const setSearchURL = ({
-  query,
-  options,
-  language,
-  loadPage = 1,
-  pageSize,
-}) => {
-  const queryURI = encodeURIComponent(query);
-  const { from, to, source, sortBy } = options;
-  const sorting = sortBy === 'date' ? 'publishedAt' : sortBy;
-  return (
-    `https://newsapi.org/v2/everything?q=${queryURI}&from=${from}&to=${to}&language=${language}&sources=${source}&sortBy=${sorting}&pageSize=${pageSize}&page=${loadPage}&apiKey=${process.env.API_KEY}`
-  );
-};
 
 /* ARTICLES MODIFICATIONS */
 

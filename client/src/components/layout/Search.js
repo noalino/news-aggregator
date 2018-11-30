@@ -23,7 +23,8 @@ export class Search extends Component {
       fetchSources,
       location: { search },
     } = this.props;
-    const { query, ...options } = getParams(search);
+    // const { query, ...options } = getParams(search);
+    const { q: query, ...options } = getParams(search);
 
     fetchSources({ country, language });
 
@@ -42,7 +43,8 @@ export class Search extends Component {
     const { country, language, fetchSources, location } = this.props;
     const { search } = location;
     const { search: prevSearch } = prevProps.location;
-    const { query, ...options } = getParams(search);
+    // const { query, ...options } = getParams(search);
+    const { q: query, ...options } = getParams(search);
 
     if (country !== prevProps.country) {
       // Fetch source list & reset source when language changes
@@ -67,7 +69,8 @@ export class Search extends Component {
       language,
       pageSize,
     } = this.props;
-    const { query } = getParams(search);
+    // const { query } = getParams(search);
+    const { q: query } = getParams(search);
 
     return query ? (
       fetchArticles(searchArticles, {

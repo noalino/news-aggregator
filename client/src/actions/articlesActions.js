@@ -7,13 +7,15 @@ import {
   LOAD,
 } from './types';
 import {
-  setSearchURL,
+  extractParams,
+  setParams,
   fetchAction,
   searchAction,
   loadNextAction,
 } from '../_utils';
 
 const { NODE_ENV } = process.env;
+const { API_KEY } = process.env;
 
 export const changeCountry = country => dispatch => (
   dispatch({
@@ -35,8 +37,9 @@ export const resetArticles = () => dispatch => (
 export const getHeadlines = args => async (dispatch) => {
   try {
     const { articles, country, topic } = args;
+    const params = { country, category: topic, apiKey: API_KEY };
     const url = NODE_ENV === 'production' ? (
-      `https://newsapi.org/v2/top-headlines?country=${country}&category=${topic}&apiKey=${process.env.API_KEY}`
+      `https://newsapi.org/v2/top-headlines?${setParams(params)}`
     ) : (
       'src/data/data_all.json'
     );
@@ -55,8 +58,10 @@ export const getHeadlines = args => async (dispatch) => {
 
 export const searchArticles = args => async (dispatch) => {
   try {
+    const params = await extractParams(args);
+    const request = await setParams(params);
     const url = NODE_ENV === 'production' ? (
-      setSearchURL(args)
+      `https://newsapi.org/v2/everything?${request}`
     ) : (
       'src/data/page1.json'
     );
@@ -77,10 +82,12 @@ export const searchArticles = args => async (dispatch) => {
   }
 };
 
-export const searchNextArticles = ({ articles, page, ...args }) => async (dispatch) => {
+export const searchNextArticles = ({ articles, page: prevPage, ...args }) => async (dispatch) => {
   try {
-    const loadPage = page + 1;
-    const url = setSearchURL({ loadPage, ...args });
+    const page = prevPage + 1;
+    const params = await extractParams({ page, ...args });
+    const request = await setParams(params);
+    const url = `https://newsapi.org/v2/everything?${request}`;
     const res = await axios.get(url);
     const { totalResults, articles: newArticles } = res.data;
     const nextArticles = await loadNextAction({ articles, newArticles });
@@ -88,7 +95,7 @@ export const searchNextArticles = ({ articles, page, ...args }) => async (dispat
     dispatch({
       type: SEARCH_ARTICLES,
       payload: {
-        page: loadPage,
+        page,
         totalResults,
         articles: nextArticles,
       },
@@ -110,8 +117,10 @@ export const fetchArticles = (action, args) => async (dispatch) => {
   }
 };
 
-export const fetchSources = ({ country, language }) => (dispatch) => {
-  axios.get(`https://newsapi.org/v2/sources?language=${language}&country=${country}&apiKey=${process.env.API_KEY}`)
+export const fetchSources = ({ country, language }) => async (dispatch) => {
+  const params = { country, language, apiKey: API_KEY };
+  const request = await setParams(params);
+  axios.get(`https://newsapi.org/v2/sources?${request}`)
     .then(({ data: { sources } }) => (
       dispatch({
         type: FETCH_SOURCES,

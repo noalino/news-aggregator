@@ -1,10 +1,11 @@
+const webpack = require('webpack');
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
+const dotenv = require('dotenv');
 
 const htmlPlugin = new HtmlWebPackPlugin({
   template: 'public/index.html',
@@ -31,18 +32,24 @@ const compressionPlugin = new CompressionPlugin({
 
 const cleanPlugin = new CleanWebpackPlugin('build', {});
 
-const dotenvPlugin = new Dotenv();
+/* Define envPlugin to use .env variables */
+const env = dotenv.config().parsed;
+const envKeys = Object.keys(env).reduce((prev, next) => ({
+  ...prev,
+  [`process.env.${next}`]: JSON.stringify(env[next]),
+}), {});
+const envPlugin = new webpack.DefinePlugin(envKeys);
 
 const devMode = process.env.NODE_ENV !== 'production';
 
 let plugins = [
-  dotenvPlugin,
+  envPlugin,
   htmlPlugin,
   cssPlugin,
 ];
 
 if (devMode) {
-  plugins = [...plugins, syncPlugin];
+  // plugins = [...plugins, syncPlugin];
 } else {
   plugins = [...plugins, compressionPlugin, cleanPlugin];
 }

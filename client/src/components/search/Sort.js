@@ -6,8 +6,9 @@ import { getParams, numberWithCommas } from '../../_utils';
 
 import styles from '../../styles/search/Sort.scss';
 
-const Sort = ({ totalResults, onChange, location: { search } }) => {
-  const { query, ...options } = getParams(search);
+const Sort = ({ totalResults, sortBy, onChange, location: { search } }) => {
+  // const { query, ...options } = getParams(search);
+  const { q: query } = getParams(search);
   const resultWord = totalResults === 0 || totalResults === 1 ? 'result' : 'results';
   const message = `${numberWithCommas(totalResults)} ${resultWord} for: `;
   return (
@@ -18,7 +19,7 @@ const Sort = ({ totalResults, onChange, location: { search } }) => {
       </p>
       <label htmlFor="sorting">
         <p>Sort by:</p>
-        <select name="sortBy" id="sorting" className={styles.select} value={options.sortBy} onChange={onChange}>
+        <select name="sortBy" id="sorting" className={styles.select} value={sortBy} onChange={onChange}>
           <option value="date">Date</option>
           <option value="relevancy">Relevancy</option>
           <option value="popularity">Popularity</option>
@@ -30,6 +31,7 @@ const Sort = ({ totalResults, onChange, location: { search } }) => {
 
 Sort.propTypes = {
   totalResults: PropTypes.number.isRequired,
+  sortBy: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   location: PropTypes.instanceOf(Object).isRequired,
 };

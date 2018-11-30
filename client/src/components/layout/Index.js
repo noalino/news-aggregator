@@ -40,6 +40,8 @@ class Index extends Component {
 
     if (isValidTopic(topic) && (topic !== prevTopic || code !== prevCode)) {
       fetchArticles(getHeadlines, { articles, country: code, topic });
+      // Clear timer before setting new one
+      clearInterval(this.timer);
       this.timer = setInterval(this.fetchTimer, apiCallFrequency);
     }
   }

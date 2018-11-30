@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "webpack --mode development",
-    "build": "NODE_ENV=production webpack --mode production",
+    "build": "webpack --mode production",
     "dev": "webpack-dev-server --mode development --open",
     "test": "jest"
   },
@@ -65,7 +65,7 @@
     "clean-webpack-plugin": "^0.1.19",
     "compression-webpack-plugin": "^2.0.0",
     "css-loader": "^1.0.0",
-    "dotenv-webpack": "^1.5.7",
+    "dotenv": "^6.1.0",
     "enzyme": "^3.6.0",
     "enzyme-adapter-react-16": "^1.5.0",
     "eslint": "^5.6.0",
