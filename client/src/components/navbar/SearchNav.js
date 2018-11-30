@@ -13,7 +13,7 @@ class SearchNav extends Component {
 
   redirectToSearch = (e) => {
     e.preventDefault();
-    const { history } = this.props;
+    const { history, toggleSidebar } = this.props;
     const { query } = this.state;
     const location = {
       pathname: '/search',
@@ -25,6 +25,7 @@ class SearchNav extends Component {
 
     history.push(location);
     this.setState({ query: '' });
+    toggleSidebar(false);
   }
 
   render() {
@@ -39,6 +40,7 @@ class SearchNav extends Component {
 
 SearchNav.propTypes = {
   history: PropTypes.instanceOf(Object).isRequired,
+  toggleSidebar: PropTypes.func.isRequired,
 };
 
 export default withRouter(SearchNav);

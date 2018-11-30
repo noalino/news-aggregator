@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { changeCountry } from '../../actions/articlesActions';
 
-import flagFr from '../../assets/images/flags/fr.png';
-import flagDe from '../../assets/images/flags/de.png';
-import flagGb from '../../assets/images/flags/gb.png';
-import flagUs from '../../assets/images/flags/us.png';
+import '../../assets/images/flags/fr.png';
+import '../../assets/images/flags/de.png';
+import '../../assets/images/flags/gb.png';
+import '../../assets/images/flags/us.png';
 import styles from '../../styles/navbar/CountryDropdown.scss';
 
 class CountryDropdown extends Component {
@@ -19,6 +19,7 @@ class CountryDropdown extends Component {
 
   toggleDropdown = () => {
     this.setState(prevState => ({ isOpen: !prevState.isOpen }));
+    this.props.toggleSidebar(false); // eslint-disable-line react/destructuring-assignment
   }
 
   handleCountryClick = (country) => {
@@ -66,15 +67,7 @@ class CountryDropdown extends Component {
     }
   }
 
-  getFlagImg = (country) => {
-    switch (country) {
-      case 'de': return flagDe;
-      case 'fr': return flagFr;
-      case 'gb': return flagGb;
-      case 'us': return flagUs;
-      default: return flagUs;
-    }
-  }
+  getFlagSrc = country => `/images/${country}.png`;
 
   render() {
     const { isOpen } = this.state;
@@ -92,26 +85,35 @@ class CountryDropdown extends Component {
           aria-expanded={isOpen}
           content={isOpen ? 'visible' : 'notVisible'}
         >
-          <img className={styles.flag} src={this.getFlagImg(country.code)} alt={country.name} />
+          <img
+            className={styles.flag}
+            src={this.getFlagSrc(country.code)}
+            alt={country.name}
+          />
         </button>
-
-        {isOpen && (
-          <ul className={styles.dropdownContent} ref={this.countryList}>
-            {countries.map(ctry => (
-              <li
-                key={ctry.code}
-                id={ctry.code}
-                className={styles.country}
-                role="menuitem"
-                tabIndex="0"
-                onClick={() => this.handleCountryClick(ctry)}
-                onKeyDown={this.keyNavigation}
-              >
-                <img className={styles.flag} src={this.getFlagImg(ctry.code)} alt={ctry.name} />
-              </li>
-            ))}
-          </ul>
-        )}
+        <ul
+          style={{ display: isOpen ? 'block' : 'none' }}
+          className={styles.dropdownContent}
+          ref={this.countryList}
+        >
+          {countries.map(ctry => (
+            <li
+              key={ctry.code}
+              id={ctry.code}
+              className={styles.country}
+              role="menuitem"
+              tabIndex="0"
+              onClick={() => this.handleCountryClick(ctry)}
+              onKeyDown={this.keyNavigation}
+            >
+              <img
+                className={styles.flag}
+                src={this.getFlagSrc(ctry.code)}
+                alt={ctry.name}
+              />
+            </li>
+          ))}
+        </ul>
       </div>
     );
   }
@@ -158,6 +160,7 @@ CountryDropdown.propTypes = {
   countries: PropTypes.instanceOf(Array),
   country: PropTypes.instanceOf(Object).isRequired,
   changeCountry: PropTypes.func.isRequired,
+  toggleSidebar: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

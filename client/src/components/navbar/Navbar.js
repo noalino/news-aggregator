@@ -36,26 +36,26 @@ const Navbar = ({ isAuthenticate, logOut, toggleSidebar, sidebarOpen }) => (
           !isAuthenticate ? (
             <Fragment>
               <li>
-                <Link to="/login">
+                <Link to="/login" onClick={() => toggleSidebar(false)}>
                   Log in
                 </Link>
               </li>
               <li>
-                <Link to="/signup">
+                <Link to="/signup" onClick={() => toggleSidebar(false)}>
                   Sign up
                 </Link>
               </li>
             </Fragment>
           ) : (
             <li>
-              <button type="button" onClick={() => logOut()}>
+              <button type="button" onClick={() => { toggleSidebar(false); logOut(); }}>
                 Log out
               </button>
             </li>
           )
         }
-        <li><SearchNav /></li>
-        <li><CountryDropdown /></li>
+        <li><SearchNav toggleSidebar={toggleSidebar} /></li>
+        <li><CountryDropdown toggleSidebar={toggleSidebar} /></li>
       </div>
     </ul>
   </nav>

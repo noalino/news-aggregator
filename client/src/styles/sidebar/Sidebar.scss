@@ -3,15 +3,15 @@
 .sidebar__content,
 .sidebar__clickCatcher {
   display: flex;
-  // transition: transform 150ms ease-in-out;
 }
 
 .sidebar__content {
   position: relative;
+  padding-top: $nav-height;
   min-width: 320px;
   background: $background-color;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -23,6 +23,7 @@
 .sidebar {
   display: flex;
   position: fixed; // Avoid showcase to collapse
+  top: $nav-height;
   left: 0;
   width: 100vw;
   height: 100vh;

@@ -31,18 +31,18 @@ const compressionPlugin = new CompressionPlugin({
 
 const cleanPlugin = new CleanWebpackPlugin('build', {});
 
-const DotenvPlugin = new Dotenv();
+const dotenvPlugin = new Dotenv();
 
 const devMode = process.env.NODE_ENV !== 'production';
 
 let plugins = [
-  DotenvPlugin,
+  dotenvPlugin,
   htmlPlugin,
   cssPlugin,
 ];
 
 if (devMode) {
-  // plugins = [...plugins, syncPlugin];
+  plugins = [...plugins, syncPlugin];
 } else {
   plugins = [...plugins, compressionPlugin, cleanPlugin];
 }
@@ -75,7 +75,7 @@ module.exports = {
             options: {
               sourceMap: true,
               modules: true,
-              localIdentName: '[name]_[local]_[hash:base64:5]',
+              localIdentName: '[name]_[hash:base64:5]',
               minimize: true,
               importLoaders: 2,
             },
@@ -91,7 +91,7 @@ module.exports = {
             loader: 'file-loader',
             options: {
               name: '[name].[ext]',
-              publicPath: '/images/', // Front slash to enable nested routes
+              publicPath: '/images/', // First slash to enable nested routes
               outputPath: 'images/',
             },
           },
