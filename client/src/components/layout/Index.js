@@ -45,9 +45,9 @@ class Index extends Component {
   }
 
   componentWillUnmount() {
-    clearInterval(this.timer);
     // eslint-disable-next-line react/destructuring-assignment
     this.props.resetArticles();
+    clearInterval(this.timer);
   }
 
   fetchTimer = () => {
