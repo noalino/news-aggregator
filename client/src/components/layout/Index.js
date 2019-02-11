@@ -45,6 +45,7 @@ class Index extends Component {
       // Clear timer before setting new one
       // clearInterval(this.timer);
       // this.timer = setInterval(this.fetchTimer, apiCallFrequency);
+      ReactGA.pageview(`/${topic}`);
     }
   }
 

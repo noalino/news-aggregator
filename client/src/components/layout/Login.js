@@ -12,7 +12,8 @@ import styles from '../../styles/layout/Login.scss';
 
 class Login extends Component {
   componentDidMount() {
-    ReactGA.pageview('/login');
+    const { location: { pathname } } = this.props;
+    ReactGA.pageview(pathname);
   }
 
   componentDidUpdate(prevProps) {
@@ -21,6 +22,7 @@ class Login extends Component {
     /* Empty input fields when view changes (login/signup) */
     if (pathname !== prevPathname) {
       resetLogin();
+      ReactGA.pageview(pathname);
     }
   }
 
