@@ -25,13 +25,13 @@ $font-size: 0.9rem;
 %select-arrow {
   content: '\25bc';
   position: absolute;
-  top: 0;
   bottom: 0;
   right: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: $search-input-height; // To make it square
+  height: $search-input-height;
+  width: $search-input-height;
   font-size: $font-size - 0.3rem;
   color: #fff;
   background: $primary-color;
