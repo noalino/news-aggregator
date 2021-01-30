@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import ReactGA from 'react-ga';
 import PropTypes from 'prop-types';
 import { resetLogin } from '../../actions/userActions';
 
@@ -11,18 +10,12 @@ import LoginForm from '../login/LoginForm';
 import styles from '../../styles/layout/Login.scss';
 
 class Login extends Component {
-  componentDidMount() {
-    const { location: { pathname } } = this.props;
-    ReactGA.pageview(pathname);
-  }
-
   componentDidUpdate(prevProps) {
     const { location: { pathname }, resetLogin } = this.props;
     const { location: { pathname: prevPathname } } = prevProps;
     /* Empty input fields when view changes (login/signup) */
     if (pathname !== prevPathname) {
       resetLogin();
-      ReactGA.pageview(pathname);
     }
   }
 

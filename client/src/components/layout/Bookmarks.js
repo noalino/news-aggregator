@@ -1,7 +1,6 @@
 /* eslint-disable no-shadow */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ReactGA from 'react-ga';
 import PropTypes from 'prop-types';
 import { displayBookmarks, resetArticles } from '../../actions/articlesActions';
 
@@ -15,7 +14,6 @@ class Bookmarks extends Component {
   componentDidMount() {
     const { displayBookmarks, bookmarks } = this.props;
     displayBookmarks(bookmarks);
-    ReactGA.pageview('/bookmarks');
   }
 
   componentDidUpdate(prevProps) {

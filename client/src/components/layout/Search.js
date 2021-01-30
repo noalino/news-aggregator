@@ -1,7 +1,6 @@
 /* eslint-disable no-shadow */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ReactGA from 'react-ga';
 import PropTypes from 'prop-types';
 import { fetchArticles, searchArticles, fetchSources, resetArticles } from '../../actions/articlesActions';
 import { getParams } from '../../_utils';
@@ -38,8 +37,6 @@ export class Search extends Component {
         language,
       });
     }
-
-    ReactGA.pageview('/search');
   }
 
   componentDidUpdate(prevProps) {

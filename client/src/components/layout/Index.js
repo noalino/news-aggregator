@@ -1,7 +1,6 @@
 /* eslint-disable no-shadow */
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import ReactGA from 'react-ga';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { fetchArticles, getHeadlines, resetArticles } from '../../actions/articlesActions';
@@ -17,11 +16,6 @@ import styleGrid from '../../styles/helpers/_layout.scss';
 import styles from '../../styles/layout/Index.scss';
 
 class Index extends Component {
-  // constructor() {
-  //   super();
-  //   this.timer = null;
-  // }
-
   componentDidMount() {
     const { match, country, articles, fetchArticles, getHeadlines } = this.props;
     const { params: { topic } } = match;
@@ -30,7 +24,6 @@ class Index extends Component {
     if (isValidTopic(topic)) {
       fetchArticles(getHeadlines, { articles, country: code, topic });
       // this.timer = setInterval(this.fetchTimer, apiCallFrequency);
-      ReactGA.pageview(`/${topic}`);
     }
   }
 
@@ -45,7 +38,6 @@ class Index extends Component {
       // Clear timer before setting new one
       // clearInterval(this.timer);
       // this.timer = setInterval(this.fetchTimer, apiCallFrequency);
-      ReactGA.pageview(`/${topic}`);
     }
   }
 

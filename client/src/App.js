@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import ReactGA from 'react-ga';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { authenticate, fetchBookmarks } from './actions/userActions';
-
 
 import PrivateRoute from './PrivateRoute';
 
@@ -23,7 +21,6 @@ class App extends Component {
   componentDidMount() {
     /* Verify user from token in cookie */
     this.props.authenticate(); // eslint-disable-line react/destructuring-assignment
-    ReactGA.initialize(process.env.TRACKING_ID);
   }
 
   componentDidUpdate(prevProps) {
