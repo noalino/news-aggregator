@@ -4,9 +4,7 @@ const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const helmet = require('helmet');
 const morgan = require('morgan');
-const dotenv = require('dotenv');
 const path = require('path');
 
 // Routes
@@ -18,20 +16,21 @@ const verify_user = require('./routes/auth');
 const error_handler = require('./_helpers/errorHandler');
 
 const app = express();
-dotenv.config();
 
-const { NODE_ENV, APP_URL, MONGODB_URI, PORT } = process.env;
+const {
+  APP_URL,
+  NODE_ENV,
+} = process.env;
 const isProduction = NODE_ENV === 'production';
 
 mongoose.Promise = global.Promise;
 
 app.use(cors({
   origin: APP_URL,
-  optionsSuccessStatus: 200,
+  optionsSuccessStatus: 200, // Some legacy browsers (IE11, various SmartTVs) choke on 204
   credentials: true // To receive cookies from client
 }));
 
-app.use(helmet());
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -39,9 +38,12 @@ app.use(morgan('dev'));
 
 // Connect to Mongo
 mongoose
-  .connect(MONGODB_URI, { useNewUrlParser: true })
-  .then(() => console.log('MongoDB Connected...'))
-  .catch(err => console.log(err));
+  .connect(
+    `mongodb://mongo:27017/myapp`,
+    { useNewUrlParser: true }
+  )
+  .then(() => console.log('MongoDB connected...'))
+  .catch(err => console.log('MongoDB connection error:', err));
 
 app.use(passport.initialize());
 
@@ -81,5 +83,5 @@ if (isProduction) {
   });
 }
 
-const port = PORT || 3000;
-app.listen(port, () => console.log(`listening on port ${port}`));
+const PORT = 3000;
+app.listen(PORT, () => console.log(`listening on port ${PORT}`));

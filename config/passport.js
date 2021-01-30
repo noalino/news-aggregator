@@ -44,8 +44,7 @@ passport.use('login', new LocalStrategy(
 const JWTstrategy = require('passport-jwt').Strategy;
 const { cookieExtractor } = require('../_helpers/cookieHandler');
 const { PUBLIC_KEY, APP_URL } = process.env;
-// const publicKey = fs.readFileSync('./public.key', 'utf8');
-const publicKey = PUBLIC_KEY.replace(/\\n/g, '\n');
+const publicKey = fs.readFileSync('./public-key.pem', 'utf8');
 
 passport.use(new JWTstrategy({
   jwtFromRequest: cookieExtractor,

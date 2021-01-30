@@ -13,10 +13,12 @@ Client side environment variables:
 Back-end side environment variables:
 - `NODE_ENV`: Node environment (i.e. `development` | `production`)
 - `APP_URL`: URL of the site
-- `PORT`: Port to listen to
-- `MONGODB_URI`: Mongo database URI to connect to
-- `PUBLIC_KEY`: Public key used in user authentication with Passport-JWT
-- `PRIVATE_KEY`: Private key used in user authentication with Passport-JWT
+
+Use of RSA keys:
+- `./public-key.pem`
+- `./private-key.pem`
+
+Hint: you can create both keys from this command `openssl req -nodes -new -x509 -keyout private-key.pem -out public-key.pem`
 
 # What I've learned
 
@@ -24,5 +26,5 @@ Back-end side environment variables:
 - Manage state with Redux
 - Configure Webpack
 - Implement user authentication with JWT & PassportJS
-- Configure database with mLab
+- Containerize the app with Docker
 - Deploy with Heroku

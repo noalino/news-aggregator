@@ -38,8 +38,7 @@ const logIn = async (req, res, next) => {
 
         const payload = { _id: user.id };
         const { APP_URL, PRIVATE_KEY } = process.env;
-        // const privateKey = await fs.readFileSync('./private.key', 'utf8');
-        const privateKey = PRIVATE_KEY.replace(/\\n/g, '\n');
+        const privateKey = fs.readFileSync('./private-key.pem', 'utf8');
         const options = {
           issuer: 'Benoit G.',
           audience: APP_URL,
