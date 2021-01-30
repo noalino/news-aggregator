@@ -8,7 +8,6 @@ Client side environment variables:
 - `NODE_ENV`: Node environment (i.e. `development` | `production`)
 - `APP_URL`: URL of the site
 - `API_KEY`: News API key
-- `TRACKING_ID`: Tracking ID from Google Analytics
 
 Back-end side environment variables:
 - `NODE_ENV`: Node environment (i.e. `development` | `production`)
