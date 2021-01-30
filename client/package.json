@@ -33,7 +33,7 @@
   "license": "MIT",
   "dependencies": {
     "autoprefixer": "^9.2.0",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "css-mqpacker": "^7.0.0",
     "cssnano": "^4.1.4",
     "moment": "^2.22.2",
